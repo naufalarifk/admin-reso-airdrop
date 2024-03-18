@@ -7,7 +7,7 @@ import { cn } from "@/utils";
 
 interface TextProps
   extends HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof textVariants> {}
+  VariantProps<typeof textVariants> { }
 
 const textVariants = cva("block", {
   variants: {
@@ -31,12 +31,13 @@ const textVariants = cva("block", {
       soft: "text-gray2",
       black: "text-[#323232]",
       lighGray: "text-gray3",
+      default: "text-white"
     },
   },
   defaultVariants: {
     variant: "default",
     weight: "normal",
-    textColor: "soft",
+    textColor: "default",
   },
 });
 

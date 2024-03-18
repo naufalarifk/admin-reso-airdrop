@@ -1,8 +1,8 @@
-import { IcArrowBottom, IcArrowTop, IcSwapHorizontal, IcWarning } from "@/assets/icons";
+import { IcArrowBottom, IcArrowTop, IcDropdown, IcSwapHorizontal, IcWarning } from "@/assets/icons";
 import { Button, Input, Text, Toggle } from "@/components"
 import { Slider } from "@/components/atoms/Slider";
 import { SwapComponent } from "@/components/molecules/SwapComponent";
-import { Dispatch, SetStateAction, useState } from "react"
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 
 type Trades = 'Long' | 'Short' | 'Swap'
 interface TradeComponentProps {
@@ -15,7 +15,13 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
     const styles = {
         borderRadius: `4px`,
         border: `0.5px solid rgba(255, 255, 255, 0.10)`,
-        background: `var(--COLOR-COLOR, linear-gradient(236deg, rgba(93, 99, 111, 0.10) 1.26 %, rgba(25, 30, 40, 0.35) 100 %))`,
+        background: `var(--COLOR-COLOR, linear-gradient(236deg, rgba(93, 99, 111, 0.10) 1.26%, rgba(25, 30, 40, 0.35) 100%))`,
+        backdropFilter: `blur(12px)`
+    }
+
+    const buttonStyles = {
+        borderRadius: `4px`,
+        background: `var(--COLOR-COLOR, linear-gradient(236deg, rgba(93, 99, 111, 0.10) 1.26%, rgba(25, 30, 40, 0.35) 100%))`,
         backdropFilter: `blur(12px)`
     }
 
@@ -24,7 +30,16 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
     const [toggleLeverage, setToggleLeverage] = useState(false)
     const menu = ['Market', 'Limit', 'TP/SL']
 
-    console.log('isActive', isActive)
+
+    const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(event.target.value)
+        if (!isNaN(value)) {
+            setLeverage(value)
+        }
+
+    }
+
+    const leverageCount = [0.1, 1, 2, 5, 10, 50, 100]
 
     return (
         <section style={styles} className="mt-4 ml-4 w-1/3 p-4 space-y-4">
@@ -70,7 +85,49 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
                     <Slider step={0.1} value={leverage} onChange={e => setLeverage(e)} min={0} max={100} />
                     <Input style={{
                         background: `var(--COLOR-COLOR, linear-gradient(236deg, rgba(93, 99, 111, 0.10) 1.26%, rgba(25, 30, 40, 0.35) 100%))`
-                    }} className="p-2 w-2/5" value={leverage} onChange={e => setLeverage(Number(e.target.value))} />
+                    }} className="p-2 w-2/5" value={leverage} placeholder={leverage.toString()} onChange={handleChangeInputSlider} />
+                </div>
+                <div className="flex space-x-2 justify-around">
+                    {
+                        leverageCount.map((value) =>
+                            <Button style={buttonStyles} className="h-8 text-xs" onClick={() => setLeverage(value)}>
+                                {value}
+                            </Button>)
+                    }
+                </div>
+                <div style={styles} className="px-4 py-6 space-y-2">
+                    <div className="flex justify-between items-center">
+                        <Text className="text-[#9F9F9F]">Pool</Text>
+                        <Text className="text-white">BTC-USD</Text>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <Text className="text-[#9F9F9F]">Collateral In</Text>
+                        <Text className="text-white">USDC</Text>
+                    </div>
+                    <hr className="opacity-10" />
+                    <div className="flex justify-between items-center">
+                        <Text className="text-[#9F9F9F]">Leverage</Text>
+                        <Text className="text-white">1.05x</Text>
+                    </div>
+                    <hr className="opacity-10" />
+                    <div className="flex justify-between items-center">
+                        <Text className="text-[#9F9F9F]">Entry Price</Text>
+                        <Text className="text-white">$208.32</Text>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <Text className="text-[#9F9F9F]">Liq Price</Text>
+                        <Text className="text-white">-</Text>
+                    </div>
+                    <hr className="opacity-10" />
+                    <div className="flex justify-between items-center">
+                        <Text className="text-[#9F9F9F]">Fees (rebated) and Price impact</Text>
+                        <Text className="text-white">-$3.20</Text>
+                    </div>
+                </div>
+                <Button className="w-full">Insufficient BTC Balance</Button>
+                <div style={styles} className="p-4 space-y-2 flex justify-between items-center">
+                    <Text className="text-white">Long BTC</Text>
+                    <IcDropdown />
                 </div>
             </div>
         </section>

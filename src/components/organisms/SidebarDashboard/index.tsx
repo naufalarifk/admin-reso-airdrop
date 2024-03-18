@@ -45,7 +45,7 @@ export const SidebarDashboard = () => {
   return (
     <nav
       style={styles}
-      className="transition-width fixed left-4 top-[6rem] z-20 h-full gap-y-3 flex flex-col"
+      className="transition-width fixed left-4 top-[6rem] z-20 h-full gap-y-3 hidden lg:flex flex-col no-scrollbar"
     >
       <div className="flex h-full min-h-0 flex-1 flex-col justify-between gap-10 p-4">
         <div className="h-5/6 overflow-y-scroll">
