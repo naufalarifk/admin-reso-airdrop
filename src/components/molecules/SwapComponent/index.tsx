@@ -38,7 +38,7 @@ export const SwapComponent = () => {
             </div> */}
             <div style={inputStyles} className="rounded-lg flex p-4 justify-between">
                 <div>
-                    <Text className="text-white">Pay</Text>
+                    <Text className="text-white">Receive</Text>
                     <Input className="bg-transparent" placeholder="0.00" />
                 </div>
                 <div>

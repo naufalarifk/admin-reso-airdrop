@@ -10,9 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
+    "@tanstack/react-query": "^5.28.4",
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.3.0",
+    "@web3modal/wagmi": "^4.1.1",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "framer-motion": "^11.0.14",
@@ -20,7 +23,9 @@
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.4",
     "react-router-dom": "^6.22.3",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "viem": "^2.8.12",
+    "wagmi": "^2.5.11"
   },
   "devDependencies": {
     "@types/node": "^20.11.26",

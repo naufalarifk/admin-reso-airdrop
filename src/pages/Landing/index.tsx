@@ -244,7 +244,7 @@ export function Landing() {
                   alt="logo-square"
                 />
               </div>
-              <div className="md:w-[60px] lg:w-[150px] xl:w-[120px] md:ml-48 xl:ml-72 absolute h-0.5 z-10 bg-primary" />
+              <div className="md:w-[60px] lg:w-[150px] xl:w-[90px] md:ml-48 xl:ml-80 absolute h-0.5 z-0 bg-primary" />
               <div className="relative">
                 <div className="flex absolute xl:bottom-14 items-end bottom-9 inset-x-5 xl:inset-x-10 justify-between">
                   {data.map((height, i) => (

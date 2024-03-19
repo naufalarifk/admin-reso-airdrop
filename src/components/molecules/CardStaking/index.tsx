@@ -1,6 +1,26 @@
 import { Button } from "@/components";
 
-export const CardStaking = () => {
+type Card = {
+  coinOne?: string;
+  coinTwo?: string;
+  apy?: string;
+  isMultiple?: boolean;
+  totalStake: number;
+};
+
+interface CardStakingProps {
+  isConnected: boolean;
+  item: Card;
+  handleConnected: () => void;
+  whileConnected: () => void;
+}
+
+export const CardStaking = ({
+  isConnected,
+  handleConnected,
+  whileConnected,
+  item,
+}: CardStakingProps) => {
   return (
     <div className="relative z-20 bg-[#5D636F1A]  p-6 border-[0.5px] border-[#FFFFFF1A] w-full min-w-sm rounded-xl bg-card-background from-[rgba(93,99,111,0.1)] to-[rgba(25,30,40,0.5)]">
       <div className="space-y-6">
@@ -75,8 +95,13 @@ export const CardStaking = () => {
             </div>
           </div>
           <div>
-            <div className="text-2xl font-semibold text-white">Earn BTC</div>
-            <div className="text-base">Stake RESO</div>
+            <div className="text-2xl font-semibold text-white">
+              Earn{" "}
+              {item.isMultiple
+                ? `${item.coinOne} & ${item.coinTwo}`
+                : item.coinOne}
+            </div>
+            <div className="text-base">Stake {item.coinTwo}</div>
           </div>
         </div>
         <div className="bg-[#5D636F1A] p-4 rounded-lg">
@@ -84,7 +109,11 @@ export const CardStaking = () => {
             <div className="flex justify-between items-center">
               <div className="text-soft">Staked</div>
               <div className="flex gap-2 items-center">
-                <span>BTC</span>
+                <span>
+                  {item.isMultiple
+                    ? `${item.coinOne} & ${item.coinTwo}`
+                    : item.coinOne}
+                </span>
                 <div>
                   <svg
                     width={30}
@@ -122,12 +151,12 @@ export const CardStaking = () => {
             </div>
             <div className="flex justify-between items-center">
               <div className="text-soft">APY</div>
-              <div className="flex gap-2 items-center">30%</div>
+              <div className="flex gap-2 items-center">{item.apy}%</div>
             </div>
           </div>
           <div className="flex justify-between items-center mt-2">
             <div className="text-soft">Total Staked</div>
-            <div className="flex gap-2 items-center">~$980k</div>
+            <div className="flex gap-2 items-center">~${item.totalStake}</div>
           </div>
         </div>
 
@@ -147,8 +176,12 @@ export const CardStaking = () => {
           </svg>
           <span>End 25d 12h 10m</span>
         </div>
-        <Button className="w-full bg-primary font-semibold">
-          Connect Wallet
+        <Button
+          type="button"
+          onClick={isConnected ? whileConnected : handleConnected}
+          className="w-full bg-primary font-semibold"
+        >
+          {isConnected ? "Stake" : "Connect Wallet"}
         </Button>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ButtonGlow } from "@/components";
 import { AnimatePresence, motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 const navLink = [
   {
@@ -32,6 +33,7 @@ export const Header = () => {
   // const lastScrollTop = useRef(0);
 
   const [toggle, setToggle] = useState(false);
+  const { open } = useWeb3Modal()
 
   // const [isNavbarVisible, setIsNavbarVisible] = useState(true);
 
@@ -72,19 +74,16 @@ export const Header = () => {
             className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md bg-primary text-lg hover:bg-yellow md:hidden"
           >
             <span
-              className={`absolute h-[2px] w-[20px] transform rounded bg-white transition  ${
-                toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
-              }`}
+              className={`absolute h-[2px] w-[20px] transform rounded bg-white transition  ${toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
+                }`}
             />
             <span
-              className={`h-[2px] w-[20px] transform rounded bg-white transition  absolute${
-                toggle ? "translate-x-3 opacity-0" : "opacity-100"
-              }`}
+              className={`h-[2px] w-[20px] transform rounded bg-white transition  absolute${toggle ? "translate-x-3 opacity-0" : "opacity-100"
+                }`}
             />
             <span
-              className={`absolute h-[2px] w-[20px] transform rounded bg-white transition  ${
-                toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
-              }`}
+              className={`absolute h-[2px] w-[20px] transform rounded bg-white transition  ${toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
+                }`}
             />
           </button>
           <AnimatePresence>
@@ -140,7 +139,7 @@ export const Header = () => {
                   </li>
                 ))}
             </ul>
-            <ButtonGlow>Connect Wallet</ButtonGlow>
+            <ButtonGlow onClick={() => open()}>Connect Wallet</ButtonGlow>
           </div>
         </div>
       </div>
