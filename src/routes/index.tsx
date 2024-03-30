@@ -4,12 +4,13 @@ import {
   Landing,
   Staking,
   Trade,
-  Bridge, Swap,
+  Bridge,
+  Swap,
   Terms,
   Privacy,
 } from "@/pages";
 import { MainMenu } from "./MainMenu";
-import { LayoutDashboard } from "@/components";
+import { LayoutDashboard, StakeLayout } from "@/components";
 import { useScrollTop } from "@/hooks";
 
 export const RootLayout = () => {
@@ -22,11 +23,13 @@ export const RootLayout = () => {
       <Route element={<MainMenu />}>
         <Route element={<LayoutDashboard />}>
           <Route path="/trade" element={<Trade />} />
-          <Route path="/staking" element={<Staking />} />
-          <Route path="/staking/create" element={<CreateStakingPage />} />
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap" element={<Swap />} />
         </Route>
+      </Route>
+      <Route element={<StakeLayout />}>
+        <Route path="/staking" element={<Staking />} />
+        <Route path="/staking/create" element={<CreateStakingPage />} />
       </Route>
     </Routes>
   );
