@@ -1,12 +1,16 @@
 import { Outlet } from "react-router-dom";
 
 import { Header, Text } from "@/components";
+import { IcPattern } from "@/assets/icons/IcPattern";
 
 export const StakeLayout = () => {
   return (
-    <div>
+    <div className="relative">
       <Header />
-      <div className="layout h-full min-h-screen">
+
+      <IcPattern className="absolute -top-[200px] w-full h-full" />
+
+      <div className="layout h-full min-h-screen max-w-5xl">
         <div className="relative py-28">
           <div className="flex items-center justify-center">
             <div className="max-w-">
