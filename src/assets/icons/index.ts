@@ -19,3 +19,5 @@ export * from "./IcWave";
 export * from "./IcDiscord";
 export * from "./IcLinkedin";
 export * from "./IcTelegram";
+
+export * from './IcThreeDotsVertical'
