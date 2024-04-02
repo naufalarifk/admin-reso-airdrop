@@ -183,7 +183,11 @@ export const Trade = () => {
                     <div style={styles} className="h-[40vh] lg:h-[60vh] mt-4">
                         <TradingView />
                     </div>
-                    <div style={styles} className="lg:block hidden mt-4 p-6">
+                    <div style={{
+                        borderRadius: `16px`,
+                        background: `var(--Dark-Dark-2, #181924)`,
+                        backdropFilter: `blur(12px)`
+                    }} className="mt-4 p-6">
                         <div className="flex justify-between">
                             <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
                                 {
@@ -195,21 +199,6 @@ export const Trade = () => {
                         <TradeComponent setIsActive={setActiveTrade} isActive={activeTrade} />
                     </div>
                 </section>
-                <div style={styles} className="block lg:hidden h-1/5 mt-4 p-6">
-                    <div className="flex justify-between w-full">
-                        <div className="flex space-x-6">
-                            {
-                                menu.map(menu =>
-                                    <Text className={`${selectedMenu === menu ? 'text-white border-b-2 border-amber-400' : ''} cursor-pointer`} onClick={() => setSelectedMenu(menu)}>{menu}</Text>)
-                            }
-                        </div>
-                    </div>
-                    <div className="flex space-x-1 items-center justify-end mt-2">
-                        <input type="checkbox" name="hide market" placeholder="Hide other market" id="" />
-                        <Text>Hide other market</Text>
-                    </div>
-                    <Text className="text-center mt-5">No Options</Text>
-                </div>
             </section>
         </>
     )
