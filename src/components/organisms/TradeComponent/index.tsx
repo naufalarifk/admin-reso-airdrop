@@ -1,9 +1,8 @@
-import { IcArrowBottom, IcArrowTop, IcBitcoin, IcDropdown, IcSearch, IcSwapHorizontal, IcWarning } from "@/assets/icons";
+import { IcBitcoin, IcDropdown, } from "@/assets/icons";
 import { Button, Input, Text, Toggle } from "@/components"
 import { Slider } from "@/components/atoms/Slider";
 import { SwapComponent } from "@/components/molecules/SwapComponent";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
-import { useAccount } from "wagmi";
 
 type Trades = 'Long' | 'Short' | 'Swap'
 interface TradeComponentProps {
@@ -25,7 +24,6 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
         backdropFilter: `blur(12px)`
     }
 
-    const { isConnected } = useAccount();
     const [leverage, setLeverage] = useState(0)
     const [selectedMenu, setSelectedMenu] = useState('Market')
     const [toggleLeverage, setToggleLeverage] = useState(false)

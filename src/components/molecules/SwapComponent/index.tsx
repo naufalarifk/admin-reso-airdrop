@@ -1,4 +1,4 @@
-import { IcBitcoin, IcDropdown, IcSwapHorizontal, IcThreeDots, IcThreeDotsVertical, IcScrollV } from "@/assets/icons"
+import { IcBitcoin, IcThreeDotsVertical, IcScrollV } from "@/assets/icons"
 import { Input, Text, Button } from "@/components"
 
 export const SwapComponent = () => {
