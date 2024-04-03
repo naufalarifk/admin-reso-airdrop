@@ -4,3 +4,5 @@ export * from "./Input";
 export * from "./Toggle";
 export * from "./ButtonGlow";
 export * from "./TabsMenu";
+export * from "./Popover";
+export * from "./Calendar";

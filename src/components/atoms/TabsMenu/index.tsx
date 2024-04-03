@@ -11,6 +11,7 @@ type TabsProps = {
   items: TabsData[];
   isBetween?: boolean;
   classNameWrapper?: string;
+  rightContent?: ReactNode;
   classNameButtons?: string;
 };
 
@@ -18,6 +19,7 @@ export const Tabs: FC<TabsProps> = ({
   items,
   isBetween = false,
   classNameWrapper,
+  rightContent,
 }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
@@ -48,7 +50,7 @@ export const Tabs: FC<TabsProps> = ({
   };
   return (
     <>
-      <div className="bg-dark2 relative   p-4 md:py-4 md:px-8   border-soft/15 rounded-2xl border-[0.5px]">
+      <div className="bg-dark2 relative flex justify-between items-center  p-4 md:py-4 md:px-8  border-soft/15 rounded-2xl border-[0.5px]">
         <div
           className={
             (cn(
@@ -81,6 +83,7 @@ export const Tabs: FC<TabsProps> = ({
           className="absolute bottom-3 block h-1 rounded-lg bg-primary-1 transition-all duration-300"
           style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         />
+        {rightContent}
       </div>
       {typeof contents === "string" ? (
         <div className="mt-4">{contents}</div>
