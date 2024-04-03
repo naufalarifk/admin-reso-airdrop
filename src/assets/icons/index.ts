@@ -21,3 +21,6 @@ export * from "./IcLinkedin";
 export * from "./IcTelegram";
 export * from "./IcScrollV";
 export * from './IcThreeDotsVertical'
+export * from "./IcHandicapAll";
+export * from "./IcHandicapBuy"
+export * from "./IcHandicapSell";
