@@ -1,7 +1,7 @@
-import { CardStaking, Tabs } from "@/components";
+import { CardStaking, ModalAddStaking, Tabs } from "@/components";
 import { STAKE_COIN } from "@/constants";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 
@@ -9,6 +9,8 @@ export const Staking = () => {
   const navigate = useNavigate();
   const { isConnected } = useAccount();
   const { open } = useWeb3Modal();
+
+  const [openAddStakeModal, setOpenAddStakeModal] = useState(false);
 
   const tabs = useMemo(
     () => [
@@ -78,8 +80,36 @@ export const Staking = () => {
     <>
       <div>
         <Tabs
-          classNameWrapper="justify-between flex gap-4 md:justify-start"
+          classNameWrapper="justify-between   flex gap-4 md:justify-start"
           items={tabs}
+          rightContent={
+            <>
+              <button
+                onClick={() => setOpenAddStakeModal(!openAddStakeModal)}
+                className="flex bg-dark py-2 px-3.5 text-soft text-sm font-medium items-center gap-2 rounded"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                  />
+                </svg>
+                Add New Staking
+              </button>
+            </>
+          }
+        />
+        <ModalAddStaking
+          isOpen={openAddStakeModal}
+          closeModal={() => setOpenAddStakeModal(!openAddStakeModal)}
         />
       </div>
     </>
