@@ -48,7 +48,7 @@ export const Tabs: FC<TabsProps> = ({
   };
   return (
     <>
-      <div className="bg-card-background relative from-[#5D636F1A] p-4 md:py-4 md:px-8 to-[#191E2859] border-soft/15 rounded border-[0.5px]">
+      <div className="bg-dark2 relative   p-4 md:py-4 md:px-8   border-soft/15 rounded-2xl border-[0.5px]">
         <div
           className={
             (cn(
@@ -69,7 +69,7 @@ export const Tabs: FC<TabsProps> = ({
               className={`text-center py-2 text-xs rounded px-4 font-semibold ${
                 activeTabIndex === idx
                   ? "bg-primary text-white"
-                  : "text-soft bg-[#5D636F1A]"
+                  : "text-soft bg-dark"
               }`}
               onClick={() => handleTabClick(idx)}
             >

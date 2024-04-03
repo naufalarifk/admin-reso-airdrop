@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { ButtonConnectWallet, ButtonGlow } from "@/components";
 import { AnimatePresence, motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { IcWeb } from "@/assets/icons";
 import { useTranslation } from "react-i18next";
 import { Menu, Transition } from "@headlessui/react";
@@ -44,13 +44,13 @@ export const Header = () => {
     >
       <div className="layout">
         <div className="flex items-center justify-between">
-          <div className=" ">
+          <Link to="/" className=" ">
             <img
               src="/images/logo.png"
               className="cursor-pointer w-full relative h-8 z-[999]"
               alt=""
             />
-          </div>
+          </Link>
 
           <button
             type="button"

@@ -17,6 +17,7 @@ export default {
         darkSoft: "#6B6B6B",
         dark: "#0E0F19",
         dark2: "#181924",
+        secondary: "#FE9F00",
       },
       fontFamily: {
         dm: ["DM Sans", "sans-serif"],

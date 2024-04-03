@@ -20,10 +20,10 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0   bg-black/50 " />
+          <div className="fixed inset-0 z-[99]  bg-black/20 " />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
+        <div className="fixed z-[999] backdrop-blur-sm inset-0 overflow-y-auto">
           <div className="flex min-h-full   items-center justify-center p-4">
             <Transition.Child
               as={Fragment}
@@ -34,7 +34,7 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden  relative bg-[#2a2627ef] border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
+              <Dialog.Panel className="w-full   max-w-md transform overflow-hidden  relative bg-dark border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-semibold leading-6 text-center text-white"
@@ -43,7 +43,7 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
                 </Dialog.Title>
                 <div className="mt-6">
                   <form autoComplete="off">
-                    <div className="relative bg-[#5D636F1A] p-4 rounded-lg">
+                    <div className="relative bg-dark2 p-4 rounded-lg">
                       <div className="absolute inset-y-0 start-5 flex items-center  pointer-events-none">
                         <svg
                           width={30}
