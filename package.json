@@ -25,7 +25,9 @@
     "i18next-chained-backend": "^4.6.2",
     "i18next-http-backend": "^2.5.0",
     "i18next-localstorage-backend": "^4.2.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
+    "react-countup": "^6.5.3",
     "react-day-picker": "^8.10.0",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.4",
@@ -36,6 +38,7 @@
     "wagmi": "^2.5.11"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.0",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
