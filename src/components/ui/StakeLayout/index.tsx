@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import { Header, Text } from "@/components";
+import { Balance, Header, Text } from "@/components";
 import { IcPattern } from "@/assets/icons/IcPattern";
 
 export const StakeLayout = () => {
@@ -31,7 +31,7 @@ export const StakeLayout = () => {
                     Total Value Locked (TVL)
                   </div>
                   <div className="text-white font-semibold text-sm md:text-xl">
-                    ~$3.478.542
+                    ~$ <Balance value={3478542} />
                   </div>
                 </div>
                 <div className="space-y-1 text-center">

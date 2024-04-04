@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { MultipleSelectCoin } from "@/components/molecules";
 import { format } from "date-fns";
@@ -9,25 +9,38 @@ import {
   Calendar,
 } from "@/components/atoms";
 import { cn } from "@/utils";
-import { COIN } from "@/constants";
-import { Coin } from "@/types/components";
+
+import type { Coin } from "@/types/components";
 
 interface ModalAddStakeProps {
   isOpen: boolean;
+  coins: Coin[];
   closeModal: () => void;
+  selectedOptions: Coin[];
+  handleSelectedOptions: (value: Coin[]) => void;
+  startDate: Date | undefined;
+  setStartDate: (date: Date | undefined) => void;
+  endDate: Date | undefined;
+  setEndDate: (date: Date | undefined) => void;
+  totalValueLocked?: string;
+  estimatedAPY?: string;
+  totalReward?: string;
 }
 
-export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
-  const [selectedOptions, setSelectedOptions] = useState<Coin[]>([]);
-  const [dateOne, setDateOne] = useState<Date>();
-  const [dateTwo, setDateTwo] = useState<Date>();
-
-  const handleSelectedOptionsChange = (selected: Coin[] | Coin) => {
-    const newSelectedOptions =
-      typeof selected === "string" ? [selected] : selected;
-    setSelectedOptions(newSelectedOptions as Coin[]);
-  };
-
+export const ModalAddStaking = ({
+  closeModal,
+  isOpen,
+  handleSelectedOptions,
+  coins,
+  selectedOptions,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  totalValueLocked,
+  estimatedAPY,
+  totalReward,
+}: ModalAddStakeProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative" onClose={closeModal}>
@@ -70,12 +83,54 @@ export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
                     <div className="space-y-3">
                       <label>Select Token</label>
                       <MultipleSelectCoin
-                        options={COIN}
-                        setSelectedOptions={handleSelectedOptionsChange}
+                        options={coins}
+                        setSelectedOptions={handleSelectedOptions}
                         selectedOptions={selectedOptions}
                         placeholder="Add token staking"
                       />
                     </div>
+                    {selectedOptions.length >= 2 &&
+                      selectedOptions !== null && (
+                        <div className="space-y-3">
+                          <label>
+                            {selectedOptions[0]?.name} (
+                            {selectedOptions[0]?.symbol}){" "}
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="text"
+                              placeholder="Input amount"
+                              className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                            />
+                            <img
+                              src={selectedOptions[0]?.iconUrl}
+                              className="absolute inset-y-5 w-5 h-5 right-4"
+                              alt="icon-coin-one"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    {selectedOptions.length >= 2 &&
+                      selectedOptions !== null && (
+                        <div className="space-y-3">
+                          <label>
+                            {selectedOptions[1]?.name} (
+                            {selectedOptions[1]?.symbol})
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="text"
+                              placeholder="Input amount"
+                              className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                            />
+                            <img
+                              src={selectedOptions[1]?.iconUrl}
+                              className="absolute inset-y-5 w-5 h-5 right-4"
+                              alt="icon-coin-one"
+                            />
+                          </div>
+                        </div>
+                      )}
                     <div>
                       <div className="text-white mb-3">Set User Join</div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
@@ -112,11 +167,11 @@ export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
                               <button
                                 className={cn(
                                   " justify-between flex text-left border text-white border-soft/20 p-4 rounded-lg w-full font-normal",
-                                  !dateOne && "text-muted-foreground"
+                                  !startDate && "text-muted-foreground"
                                 )}
                               >
-                                {dateOne ? (
-                                  format(dateOne, "PPP")
+                                {startDate ? (
+                                  format(startDate, "dd/MM/yyyy")
                                 ) : (
                                   <span className="text-soft">Starting</span>
                                 )}
@@ -137,8 +192,8 @@ export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
                             <PopoverContent className="w-auto border border-soft/50 z-[99999] relative bg-dark p-1">
                               <Calendar
                                 mode="single"
-                                selected={dateOne}
-                                onSelect={setDateOne}
+                                selected={startDate}
+                                onSelect={setStartDate}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -150,11 +205,11 @@ export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
                               <button
                                 className={cn(
                                   " justify-between flex text-left border text-white border-soft/20 p-4 rounded-lg w-full font-normal",
-                                  !dateTwo && "text-muted-foreground"
+                                  !endDate && "text-muted-foreground"
                                 )}
                               >
-                                {dateTwo ? (
-                                  format(dateTwo, "PPP")
+                                {endDate ? (
+                                  format(endDate, "dd/MM/yyyy")
                                 ) : (
                                   <span className="text-soft">Ended</span>
                                 )}
@@ -175,8 +230,8 @@ export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
                             <PopoverContent className="w-auto border border-soft/50 z-[99999] relative bg-dark p-1">
                               <Calendar
                                 mode="single"
-                                selected={dateTwo}
-                                onSelect={setDateTwo}
+                                selected={endDate}
+                                onSelect={setEndDate}
                                 initialFocus
                               />
                             </PopoverContent>
@@ -206,21 +261,24 @@ export const ModalAddStaking = ({ closeModal, isOpen }: ModalAddStakeProps) => {
                         <div className="text-soft">
                           Total Value Locked (TLV)
                         </div>
-                        <div className="text-white">~$3.478.542</div>
+                        <div className="text-white">~${totalValueLocked}</div>
                       </div>
                       <div className="flex justify-between items-center">
                         <div className="text-soft">Estimated APY</div>
-                        <div className="text-white">~236%</div>
+                        <div className="text-white">~{estimatedAPY}%</div>
                       </div>
                       <div className="flex justify-between items-center">
                         <div className="text-soft">Estimated Total Rewards</div>
-                        <div className="text-white">~$14.79.323</div>
+                        <div className="text-white">~${totalReward}</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <button className="p-4 w-full bg-dark2 rounded-lg">
+                  <button
+                    onClick={closeModal}
+                    className="p-4 w-full bg-dark2 rounded-lg"
+                  >
                     Continue
                   </button>
                 </div>

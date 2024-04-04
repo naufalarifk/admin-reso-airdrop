@@ -1,5 +1,6 @@
 import { CardStaking, ModalAddStaking, Tabs } from "@/components";
-import { STAKE_COIN } from "@/constants";
+import { COIN, STAKE_COIN } from "@/constants";
+import { Coin } from "@/types/components";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,15 @@ export const Staking = () => {
   const { open } = useWeb3Modal();
 
   const [openAddStakeModal, setOpenAddStakeModal] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState<Coin[]>([]);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+
+  const handleSelectedOptionsChange = (selected: Coin[] | Coin) => {
+    const newSelectedOptions =
+      typeof selected === "string" ? [selected] : selected;
+    setSelectedOptions(newSelectedOptions as Coin[]);
+  };
 
   const tabs = useMemo(
     () => [
@@ -80,8 +90,9 @@ export const Staking = () => {
     <>
       <div>
         <Tabs
-          classNameWrapper="justify-between   flex gap-4 md:justify-start"
+          classNameWrapper="justify-between  flex gap-4 md:justify-start"
           items={tabs}
+          isBetween
           rightContent={
             <>
               <button
@@ -110,6 +121,16 @@ export const Staking = () => {
         <ModalAddStaking
           isOpen={openAddStakeModal}
           closeModal={() => setOpenAddStakeModal(!openAddStakeModal)}
+          coins={COIN}
+          selectedOptions={selectedOptions}
+          handleSelectedOptions={handleSelectedOptionsChange}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          totalReward="400000"
+          estimatedAPY="232"
+          totalValueLocked="2128900"
         />
       </div>
     </>

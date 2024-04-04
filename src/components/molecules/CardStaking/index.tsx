@@ -1,9 +1,9 @@
-import { Button } from "@/components";
+import { Balance, Button } from "@/components";
 
 type Card = {
   coinOne?: string;
   coinTwo?: string;
-  apy?: string;
+  apy?: string | number;
   isMultiple?: boolean;
   totalStake: number;
 };
@@ -73,7 +73,7 @@ export const CardStaking = ({
           </div>
           <div className="flex justify-between items-center">
             <div className="text-soft">APY</div>
-            <div className="flex gap-2 items-center">{item.apy}%</div>
+            <Balance className="flex gap-2 items-center" value={+item.apy!} />
           </div>
           <div className="flex justify-between border-t border-white/15 pt-5 items-center">
             <div className="text-soft">Total Staked</div>
