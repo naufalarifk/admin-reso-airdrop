@@ -24,3 +24,4 @@ export * from './IcThreeDotsVertical'
 export * from "./IcHandicapAll";
 export * from "./IcHandicapBuy"
 export * from "./IcHandicapSell";
+export * from "./IcUnstableConnection";
