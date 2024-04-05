@@ -1,4 +1,5 @@
 import { Balance, Button } from "@/components";
+import { useTranslation } from "react-i18next";
 
 type Card = {
   coinOne?: string;
@@ -21,6 +22,7 @@ export const CardStaking = ({
   whileConnected,
   item,
 }: CardStakingProps) => {
+  const { t } = useTranslation();
   return (
     <div className="relative z-20 bg-dark2 p-4 md:p-6 border-[0.5px] border-[#FFFFFF1A] w-full min-w-sm rounded-2xl">
       <div className="space-y-6">
@@ -35,17 +37,19 @@ export const CardStaking = ({
           </div>
           <div>
             <div className="text-2xl font-semibold text-white">
-              Earn{" "}
+              {t("staking.card.earn")}{" "}
               {item.isMultiple
                 ? `${item.coinOne} & ${item.coinTwo}`
                 : item.coinOne}
             </div>
-            <div className="text-base">Stake {item.coinTwo}</div>
+            <div className="text-base">
+              {t("staking.card.stake")} {item.coinTwo}
+            </div>
           </div>
         </div>
         <div className="bg-dark space-y-4 p-4 rounded-lg">
           <div className="flex justify-between items-center">
-            <div className="text-soft">Staked</div>
+            <div className="text-soft">{t("staking.card.staked")}</div>
             <div className="flex gap-2 items-center">
               {item.isMultiple ? (
                 <div className="flex flex-row gap-2 items-center">
@@ -68,15 +72,15 @@ export const CardStaking = ({
           </div>
 
           <div className="flex justify-between items-center">
-            <div className="text-soft">Earn Rewards</div>
+            <div className="text-soft">{t("staking.card.rewardCard")}</div>
             <div className="flex gap-2 items-center">RESO + Fees</div>
           </div>
           <div className="flex justify-between items-center">
-            <div className="text-soft">APY</div>
+            <div className="text-soft">{t("staking.card.apy")}</div>
             <Balance className="flex gap-2 items-center" value={+item.apy!} />
           </div>
           <div className="flex justify-between border-t border-white/15 pt-5 items-center">
-            <div className="text-soft">Total Staked</div>
+            <div className="text-soft">{t("staking.card.totalStaked")}</div>
             <div className="flex gap-2 items-center">~${item.totalStake}</div>
           </div>
         </div>
@@ -96,14 +100,14 @@ export const CardStaking = ({
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16.5 12" />
         </svg>
-        <span>End 25d 12h 10m</span>
+        <span>{t("staking.card.end")} 25d 12h 10m</span>
       </div>
       <Button
         type="button"
         onClick={isConnected ? whileConnected : handleConnected}
         className="w-full mt-6 bg-primary font-semibold"
       >
-        {isConnected ? "Stake" : "Connect Wallet"}
+        {isConnected ? t("staking.card.stake") : t("button.connectWallet")}
       </Button>
     </div>
   );

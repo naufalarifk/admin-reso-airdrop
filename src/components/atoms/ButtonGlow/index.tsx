@@ -23,7 +23,7 @@ export const ButtonGlow = ({
       >
         <div
           className={cn(
-            `border-animate-content text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center`,
+            `border-animate-content   gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center`,
             classNameContent
           )}
         >

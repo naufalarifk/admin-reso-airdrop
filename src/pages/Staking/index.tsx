@@ -3,11 +3,13 @@ import { COIN, STAKE_COIN } from "@/constants";
 import { Coin } from "@/types/components";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 
 export const Staking = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { isConnected } = useAccount();
   const { open } = useWeb3Modal();
 
@@ -25,7 +27,7 @@ export const Staking = () => {
   const tabs = useMemo(
     () => [
       {
-        label: "Active",
+        label: t("global.activate"),
         content: (
           <div className="mt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -53,7 +55,7 @@ export const Staking = () => {
                   }
                   item={{
                     coinOne: item.staking_card?.ticker_symbol || "BTC",
-                    coinTwo: "Reso",
+                    coinTwo: "Rectoverso",
                     apy: String(item.staking_card.annual_reward_percentage),
                     isMultiple:
                       item.staking_card.staking_cryptos &&
@@ -67,23 +69,23 @@ export const Staking = () => {
         ),
       },
       {
-        label: "Ended",
+        label: t("global.ended"),
         content: (
           <div className="flex items-center justify-center mt-32 text-2xl font-bold">
-            No Data
+            {t("global.noData")}
           </div>
         ),
       },
       {
-        label: "My Staking",
+        label: t("global.myStaking"),
         content: (
           <div className="flex items-center justify-center mt-32 text-2xl font-bold">
-            No Data
+            {t("global.noData")}
           </div>
         ),
       },
     ],
-    [isConnected, navigate, open]
+    [isConnected, navigate, open, t]
   );
 
   return (
@@ -113,7 +115,7 @@ export const Staking = () => {
                     d="M12 4.5v15m7.5-7.5h-15"
                   />
                 </svg>
-                Add New Staking
+                {t("global.addStaking")}
               </button>
             </>
           }

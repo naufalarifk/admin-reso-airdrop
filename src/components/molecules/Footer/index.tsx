@@ -25,8 +25,8 @@ export const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-full   lg:col-span-1 lg:block">
-            <div className="grid grid-cols-3 gap-8">
+          <div className="col-span-full  lg:col-span-1   lg:block">
+            <div className="grid grid-cols-2 gap-8 text-left md:text-center">
               <div>
                 <h2 className="mb-6 text-sm font-bold uppercase text-white">
                   {t("footer.title.one")}
@@ -63,14 +63,6 @@ export const Footer = () => {
                     >
                       Privacy Policy
                     </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      In Press
-                    </a>
                   </li>
                 </ul>
               </div>
@@ -122,60 +114,12 @@ export const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <div>
-                <h2 className="mb-6 text-sm font-bold  uppercase text-white">
-                  {t("footer.title.three")}
-                </h2>
-                <ul className="text-soft font-medium space-y-4">
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Account
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Manage Deliveries
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Orders
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Payments
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Returns
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
       </div>
       <div className="mt-10 text-center text-sm font-normal text-soft">
-        © 2024, 0xSD All Rights Reserved
+        © 2024, Rectoverso All Rights Reserved
       </div>
     </footer>
   );

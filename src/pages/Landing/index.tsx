@@ -184,7 +184,7 @@ export function Landing() {
               {t("landing.cta")}
             </div>
             <div className="w-11/12">
-              <h1 className="text-white z-10 leading-snug font-extrabold text-5xl">
+              <h1 className="text-white z-10 leading-snug font-extrabold text-base lg:text-5xl">
                 {t("landing.hero.title.one")}
                 <span className="text-primary">
                   {" "}
@@ -192,7 +192,7 @@ export function Landing() {
                 </span>
               </h1>
             </div>
-            <p className="text-soft font-medium">
+            <p className="text-soft text-xs md:text-base font-medium">
               {t("landing.hero.subtitle")}
             </p>
 
@@ -282,7 +282,7 @@ export function Landing() {
       </div> */}
 
       {/* Features Section */}
-      <div className="pb-[60rem] md:pb-[30rem] h-full lg:pb-20 relative overflow-hidden pt-1 ">
+      <div className="pb-[8rem] md:pb-[30rem] h-full lg:pb-20 relative overflow-hidden pt-1 ">
         <div className="absolute top-1 left-0">
           <svg
             width={438}
@@ -400,7 +400,7 @@ export function Landing() {
               <div className="text-soft mt-4 text-base md:text-xl font-medium w-full md:w-7/12 text-center">
                 {t("landing.features.subtitle")}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-10 mt-10 lg:gap-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-0 md:mx-10 mt-10 lg:gap-16">
                 <div className="flex flex-col  items-center">
                   <div className="border-animate-wrapper rounded-lg w-[52px] min-w--[52px] min-h-[48px]">
                     <div className="border-animate-content text-white bg-black rounded-lg p-3 flex items-center justify-center">
@@ -785,7 +785,7 @@ export function Landing() {
             {t("landing.tags.exchange")}
           </div>
 
-          <div className="text-white w-6/12 text-center font-bold text-2xl lg:text-3xl mt-4">
+          <div className="text-white md:w-6/12 text-center font-bold text-2xl lg:text-3xl mt-4">
             {t("landing.provider.title.one")}{" "}
             <span className="text-primary">
               {t("landing.provider.title.two")}
