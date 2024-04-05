@@ -32,6 +32,12 @@ const navLink = [
     setTo: "/swap",
     code: "swap",
   },
+  {
+    id: 5,
+    name: "Supports",
+    setTo: "/support",
+    code: "supports",
+  },
 ];
 
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {

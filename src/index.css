@@ -55,7 +55,7 @@
 
   .layout-dashboard {
     max-width: 88.75rem;
-    @apply mx-auto w-full;
+    @apply md:mx-auto w-full mx-3;
   }
 
   .border-animate-wrapper {
