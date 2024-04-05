@@ -11,6 +11,11 @@ export const langs: Language[] = [
     displayAbbr: "EN",
   },
   {
+    nativeName: "Indonesia",
+    abbr: "id",
+    displayAbbr: "id",
+  },
+  {
     nativeName: "日本語",
     abbr: "ja",
     displayAbbr: "JA",

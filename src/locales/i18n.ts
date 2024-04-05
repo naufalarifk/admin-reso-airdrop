@@ -7,6 +7,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { EN_TRANSLATION } from "./en";
 import { JPN_TRANSLATION } from "./ja";
+import { ID_TRANSLATION } from "./id";
 
 i18n
   .use(LanguageDetector)
@@ -19,6 +20,9 @@ i18n
       },
       ja: {
         translation: JPN_TRANSLATION,
+      },
+      id: {
+        translation: ID_TRANSLATION,
       },
     },
     fallbackLng: "en",
