@@ -10,7 +10,7 @@ import { langs, Language } from "@/locales/langs";
 const navLink = [
   {
     id: 1,
-    name: "Trade",
+    name: "Trades",
     code: "trade",
     setTo: "/trade",
   },
@@ -22,19 +22,25 @@ const navLink = [
   },
   {
     id: 3,
-    name: "Terms and Conditions",
-    setTo: "/terms",
-    code: "terms",
+    name: "Bridge",
+    setTo: "/bridge",
+    code: "bridge",
   },
   {
     id: 4,
-    name: "Privacy Policy",
-    setTo: "/privacy",
-    code: "privacy",
+    name: "Swap",
+    setTo: "/swap",
+    code: "swap",
+  },
+  {
+    id: 5,
+    name: "Supports",
+    setTo: "/support",
+    code: "supports",
   },
 ];
 
-export const Header = () => {
+export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
   const [toggle, setToggle] = useState(false);
   return (
@@ -42,12 +48,12 @@ export const Header = () => {
       className="fixed top-0 bg-dark2 backdrop-blur-lg 
       z-50 flex h-[70px] w-full items-center shadow transition-all   duration-300 ease-in-out"
     >
-      <div className="layout">
+      <div className={` ${isLanding ? "layout" : "layout-dashboard"}`}>
         <div className="flex items-center justify-between">
           <Link to="/" className=" ">
             <img
-              src="/images/logo.png"
-              className="cursor-pointer w-full relative h-8 z-[999]"
+              src="/images/brand.png"
+              className="cursor-pointer w-full relative h-10 z-[999]"
               alt=""
             />
           </Link>

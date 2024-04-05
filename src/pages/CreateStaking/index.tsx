@@ -2,8 +2,10 @@ import { useSearchParams } from "react-router-dom";
 
 import { Button, ModalUnstake } from "@/components";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const CreateStakingPage = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
 
   const [open, setOpen] = useState(false);
@@ -13,65 +15,7 @@ export const CreateStakingPage = () => {
   const renderTypeStack = useMemo(() => {
     if (isMultiple === "multiple") {
       return (
-        <div className="bg-dark2 mt-4  p-4 md:py-6 md:px-8   border-soft/15 rounded-2xl border-[0.5px]">
-          <div className="flex justify-between items-center  mb-8 border-b-[0.5px] border-soft/30 pb-3">
-            <div>
-              <div className="text-xs md:text-base mb-3 md:mb-0 font-medium text-soft">
-                Available to Stake
-              </div>
-              <div className="text-white font-semibold text-sm md:text-2xl">
-                0.00 BTC
-              </div>
-            </div>
-          </div>
-          <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-dark h-f w-full  p-4   border-soft/15 rounded-xl border-[0.5px]">
-              <div className="flex space-x-14 justify-between items-center">
-                <div className="md:space-y-2 space-y-3">
-                  <div className="text-xs  md:text-base text-soft font-medium">
-                    Total Staked
-                  </div>
-                  <div className="text-white font-semibold text-xs md:text-lg">
-                    ≈ $ 980,000,000
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-xs md:text-base font-medium text-soft">
-                    APY
-                  </div>
-                  <div className="text-white font-semibold text-xs md:text-lg">
-                    30%
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-dark w-full p-4   border-soft/15 rounded-xl border-[0.5px]">
-              <div className="flex space-x-14 justify-between items-center">
-                <div className="space-y-2">
-                  <div className="text-sm md:text-base text-soft">
-                    Staking Countdown
-                  </div>
-                  <div className="bg-secondary/10 text-center text-xs md:text-sm flex justify-center items-center  text-secondary rounded p-2 gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="w-4 h-4"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16.5 12" />
-                    </svg>
-                    <span>End 25d 12h 10m</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <>
           <div className="bg-dark mt-4 w-full   p-4 md:p-6  border-soft/15 rounded-xl border-[0.5px]">
             <form autoComplete="off">
               <div className="flex flex-col md:flex-row md:justify-between gap-2 md:gap-4 items-center">
@@ -115,7 +59,7 @@ export const CreateStakingPage = () => {
                     type="button"
                     className="text-primary absolute end-5 bottom-6  md:end-5 md:bottom-5 bg-primary/10 focus:outline-none font-medium rounded-lg text-xs md:text-base p-2"
                   >
-                    MAX
+                    {t("global.max")}
                   </button>
                 </div>
 
@@ -133,28 +77,30 @@ export const CreateStakingPage = () => {
                     type="button"
                     className="text-primary absolute end-5 bottom-6  md:end-5 md:bottom-5 bg-primary/10 focus:outline-none font-medium rounded-lg text-xs md:text-base p-2"
                   >
-                    MAX
+                    {t("global.max")}
                   </button>
                 </div>
               </div>
             </form>
             <div className="mt-4 space-y-2">
               <Button type="button" className="w-full bg-primary">
-                Submit
+                {t("button.submit")}
               </Button>
               <Button type="button" className="w-full bg-transparent">
-                Unstake
+                {t("global.unstake")}
               </Button>
             </div>
           </div>
           <div className=" mt-4 w-full ">
             <div className="text-base md:text-2xl font-semibold text-white mb-4">
-              Staked Rewards
+              {t("staking.create.stakeRewards")}
             </div>
 
             <div className="space-y-3">
               <div>
-                <div className="text-base text-white mb-2.5">Your Staked</div>
+                <div className="text-base text-white mb-2.5">
+                  {t("staking.create.yourStaked")}
+                </div>
                 <div className="flex flex-col md:flex-row justify-between gap-4">
                   <div className="relative w-full bg-dark p-4 rounded-lg">
                     <div className="absolute inset-y-0 start-5 flex items-center  pointer-events-none">
@@ -218,7 +164,7 @@ export const CreateStakingPage = () => {
               </div>
               <div>
                 <div className="text-base text-white mb-2.5">
-                  Unclaimed Rewards
+                  {t("staking.create.unclaimedRewards")}
                 </div>
                 <div className="flex flex-col md:flex-row justify-between gap-4">
                   <div className="relative w-full bg-dark p-4 rounded-lg">
@@ -284,71 +230,15 @@ export const CreateStakingPage = () => {
             </div>
             <div className="mt-4 space-y-2">
               <Button type="button" className="w-full bg-primary">
-                Claim
+                {t("button.claim")}
               </Button>
             </div>
           </div>
-        </div>
+        </>
       );
     } else {
       return (
-        <div className="bg-dark2 mt-4   p-4 md:py-6 md:px-8   border-soft/15 rounded-2xl border-[0.5px]">
-          <div className="flex justify-between items-center  mb-8 border-b-[0.5px] border-soft/30 pb-3">
-            <div>
-              <div className="text-xs md:text-base font-medium mb-3 md:mb-0 text-soft">
-                Available to Stake
-              </div>
-              <div className="text-white font-semibold text-sm md:text-2xl">
-                0.00 BTC
-              </div>
-            </div>
-          </div>
-          <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-dark h-f w-full  p-4   border-soft/15 rounded-xl border-[0.5px]">
-              <div className="flex space-x-14 justify-between items-center">
-                <div className="space-y-4 md:space-y-2">
-                  <div className="text-xs md:text-base text-soft">
-                    Total Staked
-                  </div>
-                  <div className="text-white font-semibold text-xs md:text-lg">
-                    ≈ $ 980,000,000
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-xs md:text-base text-soft">APY</div>
-                  <div className="text-white font-semibold text-xs md:text-lg">
-                    30%
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-dark w-full  p-4   border-soft/15 rounded-xl border-[0.5px]">
-              <div className="flex space-x-14 justify-between items-center">
-                <div className="space-y-2">
-                  <div className="text-sm md:text-base text-soft">
-                    Staking Countdown
-                  </div>
-                  <div className="bg-secondary/10 text-center text-xs md:text-sm flex justify-center items-center  text-secondary rounded p-2 gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="w-4 h-4"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16.5 12" />
-                    </svg>
-                    <span>End 25d 12h 10m</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <>
           <div className="bg-dark mt-4 w-full  p-4 md:p-6  border-soft/15 rounded-xl border-[0.5px]">
             <form autoComplete="off">
               <div className="relative p-4">
@@ -391,31 +281,33 @@ export const CreateStakingPage = () => {
                   type="button"
                   className="text-primary absolute end-5 bottom-5 bg-primary/10 focus:outline-none font-medium rounded-lg text-xs md:text-base p-2"
                 >
-                  MAX
+                  {t("global.max")}
                 </button>
               </div>
             </form>
             <div className="mt-4 space-y-2">
               <Button type="button" className="w-full bg-primary">
-                Submit
+                {t("button.submit")}
               </Button>
               <Button
                 onClick={() => setOpen(!open)}
                 type="button"
                 className="w-full bg-transparent"
               >
-                Unstake
+                {t("button.unstake")}
               </Button>
             </div>
           </div>
           <div className=" mt-4 w-full">
             <div className="text-2xl font-semibold text-white mb-4">
-              Staked Rewards
+              {t("staking.create.stakeRewards")}
             </div>
 
             <div className="space-y-3">
               <div>
-                <div className="text-base text-white mb-2.5">Your Staked</div>
+                <div className="text-base text-white mb-2.5">
+                  {t("staking.create.yourStaked")}
+                </div>
                 <div className="relative bg-dark p-4 rounded-lg">
                   <div className="absolute inset-y-0 start-5 flex items-center  pointer-events-none">
                     <svg
@@ -461,7 +353,7 @@ export const CreateStakingPage = () => {
               </div>
               <div>
                 <div className="text-base text-white mb-2.5">
-                  Unclaimed Rewards
+                  {t("staking.create.unclaimedRewards")}
                 </div>
                 <div className="relative bg-dark p-4 rounded-lg">
                   <div className="absolute inset-y-0 start-5 flex items-center  pointer-events-none">
@@ -509,18 +401,77 @@ export const CreateStakingPage = () => {
             </div>
             <div className="mt-4 space-y-2">
               <Button type="button" className="w-full bg-primary">
-                Claim
+                {t("button.claim")}
               </Button>
             </div>
           </div>
-        </div>
+        </>
       );
     }
-  }, [isMultiple, open]);
+  }, [isMultiple, open, t]);
 
   return (
     <>
-      {renderTypeStack}
+      <div className="bg-dark2 mt-4  p-4 md:py-6 md:px-8   border-soft/15 rounded-2xl border-[0.5px]">
+        <div className="flex justify-between items-center  mb-8 border-b-[0.5px] border-soft/30 pb-3">
+          <div>
+            <div className="text-xs md:text-base mb-3 md:mb-0 font-medium text-soft">
+              {t("staking.create.available")}
+            </div>
+            <div className="text-white font-semibold text-sm md:text-2xl">
+              0.00 BTC
+            </div>
+          </div>
+        </div>
+        <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-dark h-f w-full  p-4   border-soft/15 rounded-xl border-[0.5px]">
+            <div className="flex space-x-14 justify-between items-center">
+              <div className="md:space-y-2 space-y-3">
+                <div className="text-xs  md:text-base text-soft font-medium">
+                  {t("staking.create.totalStaked")}
+                </div>
+                <div className="text-white font-semibold text-xs md:text-lg">
+                  ≈ $ 980,000,000
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="text-xs md:text-base font-medium text-soft">
+                  {t("staking.card.apy")}
+                </div>
+                <div className="text-white font-semibold text-xs md:text-lg">
+                  30%
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-dark w-full p-4   border-soft/15 rounded-xl border-[0.5px]">
+            <div className="flex space-x-14 justify-between items-center">
+              <div className="space-y-2">
+                <div className="text-sm md:text-base text-soft">
+                  {t("staking.create.stakeCountDown")}
+                </div>
+                <div className="bg-secondary/10 text-center text-xs md:text-sm flex justify-center items-center  text-secondary rounded p-2 gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="w-4 h-4"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16.5 12" />
+                  </svg>
+                  <span>{t("staking.card.end")} 25d 12h 10m</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {renderTypeStack}
+      </div>
       <ModalUnstake isOpen={open} closeModal={() => setOpen(!open)} />
     </>
   );

@@ -2,8 +2,10 @@ import { Outlet } from "react-router-dom";
 
 import { Balance, Header, Text } from "@/components";
 import { IcPattern } from "@/assets/icons/IcPattern";
+import { useTranslation } from "react-i18next";
 
 export const StakeLayout = () => {
+  const { t } = useTranslation();
   return (
     <div className="relative">
       <Header />
@@ -16,19 +18,19 @@ export const StakeLayout = () => {
             <div className="max-w-">
               <div className="flex items-center justify-center flex-col p-0 lg:p-8">
                 <div className="text-white font-semibold text-2xl text-center lg:text-5xl mb-4">
-                  Reso Staking: Maximize{" "}
-                  <span className="text-primary">Your Earnings</span>{" "}
+                  {t("staking.layout.title.one")}{" "}
+                  <span className="text-primary">
+                    {t("staking.layout.title.two")}
+                  </span>{" "}
                 </div>
                 <Text className="text-sm text-center  md:text-base text-soft mb-4">
-                  Maximize Your Earnings with Reso Staking and discover expert
-                  tips and tricks to boost your profits in the Reso staking
-                  ecosystem
+                  {t("staking.layout.desc")}
                 </Text>
               </div>
               <div className="flex gap-3 md:gap-0 mb-4 border-soft/15 rounded-2xl border-[0.5px] justify-between items-center p-4 md:py-4 md:px-6 bg-dark2">
                 <div className="space-y-1 text-center">
                   <div className="text-soft text-xxs  md:text-base font-normal">
-                    Total Value Locked (TVL)
+                    {t("staking.layout.info.one")}
                   </div>
                   <div className="text-white font-semibold text-sm md:text-xl">
                     ~$ <Balance value={3478542} />
@@ -36,7 +38,7 @@ export const StakeLayout = () => {
                 </div>
                 <div className="space-y-1 text-center">
                   <div className="text-soft text-xxs md:text-base font-normal">
-                    Estimated APY
+                    {t("staking.layout.info.two")}
                   </div>
                   <div className="text-white font-semibold text-sm md:text-xl">
                     ~236%
@@ -44,7 +46,7 @@ export const StakeLayout = () => {
                 </div>
                 <div className="space-y-1 text-center">
                   <div className="text-soft text-xxs  md:text-base font-normal">
-                    Estimated Total Rewards
+                    {t("staking.layout.info.three")}
                   </div>
                   <div className="text-white font-semibold text-sm md:text-xl">
                     ~$79.323

@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Button } from "@/components";
 import { Dialog, Transition } from "@headlessui/react";
+import { useTranslation } from "react-i18next";
 
 interface ModalUnstakedProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ModalUnstakedProps {
 }
 
 export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
+  const { t } = useTranslation();
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative" onClose={closeModal}>
@@ -39,7 +41,7 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
                   as="h3"
                   className="text-lg font-semibold leading-6 text-center text-white"
                 >
-                  Unstake Assets
+                  {t("staking.modal.unstake.title")}
                 </Dialog.Title>
                 <div className="mt-6">
                   <form autoComplete="off">
@@ -83,11 +85,11 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
                         type="button"
                         className="text-primary absolute end-5 bottom-5 bg-primary/10 focus:outline-none font-medium rounded-lg text-base p-2"
                       >
-                        MAX
+                        {t("global.max")}
                       </button>
                     </div>
                     <div className="text-base mt-2 text-left font-semibold text-soft">
-                      You Staked : 0.00 BTC
+                      {t("staking.create.yourStaked")}: 0.00 BTC
                     </div>
                     <div className="mt-6">
                       <Button
@@ -95,7 +97,7 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
                         type="button"
                         className="w-full bg-primary"
                       >
-                        Submit
+                        {t("button.submit")}
                       </Button>
                     </div>
                   </form>

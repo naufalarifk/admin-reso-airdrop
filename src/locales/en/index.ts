@@ -1,10 +1,11 @@
 export const EN_TRANSLATION = {
   navbar: {
     menu: {
-      trade: "Trade",
+      trade: "Trades",
       staking: "Staking",
-      terms: "Terms and Conditions",
-      privacy: "Privacy Policy",
+      swap: "Swap",
+      bridge: "Bridge",
+      supports: "Supports",
     },
   },
   landing: {
@@ -30,6 +31,13 @@ export const EN_TRANSLATION = {
           two: "Bridge Platform",
           three: "Swap Trade",
           four: "Staking Platform",
+        },
+        desc: {
+          one: "Experience the freedom and security of decentralized trading.",
+          two: "Bridge your crypto assets easily to access more opportunities across various blockchain networks, expanding your investment possibilities",
+          three:
+            "Swap your cryptocurrencies effortlessly and securely, diversifying your portfolio with ease.",
+          four: "Earn passive income and actively participate in blockchain networks by staking your assets, contributing to network security, and being rewarded for your support",
         },
       },
     },
@@ -64,6 +72,8 @@ export const EN_TRANSLATION = {
         one: "Connect your wallet  and Unlock a realm of",
         two: "exclusive benefits waiting for you",
       },
+      desc: `Exciting news! Reso lets you connect with various crypto wallets,
+      ensuring you have the freedom to choose what works best for you`,
     },
     tags: {
       provide: "What We Provide To You",
@@ -71,9 +81,348 @@ export const EN_TRANSLATION = {
       methods: "Bridge and Staking",
       exchange: "Decentralized Exchange",
     },
+    connect: {
+      title: {
+        one: "Connect to what you",
+        two: "actually need",
+      },
+      desc: `Don't miss out - secure your spot today and elevate your
+      crypto journey with Reso`,
+    },
+  },
+  terms: {
+    title: "Reso Exchange - Terms and Conditions",
+    subtitle: {
+      one: `Please read these terms and conditions carefully before using
+      the Reso Crypto Exchange website`,
+      link: "(https://reso.io/)",
+      two: " operated by Reso.",
+    },
+    body: {
+      section: {
+        one: {
+          title: " 1. Acceptance of Terms",
+          desc: `By accessing or using the Reso Crypto Exchange website and
+          services, you agree to be bound by these Terms and Conditions. If
+          you do not agree to all the terms and conditions, please do not
+          use our services.`,
+        },
+        two: {
+          title: "2. Account Registration",
+          subtitle: {
+            one: {
+              heading: "2.1. To use Reso Crypto Exchange",
+              desc: `To use Reso Crypto Exchange, users must register an account by
+              providing a valid email address and completing the KYC (Know Your
+              Customer) process, which may include submitting a national
+              identity document.`,
+            },
+            two: {
+              heading: "2.2. Users are responsible for maintaining",
+              desc: `Users are responsible for maintaining the confidentiality of their
+              account information and must not share their login credentials
+              with others.`,
+            },
+            three: {
+              heading: "2.3. Reso reserves the right to refuse service",
+              desc: `Reso reserves the right to refuse service, terminate accounts, or
+              remove or edit content in its sole discretion`,
+            },
+          },
+        },
+        three: {
+          title: "3. Trading and Transactions",
+          subtitle: {
+            one: {
+              heading: "3.1. Reso provides a centralized",
+              desc: `Reso provides a centralized crypto exchange platform where users
+              can trade cryptocurrencies.`,
+            },
+            two: {
+              heading: " 3.2. Users can deposit and withdraw",
+              desc: `Users can deposit and withdraw cryptocurrencies as supported by
+              the platform.`,
+            },
+            three: {
+              heading: " 3.3. All transactions on Reso Crypto Exchange",
+              desc: `All transactions on Reso Crypto Exchange are subject to applicable
+              fees, which will be clearly communicated during the transaction
+              process.`,
+            },
+          },
+        },
+        four: {
+          title: " 4. KYC and National Identity Documents",
+          subtitle: {
+            one: {
+              heading: " 4.1. Users are required to undergo the KYC process",
+              desc: `Users are required to undergo the KYC process, which may include
+              submitting a national identity document, to comply with regulatory
+              requirements and enhance the security of the platform.`,
+            },
+            two: {
+              heading: "4.2. National identity documents provided during KYC",
+              desc: `National identity documents provided during KYC are securely
+              stored and accessed only for verification purposes, complying with
+              applicable legal and regulatory standards.`,
+            },
+          },
+        },
+        five: {
+          title: " 5. Privacy and Data Security",
+          subtitle: {
+            one: {
+              heading: "5.1. Reso is committed to protecting user privacy",
+              desc: `Reso is committed to protecting user privacy. Personal and
+              financial information is handled in accordance with our Privacy
+              Policy.`,
+            },
+            two: {
+              heading: " 5.2. Reso never shares user data",
+              desc: `Reso never shares user data with third parties for marketing
+              purposes.`,
+            },
+          },
+        },
+        six: {
+          title: "6. Prohibited Activities",
+          subtitle: {
+            one: {
+              heading: `6.1. Users agree not to engage in any illegal or unauthorized
+              activities`,
+              desc: `Users agree not to engage in any illegal or unauthorized
+              activities on the Reso Crypto Exchange, including but not limited
+              to fraud, money laundering, and unauthorized access to Reso
+              systems.`,
+            },
+            two: {
+              heading: `6.2. Reso reserves the right to investigate`,
+              desc: `Reso reserves the right to investigate and take appropriate legal
+              action against anyone engaging in prohibited activities.`,
+            },
+          },
+        },
+        seven: {
+          title: "7. Support",
+          desc: ` For assistance with any issues related to the Reso Crypto
+          Exchange, users can contact our support team at support@Reso.io.`,
+        },
+        eight: {
+          title: " 8. Changes to Terms and Conditions",
+          desc: ` Reso reserves the right to update or modify these Terms and
+          Conditions at any time without prior notice. Users are encouraged
+          to review the terms regularly. By using the Reso Crypto Exchange,
+          you agree to be bound by the most current version of these Terms
+          and Conditions . These Terms and Conditions were last updated on
+          [Date].`,
+        },
+      },
+    },
+  },
+  privacy: {
+    title: "Rectoverso Exchange - Privacy Policy",
+    body: {
+      section: {
+        one: {
+          title: " 1. Information We Collect",
+          subtitle: {
+            one: {
+              heading: "1.1. Account Information:",
+              desc: `When you register on Rectoverso, we collect information such as
+              your name, email address, and encrypted password. You may also
+              provide additional details during the KYC (Know Your Customer)
+              process, including a national identity document.`,
+            },
+            two: {
+              heading: "1.2. Transaction Data",
+              desc: `We collect information related to your crypto trades, deposits,
+              and withdrawals on the Rectoverso platform. This includes
+              transaction history, wallet addresses, and timestamps.`,
+            },
+            three: {
+              heading: " 1.3. Communication",
+              desc: ` When you contact our support team or communicate with us via
+              email, we may collect and store the content of those
+              communications.`,
+            },
+          },
+        },
+        two: {
+          title: " 2. How We Use Your Information",
+          subtitle: {
+            one: {
+              heading: " 2.1 Account Management",
+              desc: ` We use your account information to create and manage your
+              Rectoverso Crypto Exchange account, process transactions, and
+              ensure the security of your account.`,
+            },
+            two: {
+              heading: " 2.2 KYC Verification",
+              desc: ` During the KYC process, we collect and verify your national
+              identity document to comply with regulatory requirements and
+              enhance the security of our platform.`,
+            },
+            three: {
+              heading: "  2.3. Transactions",
+              desc: ` Your transaction data is used to facilitate crypto trades,
+              deposits, and withdrawals as requested by you.`,
+            },
+            four: {
+              heading: " 2.4. Communication",
+              desc: ` We may use your contact information to send important updates,
+              notifications, and service-related communications. Your email will
+              never be shared with third parties for marketing purposes.`,
+            },
+          },
+        },
+        three: {
+          title: "3. Data Security",
+          subtitle: {
+            one: {
+              heading: "3.1. Rectoverso employs advanced security measures",
+              desc: ` Rectoverso employs advanced security measures to protect your
+              personal and financial information. This includes encryption,
+              secure socket layer (SSL) technology, and regular security audits.`,
+            },
+            two: {
+              heading: " 3.2. National identity documents provided during KYC",
+              desc: `National identity documents provided during KYC are securely
+              stored and accessed only for verification purposes, complying with
+              applicable legal and regulatory standards.`,
+            },
+          },
+        },
+        four: {
+          title: "4. Sharing of Information",
+          subtitle: {
+            one: {
+              heading: " 4.1. Rectoverso does not sell or share your personal",
+              desc: ` Rectoverso does not sell or share your personal information with
+              third parties for marketing purposes. We may share your
+              information with trusted partners and service providers to enhance
+              the functionality and security of our platform.`,
+            },
+            two: {
+              heading: " 4.2. We may disclose your information",
+              desc: ` We may disclose your information in response to legal requests,
+              enforce our policies, or protect the rights, property, or safety
+              of Rectoverso, its users, or others.`,
+            },
+          },
+        },
+        five: {
+          title: " 5. Cookies and Analytics",
+          subtitle: {
+            one: {
+              heading:
+                "5.1. Rectoverso uses cookies to improve user experience",
+              desc: ` Rectoverso uses cookies to improve user experience and collect
+              data for analytics purposes. Cookies can be disabled in your
+              browser settings, but some features of the website may not
+              function properly.`,
+            },
+          },
+        },
+        six: {
+          title: " 6. Changes to Privacy Policy",
+          desc: ` Rectoverso reserves the right to update or modify this Privacy
+           Policy at any time. Users are encouraged to review the policy
+           regularly. By continuing to use the Rectoverso Crypto Exchange,
+           you agree to the most current version of this Privacy Policy. For
+           any questions or concerns regarding our Privacy Policy, please
+           contact us at support@Rectoverso.io. This Privacy Policy was last
+           updated on [Date].`,
+        },
+      },
+    },
+  },
+  staking: {
+    layout: {
+      title: {
+        one: "Rectoverso Staking: Maximize",
+        two: "Your Earnings",
+      },
+      desc: ` Maximize Your Earnings with Rectoverso Staking and discover
+      expert tips and tricks to boost your profits in the Rectoverso
+      staking ecosystem`,
+      info: {
+        one: "Total Value Locked (TVL)",
+        two: "Estimated APY",
+        three: "Estimated Total Rewards",
+      },
+    },
+    card: {
+      earn: "Earn",
+      stake: "Stake",
+      staked: "Staked",
+      rewardCard: "Earn Rewards",
+      apy: "APY",
+      totalStaked: "Total Staked",
+      end: "End",
+    },
+    add: {
+      card: {
+        title: "Add New Staking",
+        subtitle: " Register a new staking pool for public access",
+        form: {
+          one: {
+            label: "Select Token",
+            placeholder: "Add token staking",
+          },
+          two: {
+            placeholder: "Input amount",
+          },
+          three: {
+            label: "Set User Join",
+            placeholder: {
+              one: "Minimum User",
+              two: "Maximum User",
+            },
+          },
+          four: {
+            label: "Reward Per-Block",
+          },
+          five: {
+            label: "Period Staking",
+            placeholder: {
+              one: "Starting",
+              two: "Ended",
+            },
+          },
+        },
+        info: {
+          list: {
+            one: "To continue staking listing fee is",
+            two: `Token has never been registered on Rectoverso Exchange
+            trade, please register to continue`,
+          },
+          reward: " Total Rewards Need be Paid",
+          estimatedAPY: "Estimated APY",
+          estimatedTotalReward: "Estimated Total Reward",
+        },
+      },
+    },
+    create: {
+      available: "Available to Stake",
+      totalStaked: "Total Staked",
+      stakeCountDown: "Staking Countdown",
+      stakeRewards: "Stake Rewards",
+      yourStaked: "Your Staked",
+      unclaimedRewards: "Unclaimed Rewards",
+    },
+    modal: {
+      unstake: {
+        title: "Unstake Assets",
+      },
+    },
   },
   button: {
     connectWallet: "Connect Wallet",
+    tryNow: "Try Now",
+    continue: "Continue",
+    submit: "Submit",
+    unstake: "Unstake",
+    claim: "Claim",
   },
   tags: {
     language: "Language",
@@ -85,6 +434,15 @@ export const EN_TRANSLATION = {
       two: "Support",
       three: "FAQ",
     },
+  },
+    global: {
+    noData: "No Data",
+    activate: "Activate",
+    ended: "Ended",
+    myStaking: "My Staking",
+    addStaking: "Add New Staking",
+    requirement: "Requirement",
+    max: "MAX",
   },
   trade: {
     tokenList: {

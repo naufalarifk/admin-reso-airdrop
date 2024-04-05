@@ -22,7 +22,10 @@ export const ButtonConnectWallet = ({ className }: { className?: string }) => {
           {t("button.connectWallet")}
         </ButtonGlow>
       ) : (
-        <ButtonGlow className="gap-3" onClick={() => open({ view: "Account" })}>
+        <ButtonGlow
+          className="flex gap-3"
+          onClick={() => open({ view: "Account" })}
+        >
           {ensAvatar ? (
             <img alt="ENS Avatar" className="avatar w-5 h-5" src={ensAvatar} />
           ) : (

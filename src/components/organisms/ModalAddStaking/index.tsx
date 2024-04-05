@@ -11,6 +11,7 @@ import {
 import { cn } from "@/utils";
 
 import type { Coin } from "@/types/components";
+import { useTranslation } from "react-i18next";
 
 interface ModalAddStakeProps {
   isOpen: boolean;
@@ -41,6 +42,7 @@ export const ModalAddStaking = ({
   estimatedAPY,
   totalReward,
 }: ModalAddStakeProps) => {
+  const { t } = useTranslation();
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative" onClose={closeModal}>
@@ -71,22 +73,22 @@ export const ModalAddStaking = ({
                 <div className="flex justify-between items-start">
                   <div>
                     <div className="text-2xl font-semibold mb-1 text-white">
-                      Add New Staking
+                      {t("staking.add.card.title")}
                     </div>
                     <div className="text-soft">
-                      Register a new staking pool for public access
+                      {t("staking.add.card.subtitle")}
                     </div>
                   </div>
                 </div>
                 <div className="mt-6">
                   <div className="space-y-4">
                     <div className="space-y-3">
-                      <label>Select Token</label>
+                      <label>{t("staking.add.card.form.one.label")}</label>
                       <MultipleSelectCoin
                         options={coins}
                         setSelectedOptions={handleSelectedOptions}
                         selectedOptions={selectedOptions}
-                        placeholder="Add token staking"
+                        placeholder={t("staking.add.card.form.one.placeholder")}
                       />
                     </div>
                     {selectedOptions.length >= 2 &&
@@ -99,7 +101,9 @@ export const ModalAddStaking = ({
                           <div className="relative">
                             <input
                               type="text"
-                              placeholder="Input amount"
+                              placeholder={`${t(
+                                "staking.add.card.form.two.placeholder"
+                              )}`}
                               className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                             />
                             <img
@@ -120,7 +124,9 @@ export const ModalAddStaking = ({
                           <div className="relative">
                             <input
                               type="text"
-                              placeholder="Input amount"
+                              placeholder={`${t(
+                                "staking.add.card.form.two.placeholder"
+                              )}`}
                               className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                             />
                             <img
@@ -132,34 +138,44 @@ export const ModalAddStaking = ({
                         </div>
                       )}
                     <div>
-                      <div className="text-white mb-3">Set User Join</div>
+                      <div className="text-white mb-3">
+                        {t("staking.add.card.form.three.label")}
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                         <div className="space-y-3">
                           <input
                             type="text"
-                            placeholder="Minimum User"
+                            placeholder={t(
+                              "staking.add.card.form.three.placeholder.one"
+                            )}
                             className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                           />
                         </div>
                         <div className="space-y-3">
                           <input
                             type="text"
-                            placeholder="Maximum User"
+                            placeholder={t(
+                              "staking.add.card.form.three.placeholder.two"
+                            )}
                             className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                           />
                         </div>
                       </div>
                     </div>
                     <div className="space-y-3">
-                      <label>Reward Per-Block</label>
+                      <label>{t("staking.add.card.form.four.label")}</label>
                       <input
                         type="text"
-                        placeholder="Input amount"
+                        placeholder={`${t(
+                          "staking.add.card.form.two.placeholder"
+                        )}`}
                         className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                       />
                     </div>
                     <div>
-                      <div className="text-white mb-3">Period Staking</div>
+                      <div className="text-white mb-3">
+                        {t("staking.add.card.form.five.label")}
+                      </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                         <div className="space-y-3">
                           <Popover>
@@ -173,7 +189,11 @@ export const ModalAddStaking = ({
                                 {startDate ? (
                                   format(startDate, "dd/MM/yyyy")
                                 ) : (
-                                  <span className="text-soft">Starting</span>
+                                  <span className="text-soft">
+                                    {t(
+                                      "staking.add.card.form.five.placeholder.one"
+                                    )}
+                                  </span>
                                 )}
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +231,11 @@ export const ModalAddStaking = ({
                                 {endDate ? (
                                   format(endDate, "dd/MM/yyyy")
                                 ) : (
-                                  <span className="text-soft">Ended</span>
+                                  <span className="text-soft">
+                                    {t(
+                                      "staking.add.card.form.five.placeholder.two"
+                                    )}
+                                  </span>
                                 )}
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -242,33 +266,34 @@ export const ModalAddStaking = ({
                   </div>
                   <div className="bg-secondary/10 rounded-lg p-3 mt-6">
                     <div className="text-secondary text-base font-medium">
-                      Requirement
+                      {t("global.requirement")}
                     </div>
                     <ul className="list-disc text-xs text-secondary space-y-1 list-inside">
-                      <li>To continue staking listing fee is 100 RESO</li>
-                      <li>
-                        Token has never been registered on Reso Exchange trade,
-                        please register to continue
-                      </li>
+                      <li> {t("staking.add.card.info.list.one")} 100 RESO</li>
+                      <li>{t("staking.add.card.info.list.two")}</li>
                     </ul>
                   </div>
                   <div className="bg-dark2 rounded-lg p-4 my-6">
                     <div className="font-semibold text-base">
-                      Total Rewards Need be Paid
+                      {t("staking.add.card.info.reward")}
                     </div>
                     <div className="space-y-2 mt-3">
                       <div className="flex justify-between items-center">
                         <div className="text-soft">
-                          Total Value Locked (TLV)
+                          {t("staking.layout.info.one")}
                         </div>
                         <div className="text-white">~${totalValueLocked}</div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <div className="text-soft">Estimated APY</div>
+                        <div className="text-soft">
+                          {t("staking.add.card.info.estimatedAPY")}
+                        </div>
                         <div className="text-white">~{estimatedAPY}%</div>
                       </div>
                       <div className="flex justify-between items-center">
-                        <div className="text-soft">Estimated Total Rewards</div>
+                        <div className="text-soft">
+                          {t("staking.add.card.info.estimatedTotalReward")}
+                        </div>
                         <div className="text-white">~${totalReward}</div>
                       </div>
                     </div>
@@ -277,9 +302,9 @@ export const ModalAddStaking = ({
                 <div>
                   <button
                     onClick={closeModal}
-                    className="p-4 w-full bg-dark2 rounded-lg"
+                    className="p-4 w-full bg-primary rounded-full"
                   >
-                    Continue
+                    {t("button.continue")}
                   </button>
                 </div>
               </Dialog.Panel>

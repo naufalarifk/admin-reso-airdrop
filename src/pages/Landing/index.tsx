@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { type ISourceOptions } from "@tsparticles/engine";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-// import Marquee from "react-fast-marquee";
 
 import { loadSlim } from "@tsparticles/slim";
 
@@ -138,7 +137,7 @@ export function Landing() {
       />
 
       {/* Navbar Section */}
-      <Header />
+      <Header isLanding />
       {/* Hero Section */}
       <div ref={containerRef} className="layout pt-12 md:pt-28">
         <div className="flex items-center flex-col justify-center h-full min-h-screen pb-20">
@@ -185,7 +184,7 @@ export function Landing() {
               {t("landing.cta")}
             </div>
             <div className="w-11/12">
-              <h1 className="text-white z-10 leading-snug font-extrabold text-5xl">
+              <h1 className="text-white z-10 leading-snug font-extrabold text-base lg:text-5xl">
                 {t("landing.hero.title.one")}
                 <span className="text-primary">
                   {" "}
@@ -193,7 +192,7 @@ export function Landing() {
                 </span>
               </h1>
             </div>
-            <p className="text-soft font-medium">
+            <p className="text-soft text-xs md:text-base font-medium">
               {t("landing.hero.subtitle")}
             </p>
 
@@ -283,7 +282,7 @@ export function Landing() {
       </div> */}
 
       {/* Features Section */}
-      <div className="pb-[60rem] md:pb-[30rem] h-full lg:pb-20 relative overflow-hidden pt-1 ">
+      <div className="pb-[8rem] md:pb-[30rem] h-full lg:pb-20 relative overflow-hidden pt-1 ">
         <div className="absolute top-1 left-0">
           <svg
             width={438}
@@ -401,7 +400,7 @@ export function Landing() {
               <div className="text-soft mt-4 text-base md:text-xl font-medium w-full md:w-7/12 text-center">
                 {t("landing.features.subtitle")}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-10 mt-10 lg:gap-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mx-0 md:mx-10 mt-10 lg:gap-16">
                 <div className="flex flex-col  items-center">
                   <div className="border-animate-wrapper rounded-lg w-[52px] min-w--[52px] min-h-[48px]">
                     <div className="border-animate-content text-white bg-black rounded-lg p-3 flex items-center justify-center">
@@ -427,8 +426,7 @@ export function Landing() {
                       {t("landing.features.card.title.one")}
                     </div>
                     <div className="text-soft">
-                      Save newsletters with one shortcut, no more forwarding to
-                      complicated email
+                      {t("landing.features.card.desc.one")}
                     </div>
                   </div>
                 </div>
@@ -454,8 +452,7 @@ export function Landing() {
                       {t("landing.features.card.title.two")}
                     </div>
                     <div className="text-soft">
-                      Save newsletters with one shortcut, no more forwarding to
-                      complicated email
+                      {t("landing.features.card.desc.two")}
                     </div>
                   </div>
                 </div>
@@ -481,8 +478,7 @@ export function Landing() {
                       {t("landing.features.card.title.three")}
                     </div>
                     <div className="text-soft">
-                      Save newsletters with one shortcut, no more forwarding to
-                      complicated email
+                      {t("landing.features.card.desc.three")}
                     </div>
                   </div>
                 </div>
@@ -509,8 +505,7 @@ export function Landing() {
                         {t("landing.features.card.title.four")}
                       </div>
                       <div className="text-soft">
-                        Save newsletters with one shortcut, no more forwarding
-                        to complicated email
+                        {t("landing.features.card.desc.four")}
                       </div>
                     </div>
                   </div>
@@ -790,15 +785,14 @@ export function Landing() {
             {t("landing.tags.exchange")}
           </div>
 
-          <div className="text-white w-6/12 text-center font-bold text-2xl lg:text-3xl mt-4">
+          <div className="text-white md:w-6/12 text-center font-bold text-2xl lg:text-3xl mt-4">
             {t("landing.provider.title.one")}{" "}
             <span className="text-primary">
               {t("landing.provider.title.two")}
             </span>
           </div>
           <div className="text-soft mt-4 font-light text-sm lg:text-lg lg:w-8/12 text-center">
-            Exciting news! Reso lets you connect with various crypto wallets,
-            ensuring you have the freedom to choose what works best for you
+            {t("landing.provider.desc")}
           </div>
 
           <div className="grid grid-cols-4 items-center lg:grid-cols-8 lg:gap-10 layout gap-5 mt-10">
@@ -887,16 +881,17 @@ export function Landing() {
                 className="flex items-center justify-center flex-col"
               >
                 <div className="text-white mb-4 text-center text-2xl lg:text-4xl font-semibold">
-                  Connect to what you{" "}
-                  <span className="text-primary">actually need</span>
+                  {t("landing.connect.title.one")}{" "}
+                  <span className="text-primary">
+                    {t("landing.connect.title.two")}
+                  </span>
                 </div>
                 <div className="lg:text-lg text-sm font-light text-center text-soft mb-10">
-                  Don't miss out – secure your spot today and elevate your
-                  crypto journey with Reso
+                  {t("landing.connect.desc")}
                 </div>
                 <div className="border-animate-wrapper cursor-pointer rounded-full lg:w-[450px] lg:min-w--[150px] lg:min-h-[48px] w-full h-[50px]">
                   <div className="border-animate-content text-white bg-black rounded-full flex items-center justify-center">
-                    Try Now
+                    {t("button.tryNow")}
                   </div>
                 </div>
               </motion.div>

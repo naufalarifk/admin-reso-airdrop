@@ -1,7 +1,9 @@
 import { IcWave } from "@/assets/icons";
 import { Footer, Header } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export const Terms = () => {
+  const { t } = useTranslation();
   return (
     <div className="overflow-x-hidden">
       <Header />
@@ -10,15 +12,14 @@ export const Terms = () => {
           <div className="flex flex-col lg:flex-row justify-between items-center">
             <div>
               <div className="text-xl lg:text-5xl font-bold mb-8">
-                Reso Exchange - Terms and Conditions
+                {t("terms.title")}
               </div>
               <div className="text-sm lg:text-base font-normal mb-16 text-soft">
-                Please read these terms and conditions carefully before using
-                the Reso Crypto Exchange website{" "}
+                {t("terms.subtitle.one")}{" "}
                 <a className="text-primary underline" href="/">
-                  (https://reso.io/)
+                  {t("terms.subtitle.link")}
                 </a>{" "}
-                operated by Reso.
+                {t("terms.subtitle.two")}
               </div>
               <div className="text-xs md:text-base text-soft">
                 Last updated: January 22, 2024
@@ -38,159 +39,128 @@ export const Terms = () => {
         <div className="layout my-10 space-y-10">
           <div className="space-y-3">
             <div className="text-primary font-dm text-base  lg:text-3xl font-medium">
-              1. Acceptance of Terms
+              {t("terms.body.section.one.title")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              By accessing or using the Reso Crypto Exchange website and
-              services, you agree to be bound by these Terms and Conditions. If
-              you do not agree to all the terms and conditions, please do not
-              use our services.
+              {t("terms.body.section.one.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              2. Account Registration
+              {t("terms.body.section.two.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              2.1. To use Reso Crypto Exchange
+              {t("terms.body.section.two.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              To use Reso Crypto Exchange, users must register an account by
-              providing a valid email address and completing the KYC (Know Your
-              Customer) process, which may include submitting a national
-              identity document.
+              {t("terms.body.section.two.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              2.2. Users are responsible for maintaining
+              {t("terms.body.section.two.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Users are responsible for maintaining the confidentiality of their
-              account information and must not share their login credentials
-              with others.
+              {t("terms.body.section.two.subtitle.two.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              2.3. Reso reserves the right to refuse service
+              {t("terms.body.section.two.subtitle.three.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso reserves the right to refuse service, terminate accounts, or
-              remove or edit content in its sole discretion
+              {t("terms.body.section.two.subtitle.three.desc")}
             </div>
           </div>
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              3. Trading and Transactions
+              {t("terms.body.section.three.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              3.1. Reso provides a centralized
+              {t("terms.body.section.three.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso provides a centralized crypto exchange platform where users
-              can trade cryptocurrencies.
+              {t("terms.body.section.three.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              3.2. Users can deposit and withdraw
+              {t("terms.body.section.three.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Users can deposit and withdraw cryptocurrencies as supported by
-              the platform.
+              {t("terms.body.section.three.subtitle.two.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              3.3. All transactions on Reso Crypto Exchange
+              {t("terms.body.section.three.subtitle.three.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              All transactions on Reso Crypto Exchange are subject to applicable
-              fees, which will be clearly communicated during the transaction
-              process.
+              {t("terms.body.section.three.subtitle.three.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              4. KYC and National Identity Documents
+              {t("terms.body.section.four.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              4.1. Users are required to undergo the KYC process
+              {t("terms.body.section.four.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Users are required to undergo the KYC process, which may include
-              submitting a national identity document, to comply with regulatory
-              requirements and enhance the security of the platform.
+              {t("terms.body.section.four.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              4.2. National identity documents provided during KYC
+              {t("terms.body.section.four.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              National identity documents provided during KYC are securely
-              stored and accessed only for verification purposes, complying with
-              applicable legal and regulatory standards.
+              {t("terms.body.section.four.subtitle.two.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              5. Privacy and Data Security
+              {t("terms.body.section.five.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              5.1. Reso is committed to protecting user privacy
+              {t("terms.body.section.five.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso is committed to protecting user privacy. Personal and
-              financial information is handled in accordance with our Privacy
-              Policy.
+              {t("terms.body.section.five.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              5.2. Reso never shares user data
+              {t("terms.body.section.five.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso never shares user data with third parties for marketing
-              purposes.
+              {t("terms.body.section.five.subtitle.two.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              6. Prohibited Activities
+              {t("terms.body.section.six.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              6.1. Users agree not to engage in any illegal or unauthorized
-              activities
+              {t("terms.body.section.six.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Users agree not to engage in any illegal or unauthorized
-              activities on the Reso Crypto Exchange, including but not limited
-              to fraud, money laundering, and unauthorized access to Reso
-              systems.
+              {t("terms.body.section.six.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              6.2. Reso reserves the right to investigate
+              {t("terms.body.section.six.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso reserves the right to investigate and take appropriate legal
-              action against anyone engaging in prohibited activities.
+              {t("terms.body.section.six.subtitle.two.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              7. Support
+              {t("terms.body.section.seven.title")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              For assistance with any issues related to the Reso Crypto
-              Exchange, users can contact our support team at support@Reso.io.
+              {t("terms.body.section.seven.desc")}
             </div>
           </div>
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              8. Changes to Terms and Conditions
+              {t("terms.body.section.eight.title")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso reserves the right to update or modify these Terms and
-              Conditions at any time without prior notice. Users are encouraged
-              to review the terms regularly. By using the Reso Crypto Exchange,
-              you agree to be bound by the most current version of these Terms
-              and Conditions . These Terms and Conditions were last updated on
-              [Date].
+              {t("terms.body.section.eight.desc")}
             </div>
           </div>
         </div>

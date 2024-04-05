@@ -53,6 +53,11 @@
     @apply mx-auto w-11/12;
   }
 
+  .layout-dashboard {
+    max-width: 88.75rem;
+    @apply md:mx-auto w-full mx-3;
+  }
+
   .border-animate-wrapper {
     @apply relative overflow-hidden bg-[#1d1e2a];
   }

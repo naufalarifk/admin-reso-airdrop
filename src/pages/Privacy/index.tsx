@@ -1,7 +1,9 @@
 import { IcWave } from "@/assets/icons";
 import { Footer, Header } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export const Privacy = () => {
+  const { t } = useTranslation();
   return (
     <div className="overflow-x-hidden">
       <Header />
@@ -10,15 +12,14 @@ export const Privacy = () => {
           <div className="flex flex-col lg:flex-row justify-between items-center">
             <div>
               <div className="text-xl md:text-3xl lg:text-5xl font-bold mb-8">
-                Reso Exchange - Privacy Policy
+                {t("privacy.title")}
               </div>
               <div className="text-sm lg:text-base font-normal mb-16 text-soft">
-                Please read these terms and conditions carefully before using
-                the Reso Crypto Exchange website{" "}
+                {t("terms.subtitle.one")}{" "}
                 <a className="text-primary underline" href="/">
-                  (https://reso.io/)
+                  {t("terms.subtitle.link")}
                 </a>{" "}
-                operated by Reso.
+                {t("terms.subtitle.two")}
               </div>
               <div className="text-xs md:text-base text-soft">
                 Last updated: January 22, 2024
@@ -38,143 +39,112 @@ export const Privacy = () => {
         <div className="layout my-10 space-y-10">
           <div className="space-y-3">
             <div className="text-primary font-dm text-base  lg:text-3xl font-medium">
-              1. Information We Collect
+              {t("privacy.body.section.one.title")}
             </div>
             <div className=" text-base lg:text-2xl text-white font-medium">
-              1.1. Account Information:
+              {t("privacy.body.section.one.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              When you register on Reso, we collect information such as your
-              name, email address, and encrypted password. You may also provide
-              additional details during the KYC (Know Your Customer) process,
-              including a national identity document.
+              {t("privacy.body.section.one.subtitle.one.desc")}
             </div>
             <div className=" text-base lg:text-2xl text-white font-medium">
-              1.2. Transaction Data
+              {t("privacy.body.section.one.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              We collect information related to your crypto trades, deposits,
-              and withdrawals on the Reso platform. This includes transaction
-              history, wallet addresses, and timestamps.
+              {t("privacy.body.section.one.subtitle.two.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              1.3. Communication
+              {t("privacy.body.section.one.subtitle.three.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              When you contact our support team or communicate with us via
-              email, we may collect and store the content of those
-              communications.
+              {t("privacy.body.section.one.subtitle.three.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              2. How We Use Your Information
+              {t("privacy.body.section.two.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              2.1 Account Management
+              {t("privacy.body.section.two.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              We use your account information to create and manage your Reso
-              Crypto Exchange account, process transactions, and ensure the
-              security of your account.
+              {t("privacy.body.section.two.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              2.2 KYC Verification
+              {t("privacy.body.section.two.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              During the KYC process, we collect and verify your national
-              identity document to comply with regulatory requirements and
-              enhance the security of our platform.
+              {t("privacy.body.section.two.subtitle.two.desc")}
             </div>
             <div className="lg:text-2xl text-base text-white font-medium">
-              2.3. Transactions
+              {t("privacy.body.section.two.subtitle.three.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Your transaction data is used to facilitate crypto trades,
-              deposits, and withdrawals as requested by you.
+              {t("privacy.body.section.two.subtitle.three.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              2.4. Communication
+              {t("privacy.body.section.two.subtitle.four.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              We may use your contact information to send important updates,
-              notifications, and service-related communications. Your email will
-              never be shared with third parties for marketing purposes.
+              {t("privacy.body.section.two.subtitle.four.desc")}
             </div>
           </div>
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              3. Data Security
+              {t("privacy.body.section.three.title")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              3.1. Reso employs advanced security measures
+              {t("privacy.body.section.three.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso employs advanced security measures to protect your personal
-              and financial information. This includes encryption, secure socket
-              layer (SSL) technology, and regular security audits.
+              {t("privacy.body.section.three.subtitle.one.desc")}
             </div>
             <div className="text-base lg:text-2xl text-white font-medium">
-              3.2. National identity documents provided during KYC
+              {t("privacy.body.section.three.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              National identity documents provided during KYC are securely
-              stored and accessed only for verification purposes, complying with
-              applicable legal and regulatory standards.
+              {t("privacy.body.section.three.subtitle.two.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              4. Sharing of Information
+              {t("privacy.body.section.four.title")}
             </div>
             <div className="lg:text-2xl text-base text-white font-medium">
-              4.1. Reso does not sell or share your personal
+              {t("privacy.body.section.four.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso does not sell or share your personal information with third
-              parties for marketing purposes. We may share your information with
-              trusted partners and service providers to enhance the
-              functionality and security of our platform.
+              {t("privacy.body.section.four.subtitle.one.desc")}
             </div>
             <div className="lg:text-2xl text-base text-white font-medium">
-              4.2. We may disclose your information
+              {t("privacy.body.section.four.subtitle.two.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              We may disclose your information in response to legal requests,
-              enforce our policies, or protect the rights, property, or safety
-              of Reso, its users, or others.
+              {t("privacy.body.section.four.subtitle.two.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              5. Cookies and Analytics
+              {t("privacy.body.section.five.title")}
             </div>
             <div className="lg:text-2xl text-white text-base font-medium">
-              5.1. Reso uses cookies to improve user experience
+              {t("privacy.body.section.five.subtitle.one.heading")}
             </div>
             <div className="text-soft text-sm lg:text-base">
-              Reso uses cookies to improve user experience and collect data for
-              analytics purposes. Cookies can be disabled in your browser
-              settings, but some features of the website may not function
-              properly.
+              {t("privacy.body.section.five.subtitle.one.desc")}
             </div>
           </div>
 
           <div className="space-y-3">
             <div className="text-primary mb-4 font-dm text-base lg:text-3xl font-medium">
-              6. Changes to Privacy Policy
+              {t("privacy.body.section.six.title")}
             </div>
 
             <div className="text-soft text-sm lg:text-base">
-              Reso reserves the right to update or modify this Privacy Policy at
-              any time. Users are encouraged to review the policy regularly. By
-              continuing to use the Reso Crypto Exchange, you agree to the most
-              current version of this Privacy Policy. For any questions or
-              concerns regarding our Privacy Policy, please contact us at
-              support@Reso.io. This Privacy Policy was last updated on [Date].
+              {t("privacy.body.section.six.desc")}
             </div>
           </div>
         </div>
