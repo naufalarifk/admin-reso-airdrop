@@ -1,10 +1,10 @@
 export const EN_TRANSLATION = {
   navbar: {
     menu: {
-      trade: "Trade",
+      trade: "Trades",
       staking: "Staking",
-      terms: "Terms and Conditions",
-      privacy: "Privacy Policy",
+      swap: "Swap",
+      bridge: "Bridge",
     },
   },
   landing: {
@@ -30,6 +30,13 @@ export const EN_TRANSLATION = {
           two: "Bridge Platform",
           three: "Swap Trade",
           four: "Staking Platform",
+        },
+        desc: {
+          one: "Experience the freedom and security of decentralized trading, where you have full control over your assets without relying on intermediaries, ensuring transparency and trust in every transaction.",
+          two: "Connect different blockchain networks seamlessly, expanding your reach and enabling cross-chain transactions, allowing you to access a wider range of assets and opportunities with ease.",
+          three:
+            "Swap your cryptocurrencies effortlessly and securely, diversifying your portfolio with ease and taking advantage of market opportunities without the hassle of traditional exchanges.",
+          four: "Earn passive income and actively participate in blockchain networks by staking your assets, contributing to network security, and being rewarded for your support, all while watching your investment grow.",
         },
       },
     },
@@ -64,6 +71,8 @@ export const EN_TRANSLATION = {
         one: "Connect your wallet  and Unlock a realm of",
         two: "exclusive benefits waiting for you",
       },
+      desc: `Exciting news! Reso lets you connect with various crypto wallets,
+      ensuring you have the freedom to choose what works best for you`,
     },
     tags: {
       provide: "What We Provide To You",
@@ -71,9 +80,18 @@ export const EN_TRANSLATION = {
       methods: "Bridge and Staking",
       exchange: "Decentralized Exchange",
     },
+    connect: {
+      title: {
+        one: "Connect to what you",
+        two: "actually need",
+      },
+      desc: `Don't miss out - secure your spot today and elevate your
+      crypto journey with Reso`,
+    },
   },
   button: {
     connectWallet: "Connect Wallet",
+    tryNow: "Try Now",
   },
   tags: {
     language: "Language",
