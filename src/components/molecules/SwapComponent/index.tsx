@@ -28,7 +28,7 @@ export const SwapComponent = () => {
             <IcScrollV className='mx-auto' />
             <div className="flex justify-between items-center">
                 <div>
-                    <Text>Pay:</Text>
+                    <Text>Receive:</Text>
                     <Text>0.00000 BTC</Text>
                 </div>
                 <div>

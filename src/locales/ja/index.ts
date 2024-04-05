@@ -86,4 +86,45 @@ export const JPN_TRANSLATION = {
       three: "FAQ",
     },
   },
+  trade: {
+    tokenList: {
+      allMarkets: '全てのマーケット',
+      twentyFourChange: '24時間変化',
+      twentyFourHigh: '24時間最高値',
+      twentyFourLow: '24時間最安値',
+      twentyFourVol: '24時間出来高（BTC）',
+      marketCap: '時価総額',
+      tradingActivity: '取引活動',
+      buy: '購入',
+      sell: '売却',
+      popular: '人気',
+      all: '全て',
+      marketSentiment: '市場のセンチメント',
+    },
+    tradeComponent: {
+      trade: "取引",
+      history: "取引履歴",
+      long: "ロング",
+      short: "ショート",
+      swap: "スワップ",
+      market: "市場",
+      limit: "リミット",
+      tp: "利益を確定/損失を制限",
+      pay: "支払う",
+      receive: "受け取る",
+      balance: "残高",
+      price: "価格",
+      mark: "マーク",
+      max: "最大",
+      pool: "プール",
+      leverageSlider: "レバレッジスライダー",
+      collateralIn: "担保入金",
+      leverage: "レバレッジ",
+      entryPrice: "エントリー価格",
+      liqPrice: "清算価格",
+      feesAndPriceImpact: "手数料（リベート）と価格の影響",
+      insufficientBalance: "残高が不足しています"
+    }
+  }
+
 };

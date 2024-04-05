@@ -3,7 +3,10 @@ import { Button, Input, Text } from "@/components"
 import { TradeComponent } from "@/components/organisms"
 import TradingView from "@/components/organisms/TradingView"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 export const Trade = () => {
+
+    const { t } = useTranslation();
 
     type Trades = 'Long' | 'Short' | 'Swap'
     const [selectedMenu, setSelectedMenu] = useState('Trade')
@@ -73,15 +76,15 @@ export const Trade = () => {
                 <div style={dividerStyles}></div>
                 <div className="flex-grow">
                     <div className="flex justify-between items-center text-lg font-semibold">
-                        <Text className="font-semibold">24h High</Text>
+                        <Text className="font-semibold">{t("trade.tokenList.twentyFourChange")}</Text>
                         <Text className="text-white font-semibold">29.479.24</Text>
                     </div>
                     <div className="flex justify-between items-center text-lg font-semibold">
-                        <Text className="font-semibold">24h Vol (BTC)</Text>
+                        <Text className="font-semibold">{t("trade.tokenList.twentyFourHigh")}</Text>
                         <Text className="text-white font-semibold">30.479.24</Text>
                     </div>
                     <div className="flex justify-between items-center text-lg font-semibold">
-                        <Text className="font-semibold">24h Low</Text>
+                        <Text className="font-semibold">{t("trade.tokenList.twentyFourLow")}</Text>
                         <Text className="text-white font-semibold">25.479.24</Text>
                     </div>
                 </div>
@@ -97,7 +100,7 @@ export const Trade = () => {
                             </div>
                         </div>
                         <div className="flex space-x-1 items-center">
-                            <Text>All Markets</Text>
+                            <Text>{t("trade.tokenList.allMarkets")}</Text>
                             <div className="p-1 rounded-full bg-[#231f20]">
                                 <IcDropdown />
                             </div>
@@ -107,47 +110,47 @@ export const Trade = () => {
                     <div className="p-4 rounded-lg bg-[#0e0f19] space-y-4">
                         <div className="grid grid-cols-3 justify-center items-center gap-2">
                             <div className="text-sm font-semibold flex flex-col items-center justify-center">
-                                <Text className="font-semibold">24h Change</Text>
+                                <Text className="font-semibold">{t("trade.tokenList.twentyFourChange")}</Text>
                                 <Text className="text-green font-semibold">+1.93%</Text>
                             </div>
                             <div className="text-sm font-semibold flex flex-col items-center justify-center">
-                                <Text className="font-semibold">24h High</Text>
+                                <Text className="font-semibold">{t("trade.tokenList.twentyFourHigh")}</Text>
                                 <Text className="text-white font-semibold">29.479.24</Text>
                             </div>
                             <div className="text-sm font-semibold flex flex-col items-center justify-center">
-                                <Text className="font-semibold">24h Low</Text>
+                                <Text className="font-semibold">{t("trade.tokenList.twentyFourLow")}</Text>
                                 <Text className="text-white font-semibold">25.479.24</Text>
                             </div>
                             <div className="text-sm font-semibold flex flex-col items-center justify-center">
-                                <Text className="font-semibold">24h Vol (BTC)</Text>
+                                <Text className="font-semibold">{t("trade.tokenList.twentyFourVol")}</Text>
                                 <Text className="text-white font-semibold">30.479.24</Text>
                             </div>
                             <div className="text-sm font-semibold flex flex-col items-center justify-center">
-                                <Text className="font-semibold">Market Cap</Text>
+                                <Text className="font-semibold">{t("trade.tokenList.marketCap")}</Text>
                                 <Text className="text-white font-semibold">30.479.24</Text>
                             </div>
                             <div className="text-sm font-semibold flex flex-col items-center justify-center">
-                                <Text className="font-semibold">Market Cap</Text>
+                                <Text className="font-semibold">{t("trade.tokenList.marketCap")}</Text>
                                 <Text className="text-white font-semibold">30.479.24</Text>
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <Text className="font-semibold">Trading Activity</Text>
+                            <Text className="font-semibold">{t("trade.tokenList.tradingActivity")}</Text>
                             <div className="h-1 w-full bg-[#181a24] rounded-full overflow-hidden">
                                 <div className="h-full bg-[#F23F5D]" style={{ width: '53%' }}></div>
                             </div>
                             <div className="items-center justify-between flex">
-                                <Text>Buy 53%</Text>
-                                <Text>Sell 47%</Text>
+                                <Text>{t("trade.tokenList.buy")} 53%</Text>
+                                <Text>{t("trade.tokenList.sell")} 47%</Text>
                             </div>
                         </div>
                     </div>
 
 
                     <div className="flex w-full">
-                        <Button className="w-1/2 rounded-none border-b-2 border-b-[#e83d59] bg-[#273242]">Popular</Button>
-                        <Button className="w-1/2 rounded-none border-b-2 border-b-[#273242] bg-[#0E0F19]">All</Button>
+                        <Button className="w-1/2 rounded-none border-b-2 border-b-[#e83d59] bg-[#273242]">{t("trade.tokenList.popular")}</Button>
+                        <Button className="w-1/2 rounded-none border-b-2 border-b-[#273242] bg-[#0E0F19]">{t("trade.tokenList.all")}</Button>
                     </div>
                     <div className="bg-[#0E0F19] flex items-center space-x-2 border rounded-lg px-2 mt-2 border-[#273242]">
                         <IcSearch className="text-[#273242] dark:text-[#]" />
@@ -167,13 +170,13 @@ export const Trade = () => {
                                     <Text className="text-green">+1.93%</Text>
                                 </div>
                             </div>
-                                <Text>Market Sentiment</Text>
+                                <Text>{t("trade.tokenList.marketSentiment")}</Text>
                                 <div className="h-1 w-full bg-[#F23F5D] rounded-full overflow-hidden">
                                     <div className="h-full bg-green" style={{ width: '53%' }}></div>
                                 </div>
                                 <div className="items-center justify-between flex mt-2">
-                                    <Text>Buy 53%</Text>
-                                    <Text>Sell 47%</Text>
+                                    <Text>{t("trade.tokenList.buy")} 53%</Text>
+                                    <Text>{t("trade.tokenList.sell")} 47%</Text>
                                 </div>
                             </div>)
                         }
