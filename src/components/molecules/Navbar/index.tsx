@@ -168,9 +168,9 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         <div className="mt-4 grid grid-cols-3 gap-3">
                           {langs.map((lang: Language) => (
                             <Menu.Item key={lang.abbr}>
-                              <ButtonGlow
+                              <button
                                 onClick={() => i18n.changeLanguage(lang.abbr)}
-                                className="flex items-center"
+                                className="flex items-center px-6 border border-soft/45 text-center py-3 rounded-full justify-center"
                               >
                                 {/* <div>
                                   <IcWeb className="text-white" />
@@ -184,7 +184,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                 >
                                   {lang.nativeName}
                                 </div>
-                              </ButtonGlow>
+                              </button>
                             </Menu.Item>
                           ))}
                         </div>
