@@ -432,6 +432,10 @@ export const ESP_TRANSLATION = {
       one: "Acerca de",
       two: "Soporte",
     },
+    privacy: "Política de privacidad",
+    terms: "Términos y condiciones",
+    blog: "Blog",
+    about: "Acerca de nosotros",
   },
   global: {
     noData: "Sin Datos",

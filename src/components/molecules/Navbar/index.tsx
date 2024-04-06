@@ -115,7 +115,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                     ))}
                 </ul>
                 <div className="flex layout items-center justify-between gap-3">
-                  <div className="py-5">
+                  <div className="p-5">
                     <ButtonConnectWallet classNameButton="!w-[200px]" />
                   </div>
                   <ButtonGlow
@@ -155,7 +155,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               <Menu>
                 <>
                   <Menu.Button>
-                    <ButtonGlow className="w-12 p-0">
+                    <ButtonGlow classNameButton="!w-[50px] p-0">
                       <IcWeb className="text-white" />
                     </ButtonGlow>
                   </Menu.Button>

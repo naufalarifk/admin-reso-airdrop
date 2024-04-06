@@ -436,6 +436,10 @@ export const EN_TRANSLATION = {
       two: "Support",
       three: "FAQ",
     },
+    privacy: "Privacy Policy",
+    terms: "Terms and Conditions",
+    blog: "Blog",
+    about: "About Us",
   },
   global: {
     noData: "No Data",

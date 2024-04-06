@@ -362,6 +362,10 @@ export const CN_TRANSLATION = {
       one: "关于",
       two: "支持",
     },
+    privacy: "隐私政策",
+    terms: "条款和条件",
+    blog: "博客",
+    about: "关于我们",
   },
   global: {
     noData: "无数据",
