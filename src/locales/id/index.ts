@@ -429,6 +429,10 @@ export const ID_TRANSLATION = {
       one: "Tentang",
       two: "Dukungan",
     },
+    privacy: "Kebijakan Privasi",
+    terms: "Syarat dan Ketentuan",
+    blog: "Blog",
+    about: "Tentang Kami",
   },
   global: {
     noData: "Tidak Ada Data",

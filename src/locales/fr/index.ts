@@ -434,6 +434,10 @@ export const FR_TRANSLATION = {
       one: "À propos",
       two: "Support",
     },
+    privacy: "Politique de confidentialité",
+    terms: "Termes et conditions",
+    blog: "Blog",
+    about: "À propos de nous",
   },
   global: {
     noData: "Pas de données",

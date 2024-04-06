@@ -391,6 +391,10 @@ export const KO_TRANSLATION = {
       one: "소개",
       two: "지원",
     },
+    privacy: "개인정보 처리방침",
+    terms: "이용 약관",
+    blog: "블로그",
+    about: "회사 소개",
   },
   global: {
     noData: "데이터 없음",

@@ -374,6 +374,10 @@ export const IT_TRANSLATION = {
       one: "A proposito",
       two: "Supporto",
     },
+    privacy: "Informativa sulla privacy",
+    terms: "Termini e condizioni",
+    blog: "Blog",
+    about: "Chi siamo",
   },
   global: {
     noData: "Nessun Dato",

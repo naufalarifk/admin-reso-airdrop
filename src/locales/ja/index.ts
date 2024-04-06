@@ -366,6 +366,10 @@ export const JPN_TRANSLATION = {
       one: "について",
       two: "サポート",
     },
+    privacy: "プライバシーポリシー",
+    terms: "利用規約",
+    blog: "ブログ",
+    about: "会社概要",
   },
   global: {
     noData: "データがありません",

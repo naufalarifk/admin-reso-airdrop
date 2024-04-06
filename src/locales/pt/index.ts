@@ -432,6 +432,10 @@ export const PT_TRANSLATION = {
       one: "Sobre",
       two: "Suporte",
     },
+    privacy: "Política de Privacidade",
+    terms: "Termos e Condições",
+    blog: "Blog",
+    about: "Sobre nós",
   },
   global: {
     noData: "Sem Dados",
