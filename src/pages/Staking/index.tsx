@@ -31,8 +31,9 @@ export const Staking = () => {
         content: (
           <div className="mt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {STAKE_COIN.map((item) => (
+              {STAKE_COIN.map((item, i) => (
                 <CardStaking
+                  key={i}
                   handleConnected={() => open()}
                   isConnected={isConnected}
                   whileConnected={() =>
