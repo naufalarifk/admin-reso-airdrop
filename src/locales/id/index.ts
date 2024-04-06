@@ -72,7 +72,7 @@ export const ID_TRANSLATION = {
         one: "Sambungkan dompet Anda dan Buka wilayah",
         two: "manfaat eksklusif yang menunggu Anda",
       },
-      desc: `Kabar menarik! Reso memungkinkan Anda terhubung dengan berbagai dompet kripto,
+      desc: `Kabar menarik! Rectoverso memungkinkan Anda terhubung dengan berbagai dompet kripto,
         memastikan Anda memiliki kebebasan untuk memilih yang terbaik untuk Anda`,
     },
     tags: {
@@ -86,23 +86,23 @@ export const ID_TRANSLATION = {
         one: "Sambungkan ke apa yang Anda",
         two: "benar-benar butuhkan",
       },
-      desc: `Jangan lewatkan - amankan tempat Anda hari ini dan tingkatkan perjalanan kripto Anda dengan Reso`,
+      desc: `Jangan lewatkan - amankan tempat Anda hari ini dan tingkatkan perjalanan kripto Anda dengan Rectoverso`,
     },
   },
   terms: {
-    title: "Reso Exchange - Syarat dan Ketentuan",
+    title: "Rectoverso Exchange - Syarat dan Ketentuan",
     subtitle: {
       one: `Mohon baca syarat dan ketentuan ini dengan seksama sebelum menggunakan
-        situs web Reso Crypto Exchange`,
-      link: "(https://reso.io/)",
-      two: " yang dioperasikan oleh Reso.",
+        situs web Rectoverso Crypto Exchange`,
+      link: "(https://Rectoverso.io/)",
+      two: " yang dioperasikan oleh Rectoverso.",
     },
     body: {
       section: {
         one: {
           title: "1. Penerimaan Syarat",
           desc: `Dengan mengakses atau menggunakan situs web dan
-            layanan Reso Crypto Exchange, Anda setuju terikat oleh Syarat dan Ketentuan ini. Jika
+            layanan Rectoverso Crypto Exchange, Anda setuju terikat oleh Syarat dan Ketentuan ini. Jika
             Anda tidak setuju dengan semua syarat dan ketentuan, mohon
             jangan menggunakan layanan kami.`,
         },
@@ -110,8 +110,8 @@ export const ID_TRANSLATION = {
           title: "2. Registrasi Akun",
           subtitle: {
             one: {
-              heading: "2.1. Untuk menggunakan Reso Crypto Exchange",
-              desc: `Untuk menggunakan Reso Crypto Exchange, pengguna harus mendaftar akun dengan
+              heading: "2.1. Untuk menggunakan Rectoverso Crypto Exchange",
+              desc: `Untuk menggunakan Rectoverso Crypto Exchange, pengguna harus mendaftar akun dengan
                 menyediakan alamat email yang valid dan menyelesaikan proses KYC (Kenal Customer
                 Anda), yang mungkin termasuk mengirimkan dokumen identitas nasional.`,
             },
@@ -123,8 +123,8 @@ export const ID_TRANSLATION = {
                 dengan orang lain.`,
             },
             three: {
-              heading: "2.3. Reso berhak menolak layanan",
-              desc: `Reso berhak menolak layanan, mengakhiri akun, atau
+              heading: "2.3. Rectoverso berhak menolak layanan",
+              desc: `Rectoverso berhak menolak layanan, mengakhiri akun, atau
                 menghapus atau mengedit konten dengan kebijakan tunggalnya.`,
             },
           },
@@ -133,8 +133,8 @@ export const ID_TRANSLATION = {
           title: "3. Perdagangan dan Transaksi",
           subtitle: {
             one: {
-              heading: "3.1. Reso menyediakan platform",
-              desc: `Reso menyediakan platform pertukaran kripto terpusat di mana pengguna
+              heading: "3.1. Rectoverso menyediakan platform",
+              desc: `Rectoverso menyediakan platform pertukaran kripto terpusat di mana pengguna
                 dapat melakukan perdagangan mata uang kripto.`,
             },
             two: {
@@ -143,8 +143,8 @@ export const ID_TRANSLATION = {
                 platform.`,
             },
             three: {
-              heading: "3.3. Semua transaksi di Reso Crypto Exchange",
-              desc: `Semua transaksi di Reso Crypto Exchange tunduk pada
+              heading: "3.3. Semua transaksi di Rectoverso Crypto Exchange",
+              desc: `Semua transaksi di Rectoverso Crypto Exchange tunduk pada
                 biaya yang berlaku, yang akan dijelaskan dengan jelas selama proses transaksi
                 berlangsung.`,
             },
@@ -173,13 +173,13 @@ export const ID_TRANSLATION = {
           subtitle: {
             one: {
               heading:
-                "5.1. Reso berkomitmen untuk melindungi privasi pengguna",
-              desc: `Reso berkomitmen untuk melindungi privasi pengguna. Informasi pribadi dan
+                "5.1. Rectoverso berkomitmen untuk melindungi privasi pengguna",
+              desc: `Rectoverso berkomitmen untuk melindungi privasi pengguna. Informasi pribadi dan
                 keuangan ditangani sesuai dengan Kebijakan Privasi kami.`,
             },
             two: {
-              heading: "5.2. Reso tidak pernah membagikan data pengguna",
-              desc: `Reso tidak pernah membagikan data pengguna kepada pihak ketiga untuk tujuan pemasaran.`,
+              heading: "5.2. Rectoverso tidak pernah membagikan data pengguna",
+              desc: `Rectoverso tidak pernah membagikan data pengguna kepada pihak ketiga untuk tujuan pemasaran.`,
             },
           },
         },
@@ -189,24 +189,24 @@ export const ID_TRANSLATION = {
             one: {
               heading: `6.1. Pengguna setuju untuk tidak terlibat dalam aktivitas ilegal atau tidak diotorisasi`,
               desc: `Pengguna setuju untuk tidak terlibat dalam aktivitas ilegal atau tidak diotorisasi
-                di Reso Crypto Exchange, termasuk namun tidak terbatas pada penipuan, pencucian uang, dan akses tidak sah ke sistem Reso.`,
+                di Rectoverso Crypto Exchange, termasuk namun tidak terbatas pada penipuan, pencucian uang, dan akses tidak sah ke sistem Rectoverso.`,
             },
             two: {
-              heading: `6.2. Reso berhak untuk menyelidiki`,
-              desc: `Reso berhak untuk menyelidiki dan mengambil tindakan hukum yang sesuai terhadap siapa pun yang terlibat dalam aktivitas yang dilarang.`,
+              heading: `6.2. Rectoverso berhak untuk menyelidiki`,
+              desc: `Rectoverso berhak untuk menyelidiki dan mengambil tindakan hukum yang sesuai terhadap siapa pun yang terlibat dalam aktivitas yang dilarang.`,
             },
           },
         },
         seven: {
           title: "7. Dukungan",
-          desc: `Untuk bantuan dengan masalah apa pun yang terkait dengan Reso Crypto
-            Exchange, pengguna dapat menghubungi tim dukungan kami di support@Reso.io.`,
+          desc: `Untuk bantuan dengan masalah apa pun yang terkait dengan Rectoverso Crypto
+            Exchange, pengguna dapat menghubungi tim dukungan kami di support@Rectoverso.io.`,
         },
         eight: {
           title: "8. Perubahan Syarat dan Ketentuan",
-          desc: `Reso berhak untuk memperbarui atau mengubah Syarat dan
+          desc: `Rectoverso berhak untuk memperbarui atau mengubah Syarat dan
             Ketentuan ini kapan saja tanpa pemberitahuan sebelumnya. Pengguna dihimbau
-            untuk secara teratur meninjau syarat tersebut. Dengan menggunakan Reso Crypto Exchange,
+            untuk secara teratur meninjau syarat tersebut. Dengan menggunakan Rectoverso Crypto Exchange,
             Anda setuju terikat oleh versi terbaru dari Syarat dan Ketentuan ini.
             Syarat dan Ketentuan ini terakhir diperbarui pada
             [Tanggal].`,
@@ -418,12 +418,13 @@ export const ID_TRANSLATION = {
     submit: "Kirim",
     unstake: "Tarik",
     claim: "Klaim",
+    save: "Simpan",
   },
   tags: {
     language: "Bahasa",
   },
   footer: {
-    desc: "Selamat datang di Reso - paspor Anda ke masa depan keuangan terdesentralisasi! Tukar, tukar, staking, dan jembatani aset Anda dengan mudah dengan platform intuitif kami. Baik Anda seorang investor berpengalaman atau baru memulai, Reso membuat navigasi dunia aset digital menjadi mudah. Ucapkan selamat tinggal pada kompleksitas dan sapa pada kemungkinan tanpa batas. Bergabunglah dengan kami hari ini dan buka era baru kebebasan finansial!",
+    desc: "Selamat datang di Rectoverso - paspor Anda ke masa depan keuangan terdesentralisasi! Tukar, tukar, staking, dan jembatani aset Anda dengan mudah dengan platform intuitif kami. Baik Anda seorang investor berpengalaman atau baru memulai, Rectoverso membuat navigasi dunia aset digital menjadi mudah. Ucapkan selamat tinggal pada kompleksitas dan sapa pada kemungkinan tanpa batas. Bergabunglah dengan kami hari ini dan buka era baru kebebasan finansial!",
     title: {
       one: "Tentang",
       two: "Dukungan",

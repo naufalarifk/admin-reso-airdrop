@@ -79,6 +79,24 @@ export const ModalAddStaking = ({
                       {t("staking.add.card.subtitle")}
                     </div>
                   </div>
+                  <div onClick={closeModal} className="cursor-pointer">
+                    <svg
+                      width={24}
+                      height={25}
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 2C6.15 2 1.5 6.65 1.5 12.5S6.15 23 12 23s10.5-4.65 10.5-10.5S17.85 2 12 2zm0 19.5c-4.95 0-9-4.05-9-9s4.05-9 9-9 9 4.05 9 9-4.05 9-9 9z"
+                        fill="#90A3BF"
+                      />
+                      <path
+                        d="M16.05 17.75L12 13.7l-4.05 4.05-1.2-1.2 4.05-4.05-4.05-4.05 1.2-1.2L12 11.3l4.05-4.05 1.2 1.2-4.05 4.05 4.05 4.05-1.2 1.2z"
+                        fill="#90A3BF"
+                      />
+                    </svg>
+                  </div>
                 </div>
                 <div className="mt-6">
                   <div className="space-y-4">

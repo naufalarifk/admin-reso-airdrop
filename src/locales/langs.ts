@@ -22,8 +22,8 @@ export const langs: Language[] = [
   },
   {
     nativeName: "Español",
-    abbr: "es",
-    displayAbbr: "ES",
+    abbr: "esp",
+    displayAbbr: "ESP",
   },
   {
     nativeName: "한국어",
@@ -35,19 +35,24 @@ export const langs: Language[] = [
     abbr: "zh",
     displayAbbr: "ZH",
   },
-  {
-    nativeName: "Русский",
-    abbr: "ru",
-    displayAbbr: "RU",
-  },
+  // {
+  //   nativeName: "Русский",
+  //   abbr: "ru",
+  //   displayAbbr: "RU",
+  // },
   {
     nativeName: "Français",
     abbr: "fr",
     displayAbbr: "FR",
   },
   {
-    nativeName: "Deutsch",
-    abbr: "de",
-    displayAbbr: "DE",
+    nativeName: "Português",
+    abbr: "pt",
+    displayAbbr: "PT",
+  },
+  {
+    nativeName: "Italiano",
+    abbr: "it",
+    displayAbbr: "IT",
   },
 ];

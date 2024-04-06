@@ -70,7 +70,7 @@ export const JPN_TRANSLATION = {
         one: "あなたのウォレットを接続して、",
         two: "あなたを待っている独占的な利点を解除します",
       },
-      desc: `エキサイティングなニュース！Resoを使用すると、さまざまな暗号ウォレットと接続できます。これにより、最適なものを選択できます`,
+      desc: `エキサイティングなニュース！Rectoversoを使用すると、さまざまな暗号ウォレットと接続できます。これにより、最適なものを選択できます`,
     },
     tags: {
       provide: "あなたに提供するもの",
@@ -83,36 +83,36 @@ export const JPN_TRANSLATION = {
         one: "実際に必要なものに接続する",
         two: "接続する",
       },
-      desc: `今日、場所を確保して、Resoとの暗号通貨の旅を高めてください`,
+      desc: `今日、場所を確保して、Rectoversoとの暗号通貨の旅を高めてください`,
     },
   },
   terms: {
-    title: "Reso Exchange - 利用規約",
+    title: "Rectoverso Exchange - 利用規約",
     subtitle: {
-      one: `Reso Crypto Exchangeウェブサイトを使用する前に、これらの利用規約をよくお読みください`,
-      link: "(https://reso.io/)",
-      two: " Resoが運営する。",
+      one: `Rectoverso Crypto Exchangeウェブサイトを使用する前に、これらの利用規約をよくお読みください`,
+      link: "(https://rectoverso.io/)",
+      two: " Rectoversoが運営する。",
     },
     body: {
       section: {
         one: {
           title: "1. 利用規約の受諾",
-          desc: `Reso Crypto Exchangeウェブサイトおよびサービスにアクセスまたは使用することにより、これらの利用規約に同意したものとみなされます。すべての利用規約に同意しない場合は、当社のサービスを使用しないでください。`,
+          desc: `Rectoverso Crypto Exchangeウェブサイトおよびサービスにアクセスまたは使用することにより、これらの利用規約に同意したものとみなされます。すべての利用規約に同意しない場合は、当社のサービスを使用しないでください。`,
         },
         two: {
           title: "2. アカウント登録",
           subtitle: {
             one: {
-              heading: "2.1. Reso Crypto Exchangeを使用するには",
-              desc: `Reso Crypto Exchangeを使用するには、ユーザーは有効なメールアドレスを提供し、KYC（顧客の身元確認）プロセスを完了する必要があります。これには、国民身分証明書の提出が含まれる場合があります。`,
+              heading: "2.1. Rectoverso Crypto Exchangeを使用するには",
+              desc: `Rectoverso Crypto Exchangeを使用するには、ユーザーは有効なメールアドレスを提供し、KYC（顧客の身元確認）プロセスを完了する必要があります。これには、国民身分証明書の提出が含まれる場合があります。`,
             },
             two: {
               heading: "2.2. ユーザーは機密性を維持する責任があります",
               desc: `ユーザーはアカウント情報の機密性を維持し、他の人とログイン資格情報を共有しないようにする責任があります。`,
             },
             three: {
-              heading: "2.3. Resoはサービスを拒否する権利を留保します",
-              desc: `Resoは、自己の裁量でサービスを拒否したり、アカウントを終了したり、コンテンツを削除または編集したりする権利を留保します`,
+              heading: "2.3. Rectoversoはサービスを拒否する権利を留保します",
+              desc: `Rectoversoは、自己の裁量でサービスを拒否したり、アカウントを終了したり、コンテンツを削除または編集したりする権利を留保します`,
             },
           },
         },
@@ -120,8 +120,8 @@ export const JPN_TRANSLATION = {
           title: "3. 取引とトランザクション",
           subtitle: {
             one: {
-              heading: "3.1. Resoは中央集権型を提供します",
-              desc: `Resoは、ユーザーが暗号通貨を取引できる中央集権型の暗号取引プラットフォームを提供します。`,
+              heading: "3.1. Rectoversoは中央集権型を提供します",
+              desc: `Rectoversoは、ユーザーが暗号通貨を取引できる中央集権型の暗号取引プラットフォームを提供します。`,
             },
             two: {
               heading:
@@ -129,8 +129,8 @@ export const JPN_TRANSLATION = {
               desc: `ユーザーは、プラットフォームでサポートされている通貨での暗号通貨の預金および引き出しを行うことができます。`,
             },
             three: {
-              heading: "3.3. Reso Crypto Exchangeのすべての取引は",
-              desc: `Reso Crypto Exchangeのすべての取引は、トランザクションプロセス中に明確に通知される適用可能な手数料の対象となります。`,
+              heading: "3.3. Rectoverso Crypto Exchangeのすべての取引は",
+              desc: `Rectoverso Crypto Exchangeのすべての取引は、トランザクションプロセス中に明確に通知される適用可能な手数料の対象となります。`,
             },
           },
         },
@@ -152,12 +152,12 @@ export const JPN_TRANSLATION = {
           subtitle: {
             one: {
               heading:
-                "5.1. Resoはユーザーのプライバシー保護に取り組んでいます",
-              desc: `Resoはユーザーのプライバシーを保護することに取り組んでいます。個人情報および金融情報は、当社のプライバシーポリシーに従って処理されます。`,
+                "5.1. Rectoversoはユーザーのプライバシー保護に取り組んでいます",
+              desc: `Rectoversoはユーザーのプライバシーを保護することに取り組んでいます。個人情報および金融情報は、当社のプライバシーポリシーに従って処理されます。`,
             },
             two: {
-              heading: "5.2. Resoはユーザーデータを共有しません",
-              desc: `Resoは、ユーザーデータをマーケティング目的で第三者と共有しません。`,
+              heading: "5.2. Rectoversoはユーザーデータを共有しません",
+              desc: `Rectoversoは、ユーザーデータをマーケティング目的で第三者と共有しません。`,
             },
           },
         },
@@ -166,21 +166,21 @@ export const JPN_TRANSLATION = {
           subtitle: {
             one: {
               heading: `6.1. ユーザーは、違法または権限のない活動に関与しないことに同意する`,
-              desc: `ユーザーは、Reso Crypto Exchangeで不正行為、マネーロンダリング、Resoシステムへの権限ないアクセスなどを含む違法または権限のない活動に関与しないことに同意します。`,
+              desc: `ユーザーは、Rectoverso Crypto Exchangeで不正行為、マネーロンダリング、Rectoversoシステムへの権限ないアクセスなどを含む違法または権限のない活動に関与しないことに同意します。`,
             },
             two: {
-              heading: `6.2. Resoは調査し、適切な法的措置を講じる権利を留保します`,
-              desc: `Resoは、禁止された活動に関与している者に対して適切な法的措置を調査し、講じる権利を留保します。`,
+              heading: `6.2. Rectoversoは調査し、適切な法的措置を講じる権利を留保します`,
+              desc: `Rectoversoは、禁止された活動に関与している者に対して適切な法的措置を調査し、講じる権利を留保します。`,
             },
           },
         },
         seven: {
           title: "7. サポート",
-          desc: `Reso Crypto Exchangeに関連する問題に対する支援が必要な場合は、support@Reso.io までお問い合わせください。`,
+          desc: `Rectoverso Crypto Exchangeに関連する問題に対する支援が必要な場合は、support@Rectoverso.io までお問い合わせください。`,
         },
         eight: {
           title: "8. 利用規約の変更",
-          desc: `Resoは、事前の通知なしにこれらの利用規約をいつでも更新または変更する権利を留保します。ユーザーは定期的に利用規約を確認することをお勧めします。Reso Crypto Exchangeを使用することで、最新版の利用規約に拘束されることに同意します。これらの利用規約は、[日付]に最後に更新されました。`,
+          desc: `Rectoversoは、事前の通知なしにこれらの利用規約をいつでも更新または変更する権利を留保します。ユーザーは定期的に利用規約を確認することをお勧めします。Rectoverso Crypto Exchangeを使用することで、最新版の利用規約に拘束されることに同意します。これらの利用規約は、[日付]に最後に更新されました。`,
         },
       },
     },
@@ -355,12 +355,13 @@ export const JPN_TRANSLATION = {
     submit: "提出",
     unstake: "ステーク解除",
     claim: "請求",
+    save: "保存する",
   },
   tags: {
     language: "言語",
   },
   footer: {
-    desc: "Resoへようこそ - 分散型ファイナンスの未来へのパスポートです！当社の直感的なプラットフォームを使用して、デジタル資産の世界をナビゲートするのが簡単になりました。経験豊富な投資家であろうと、初心者であろうと、Resoを使用することで、複雑さとはお別れし、無限の可能性に歓迎されます。今日すぐ参加して、新しい財務の自由の時代を解放してください！",
+    desc: "Rectoversoへようこそ - 分散型ファイナンスの未来へのパスポートです！当社の直感的なプラットフォームを使用して、デジタル資産の世界をナビゲートするのが簡単になりました。経験豊富な投資家であろうと、初心者であろうと、Rectoversoを使用することで、複雑さとはお別れし、無限の可能性に歓迎されます。今日すぐ参加して、新しい財務の自由の時代を解放してください！",
     title: {
       one: "について",
       two: "サポート",
