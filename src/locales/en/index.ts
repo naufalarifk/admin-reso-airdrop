@@ -437,7 +437,7 @@ export const EN_TRANSLATION = {
       three: "FAQ",
     },
   },
-    global: {
+  global: {
     noData: "No Data",
     activate: "Activate",
     ended: "Ended",
@@ -448,18 +448,18 @@ export const EN_TRANSLATION = {
   },
   trade: {
     tokenList: {
-      allMarkets: 'All Markets',
-      twentyFourChange: '24 Change',
-      twentyFourHigh: '24 High',
-      twentyFourLow: '24 Low',
-      twentyFourVol: '24h Vol (BTC)',
-      marketCap: 'Market Cap',
-      tradingActivity: 'Trading Activity',
-      buy: 'Buy',
-      sell: 'Sell',
-      popular: 'Popular',
-      all: 'All',
-      marketSentiment: 'Market Sentiment',
+      allMarkets: "All Markets",
+      twentyFourChange: "24 Change",
+      twentyFourHigh: "24 High",
+      twentyFourLow: "24 Low",
+      twentyFourVol: "24h Vol (BTC)",
+      marketCap: "Market Cap",
+      tradingActivity: "Trading Activity",
+      buy: "Buy",
+      sell: "Sell",
+      popular: "Popular",
+      all: "All",
+      marketSentiment: "Market Sentiment",
     },
     tradeComponent: {
       trade: "Trade",
@@ -483,7 +483,7 @@ export const EN_TRANSLATION = {
       entryPrice: "Entry Price",
       liqPrice: "Liq Price",
       feesAndPriceImpact: "Fees (rebated) and Price impact",
-      insufficientBalance: "Insufficient Balance"
-    }
-  }
+      insufficientBalance: "Insufficient Balance",
+    },
+  },
 };

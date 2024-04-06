@@ -43,7 +43,7 @@ const navLink = [
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
   const [toggle, setToggle] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <div
@@ -109,14 +109,14 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           }
                           onClick={() => setToggle(false)}
                         >
-                          {item.name}
+                          {t(`navbar.menu.${item.code}`)}
                         </NavLink>
                       </li>
                     ))}
                 </ul>
-                <div className="flex items-center justify-center gap-3">
-                  <div className="p-5">
-                    <ButtonConnectWallet className="w-full" />
+                <div className="flex layout items-center justify-between gap-3">
+                  <div className="py-5">
+                    <ButtonConnectWallet classNameButton="!w-[200px]" />
                   </div>
                   <ButtonGlow
                     onClick={() => setOpen(!open)}

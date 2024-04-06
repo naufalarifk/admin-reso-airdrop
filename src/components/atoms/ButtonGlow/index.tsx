@@ -4,12 +4,13 @@ import { ReactNode } from "react";
 export const ButtonGlow = ({
   children,
   onClick,
-  className,
+  classNameButton,
   classNameContent,
 }: {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
+  classNameButton?: string;
   classNameContent?: string;
 }) => {
   return (
@@ -17,13 +18,13 @@ export const ButtonGlow = ({
       <div
         onClick={onClick}
         className={cn(
-          `cursor-pointer border-animate-wrapper rounded-full w-[150px] min-w--[150px] min-h-[48px]`,
-          className
+          `cursor-pointer border-animate-wrapper rounded-full w-[150px]  min-h-[48px]`,
+          classNameButton
         )}
       >
         <div
           className={cn(
-            `border-animate-content   gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center`,
+            `border-animate-content w-full gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center`,
             classNameContent
           )}
         >
