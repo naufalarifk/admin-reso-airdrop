@@ -7,3 +7,4 @@ export * from "./Bridge";
 export * from "./Swap";
 export * from "./Terms";
 export * from "./Privacy";
+export * from "./Pool";

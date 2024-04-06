@@ -8,6 +8,7 @@ import {
   Swap,
   Terms,
   Privacy,
+  Pool,
 } from "@/pages";
 import { MainMenu } from "./MainMenu";
 import { LayoutDashboard, StakeLayout } from "@/components";
@@ -25,6 +26,7 @@ export const RootLayout = () => {
           <Route path="/trade" element={<Trade />} />
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap" element={<Swap />} />
+          <Route path="/pool" element={<Pool />} />
         </Route>
       </Route>
       <Route element={<StakeLayout />}>
