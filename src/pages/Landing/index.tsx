@@ -163,7 +163,9 @@ export function Landing() {
             }}
             className="flex relative flex-col text-center justify-center py-10 items-center space-y-8"
           >
-            <div className="border z border-white/20 rounded-full py-1.5 text-white h-[42px] w-max text-sm md:text-base px-4 flex items-center gap-3">
+            <div
+              className={`border border-white/20 rounded-full py-1.5 text-white h-[42px] w-max text-xs md:text-base px-4 flex items-center gap-3`}
+            >
               <svg
                 width={16}
                 height={16}

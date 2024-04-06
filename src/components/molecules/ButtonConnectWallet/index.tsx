@@ -4,7 +4,13 @@ import { ButtonGlow } from "@/components";
 import { formatAddress } from "@/utils";
 import { useTranslation } from "react-i18next";
 
-export const ButtonConnectWallet = ({ className }: { className?: string }) => {
+export const ButtonConnectWallet = ({
+  className,
+  classNameButton,
+}: {
+  className?: string;
+  classNameButton?: string;
+}) => {
   const { open } = useWeb3Modal();
   const { t } = useTranslation();
   const { address, isConnected } = useAccount();
@@ -16,6 +22,7 @@ export const ButtonConnectWallet = ({ className }: { className?: string }) => {
     <div className={className}>
       {!isConnected ? (
         <ButtonGlow
+          classNameButton={classNameButton}
           classNameContent="text-sm   text-center font-semibold"
           onClick={() => open()}
         >
@@ -24,6 +31,7 @@ export const ButtonConnectWallet = ({ className }: { className?: string }) => {
       ) : (
         <ButtonGlow
           className="flex gap-3"
+          classNameButton={classNameButton}
           onClick={() => open({ view: "Account" })}
         >
           {ensAvatar ? (

@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink } from "react-router-dom";
 import { IcWeb } from "@/assets/icons";
 import { useTranslation } from "react-i18next";
-import { Menu, Transition } from "@headlessui/react";
+import { Transition, Dialog, Menu } from "@headlessui/react";
 import { langs, Language } from "@/locales/langs";
 
 const navLink = [
@@ -43,6 +43,8 @@ const navLink = [
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
   const [toggle, setToggle] = useState(false);
+  const [open, setOpen] = useState(false);
+
   return (
     <div
       className="fixed top-0 bg-dark2 backdrop-blur-lg 
@@ -50,39 +52,41 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
     >
       <div className={` ${isLanding ? "layout" : "layout-dashboard"}`}>
         <div className="flex items-center justify-between">
-          <Link to="/" className=" ">
-            <img
-              src="/images/brand.png"
-              className="cursor-pointer w-full relative h-10 z-[999]"
-              alt=""
-            />
-          </Link>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => setToggle(!toggle)}
+              className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  md:hidden"
+            >
+              <span
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                  toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
+                }`}
+              />
+              <span
+                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${
+                  toggle ? "translate-x-3 opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                  toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
+                }`}
+              />
+            </button>
+            <Link to="/" className=" ">
+              <img
+                src="/images/brand.png"
+                className="cursor-pointer w-full relative h-10 z-[999]"
+                alt=""
+              />
+            </Link>
+          </div>
 
-          <button
-            type="button"
-            onClick={() => setToggle(!toggle)}
-            className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md bg-primary text-lg hover:bg-primary md:hidden"
-          >
-            <span
-              className={`absolute h-[2px] w-[20px] transform rounded bg-white transition  ${
-                toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
-              }`}
-            />
-            <span
-              className={`h-[2px] w-[20px] transform rounded bg-white transition  absolute${
-                toggle ? "translate-x-3 opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`absolute h-[2px] w-[20px] transform rounded bg-white transition  ${
-                toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
-              }`}
-            />
-          </button>
           <AnimatePresence>
             {toggle && (
               <motion.div
-                className="fixed overflow-hidden justify-between flex flex-col bottom-0 right-0 top-0 z-[60] h-full min-h-screen bg-black  lg:hidden"
+                className="fixed overflow-hidden justify-between flex flex-col bottom-0 left-0 top-0 z-[60] h-full min-h-screen bg-black  lg:hidden"
                 initial={{ width: 0 }}
                 animate={{
                   width: "100%",
@@ -105,17 +109,21 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           }
                           onClick={() => setToggle(false)}
                         >
-                          {item.name}
+                          {t(`navbar.menu.${item.code}`)}
                         </NavLink>
                       </li>
                     ))}
                 </ul>
-                <div className="p-5">
-                  <div className="border-animate-wrapper cursor-pointer rounded-full lg:w-[450px] lg:min-w--[150px] lg:min-h-[48px] w-full h-[60px]">
-                    <div className="border-animate-content text-white bg-gradient-to-l from-[#2F292B] to-[#040102] rounded-full flex items-center justify-center">
-                      Connect Wallet
-                    </div>
+                <div className="flex layout items-center justify-between gap-3">
+                  <div className="py-5">
+                    <ButtonConnectWallet classNameButton="!w-[200px]" />
                   </div>
+                  <ButtonGlow
+                    onClick={() => setOpen(!open)}
+                    className="w-12 p-0"
+                  >
+                    <IcWeb className="text-white" />
+                  </ButtonGlow>
                 </div>
               </motion.div>
             )}
@@ -170,11 +178,19 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                             <Menu.Item key={lang.abbr}>
                               <button
                                 onClick={() => i18n.changeLanguage(lang.abbr)}
-                                className="flex items-center px-6 border border-soft/45 text-center py-3 rounded-full justify-center"
+                                className={`flex items-center px-6 gap-1 border text-center py-3 rounded-full justify-center ${
+                                  i18n.language === lang.abbr
+                                    ? "border-primary"
+                                    : "border-soft/45"
+                                }`}
                               >
-                                {/* <div>
-                                  <IcWeb className="text-white" />
-                                </div> */}
+                                <div>
+                                  <img
+                                    src={lang.icon}
+                                    className="w-5 h-5"
+                                    alt="icon-lang"
+                                  />
+                                </div>
                                 <div
                                   className={`${
                                     i18n.language === lang.abbr
@@ -197,6 +213,83 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
           </div>
         </div>
       </div>
+
+      <Transition appear show={open} as={Fragment}>
+        <Dialog as="div" className="relative" onClose={() => setOpen(!open)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 z-[99]  bg-black/50 " />
+          </Transition.Child>
+
+          <div className="fixed z-[999] backdrop-blur-sm inset-0 overflow-y-auto">
+            <div className="flex min-h-full   items-center justify-center p-4">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full h-full  max-w-3xl transform overflow-hidden  relative bg-dark border-soft/15 rounded-lg border  p-2  shadow-xl transition-all">
+                  <div className="py-6">
+                    <div className="text-center font-bold text-white">
+                      {t("tags.language")}
+                    </div>
+                    <div className="mt-4 grid grid-cols-3  gap-3">
+                      {langs.map((lang: Language) => (
+                        <div key={lang.abbr}>
+                          <button
+                            onClick={() => i18n.changeLanguage(lang.abbr)}
+                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${
+                              i18n.language === lang.abbr
+                                ? "border-primary"
+                                : "border-soft/45"
+                            }`}
+                          >
+                            <div>
+                              <img
+                                src={lang.icon}
+                                className="w-4 h-4"
+                                alt="icon-lang"
+                              />
+                            </div>
+                            <div
+                              className={`${
+                                i18n.language === lang.abbr
+                                  ? "  text-primary"
+                                  : " text-white"
+                              } text-sm `}
+                            >
+                              {lang.nativeName}
+                            </div>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => setOpen(!open)}
+                      className="p-4 w-full bg-primary rounded-full"
+                    >
+                      {t("button.continue")}
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 };

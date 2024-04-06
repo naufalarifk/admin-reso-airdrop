@@ -45,7 +45,9 @@ export const MultipleSelectCoin: React.FC<MultipleSelectProps> = memo(
                 onClick={handleButtonClick}
               >
                 {selectedOptions.length === 0 ? (
-                  <span className="text-soft">{placeholder}</span>
+                  <span className="text-soft text-sm md:text-base">
+                    {placeholder}
+                  </span>
                 ) : (
                   selectedOptions.map((option, i) => (
                     <picture className="flex gap-2" key={option.uuid}>
@@ -112,7 +114,7 @@ export const MultipleSelectCoin: React.FC<MultipleSelectProps> = memo(
                                     selected
                                       ? "font-semibold"
                                       : "font-normal text-soft"
-                                  } block truncate`}
+                                  } block truncate text-sm md:text-base`}
                                 >
                                   {option.name} - {option.symbol}
                                 </span>
