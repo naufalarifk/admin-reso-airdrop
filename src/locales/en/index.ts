@@ -72,7 +72,7 @@ export const EN_TRANSLATION = {
         one: "Connect your wallet  and Unlock a realm of",
         two: "exclusive benefits waiting for you",
       },
-      desc: `Exciting news! Reso lets you connect with various crypto wallets,
+      desc: `Exciting news! Rectoverso lets you connect with various crypto wallets,
       ensuring you have the freedom to choose what works best for you`,
     },
     tags: {
@@ -87,22 +87,22 @@ export const EN_TRANSLATION = {
         two: "actually need",
       },
       desc: `Don't miss out - secure your spot today and elevate your
-      crypto journey with Reso`,
+      crypto journey with Rectoverso`,
     },
   },
   terms: {
-    title: "Reso Exchange - Terms and Conditions",
+    title: "Rectoverso Exchange - Terms and Conditions",
     subtitle: {
       one: `Please read these terms and conditions carefully before using
-      the Reso Crypto Exchange website`,
-      link: "(https://reso.io/)",
-      two: " operated by Reso.",
+      the Rectoverso Crypto Exchange website`,
+      link: "(https://Rectoverso.io/)",
+      two: " operated by Rectoverso.",
     },
     body: {
       section: {
         one: {
           title: " 1. Acceptance of Terms",
-          desc: `By accessing or using the Reso Crypto Exchange website and
+          desc: `By accessing or using the Rectoverso Crypto Exchange website and
           services, you agree to be bound by these Terms and Conditions. If
           you do not agree to all the terms and conditions, please do not
           use our services.`,
@@ -111,8 +111,8 @@ export const EN_TRANSLATION = {
           title: "2. Account Registration",
           subtitle: {
             one: {
-              heading: "2.1. To use Reso Crypto Exchange",
-              desc: `To use Reso Crypto Exchange, users must register an account by
+              heading: "2.1. To use Rectoverso Crypto Exchange",
+              desc: `To use Rectoverso Crypto Exchange, users must register an account by
               providing a valid email address and completing the KYC (Know Your
               Customer) process, which may include submitting a national
               identity document.`,
@@ -124,8 +124,8 @@ export const EN_TRANSLATION = {
               with others.`,
             },
             three: {
-              heading: "2.3. Reso reserves the right to refuse service",
-              desc: `Reso reserves the right to refuse service, terminate accounts, or
+              heading: "2.3. Rectoverso reserves the right to refuse service",
+              desc: `Rectoverso reserves the right to refuse service, terminate accounts, or
               remove or edit content in its sole discretion`,
             },
           },
@@ -134,8 +134,8 @@ export const EN_TRANSLATION = {
           title: "3. Trading and Transactions",
           subtitle: {
             one: {
-              heading: "3.1. Reso provides a centralized",
-              desc: `Reso provides a centralized crypto exchange platform where users
+              heading: "3.1. Rectoverso provides a centralized",
+              desc: `Rectoverso provides a centralized crypto exchange platform where users
               can trade cryptocurrencies.`,
             },
             two: {
@@ -144,8 +144,8 @@ export const EN_TRANSLATION = {
               the platform.`,
             },
             three: {
-              heading: " 3.3. All transactions on Reso Crypto Exchange",
-              desc: `All transactions on Reso Crypto Exchange are subject to applicable
+              heading: " 3.3. All transactions on Rectoverso Crypto Exchange",
+              desc: `All transactions on Rectoverso Crypto Exchange are subject to applicable
               fees, which will be clearly communicated during the transaction
               process.`,
             },
@@ -172,14 +172,15 @@ export const EN_TRANSLATION = {
           title: " 5. Privacy and Data Security",
           subtitle: {
             one: {
-              heading: "5.1. Reso is committed to protecting user privacy",
-              desc: `Reso is committed to protecting user privacy. Personal and
+              heading:
+                "5.1. Rectoverso is committed to protecting user privacy",
+              desc: `Rectoverso is committed to protecting user privacy. Personal and
               financial information is handled in accordance with our Privacy
               Policy.`,
             },
             two: {
-              heading: " 5.2. Reso never shares user data",
-              desc: `Reso never shares user data with third parties for marketing
+              heading: " 5.2. Rectoverso never shares user data",
+              desc: `Rectoverso never shares user data with third parties for marketing
               purposes.`,
             },
           },
@@ -191,27 +192,27 @@ export const EN_TRANSLATION = {
               heading: `6.1. Users agree not to engage in any illegal or unauthorized
               activities`,
               desc: `Users agree not to engage in any illegal or unauthorized
-              activities on the Reso Crypto Exchange, including but not limited
-              to fraud, money laundering, and unauthorized access to Reso
+              activities on the Rectoverso Crypto Exchange, including but not limited
+              to fraud, money laundering, and unauthorized access to Rectoverso
               systems.`,
             },
             two: {
-              heading: `6.2. Reso reserves the right to investigate`,
-              desc: `Reso reserves the right to investigate and take appropriate legal
+              heading: `6.2. Rectoverso reserves the right to investigate`,
+              desc: `Rectoverso reserves the right to investigate and take appropriate legal
               action against anyone engaging in prohibited activities.`,
             },
           },
         },
         seven: {
           title: "7. Support",
-          desc: ` For assistance with any issues related to the Reso Crypto
-          Exchange, users can contact our support team at support@Reso.io.`,
+          desc: ` For assistance with any issues related to the Rectoverso Crypto
+          Exchange, users can contact our support team at support@Rectoverso.io.`,
         },
         eight: {
           title: " 8. Changes to Terms and Conditions",
-          desc: ` Reso reserves the right to update or modify these Terms and
+          desc: ` Rectoverso reserves the right to update or modify these Terms and
           Conditions at any time without prior notice. Users are encouraged
-          to review the terms regularly. By using the Reso Crypto Exchange,
+          to review the terms regularly. By using the Rectoverso Crypto Exchange,
           you agree to be bound by the most current version of these Terms
           and Conditions . These Terms and Conditions were last updated on
           [Date].`,
@@ -423,19 +424,24 @@ export const EN_TRANSLATION = {
     submit: "Submit",
     unstake: "Unstake",
     claim: "Claim",
+    save: "Save",
   },
   tags: {
     language: "Language",
   },
   footer: {
-    desc: "Welcome to Reso - your passport to the future of decentralized finance! Trade, swap, stake, and bridge your assets effortlessly with our intuitive platform. Whether you're a seasoned investor or just starting out, Reso makes navigating the world of digital assets a breeze. Say goodbye to complexity and hello to limitless possibilities. Join us today and unlock a new era of financial freedom!",
+    desc: "Welcome to Rectoverso - your passport to the future of decentralized finance! Trade, swap, stake, and bridge your assets effortlessly with our intuitive platform. Whether you're a seasoned investor or just starting out, Rectoverso makes navigating the world of digital assets a breeze. Say goodbye to complexity and hello to limitless possibilities. Join us today and unlock a new era of financial freedom!",
     title: {
       one: "About",
       two: "Support",
       three: "FAQ",
     },
+    privacy: "Privacy Policy",
+    terms: "Terms and Conditions",
+    blog: "Blog",
+    about: "About Us",
   },
-    global: {
+  global: {
     noData: "No Data",
     activate: "Activate",
     ended: "Ended",
@@ -446,18 +452,18 @@ export const EN_TRANSLATION = {
   },
   trade: {
     tokenList: {
-      allMarkets: 'All Markets',
-      twentyFourChange: '24 Change',
-      twentyFourHigh: '24 High',
-      twentyFourLow: '24 Low',
-      twentyFourVol: '24h Vol (BTC)',
-      marketCap: 'Market Cap',
-      tradingActivity: 'Trading Activity',
-      buy: 'Buy',
-      sell: 'Sell',
-      popular: 'Popular',
-      all: 'All',
-      marketSentiment: 'Market Sentiment',
+      allMarkets: "All Markets",
+      twentyFourChange: "24 Change",
+      twentyFourHigh: "24 High",
+      twentyFourLow: "24 Low",
+      twentyFourVol: "24h Vol (BTC)",
+      marketCap: "Market Cap",
+      tradingActivity: "Trading Activity",
+      buy: "Buy",
+      sell: "Sell",
+      popular: "Popular",
+      all: "All",
+      marketSentiment: "Market Sentiment",
     },
     tradeComponent: {
       trade: "Trade",
@@ -481,7 +487,7 @@ export const EN_TRANSLATION = {
       entryPrice: "Entry Price",
       liqPrice: "Liq Price",
       feesAndPriceImpact: "Fees (rebated) and Price impact",
-      insufficientBalance: "Insufficient Balance"
-    }
-  }
+      insufficientBalance: "Insufficient Balance",
+    },
+  },
 };

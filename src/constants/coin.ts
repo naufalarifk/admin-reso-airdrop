@@ -188,7 +188,7 @@ export const COIN = [
   {
     uuid: "WcwrkfNI4FUAe",
     symbol: "BNB",
-    name: "BNB",
+    name: "Binance",
     color: "#e8b342",
     iconUrl: "https://cdn.coinranking.com/B1N19L_dZ/bnb.svg",
     marketCap: "83579660158",

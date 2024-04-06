@@ -37,7 +37,7 @@ export const Footer = () => {
                       href="#"
                       className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
                     >
-                      About Us
+                      {t("footer.about")}
                     </a>
                   </li>
                   <li>
@@ -45,7 +45,7 @@ export const Footer = () => {
                       href="#"
                       className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
                     >
-                      Blog
+                      {t("footer.blog")}
                     </a>
                   </li>
                   <li>
@@ -53,7 +53,7 @@ export const Footer = () => {
                       to="/terms"
                       className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
                     >
-                      Terms of Condition
+                      {t("footer.terms")}
                     </Link>
                   </li>
                   <li>
@@ -61,7 +61,7 @@ export const Footer = () => {
                       to="/privacy"
                       className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
                     >
-                      Privacy Policy
+                      {t("footer.privacy")}
                     </Link>
                   </li>
                 </ul>
@@ -71,22 +71,6 @@ export const Footer = () => {
                   {t("footer.title.two")}
                 </h2>
                 <ul className="text-soft font-medium space-y-4">
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Contact us
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
-                    >
-                      Online Chat
-                    </a>
-                  </li>
                   <li>
                     <a
                       href="#"

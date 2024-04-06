@@ -72,18 +72,38 @@ export const ModalAddStaking = ({
               <Dialog.Panel className="w-full h-full  max-w-3xl transform overflow-hidden  relative bg-dark border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="text-2xl font-semibold mb-1 text-white">
+                    <div className="text-lg md:text-2xl font-semibold mb-1 text-white">
                       {t("staking.add.card.title")}
                     </div>
-                    <div className="text-soft">
+                    <div className="text-sm md:tex-base text-soft">
                       {t("staking.add.card.subtitle")}
                     </div>
+                  </div>
+                  <div onClick={closeModal} className="cursor-pointer">
+                    <svg
+                      width={24}
+                      height={25}
+                      viewBox="0 0 24 25"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 2C6.15 2 1.5 6.65 1.5 12.5S6.15 23 12 23s10.5-4.65 10.5-10.5S17.85 2 12 2zm0 19.5c-4.95 0-9-4.05-9-9s4.05-9 9-9 9 4.05 9 9-4.05 9-9 9z"
+                        fill="#90A3BF"
+                      />
+                      <path
+                        d="M16.05 17.75L12 13.7l-4.05 4.05-1.2-1.2 4.05-4.05-4.05-4.05 1.2-1.2L12 11.3l4.05-4.05 1.2 1.2-4.05 4.05 4.05 4.05-1.2 1.2z"
+                        fill="#90A3BF"
+                      />
+                    </svg>
                   </div>
                 </div>
                 <div className="mt-6">
                   <div className="space-y-4">
                     <div className="space-y-3">
-                      <label>{t("staking.add.card.form.one.label")}</label>
+                      <label className="text-sm md:text-base">
+                        {t("staking.add.card.form.one.label")}
+                      </label>
                       <MultipleSelectCoin
                         options={coins}
                         setSelectedOptions={handleSelectedOptions}
@@ -94,7 +114,7 @@ export const ModalAddStaking = ({
                     {selectedOptions.length >= 2 &&
                       selectedOptions !== null && (
                         <div className="space-y-3">
-                          <label>
+                          <label className="text-sm md:text-base">
                             {selectedOptions[0]?.name} (
                             {selectedOptions[0]?.symbol}){" "}
                           </label>
@@ -104,7 +124,7 @@ export const ModalAddStaking = ({
                               placeholder={`${t(
                                 "staking.add.card.form.two.placeholder"
                               )}`}
-                              className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                              className="p-4 placeholder:text-sm placeholder:md:text-base block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                             />
                             <img
                               src={selectedOptions[0]?.iconUrl}
@@ -117,7 +137,7 @@ export const ModalAddStaking = ({
                     {selectedOptions.length >= 2 &&
                       selectedOptions !== null && (
                         <div className="space-y-3">
-                          <label>
+                          <label className="text-sm md:text-base">
                             {selectedOptions[1]?.name} (
                             {selectedOptions[1]?.symbol})
                           </label>
@@ -127,7 +147,7 @@ export const ModalAddStaking = ({
                               placeholder={`${t(
                                 "staking.add.card.form.two.placeholder"
                               )}`}
-                              className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                              className="p-4 block w-full border placeholder:text-sm placeholder:md:text-base border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                             />
                             <img
                               src={selectedOptions[1]?.iconUrl}
@@ -138,7 +158,7 @@ export const ModalAddStaking = ({
                         </div>
                       )}
                     <div>
-                      <div className="text-white mb-3">
+                      <div className="text-white mb-3 text-sm md:text-base">
                         {t("staking.add.card.form.three.label")}
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
@@ -148,7 +168,7 @@ export const ModalAddStaking = ({
                             placeholder={t(
                               "staking.add.card.form.three.placeholder.one"
                             )}
-                            className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                            className="p-4 block placeholder:text-sm placeholder:md:text-base w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                           />
                         </div>
                         <div className="space-y-3">
@@ -157,13 +177,15 @@ export const ModalAddStaking = ({
                             placeholder={t(
                               "staking.add.card.form.three.placeholder.two"
                             )}
-                            className="p-4 block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                            className="p-4 block w-full placeholder:text-sm placeholder:md:text-base border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                           />
                         </div>
                       </div>
                     </div>
                     <div className="space-y-3">
-                      <label>{t("staking.add.card.form.four.label")}</label>
+                      <label className="text-sm md:text-base">
+                        {t("staking.add.card.form.four.label")}
+                      </label>
                       <input
                         type="text"
                         placeholder={`${t(
@@ -173,7 +195,7 @@ export const ModalAddStaking = ({
                       />
                     </div>
                     <div>
-                      <div className="text-white mb-3">
+                      <div className="text-white text-sm md:text-base mb-3">
                         {t("staking.add.card.form.five.label")}
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
@@ -189,7 +211,7 @@ export const ModalAddStaking = ({
                                 {startDate ? (
                                   format(startDate, "dd/MM/yyyy")
                                 ) : (
-                                  <span className="text-soft">
+                                  <span className="text-soft text-sm md:text-base">
                                     {t(
                                       "staking.add.card.form.five.placeholder.one"
                                     )}
@@ -231,7 +253,7 @@ export const ModalAddStaking = ({
                                 {endDate ? (
                                   format(endDate, "dd/MM/yyyy")
                                 ) : (
-                                  <span className="text-soft">
+                                  <span className="text-soft text-sm md:text-base">
                                     {t(
                                       "staking.add.card.form.five.placeholder.two"
                                     )}
@@ -265,7 +287,7 @@ export const ModalAddStaking = ({
                     </div>
                   </div>
                   <div className="bg-secondary/10 rounded-lg p-3 mt-6">
-                    <div className="text-secondary text-base font-medium">
+                    <div className="text-secondary text-sm md:text-base font-medium">
                       {t("global.requirement")}
                     </div>
                     <ul className="list-disc text-xs text-secondary space-y-1 list-inside">
@@ -274,11 +296,11 @@ export const ModalAddStaking = ({
                     </ul>
                   </div>
                   <div className="bg-dark2 rounded-lg p-4 my-6">
-                    <div className="font-semibold text-base">
+                    <div className="font-semibold text-sm md:text-base">
                       {t("staking.add.card.info.reward")}
                     </div>
-                    <div className="space-y-2 mt-3">
-                      <div className="flex justify-between items-center">
+                    <div className="space-y-2 mt-3 text-sm md:text-base">
+                      <div className="flex justify-between text-sm md:text-base items-center">
                         <div className="text-soft">
                           {t("staking.layout.info.one")}
                         </div>
