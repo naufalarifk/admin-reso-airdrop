@@ -1,5 +1,5 @@
-import { IcBitcoin, IcDiscord, IcDropdown, IcMedium, IcRoundAdd, IcSwapHorizontal, IcTelegram, IcThreeDotsVertical, IcWeb, IcX } from "@/assets/icons";
-import { BridgeInput, Button, Input, PoolSteps, Text } from "@/components"
+import { IcBitcoin, IcDiscord, IcDropdown, IcMedium, IcRoundAdd, IcTelegram, IcWeb, IcX } from "@/assets/icons";
+import { Button, Input, PoolSteps, Text } from "@/components"
 import { Dispatch, useState } from "react"
 
 interface ChildrenProps {
