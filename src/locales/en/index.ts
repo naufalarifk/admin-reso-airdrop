@@ -434,9 +434,10 @@ export const EN_TRANSLATION = {
     title: {
       one: "About",
       two: "Support",
+      three: "FAQ",
     },
   },
-  global: {
+    global: {
     noData: "No Data",
     activate: "Activate",
     ended: "Ended",
@@ -445,4 +446,44 @@ export const EN_TRANSLATION = {
     requirement: "Requirement",
     max: "MAX",
   },
+  trade: {
+    tokenList: {
+      allMarkets: 'All Markets',
+      twentyFourChange: '24 Change',
+      twentyFourHigh: '24 High',
+      twentyFourLow: '24 Low',
+      twentyFourVol: '24h Vol (BTC)',
+      marketCap: 'Market Cap',
+      tradingActivity: 'Trading Activity',
+      buy: 'Buy',
+      sell: 'Sell',
+      popular: 'Popular',
+      all: 'All',
+      marketSentiment: 'Market Sentiment',
+    },
+    tradeComponent: {
+      trade: "Trade",
+      history: "History",
+      long: "Long",
+      short: "Short",
+      swap: "Swap",
+      market: "Market",
+      limit: "Limit",
+      tp: "TP/SL",
+      pay: "Pay",
+      receive: "Receive",
+      balance: "Balance",
+      price: "Price",
+      mark: "Mark",
+      max: "Max",
+      pool: "Pool",
+      leverageSlider: "Leverage Slider",
+      collateralIn: "Collateral In",
+      leverage: "Leverage",
+      entryPrice: "Entry Price",
+      liqPrice: "Liq Price",
+      feesAndPriceImpact: "Fees (rebated) and Price impact",
+      insufficientBalance: "Insufficient Balance"
+    }
+  }
 };
