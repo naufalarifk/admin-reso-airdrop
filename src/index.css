@@ -42,6 +42,17 @@
     margin: 0;
   }
 
+  .clip-hexa {
+    --hexagon-size: 36px; /* Adjust the size as needed */
+    --hexagon-border-radius: 11px; /* Adjust the border radius as needed */
+    width: var(--hexagon-size);
+    height: calc(
+      var(--hexagon-size) * 0.366
+    ); /* Ensures correct height for hexagon */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border-radius: var(--hexagon-border-radius);
+  }
+
   /* Firefox */
   input[type="number"] {
     -moz-appearance: textfield;

@@ -1,12 +1,13 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { MultipleSelectCoin } from "@/components/molecules";
+import { InfoRewardStake, MultipleSelectCoin } from "@/components/molecules";
 import { format } from "date-fns";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
   Calendar,
+  BalanceInput,
 } from "@/components/atoms";
 import { cn } from "@/utils";
 
@@ -24,8 +25,8 @@ interface ModalAddStakeProps {
   endDate: Date | undefined;
   setEndDate: (date: Date | undefined) => void;
   totalValueLocked?: string;
-  estimatedAPY?: string;
-  totalReward?: string;
+  estimatedAPY?: string | number;
+  totalReward?: string | number;
 }
 
 export const ModalAddStaking = ({
@@ -119,12 +120,21 @@ export const ModalAddStaking = ({
                             {selectedOptions[0]?.symbol}){" "}
                           </label>
                           <div className="relative">
-                            <input
+                            {/* <input
                               type="text"
                               placeholder={`${t(
                                 "staking.add.card.form.two.placeholder"
                               )}`}
                               className="p-4 placeholder:text-sm placeholder:md:text-base block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
+                            /> */}
+                            <BalanceInput
+                              placeholder={`${t(
+                                "staking.add.card.form.two.placeholder"
+                              )}`}
+                              value={""}
+                              onUserInput={function (input: string): void {
+                                input;
+                              }}
                             />
                             <img
                               src={selectedOptions[0]?.iconUrl}
@@ -295,31 +305,11 @@ export const ModalAddStaking = ({
                       <li>{t("staking.add.card.info.list.two")}</li>
                     </ul>
                   </div>
-                  <div className="bg-dark2 rounded-lg p-4 my-6">
-                    <div className="font-semibold text-sm md:text-base">
-                      {t("staking.add.card.info.reward")}
-                    </div>
-                    <div className="space-y-2 mt-3 text-sm md:text-base">
-                      <div className="flex justify-between text-sm md:text-base items-center">
-                        <div className="text-soft">
-                          {t("staking.layout.info.one")}
-                        </div>
-                        <div className="text-white">~${totalValueLocked}</div>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <div className="text-soft">
-                          {t("staking.add.card.info.estimatedAPY")}
-                        </div>
-                        <div className="text-white">~{estimatedAPY}%</div>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <div className="text-soft">
-                          {t("staking.add.card.info.estimatedTotalReward")}
-                        </div>
-                        <div className="text-white">~${totalReward}</div>
-                      </div>
-                    </div>
-                  </div>
+                  <InfoRewardStake
+                    totalValueLocked={Number(totalValueLocked)}
+                    estimatedAPY={Number(estimatedAPY)}
+                    estimatedTotalReward={Number(totalReward)}
+                  />
                 </div>
                 <div>
                   <button

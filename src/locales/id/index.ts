@@ -349,10 +349,10 @@ export const ID_TRANSLATION = {
     card: {
       earn: "Dapatkan",
       stake: "Stake",
-      staked: "Telah Distake",
+      staked: "Telah di stake",
       rewardCard: "Dapatkan Reward",
       apy: "APY",
-      totalStaked: "Total yang Distake",
+      totalStaked: "Total yang di stake",
       end: "Selesai",
     },
     add: {
@@ -398,8 +398,8 @@ export const ID_TRANSLATION = {
       },
     },
     create: {
-      available: "Tersedia untuk Distake",
-      totalStaked: "Total yang Distake",
+      available: "Tersedia untuk di stake",
+      totalStaked: "Total yang di stake",
       stakeCountDown: "Hitung Mundur Staking",
       stakeRewards: "Reward Staking",
       yourStaked: "Yang Telah Anda Staking",
