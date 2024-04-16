@@ -9,9 +9,9 @@ export const StakeLayout = () => {
   return (
     <div className="relative">
       <Header />
-
-      <IcPattern className="absolute -top-[200px] w-full h-full" />
-
+      <div className="fixed w-full h-full">
+        <IcPattern className="absolute w-full" />
+      </div>
       <div className="layout h-full min-h-screen max-w-5xl">
         <div className="relative py-28">
           <div className="flex items-center justify-center">
@@ -49,7 +49,7 @@ export const StakeLayout = () => {
                     {t("staking.layout.info.three")}
                   </div>
                   <div className="text-white font-semibold text-sm md:text-xl">
-                    ~$79.323
+                    ~$ <Balance value={79323} />
                   </div>
                 </div>
               </div>

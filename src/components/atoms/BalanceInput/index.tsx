@@ -24,6 +24,7 @@ export const BalanceInput = ({
         type="text"
         inputMode="decimal"
         min="0"
+        className="p-4 placeholder:text-sm placeholder:md:text-base block w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
         value={value}
         pattern={`^[0-9]*[.,]?[0-9]{0,${decimals}}$`}
         onChange={handleOnChange}

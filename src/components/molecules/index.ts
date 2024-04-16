@@ -6,8 +6,9 @@ export * from "./BridgeInput";
 export * from "./TokenList";
 export * from "./Footer";
 export * from "./ButtonConnectWallet";
-export * from "./OrderBookSwap"
-export * from "./Pagination"
+export * from "./OrderBookSwap";
+export * from "./Pagination";
 export * from "./SelectMultipleCoin";
 export * from "./OrderBookSwap";
-export * from "./PoolSteps"
+export * from "./PoolSteps";
+export * from "./InfoRewardStake";
