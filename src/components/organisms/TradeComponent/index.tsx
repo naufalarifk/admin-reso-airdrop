@@ -100,10 +100,19 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
                                         <Toggle label="" checked={toggleLeverage} onChange={setToggleLeverage} />
                                     </div>
                                     <div className="flex items-center space-x-2">
-                                        <Slider step={0.1} value={leverage} onChange={e => setLeverage(e)} min={0} max={100} />
-                                        <Input style={{
+                                        <Slider
+                                            defaultValue={[0]}
+                                            max={100}
+                                            value={[leverage]}
+                                            className={"w-[80%]"}
+                                            onValueChange={(e) => setLeverage(e as unknown as number)}
+                                        />
+                                        <div style={{
                                             background: `#171923`
-                                        }} className="p-2 w-1/5 h-auto text-[#F23F5D]" value={leverage} placeholder={leverage.toString()} onChange={handleChangeInputSlider} />
+                                        }} className="flex items-center w-1/5 p-2 h-10 rounded-lg">
+                                            <Input className="w-1/2 text-[#F23F5D] bg-transparent text-right" max={100} value={leverage} placeholder={leverage.toString()} onChange={handleChangeInputSlider} />
+                                            <Text className="text-[#F23F5D]">x</Text>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="hidden lg:flex justify-between space-x-1">

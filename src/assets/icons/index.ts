@@ -28,3 +28,5 @@ export * from "./IcUnstableConnection";
 export * from "./IcRoundAdd"
 export * from "./IcX"
 export * from "./IcMedium"
+export * from "./IcExternalLink";
+export * from "./IcCancel";
