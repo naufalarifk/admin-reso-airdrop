@@ -1,4 +1,4 @@
-import { IcBitcoin, IcDropdown, IcThreeDotsVertical, } from "@/assets/icons";
+import { IcBitcoin, IcDropdown, IcArrowUp, IcSwapHorizontal, IcThreeDotsVertical, } from "@/assets/icons";
 import { Button, Input, Text, Toggle } from "@/components"
 import { Slider } from "@/components/atoms/Slider";
 import { SwapComponent } from "@/components/molecules/SwapComponent";
@@ -24,6 +24,7 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
     const [leverage, setLeverage] = useState(0)
     const [selectedMenu, setSelectedMenu] = useState('market')
     const [toggleLeverage, setToggleLeverage] = useState(false)
+    const [expand, setExpand] = useState(false)
     const menu = ['market', 'limit', 'tp']
 
 
@@ -43,11 +44,11 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
             <div className="flex space-x-2 w-full">
                 <Button onClick={() => setIsActive("Long")} style={{
                     clipPath: `polygon(8% 0, 80% 0%, 100% 0, 100% 100%, 80% 100%, 20% 100%, 0 100%, 0 21%)`
-                }} className={`w-1/3 rounded-none ${isActive === 'Long' ? `bg-[#F23F5D]` : `bg-[#0E0F19]`}`}>{t('trade.tradeComponent.long')}</Button>
-                <Button onClick={() => setIsActive("Short")} className={`w-1/3 rounded-none ${isActive === 'Short' ? `bg-[#F23F5D]` : `bg-[#0E0F19]`}`}>{t('trade.tradeComponent.short')}</Button>
+                }} className={`w-1/3 rounded-none ${isActive === 'Long' ? `bg-[#F23F5D]` : `bg-[#0E0F19]`}`}>{t('trade.tradeComponent.long')}<IcArrowUp /></Button>
+                <Button onClick={() => setIsActive("Short")} className={`w-1/3 rounded-none ${isActive === 'Short' ? `bg-[#F23F5D]` : `bg-[#0E0F19]`}`}>{t('trade.tradeComponent.short')}<IcArrowUp className="rotate-180" /></Button>
                 <Button onClick={() => setIsActive("Swap")} style={{
                     clipPath: `polygon(0 0, 80% 0%, 100% 0, 100% 83%, 91% 100%, 20% 100%, 0 100%, 0 21%)`
-                }} className={`w-1/3 rounded-none ${isActive === 'Swap' ? `bg-[#F23F5D]` : `bg-[#0E0F19]`}`}>{t('trade.tradeComponent.swap')}</Button>
+                }} className={`w-1/3 rounded-none ${isActive === 'Swap' ? `bg-[#F23F5D]` : `bg-[#0E0F19]`}`}>{t('trade.tradeComponent.swap')}<IcSwapHorizontal color="white" /></Button>
             </div>
 
             <div className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4">
@@ -136,9 +137,42 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
                     </div>
                 </div>
                 <div className="w-full lg:w-1/2 px-4 py-6 space-y-2">
-                    <div className="p-4 space-y-2 flex justify-between items-center bg-[#0E0F19] rounded-lg">
-                        <Text className="text-white">{isActive} BTC</Text>
-                        <IcDropdown />
+                    <div className="p-4 space-y-2 bg-[#0E0F19] rounded-lg">
+                        <div className="flex justify-between items-center">
+                            <Text className="text-white">{isActive} BTC</Text>
+                            <IcDropdown className={`${expand && 'rotate-180'}`} onClick={() => setExpand(!expand)} />
+                        </div>
+                        {
+                            expand && <div className="mt-2">
+                                <div className="justify-between flex items-center">
+                                    <Text>Market</Text>
+                                    <Text>BTC/USD [BTC-USDC]</Text>
+                                </div>
+                                <div className="justify-between flex items-center">
+                                    <Text>Entry Price</Text>
+                                    <Text>$61.164.37</Text>
+                                </div>
+                                <div className="justify-between flex items-center">
+                                    <Text>Exit Price</Text>
+                                    <Text>$61.164.37</Text>
+                                </div>
+                                <div className="justify-between flex items-center">
+                                    <Text>Net Fee</Text>
+                                    <Text>-0.0087% / 1h</Text>
+                                </div>
+                                <div className="justify-between flex items-center">
+                                    <Text>Available Liquidity</Text>
+                                    <Text>$17.396.256.50</Text>
+                                </div>
+                                <div className="justify-between flex items-center">
+                                    <Text>Open Interest Balance</Text>
+                                    <div className="h-1 w-1/3 bg-[#F23F5D] rounded-full overflow-hidden">
+                                        <div className="h-full bg-green" style={{ width: '53%' }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                     </div>
                     <div className="bg-[#0E0F19] p-4 rounded-lg">
                         <div className="flex justify-between items-center">

@@ -32,3 +32,4 @@ export * from "./IcExternalLink";
 export * from "./IcCancel";
 export * from "./IcQuestionMark";
 export * from "./IcCopy";
+export * from "./IcArrowUp";
