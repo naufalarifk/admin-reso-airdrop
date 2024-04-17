@@ -7,9 +7,11 @@ import { useTranslation } from "react-i18next";
 export const ButtonConnectWallet = ({
   className,
   classNameButton,
+  shortname = false,
 }: {
   className?: string;
   classNameButton?: string;
+  shortname?: boolean;
 }) => {
   const { open } = useWeb3Modal();
   const { t } = useTranslation();
@@ -26,7 +28,7 @@ export const ButtonConnectWallet = ({
           classNameContent="text-sm   text-center font-semibold"
           onClick={() => open()}
         >
-          {t("button.connectWallet")}
+          {shortname ? "Connect" : t("button.connectWallet")}
         </ButtonGlow>
       ) : (
         <ButtonGlow
@@ -40,7 +42,7 @@ export const ButtonConnectWallet = ({
             <img className="avatar" src="/images/placeholder.svg" />
           )}
           {address && (
-            <div className="text-sm">
+            <div className="text-sm font-medium">
               {ensName ? `${ensName} (${formattedAddress})` : formattedAddress}
             </div>
           )}

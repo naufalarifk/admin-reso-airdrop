@@ -93,14 +93,14 @@ export const Staking = () => {
     <>
       <div>
         <Tabs
-          classNameWrapper="justify-between  flex gap-4 md:justify-start"
+          classNameWrapper="justify-between flex gap-4 md:justify-start"
           items={tabs}
           isBetween
           rightContent={
             <>
               <button
                 onClick={() => setOpenAddStakeModal(!openAddStakeModal)}
-                className="flex bg-dark py-2 px-3.5 text-soft text-sm font-medium items-center gap-2 rounded"
+                className="flex bg-dark py-2 px-3.5 text-center justify-center text-soft text-sm font-medium items-center gap-2 rounded"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
