@@ -47,14 +47,14 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const modal = useWeb3Modal();
-  const { chain } = useAccount();
+  const { chain, isConnected } = useAccount();
   const connections = useConnections();
   const { chains } = useConfig();
 
   const listChain = chains.map((c) => c.id);
   const currentChain = connections[0]?.chainId;
   const supportNetwork =
-    currentChain !== undefined && listChain.includes(currentChain);
+    currentChain !== undefined && listChain.some((e) => currentChain === e);
 
   return (
     <div
@@ -63,7 +63,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
     >
       <div className={` ${isLanding ? "layout" : "layout-dashboard"}`}>
         <div className="flex items-center justify-between">
-          <div className="flex gap-3">
+          <div className="flex  gap-3">
             <button
               type="button"
               onClick={() => setToggle(!toggle)}
@@ -93,6 +93,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               />
             </Link>
           </div>
+          <ButtonConnectWallet shortname classNameButton="!w-[130px]" />
 
           <AnimatePresence>
             {toggle && (
@@ -125,9 +126,40 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       </li>
                     ))}
                 </ul>
-                <div className="flex layout items-center justify-between gap-3">
-                  <div className="p-5">
-                    <ButtonConnectWallet classNameButton="!w-[200px]" />
+                <div className="flex  py-5 layout items-center justify-between gap-3">
+                  <div
+                    onClick={() => modal.open({ view: "Networks" })}
+                    className="cursor-pointer border-animate-wrapper rounded-full w-full h-12 px-20 py-5 "
+                  >
+                    <div className="border-animate-content w-full gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center">
+                      {chain && (
+                        <div className="flex w-8 h-9  clip-hexa items-center justify-center overflow-hidden bg-neutral-800">
+                          <img
+                            className="w-full h-full"
+                            src={chain?.custom?.icon as string}
+                          />
+                        </div>
+                      )}
+                      {!supportNetwork && isConnected && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                      {chain
+                        ? chain.name
+                        : !supportNetwork && isConnected
+                        ? "Network"
+                        : "Select network"}
+                    </div>
                   </div>
                   <ButtonGlow
                     onClick={() => setOpen(!open)}
@@ -162,7 +194,6 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
 
             {/* <div onClick={() => setOpenTokenList(!openTokenList)}>test</div> */}
             <div className="flex gap-2">
-              <ButtonConnectWallet />
               <div
                 onClick={() => modal.open({ view: "Networks" })}
                 className="cursor-pointer border-animate-wrapper rounded-full w-full px-28 "
@@ -176,7 +207,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       />
                     </div>
                   )}
-                  {!supportNetwork && (
+                  {!supportNetwork && isConnected && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -192,12 +223,12 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   )}
                   {chain
                     ? chain.name
-                    : !supportNetwork
+                    : !supportNetwork && isConnected
                     ? "Network"
                     : "Select network"}
                 </div>
               </div>
-
+              <ButtonConnectWallet />
               <Menu>
                 <>
                   <Menu.Button>

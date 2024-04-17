@@ -50,7 +50,7 @@ export const Tabs: FC<TabsProps> = ({
   };
   return (
     <>
-      <div className="bg-dark2 relative flex flex-wrap md:flex-nowrap justify-between  md:flex-row gap-5 md:gap-0  md:justify-between items-center  p-4 md:py-4 md:px-8  border-soft/15 rounded-2xl border-[0.5px]">
+      <div className="bg-dark2 relative grid place-items-center md:flex  gap-5 md:gap-0  md:justify-between   p-4 md:py-4 md:px-8  border-soft/15 rounded-2xl border-[0.5px]">
         <div
           className={
             (cn(

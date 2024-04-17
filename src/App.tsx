@@ -19,6 +19,12 @@ function App() {
       "--w3m-accent": "#F23F5D",
       "--w3m-border-radius-master": "8px",
     },
+    excludeWalletIds: [
+      "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0", // Trust
+      "fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa", // Coinbase
+      "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
+    ],
+    termsConditionsUrl: "https://www.mytermsandconditions.com",
   });
 
   const chainID = chains.map((c) => c.id);

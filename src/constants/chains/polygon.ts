@@ -7,13 +7,11 @@ export const matic = {
       http: ["https://polygon-rpc.com/"],
     },
   },
-
   nativeCurrency: {
     name: "MATIC",
     symbol: "MATIC",
     decimals: 18,
   },
-
   id: 137,
   blockExplorers: {
     default: {
