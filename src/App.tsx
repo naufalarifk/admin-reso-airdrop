@@ -1,44 +1,42 @@
 import { BrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/routes";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
-import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
-
 import { WagmiProvider } from "wagmi";
-import { arbitrum, mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SupportedChainsProvider } from "./hooks";
+import { chains, config } from "@/config";
 
 function App() {
   const queryClient = new QueryClient();
-  const projectId = "b19059d1209d33e9994a738bd1562013";
+  const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
 
-  const metadata = {
-    name: "Web3Modal",
-    description: "Web3Modal Example",
-    url: "https://web3modal.com", // origin must match your domain & subdomain
-    icons: ["https://avatars.githubusercontent.com/u/37784886"],
-  };
-
-  const chains = [mainnet, arbitrum] as const;
-  const config = defaultWagmiConfig({
-    chains,
-    projectId,
-    metadata,
-  });
-
-  // 3. Create modal
   createWeb3Modal({
     wagmiConfig: config,
     projectId,
     enableAnalytics: true, // Optional - defaults to your Cloud configuration
     enableOnramp: true, // Optional - false as default
+    themeVariables: {
+      "--w3m-accent": "#F23F5D",
+      "--w3m-border-radius-master": "8px",
+    },
+    excludeWalletIds: [
+      "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0", // Trust
+      "fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa", // Coinbase
+      "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
+    ],
+    termsConditionsUrl: "https://www.mytermsandconditions.com",
   });
+
+  const chainID = chains.map((c) => c.id);
 
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <RootLayout />
-        </BrowserRouter>
+        <SupportedChainsProvider supportedChains={chainID}>
+          <BrowserRouter>
+            <RootLayout />
+          </BrowserRouter>
+        </SupportedChainsProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
