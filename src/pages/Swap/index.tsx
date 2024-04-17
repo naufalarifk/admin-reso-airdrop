@@ -2,8 +2,9 @@ import { Button, Input, OrderBookSwap, Pagination } from "@/components"
 import TradingView from "@/components/organisms/TradingView"
 import { ChangeEvent, useState } from "react"
 import { Text } from "@/components"
-import { IcBitcoin, IcCancel, IcExternalLink, IcScrollV, IcThreeDotsVertical, IcUnstableConnection } from "@/assets/icons"
-import { Slider } from "@/components/atoms/Slider"
+import { IcBitcoin, IcCancel, IcExternalLink, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcUnstableConnection } from "@/assets/icons"
+import { Slider } from "@/components"
+import { SwapTable } from "@/components"
 
 
 export const Swap = () => {
@@ -66,6 +67,46 @@ export const Swap = () => {
             time: '18:13:01',
             txid: '2dw2...3gwr',
             status: 'Success'
+        },
+    ]
+
+    const owners_charts = [
+        {
+            rank: '1',
+            address: 'bc1q...njgk',
+            quantity: '2,561,667',
+        }
+    ]
+
+    const my_trades = [
+        {
+            date: 'Nov 22,2023',
+            time: '18:13:01',
+            assets: 'BTC/USDT',
+            order_id: 'TID103129412',
+            price: ' $ 123,322,412',
+            amount: '1.32515123',
+            type: 'Instant',
+            total: '$123,322,412',
+        },
+        {
+            date: 'Nov 22,2023',
+            time: '18:13:01',
+            assets: 'BTC/USDT',
+            order_id: 'TID103129412',
+            price: ' $ 123,322,412',
+            amount: '1.32515123',
+            type: 'Instant',
+            total: '$123,322,412',
+        }, {
+            date: 'Nov 22,2023',
+            time: '18:13:01',
+            assets: 'BTC/USDT',
+            order_id: 'TID103129412',
+            price: ' $ 123,322,412',
+            amount: '1.32515123',
+            type: 'Instant',
+            total: '$123,322,412',
         },
     ]
 
@@ -328,36 +369,59 @@ export const Swap = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-9 my-4 border-b text-center">
-                        <Text>#</Text>
-                        <Text>Address</Text>
-                        <Text>Protocol</Text>
-                        <Text>Type</Text>
-                        <Text>Pay</Text>
-                        <Text>Receive</Text>
-                        <Text>Time</Text>
-                        <Text>TxID</Text>
-                        <Text>Status</Text>
-                    </div>
 
                     {
-                        pool_swaps.map(pool => <div className="grid grid-cols-9 my-4 border-b text-center items-center">
-                            <Text>{pool.number}</Text>
-                            <Text>{pool.address}</Text>
-                            <Text>{pool.protocol}</Text>
-                            <Text>{pool.type}</Text>
-                            <Text>{pool.pay}</Text>
-                            <Text>{pool.receive}</Text>
-                            <div>
-                                <Text>{pool.date}</Text>
-                                <Text>{pool.time}</Text>
-                            </div>
-                            <Text>{pool.txid}</Text>
-                            <Text>{pool.status}</Text>
-                        </div>
-                        )
-                    }
-                    <Pagination />
+                        selectedPoolMenu === 'Pool Swaps' ?
+                            <>
+                                <SwapTable row={['#', 'Address', 'Protocol', 'Type', 'Pay', 'Receive', 'Time', 'TxID', 'Status']} col={
+                                    pool_swaps.map(pool => <div className="grid grid-cols-9 my-4 border-b text-center items-center">
+                                        <Text>{pool.number}</Text>
+                                        <Text>{pool.address}</Text>
+                                        <Text>{pool.protocol}</Text>
+                                        <Text>{pool.type}</Text>
+                                        <Text>{pool.pay}</Text>
+                                        <Text>{pool.receive}</Text>
+                                        <div>
+                                            <Text>{pool.date}</Text>
+                                            <Text>{pool.time}</Text>
+                                        </div>
+                                        <Text>{pool.txid}</Text>
+                                        <Text>{pool.status}</Text>
+                                    </div>
+                                    )
+                                } />
+                                <Pagination />
+                            </> : selectedPoolMenu === 'Owners Chart' ? <>
+                                <SwapTable row={['Rank', 'Address', 'Quantity']} col={
+                                    owners_charts.map(pool => <div className="grid grid-cols-3 my-4 border-b text-center items-center">
+                                        <Text>{pool.rank}</Text>
+                                        <Text>{pool.address}</Text>
+
+                                        <div className="flex space-x-1 items-center justify-center">
+                                            <Text>{pool.quantity}</Text>
+                                            <IcQuestionMark />
+                                        </div>
+                                    </div>
+                                    )
+                                } />
+                                <Pagination />
+                            </>
+                                : <>
+                                    <SwapTable row={['Date', 'Assets', 'Order ID', 'Price', 'Amount']} col={
+                                        my_trades.map(pool => <div className="grid grid-cols-5 my-4 border-b text-center items-center">
+                                            <div>
+                                                <Text>{pool.date}</Text>
+                                                <Text>{pool.time}</Text>
+                                            </div>
+                                            <Text>{pool.assets}</Text>
+                                            <Text>{pool.order_id}</Text>
+                                            <Text>{pool.price}</Text>
+                                            <Text>{pool.amount}</Text>
+                                        </div>
+                                        )
+                                    } />
+                                    <Pagination />
+                                </>}
                 </div>
                 <div style={{
                     borderRadius: `8px`,

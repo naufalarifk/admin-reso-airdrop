@@ -1,4 +1,4 @@
-import { IcBitcoin, IcCheck, IcSwapHorizontal } from "@/assets/icons"
+import { IcBitcoin, IcCheck, IcCopy, IcSwapHorizontal } from "@/assets/icons"
 import { BridgeInput, BridgeSteps, Button, Input, Text } from "@/components"
 import { Dispatch, useState } from "react"
 
@@ -122,12 +122,13 @@ const ThirdStep = ({ setStep, step }: ChildrenProps) => {
                             <IcBitcoin width="24" height="23" />
                         </div>
                     </div>
-                    <div className="flex justify-between items-center"><Text className="text-[#9F9F9F]">Send Token</Text><Text>0.000823</Text></div>
-                    <div className="flex justify-between items-center"><Text className="text-[#9F9F9F]">Receive Token</Text><Text>0.000823</Text></div>
-                    <div className="flex justify-between items-center"><Text className="text-[#9F9F9F]">Destination Address :</Text><Text className="truncate">bc1q3j69cnwn...</Text></div>
-                    <div className="flex justify-between items-center"><Text className="text-[#9F9F9F]">Minimum Received :</Text><Text>0.000823</Text></div>
-                    <div className="flex justify-between items-center"><Text className="text-[#9F9F9F]">Network Fees :</Text><Text>-$3.20</Text></div>
-                    <div className="flex justify-between items-center"><Text className="text-[#9F9F9F]">Receiving Address :</Text><Text className="truncate">bc1q3j69cnwn...</Text></div>
+
+                    <div className="flex justify-between items-center my-2"><Text className="text-[#9F9F9F]">Send Token</Text><Text>0.000823</Text></div>
+                    <div className="flex justify-between items-center my-2"><Text className="text-[#9F9F9F]">Receive Token</Text><Text>0.000823</Text></div>
+                    <div className="flex justify-between items-center my-2 border-t-[0.5px] border-b-[0.5px] py-2"><Text className="text-[#9F9F9F]">Destination Address :</Text><div className="flex items-center space-x-1"><Text className="truncate">bc1q3j69cnwn...</Text><IcCopy /></div></div>
+                    <div className="flex justify-between items-center my-2"><Text className="text-[#9F9F9F]">Minimum Received :</Text><Text>0.000823</Text></div>
+                    <div className="flex justify-between items-center my-2"><Text className="text-[#9F9F9F]">Network Fees :</Text><Text>-$3.20</Text></div>
+                    <div className="flex justify-between items-center my-2"><Text className="text-[#9F9F9F]">Receiving Address :</Text><Text className="truncate">bc1q3j69cnwn...</Text></div>
                 </div>
 
             </div>

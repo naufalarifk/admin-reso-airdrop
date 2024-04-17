@@ -30,3 +30,5 @@ export * from "./IcX"
 export * from "./IcMedium"
 export * from "./IcExternalLink";
 export * from "./IcCancel";
+export * from "./IcQuestionMark";
+export * from "./IcCopy";
