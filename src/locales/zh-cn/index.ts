@@ -352,6 +352,8 @@ export const CN_TRANSLATION = {
     unstake: "解锁",
     claim: "领取",
     save: "保存",
+    network: "网络",
+    selectNetwork: "选择网络",
   },
   tags: {
     language: "语言",

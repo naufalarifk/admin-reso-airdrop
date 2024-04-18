@@ -419,6 +419,8 @@ export const ID_TRANSLATION = {
     unstake: "Tarik",
     claim: "Klaim",
     save: "Simpan",
+    network: "Jaringan",
+    selectNetwork: "Pilih Jaringan",
   },
   tags: {
     language: "Bahasa",

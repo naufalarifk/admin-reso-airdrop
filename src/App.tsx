@@ -6,6 +6,41 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SupportedChainsProvider } from "./hooks";
 import { chains, config } from "@/config";
 
+type ComponentsWithProps<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TComponents extends readonly React.JSXElementConstructor<any>[]
+> = {
+  [key in keyof TComponents]: keyof React.ComponentProps<
+    TComponents[key]
+  > extends never
+    ? readonly [TComponents[key]]
+    : readonly [TComponents[key], React.ComponentProps<TComponents[key]>];
+} & { length: TComponents["length"] };
+
+const buildProvidersTree = <
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T extends readonly React.JSXElementConstructor<any>[]
+>(
+  componentsWithProps: ComponentsWithProps<T>
+) => {
+  const initialComponent: React.FC<React.PropsWithChildren> = ({
+    children,
+  }) => <>{children}</>;
+
+  return componentsWithProps.reduce(
+    (AccumulatedComponents, [Provider, props = {}]) => {
+      return ({ children }) => {
+        return (
+          <AccumulatedComponents>
+            <Provider {...props}>{children}</Provider>
+          </AccumulatedComponents>
+        );
+      };
+    },
+    initialComponent
+  );
+};
+
 function App() {
   const queryClient = new QueryClient();
   const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
@@ -20,25 +55,27 @@ function App() {
       "--w3m-border-radius-master": "8px",
     },
     excludeWalletIds: [
-      "4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0", // Trust
-      "fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa", // Coinbase
       "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
     ],
+    allWallets: "HIDE",
     termsConditionsUrl: "https://www.mytermsandconditions.com",
+    themeMode: "dark",
   });
 
   const chainID = chains.map((c) => c.id);
 
+  const ProvidersTree = buildProvidersTree([
+    [WagmiProvider, { config }],
+    [QueryClientProvider, { client: queryClient }],
+    [SupportedChainsProvider, { supportedChains: chainID }],
+  ] as const);
+
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <SupportedChainsProvider supportedChains={chainID}>
-          <BrowserRouter>
-            <RootLayout />
-          </BrowserRouter>
-        </SupportedChainsProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <ProvidersTree>
+      <BrowserRouter>
+        <RootLayout />
+      </BrowserRouter>
+    </ProvidersTree>
   );
 }
 
