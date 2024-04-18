@@ -93,7 +93,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               />
             </Link>
           </div>
-          <ButtonConnectWallet shortname classNameButton="!w-[130px]" />
+          <ButtonConnectWallet
+            shortname
+            classNameButton="!w-[130px] lg:hidden block"
+          />
 
           <AnimatePresence>
             {toggle && (
