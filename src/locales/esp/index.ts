@@ -422,6 +422,8 @@ export const ESP_TRANSLATION = {
     unstake: "Retirar apuesta",
     claim: "Reclamar",
     save: "Guardar",
+    network: "Red",
+    selectNetwork: "Seleccionar Red",
   },
   tags: {
     language: "Idioma",

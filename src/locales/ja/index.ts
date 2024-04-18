@@ -356,6 +356,8 @@ export const JPN_TRANSLATION = {
     unstake: "ステーク解除",
     claim: "請求",
     save: "保存する",
+    network: "ネットワーク",
+    selectNetwork: "ネットワークを選択",
   },
   tags: {
     language: "言語",

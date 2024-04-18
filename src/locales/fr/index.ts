@@ -424,6 +424,8 @@ export const FR_TRANSLATION = {
     unstake: "Retirer le staking",
     claim: "Réclamation",
     save: "Enregistrer",
+    network: "Réseau",
+    selectNetwork: "Sélectionner un Réseau",
   },
   tags: {
     language: "Langue",

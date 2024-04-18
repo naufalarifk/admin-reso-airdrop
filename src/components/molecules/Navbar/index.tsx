@@ -160,8 +160,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       {chain
                         ? chain.name
                         : !supportNetwork && isConnected
-                        ? "Network"
-                        : "Select network"}
+                        ? t("button.network")
+                        : t("button.selectNetwork")}
                     </div>
                   </div>
                   <ButtonGlow
@@ -227,8 +227,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   {chain
                     ? chain.name
                     : !supportNetwork && isConnected
-                    ? "Network"
-                    : "Select network"}
+                    ? t("button.network")
+                    : t("button.selectNetwork")}
                 </div>
               </div>
               <ButtonConnectWallet />

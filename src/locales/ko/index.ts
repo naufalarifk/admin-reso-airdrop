@@ -381,6 +381,8 @@ export const KO_TRANSLATION = {
     unstake: "언스테이크",
     claim: "클레임",
     save: "저장",
+    network: "네트워크",
+    selectNetwork: "네트워크 선택",
   },
   tags: {
     language: "언어",
