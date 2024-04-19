@@ -6,6 +6,7 @@ export const EN_TRANSLATION = {
       swap: "Swap",
       bridge: "Bridge",
       supports: "Supports",
+      pool: "Pool",
     },
   },
   landing: {
@@ -490,4 +491,60 @@ export const EN_TRANSLATION = {
       insufficientBalance: "Insufficient Balance",
     },
   },
+  bridge: {
+    title: {
+      supertitle: "RESO DEX Cross-Chain",
+      subtitle: "Bridge"
+    },
+    subtitle: {
+      supertitle: "Bridge between BTC, ETH, BCH, XAI and 100+ other cryptocurrencies.",
+      subtitle: "The best exchange rates, using your wallet address."
+    },
+    step: {
+      first: "Import",
+      second: "Review",
+      third: "Confirm",
+      fourth: "Receive"
+    },
+    firstStep: {
+      title: "Bridge Token",
+      subtitle: "Send your assets across chains",
+      label: "Select Source Token",
+      minimumReceived: "Minimum Received",
+      networkFees: "Network Fees",
+      continue: "Continue",
+      placeholder: "Enter your wallet address"
+    },
+    secondStep: {
+      title: "Bridge Token",
+      subtitle: "Send your assets across chains",
+      label: "Select Source Token",
+            minimumReceived: "Minimum Received",
+      networkFees: "Network Fees",
+      bridge: "Bridge",
+    },
+    thirdStep: {
+      title: "Waiting Bridge Confirmation",
+      subtitle: "Please make sure your address wallet and assets is correct",
+      bridge: "Bridge",
+      sendToken: "Send Token",
+      receiveToken: "Receive Token",
+      destinationAddress: "Destination Address",
+            minimumReceived: "Minimum Received",
+      networkFees: "Network Fees",
+      receivingAddress: "Receiving Address",
+      continue: "Continue",
+    },
+    fourthStep: {
+      title: "Transaction Completed",
+      subtitle: "Congratulations, your transaction has been successful",
+      totalReceived: "Total Received",
+      totalSent: "Total Sent",
+                  minimumReceived: "Minimum Received",
+      networkFees: "Network Fees",
+      receivingWalletAddress: "Receiving Wallet Address",
+      continue: "Continue",
+viewTransactions: "View Transactions"
+    }
+  }
 };

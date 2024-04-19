@@ -6,6 +6,7 @@ export const IT_TRANSLATION = {
       swap: "Scambio",
       bridge: "Ponte",
       supports: "Supporti",
+      pool: "Pool"
     },
   },
   landing: {
@@ -428,5 +429,62 @@ export const IT_TRANSLATION = {
     insufficientBalance: "Saldo Insufficiente",
   },
 },
+
+  bridge: {
+  title: {
+    supertitle: "Interconnessione RESO DEX tra Catene",
+    subtitle: "Ponte"
+  },
+  subtitle: {
+    supertitle: "Ponte tra BTC, ETH, BCH, XAI e oltre 100 altre criptovalute.",
+    subtitle: "I migliori tassi di cambio, utilizzando il tuo indirizzo del portafoglio."
+  },
+  step: {
+    first: "Importa",
+    second: "Rivedi",
+    third: "Conferma",
+    fourth: "Ricevi"
+  },
+  firstStep: {
+    title: "Token del Ponte",
+    subtitle: "Invia i tuoi asset tra catene",
+    label: "Seleziona Token Sorgente",
+    minimumReceived: "Minimo Ricevuto",
+    networkFees: "Commissioni di Rete",
+    continue: "Continua",
+    placeholder: "Inserisci il tuo indirizzo del portafoglio"
+  },
+  secondStep: {
+    title: "Token del Ponte",
+    subtitle: "Invia i tuoi asset tra catene",
+    label: "Seleziona Token Sorgente",
+    minimumReceived: "Minimo Ricevuto",
+    networkFees: "Commissioni di Rete",
+    bridge: "Ponte",
+  },
+  thirdStep: {
+    title: "In Attesa di Conferma del Ponte",
+    subtitle: "Assicurati che il tuo indirizzo del portafoglio e gli asset siano corretti",
+    bridge: "Ponte",
+    sendToken: "Invia Token",
+    receiveToken: "Ricevi Token",
+    destinationAddress: "Indirizzo di Destinazione",
+    minimumReceived: "Minimo Ricevuto",
+    networkFees: "Commissioni di Rete",
+    receivingAddress: "Indirizzo di Ricezione",
+    continue: "Continua",
+  },
+  fourthStep: {
+    title: "Transazione Completata",
+    subtitle: "Congratulazioni, la tua transazione è stata completata con successo",
+    totalReceived: "Totale Ricevuto",
+    totalSent: "Totale Inviato",
+    minimumReceived: "Minimo Ricevuto",
+    networkFees: "Commissioni di Rete",
+    receivingWalletAddress: "Indirizzo del Portafoglio Ricevente",
+    continue: "Continua",
+    viewTransactions: "Visualizza Transazioni"
+  }
+}
 
 };

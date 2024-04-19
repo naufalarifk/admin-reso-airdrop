@@ -1,12 +1,14 @@
 export const RU_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "Торговля",
-      staking: "Стейкинг",
-      swap: "Обмен",
-      bridge: "Мост",
-      supports: "Поддержка",
-    },
+menu: {
+  trade: "Сделки",
+  staking: "Стейкинг",
+  swap: "Обмен",
+  bridge: "Мост",
+  supports: "Поддержка",
+  pool: "Пул",
+},
+
   },
   landing: {
     cta: "Всё в одной платформе для децентрализованных блокчейнов",

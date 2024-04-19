@@ -1,12 +1,14 @@
 export const ID_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "Perdagangan",
-      staking: "Staking",
-      swap: "Tukar",
-      bridge: "Jembatan",
-      supports: "Dukungan",
-    },
+menu: {
+  trade: "Perdagangan",
+  staking: "Staking",
+  swap: "Swap",
+  bridge: "Jembatan",
+  supports: "Dukungan",
+  pool: "Pool",
+},
+
   },
   landing: {
     cta: "Semua dalam Platform untuk Desentralisasi Blockchain",
@@ -483,5 +485,62 @@ export const ID_TRANSLATION = {
     insufficientBalance: "Saldo Tidak Cukup",
   },
 },
+
+  bridge: {
+  title: {
+    supertitle: "Interkoneksi RESO DEX antar Rantai",
+    subtitle: "Jembatan"
+  },
+  subtitle: {
+    supertitle: "Jembatan antara BTC, ETH, BCH, XAI, dan lebih dari 100 cryptocurrency lainnya.",
+    subtitle: "Kurs terbaik, menggunakan alamat dompet Anda."
+  },
+  step: {
+    first: "Impor",
+    second: "Review",
+    third: "Konfirmasi",
+    fourth: "Terima"
+  },
+  firstStep: {
+    title: "Token Jembatan",
+    subtitle: "Kirim aset Anda melintasi rantai",
+    label: "Pilih Token Sumber",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    continue: "Lanjutkan",
+    placeholder: "Masukkan alamat dompet Anda"
+  },
+  secondStep: {
+    title: "Token Jembatan",
+    subtitle: "Kirim aset Anda melintasi rantai",
+    label: "Pilih Token Sumber",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    bridge: "Jembatan",
+  },
+  thirdStep: {
+    title: "Menunggu Konfirmasi Jembatan",
+    subtitle: "Pastikan alamat dompet dan aset Anda benar",
+    bridge: "Jembatan",
+    sendToken: "Kirim Token",
+    receiveToken: "Terima Token",
+    destinationAddress: "Alamat Tujuan",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    receivingAddress: "Alamat Penerima",
+    continue: "Lanjutkan",
+  },
+  fourthStep: {
+    title: "Transaksi Selesai",
+    subtitle: "Selamat, transaksi Anda berhasil",
+    totalReceived: "Total Diterima",
+    totalSent: "Total Dikirim",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    receivingWalletAddress: "Alamat Dompet Penerima",
+    continue: "Lanjutkan",
+    viewTransactions: "Lihat Transaksi"
+  }
+}
 
 };

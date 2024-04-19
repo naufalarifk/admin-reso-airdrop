@@ -1,12 +1,13 @@
 export const JPN_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "取引",
-      staking: "ステーキング",
-      swap: "スワップ",
-      bridge: "ブリッジ",
-      supports: "サポート",
-    },
+menu: {
+  trade: "取引",
+  staking: "ステーキング",
+  swap: "スワップ",
+  bridge: "ブリッジ",
+  supports: "サポート",
+  pool: "プール",
+},
   },
   landing: {
     cta: "ブロックチェーンを分散化するためのオールインプラットフォーム",
@@ -420,4 +421,61 @@ export const JPN_TRANSLATION = {
       insufficientBalance: "残高が不足しています",
     },
   },
+  bridge: {
+  title: {
+    supertitle: "RESO DEX チェーン間接続",
+    subtitle: "ブリッジ"
+  },
+  subtitle: {
+    supertitle: "BTC、ETH、BCH、XAI および100以上の他の暗号通貨間のブリッジ。",
+    subtitle: "ウォレットアドレスを使用して、最高の為替レートを取得。"
+  },
+  step: {
+    first: "インポート",
+    second: "レビュー",
+    third: "確認",
+    fourth: "受け取り"
+  },
+  firstStep: {
+    title: "ブリッジトークン",
+    subtitle: "チェーン間でアセットを送信",
+    label: "ソーストークンを選択",
+    minimumReceived: "最小受取額",
+    networkFees: "ネットワーク手数料",
+    continue: "続行",
+    placeholder: "ウォレットアドレスを入力してください"
+  },
+  secondStep: {
+    title: "ブリッジトークン",
+    subtitle: "チェーン間でアセットを送信",
+    label: "ソーストークンを選択",
+    minimumReceived: "最小受取額",
+    networkFees: "ネットワーク手数料",
+    bridge: "ブリッジ",
+  },
+  thirdStep: {
+    title: "ブリッジ確認待ち",
+    subtitle: "ウォレットアドレスとアセットが正しいことを確認してください",
+    bridge: "ブリッジ",
+    sendToken: "トークン送信",
+    receiveToken: "トークン受取",
+    destinationAddress: "送信先アドレス",
+    minimumReceived: "最小受取額",
+    networkFees: "ネットワーク手数料",
+    receivingAddress: "受取アドレス",
+    continue: "続行",
+  },
+  fourthStep: {
+    title: "取引完了",
+    subtitle: "おめでとうございます、取引が成功しました",
+    totalReceived: "総受取額",
+    totalSent: "総送信額",
+    minimumReceived: "最小受取額",
+    networkFees: "ネットワーク手数料",
+    receivingWalletAddress: "受取ウォレットアドレス",
+    continue: "続行",
+    viewTransactions: "取引を表示"
+  }
+}
+
 };

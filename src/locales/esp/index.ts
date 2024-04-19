@@ -1,12 +1,14 @@
 export const ESP_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "Intercambios",
-      staking: "Participación",
-      swap: "Intercambio",
-      bridge: "Puente",
-      supports: "Soportes",
-    },
+menu: {
+  trade: "Negocios",
+  staking: "Staking",
+  swap: "Intercambio",
+  bridge: "Puente",
+  supports: "Soportes",
+  pool: "Pool",
+},
+
   },
   landing: {
     cta: "Plataforma Todo en Uno para Blockchain Descentralizado",
@@ -485,6 +487,63 @@ export const ESP_TRANSLATION = {
     feesAndPriceImpact: "Tarifas (rebajadas) e Impacto en el Precio",
     insufficientBalance: "Saldo Insuficiente",
   },
-},
+  },
+  bridge: {
+  title: {
+    supertitle: "RESO DEX Interconexión entre Cadenas",
+    subtitle: "Puente"
+  },
+  subtitle: {
+    supertitle: "Puente entre BTC, ETH, BCH, XAI y más de 100 otras criptomonedas.",
+    subtitle: "Los mejores tipos de cambio, usando la dirección de tu billetera."
+  },
+  step: {
+    first: "Importar",
+    second: "Revisar",
+    third: "Confirmar",
+    fourth: "Recibir"
+  },
+  firstStep: {
+    title: "Token del Puente",
+    subtitle: "Envía tus activos entre cadenas",
+    label: "Seleccionar Token Fuente",
+    minimumReceived: "Recibido Mínimo",
+    networkFees: "Tarifas de Red",
+    continue: "Continuar",
+    placeholder: "Ingresa tu dirección de billetera"
+  },
+  secondStep: {
+    title: "Token del Puente",
+    subtitle: "Envía tus activos entre cadenas",
+    label: "Seleccionar Token Fuente",
+    minimumReceived: "Recibido Mínimo",
+    networkFees: "Tarifas de Red",
+    bridge: "Puente",
+  },
+  thirdStep: {
+    title: "Esperando Confirmación del Puente",
+    subtitle: "Por favor, asegúrate de que tu dirección de billetera y activos sean correctos",
+    bridge: "Puente",
+    sendToken: "Enviar Token",
+    receiveToken: "Recibir Token",
+    destinationAddress: "Dirección de Destino",
+    minimumReceived: "Recibido Mínimo",
+    networkFees: "Tarifas de Red",
+    receivingAddress: "Dirección de Recepción",
+    continue: "Continuar",
+  },
+  fourthStep: {
+    title: "Transacción Completada",
+    subtitle: "Felicitaciones, tu transacción ha sido exitosa",
+    totalReceived: "Total Recibido",
+    totalSent: "Total Enviado",
+    minimumReceived: "Recibido Mínimo",
+    networkFees: "Tarifas de Red",
+    receivingWalletAddress: "Dirección de Billetera Receptora",
+    continue: "Continuar",
+    viewTransactions: "Ver Transacciones"
+  }
+}
+
 
 };

@@ -57,7 +57,7 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
                         <div className="flex w-full">
                             {
                                 menu.map(item =>
-                                    <Button onClick={() => setSelectedMenu(item)} className={`w-1/3 rounded-none border-b-2 ${selectedMenu === item ? 'border-b-[#e83d59] bg-[#273242]' : 'border-b-[#273242] bg-[#0E0F19]'}`}>{t(`trade.tradeComponent.${item}`)}</Button>
+                                    <Button onClick={() => setSelectedMenu(item)} className={` ${isActive === 'Swap' ? 'w-1/2' : 'w-1/3'} rounded-none border-b-2 ${isActive === 'Swap' && item === 'tp' && 'hidden'} ${selectedMenu === item ? 'border-b-[#e83d59] bg-[#273242]' : 'border-b-[#273242] bg-[#0E0F19]'}`}>{t(`trade.tradeComponent.${item}`)}</Button>
                                 )
                             }
                         </div>
@@ -119,16 +119,16 @@ export const TradeComponent = ({ isActive, setIsActive }: TradeComponentProps) =
                                 <div className="hidden lg:flex justify-between space-x-1">
                                     {
                                         leverageCount.map((value) =>
-                                            <Button className="h-auto text-xs rounded-full bg-[#21222e] py-1 px-6" onClick={() => setLeverage(value)}>
-                                                {value}
+                                            <Button className="h-auto text-xs rounded-full bg-[#21222e] py-1 px-4" onClick={() => setLeverage(value)}>
+                                                {value}x
                                             </Button>)
                                     }
                                 </div>
                                 <div className="lg:hidden flex justify-between space-x-1">
                                     {
                                         leverageCountMobile.map((value) =>
-                                            <Button className="h-auto text-xs rounded-full bg-[#21222e] py-1 px-6" onClick={() => setLeverage(value)}>
-                                                {value}
+                                            <Button className="h-auto text-xs rounded-full bg-[#21222e] py-1 px-4" onClick={() => setLeverage(value)}>
+                                                {value}x
                                             </Button>)
                                     }
                                 </div>

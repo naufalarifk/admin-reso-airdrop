@@ -1,12 +1,13 @@
 export const CN_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "交易",
-      staking: "质押",
-      swap: "兑换",
-      bridge: "桥接",
-      supports: "支持",
-    },
+menu: {
+  trade: "交易",
+  staking: "质押",
+  swap: "交换",
+  bridge: "桥接",
+  supports: "支持",
+  pool: "资金池",
+},
   },
   landing: {
     cta: "去中心化区块链的全方位平台",
@@ -415,6 +416,63 @@ export const CN_TRANSLATION = {
     feesAndPriceImpact: "费用 (退款) 和价格影响",
     insufficientBalance: "余额不足",
   },
-},
+  },
+  bridge: {
+  title: {
+    supertitle: "RESO DEX 链间连接",
+    subtitle: "桥"
+  },
+  subtitle: {
+    supertitle: "BTC、ETH、BCH、XAI 和 100多种其他加密货币之间的桥接。",
+    subtitle: "使用您的钱包地址获得最佳汇率。"
+  },
+  step: {
+    first: "导入",
+    second: "审核",
+    third: "确认",
+    fourth: "接收"
+  },
+  firstStep: {
+    title: "桥接代币",
+    subtitle: "在链间发送您的资产",
+    label: "选择源代币",
+    minimumReceived: "最少接收",
+    networkFees: "网络费用",
+    continue: "继续",
+    placeholder: "输入您的钱包地址"
+  },
+  secondStep: {
+    title: "桥接代币",
+    subtitle: "在链间发送您的资产",
+    label: "选择源代币",
+    minimumReceived: "最少接收",
+    networkFees: "网络费用",
+    bridge: "桥",
+  },
+  thirdStep: {
+    title: "等待桥接确认",
+    subtitle: "确保您的钱包地址和资产是正确的",
+    bridge: "桥",
+    sendToken: "发送代币",
+    receiveToken: "接收代币",
+    destinationAddress: "目标地址",
+    minimumReceived: "最少接收",
+    networkFees: "网络费用",
+    receivingAddress: "接收地址",
+    continue: "继续",
+  },
+  fourthStep: {
+    title: "交易完成",
+    subtitle: "恭喜，您的交易已成功",
+    totalReceived: "总接收",
+    totalSent: "总发送",
+    minimumReceived: "最少接收",
+    networkFees: "网络费用",
+    receivingWalletAddress: "接收钱包地址",
+    continue: "继续",
+    viewTransactions: "查看交易"
+  }
+}
+
 
 };
