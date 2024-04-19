@@ -540,7 +540,39 @@ menu: {
     continue: "続行",
     cancel: "キャンセル"
   }
+  },
+  swap: {
+  poolSwaps: "プールスワップ",
+  ownersChart: "所有者チャート",
+  myTrade: "私の取引",
+  instantSwap: "即時スワップ",
+  limitSwap: "限界スワップ",
+  myOpenOrder: "私のオープンオーダー",
+  orderTable: {
+    date: "日付",
+    market: "マーケット",
+    price: "価格",
+    volume: "ボリューム",
+    executed: "実行済み",
+    txId: "TxID",
+    action: "アクション",
+  },
+  swapMenu: {
+    tokenToSwap: "スワップするトークン",
+    max: "最大",
+    availableBalance: "利用可能な残高",
+    swapUsdtAtARate: "レートでUSDTをスワップ",
+    useMarket: "マーケットを使用",
+    tokenToReceive: "受け取るトークン",
+    slippageTolerance: "スリッページ許容度",
+    minReceived: "最小受取額",
+    serviceFee: "サービス料",
+    networkFee: "ネットワーク料",
+    swap: "スワップ",
+  },
+  unstableConnection: "接続が不安定"
 }
+
 
 
 };

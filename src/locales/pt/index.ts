@@ -607,7 +607,39 @@ export const PT_TRANSLATION = {
     continue: "Continuar",
     cancel: "Cancelar"
   }
+  },
+  swap: {
+  poolSwaps: "Trocas de Pool",
+  ownersChart: "Gráfico de Proprietários",
+  myTrade: "Minha Negociação",
+  instantSwap: "Troca Instantânea",
+  limitSwap: "Troca com Limite",
+  myOpenOrder: "Minha Ordem Aberta",
+  orderTable: {
+    date: "Data",
+    market: "Mercado",
+    price: "Preço",
+    volume: "Volume",
+    executed: "Executado",
+    txId: "ID da Tx",
+    action: "Ação",
+  },
+  swapMenu: {
+    tokenToSwap: "Token para Trocar",
+    max: "Máximo",
+    availableBalance: "Saldo Disponível",
+    swapUsdtAtARate: "Trocar USDT a uma Taxa",
+    useMarket: "Usar Mercado",
+    tokenToReceive: "Token a Receber",
+    slippageTolerance: "Tolerância de Deslizamento",
+    minReceived: "Mínimo Recebido",
+    serviceFee: "Taxa de Serviço",
+    networkFee: "Taxa de Rede",
+    swap: "Trocar",
+  },
+  unstableConnection: "Conexão Instável"
 }
+
 
 
 };

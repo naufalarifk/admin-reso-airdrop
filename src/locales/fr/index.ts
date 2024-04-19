@@ -609,8 +609,36 @@ menu: {
     continue: "Continuer",
     cancel: "Annuler"
   }
+  },
+  swap: {
+  poolSwaps: "Échanges de Pool",
+  ownersChart: "Graphique des Propriétaires",
+  myTrade: "Mon Trade",
+  instantSwap: "Échange Instantané",
+  limitSwap: "Échange Limité",
+  myOpenOrder: "Ma Commande Ouverte",
+  orderTable: {
+    date: "Date",
+    market: "Marché",
+    price: "Prix",
+    volume: "Volume",
+    executed: "Exécuté",
+    txId: "ID Tx",
+    action: "Action",
+  },
+  swapMenu: {
+    tokenToSwap: "Token à Échanger",
+    max: "Max",
+    availableBalance: "Solde Disponible",
+    swapUsdtAtARate: "Échanger USDT à un Taux",
+    useMarket: "Utiliser le Marché",
+    tokenToReceive: "Token à Recevoir",
+    slippageTolerance: "Tolérance au Glissement",
+    minReceived: "Minimum Reçu",
+    serviceFee: "Frais de Service",
+    networkFee: "Frais de Réseau",
+    swap: "Échanger",
+  },
+  unstableConnection: "Connexion Instable"
 }
-
-
-
 };

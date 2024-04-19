@@ -606,5 +606,36 @@ menu: {
     cancel: "Batal"
   }
   },
+swap: {
+  poolSwaps: "Penukaran Pool",
+  ownersChart: "Grafik Pemilik",
+  myTrade: "Perdagangan Saya",
+  instantSwap: "Penukaran Instan",
+  limitSwap: "Penukaran Batas",
+  myOpenOrder: "Pesanan Saya Terbuka",
+  orderTable: {
+    date: "Tanggal",
+    market: "Pasaran",
+    price: "Harga",
+    volume: "Volume",
+    executed: "Dieksekusi",
+    txId: "ID Tx",
+    action: "Aksi",
+  },
+  swapMenu: {
+    tokenToSwap: "Token untuk Ditukar",
+    max: "Maks",
+    availableBalance: "Saldo Tersedia",
+    swapUsdtAtARate: "Tukar USDT dengan Tarif",
+    useMarket: "Gunakan Pasar",
+    tokenToReceive: "Token untuk Diterima",
+    slippageTolerance: "Toleransi Slippage",
+    minReceived: "Minimum Diterima",
+    serviceFee: "Biaya Layanan",
+    networkFee: "Biaya Jaringan",
+    swap: "Tukar",
+  },
+  unstableConnection: "Koneksi Tidak Stabil"
+}
 
 };

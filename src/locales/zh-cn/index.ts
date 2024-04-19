@@ -537,5 +537,36 @@ menu: {
     cancel: "取消"
   }
 },
+swap: {
+  poolSwaps: "池交易",
+  ownersChart: "所有者图表",
+  myTrade: "我的交易",
+  instantSwap: "即时交换",
+  limitSwap: "限价交换",
+  myOpenOrder: "我的未完成订单",
+  orderTable: {
+    date: "日期",
+    market: "市场",
+    price: "价格",
+    volume: "成交量",
+    executed: "已执行",
+    txId: "交易ID",
+    action: "操作",
+  },
+  swapMenu: {
+    tokenToSwap: "要交换的代币",
+    max: "最大",
+    availableBalance: "可用余额",
+    swapUsdtAtARate: "以某一汇率交换USDT",
+    useMarket: "使用市场",
+    tokenToReceive: "要接收的代币",
+    slippageTolerance: "滑点容忍度",
+    minReceived: "最小接收量",
+    serviceFee: "服务费",
+    networkFee: "网络费",
+    swap: "交换",
+  },
+  unstableConnection: "连接不稳定"
+}
 
 };

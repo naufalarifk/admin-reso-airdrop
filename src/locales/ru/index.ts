@@ -517,7 +517,39 @@ pool: {
     continue: "Продолжить",
     cancel: "Отмена"
   }
+  },
+swap: {
+  poolSwaps: "Обмены в пуле",
+  ownersChart: "График владельцев",
+  myTrade: "Моя сделка",
+  instantSwap: "Мгновенный обмен",
+  limitSwap: "Обмен с лимитом",
+  myOpenOrder: "Мой открытый заказ",
+  orderTable: {
+    date: "Дата",
+    market: "Рынок",
+    price: "Цена",
+    volume: "Объем",
+    executed: "Выполнено",
+    txId: "ID транзакции",
+    action: "Действие",
+  },
+  swapMenu: {
+    tokenToSwap: "Токен для обмена",
+    max: "Макс",
+    availableBalance: "Доступный баланс",
+    swapUsdtAtARate: "Обменять USDT по курсу",
+    useMarket: "Использовать рынок",
+    tokenToReceive: "Токен для получения",
+    slippageTolerance: "Допустимый проскальзывание",
+    minReceived: "Минимум полученного",
+    serviceFee: "Сервисная комиссия",
+    networkFee: "Сетевая комиссия",
+    swap: "Обмен",
+  },
+  unstableConnection: "Нестабильное соединение"
 }
+
 
   
 };

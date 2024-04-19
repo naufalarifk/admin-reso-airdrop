@@ -566,7 +566,39 @@ menu: {
     continue: "계속",
     cancel: "취소"
   }
+  },
+  swap: {
+  poolSwaps: "풀 스왑",
+  ownersChart: "소유자 차트",
+  myTrade: "나의 거래",
+  instantSwap: "즉시 스왑",
+  limitSwap: "한계 스왑",
+  myOpenOrder: "나의 오픈 주문",
+  orderTable: {
+    date: "날짜",
+    market: "시장",
+    price: "가격",
+    volume: "거래량",
+    executed: "실행됨",
+    txId: "TxID",
+    action: "동작",
+  },
+  swapMenu: {
+    tokenToSwap: "스왑할 토큰",
+    max: "최대",
+    availableBalance: "사용 가능한 잔액",
+    swapUsdtAtARate: "율에 따라 USDT 스왑",
+    useMarket: "시장 사용",
+    tokenToReceive: "받을 토큰",
+    slippageTolerance: "슬리피지 허용 범위",
+    minReceived: "최소 수령량",
+    serviceFee: "서비스 수수료",
+    networkFee: "네트워크 수수료",
+    swap: "스왑",
+  },
+  unstableConnection: "불안정한 연결"
 }
+
 
 
 };
