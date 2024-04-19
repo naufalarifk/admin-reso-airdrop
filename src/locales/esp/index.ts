@@ -546,6 +546,69 @@ menu: {
     viewTransactions: "Ver Transacciones"
   }
 }
+  ,
+  pool: {
+  title: {
+    title: "Presentando las Nuevas Listas de Criptomonedas en",
+    subtitle: "Pool de Rectoverso"
+  },
+  subtitle: {
+    title: "Sumérgete en el último pool de criptomonedas ahora disponible en Rectoverso!",
+    subtitle: "Mantente a la vanguardia con el dinámico mercado de criptomonedas de Rectoverso"
+  },
+  steps: {
+    first: {
+      first: "Token",
+      second: "Información",
+    },
+    second: "Cantidad",
+    third: "Confirmación",
+  },
+  firstStep: {
+    title: "Ingresar Información del Token",
+    subtitle: "Es importante llenar información sobre tu token",
+    unifiedAsset: "El Identificador Unificado de Criptoactivo (UCID)",
+    search: "Buscar",
+    tokenInformation: "Información del Token",
+    ranking: "Clasificación",
+    blockExplorer: "Explorador de Bloques",
+    marketCap: "Capitalización de Mercado",
+    liquidity: "Liquidez",
+    maxSupply: "Suministro Máximo",
+    circulationSupply: "Suministro Circulante",
+    historicalHigh: "Máximo Histórico",
+    historicalLow: "Mínimo Histórico",
+    officialLinks: "Enlaces Oficiales",
+    continue: "Continuar",
+  },
+  secondStep: {
+    title: "Ingresar Cantidad",
+    subtitle: "Establecer cantidad de token para el pool de liquidez",
+    listingAmount: "Cantidad de Listado",
+    balance: "Saldo",
+    priceRate: "Tasa de Cambio",
+    minimumListing: "Listado Mínimo",
+    listingFees: "Tarifas de Listado",
+    continue: "Continuar",
+  },
+  thirdStep: {
+    title: "Confirmación de Liquidez",
+    subtitle: "Confirma tu pool de liquidez",
+    listingFees: "Tarifas de Listado",
+    ranking: "Clasificación",
+    blockExplorer: "Explorador de Bloques",
+    marketCap: "Capitalización de Mercado",
+    liquidity: "Liquidez",
+    maxSupply: "Suministro Máximo",
+    circulationSupply: "Suministro Circulante",
+    historicalHigh: "Máximo Histórico",
+    historicalLow: "Mínimo Histórico",
+    addLiquidity: "Agregar Liquidez",
+    liquidityAmount: "Cantidad de Liquidez",
+    continue: "Continuar",
+    cancel: "Cancelar"
+  }
+}
 
 
 };

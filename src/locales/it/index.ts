@@ -487,6 +487,69 @@ export const IT_TRANSLATION = {
     continue: "Continua",
     viewTransactions: "Visualizza Transazioni"
   }
+  },
+  pool: {
+  title: {
+    title: "Presentazione delle Nuove Liste Cripto su",
+    subtitle: "Pool di Rectoverso"
+  },
+  subtitle: {
+    title: "Immergiti nell'ultimo pool di criptovalute ora disponibile su Rectoverso!",
+    subtitle: "Resta sempre un passo avanti con il dinamico mercato criptovalutario di Rectoverso"
+  },
+  steps: {
+    first: {
+      first: "Token",
+      second: "Informazioni",
+    },
+    second: "Quantità",
+    third: "Conferma",
+  },
+  firstStep: {
+    title: "Inserisci Informazioni sul Token",
+    subtitle: "È importante fornire informazioni sul tuo token",
+    unifiedAsset: "Identificatore Unificato di Criptoasset (UCID)",
+    search: "Cerca",
+    tokenInformation: "Informazioni sul Token",
+    ranking: "Classifica",
+    blockExplorer: "Esploratore di Blocchi",
+    marketCap: "Capitalizzazione di Mercato",
+    liquidity: "Liquidità",
+    maxSupply: "Fornitura Massima",
+    circulationSupply: "Fornitura Circolante",
+    historicalHigh: "Massimo Storico",
+    historicalLow: "Minimo Storico",
+    officialLinks: "Link Ufficiali",
+    continue: "Continua",
+  },
+  secondStep: {
+    title: "Inserisci la Quantità",
+    subtitle: "Imposta la quantità di token per il pool di liquidità",
+    listingAmount: "Quantità di Listino",
+    balance: "Saldo",
+    priceRate: "Tasso di Cambio",
+    minimumListing: "Listino Minimo",
+    listingFees: "Commissioni di Listino",
+    continue: "Continua",
+  },
+  thirdStep: {
+    title: "Conferma della Liquidità",
+    subtitle: "Conferma il tuo pool di liquidità",
+    listingFees: "Commissioni di Listino",
+    ranking: "Classifica",
+    blockExplorer: "Esploratore di Blocchi",
+    marketCap: "Capitalizzazione di Mercato",
+    liquidity: "Liquidità",
+    maxSupply: "Fornitura Massima",
+    circulationSupply: "Fornitura Circolante",
+    historicalHigh: "Massimo Storico",
+    historicalLow: "Minimo Storico",
+    addLiquidity: "Aggiungi Liquidità",
+    liquidityAmount: "Quantità di Liquidità",
+    continue: "Continua",
+    cancel: "Annulla"
+  }
 }
+
 
 };

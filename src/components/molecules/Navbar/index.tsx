@@ -163,13 +163,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       {chain
                         ? chain.name
                         : !supportNetwork && isConnected
-<<<<<<< HEAD
-                          ? "Network"
-                          : "Select network"}
-=======
-                        ? t("button.network")
-                        : t("button.selectNetwork")}
->>>>>>> 5d7ccb8242ed11cb781a87d9df78e60430a244ba
+                          ? t("button.network")
+                          : t("button.selectNetwork")}
                     </div>
                   </div>
                   <ButtonGlow
@@ -235,13 +230,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   {chain
                     ? chain.name
                     : !supportNetwork && isConnected
-<<<<<<< HEAD
-                      ? "Network"
-                      : "Select network"}
-=======
-                    ? t("button.network")
-                    : t("button.selectNetwork")}
->>>>>>> 5d7ccb8242ed11cb781a87d9df78e60430a244ba
+                      ? t("button.network")
+                      : t("button.selectNetwork")}
                 </div>
               </div>
               <ButtonConnectWallet />
@@ -272,8 +262,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                               <button
                                 onClick={() => i18n.changeLanguage(lang.abbr)}
                                 className={`flex items-center px-6 gap-1 border text-center py-3 rounded-full justify-center ${i18n.language === lang.abbr
-                                    ? "border-primary"
-                                    : "border-soft/45"
+                                  ? "border-primary"
+                                  : "border-soft/45"
                                   }`}
                               >
                                 <div>
@@ -285,8 +275,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                 </div>
                                 <div
                                   className={`${i18n.language === lang.abbr
-                                      ? "  text-primary"
-                                      : " text-white"
+                                    ? "  text-primary"
+                                    : " text-white"
                                     }`}
                                 >
                                   {lang.nativeName}
@@ -341,8 +331,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           <button
                             onClick={() => i18n.changeLanguage(lang.abbr)}
                             className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${i18n.language === lang.abbr
-                                ? "border-primary"
-                                : "border-soft/45"
+                              ? "border-primary"
+                              : "border-soft/45"
                               }`}
                           >
                             <div>
@@ -354,8 +344,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                             </div>
                             <div
                               className={`${i18n.language === lang.abbr
-                                  ? "  text-primary"
-                                  : " text-white"
+                                ? "  text-primary"
+                                : " text-white"
                                 } text-sm `}
                             >
                               {lang.nativeName}

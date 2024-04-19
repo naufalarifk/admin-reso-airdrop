@@ -548,5 +548,98 @@ export const EN_TRANSLATION = {
       continue: "Continue",
 viewTransactions: "View Transactions"
     }
+  },
+  pool: {
+    title: {
+      title: "Introducing the Newest Crypto Listings on",
+      subtitle: "Rectoverso`s Pool"
+    },
+    subtitle: {
+      title: "Dive into the latest pool of cryptocurrencies now available on Rectoverso!",
+      subtitle: "Stay ahead of the curve with Rectoverso's dynamic crypto marketplace"
+    },
+    steps: {
+      first: {
+        first: "Token",
+        second: "Information",
+      },
+      second: "Amount",
+      third: "Confirmation",
+    },
+    firstStep: {
+      title: "Input Token Information",
+      subtitle: "It`s important to fill information about your token",
+      unifiedAsset: "The Unified Cryptoasset ID (UCID)",
+      search: "Search",
+      tokenInformation: "Token Information",
+      ranking: "Ranking",
+      blockExplorer: "Block Explorer",
+      marketCap: "Market Cap",
+      liquidity: "Liquidity",
+      maxSupply: "Max Supply",
+      circulationSupply: "Circulation Supply",
+      historicalHigh: "Historical High",
+      historicalLow: "Historical Low",
+      officialLinks: "Official Links",
+      continue: "Continue",
+    },
+    secondStep: {
+      title: "Input Amount",
+      subtitle: "Set amount of token for liquidity pool",
+      listingAmount: "Listing Amount",
+      balance: "Balance",
+      priceRate: "Price Rate",
+      minimumListing: "Minimum Listing",
+      listingFees: "Listing Fees",
+      continue: "Continue",
+    },
+    thirdStep: {
+      title: "Liquidity Confirmation",
+      subtitle: "Confirm your liquidity pool",
+      listingFees: "Listing Fees",
+            ranking: "Ranking",
+      blockExplorer: "Block Explorer",
+      marketCap: "Market Cap",
+      liquidity: "Liquidity",
+      maxSupply: "Max Supply",
+      circulationSupply: "Circulation Supply",
+      historicalHigh: "Historical High",
+      historicalLow: "Historical Low",
+      addLiquidity: "Add Liquidity",
+      liquidityAmount: "Liquidity Amount",
+      continue: "Continue",
+cancel: "Cancel"
+    }
+  },
+  swap: {
+    poolSwaps: "Pool Swaps",
+    ownersChart: "Owners Chart",
+    myTrade: "My Trade",
+    instantSwap: "Instant Swap",
+    limitSwap: "Limit Swap",
+    myOpenOrder: "My Open Order",
+    orderTable: {
+      date: "Date",
+      market: "Market",
+      price: "Price",
+      volume: "Volume",
+      executed: "Executed",
+      txId: "TxID",
+action: "Action",
+    },
+    swapMenu: {
+      tokenToSwap: "Token To Swap",
+      max: "Max",
+      availableBalance: "Available Balance",
+      swapUsdtAtARate: "Swap Usdt at a Rate",
+      useMarket: "Use Market",
+      tokenToReceive: "Token To Receive",
+      slippageTolerance: "Slippage Tolerance",
+      minReceived: "Min Received",
+      serviceFee: "Service Fee",
+      networkFee: "Network Fee",
+      swap: "Swap",
+    },
+    unstableConnection: "Unstable Connection"
   }
 };

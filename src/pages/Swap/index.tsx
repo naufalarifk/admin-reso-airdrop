@@ -5,9 +5,12 @@ import { Text } from "@/components"
 import { IcBitcoin, IcCancel, IcExternalLink, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcUnstableConnection } from "@/assets/icons"
 import { Slider } from "@/components"
 import { SwapTable } from "@/components"
+import { useTranslation } from "react-i18next"
 
 
 export const Swap = () => {
+
+    const { t } = useTranslation()
     const styles = {
         borderRadius: `4px`,
         border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -15,11 +18,11 @@ export const Swap = () => {
         backdropFilter: `blur(12px)`
     }
 
-    const pool_menu = ['Pool Swaps', 'Owners Chart', 'My Trade']
-    const swap_menu = ['Instant Swap', 'Limit Swap', 'My Open Order']
+    const pool_menu = ['poolSwaps', 'ownersChart', 'myTrade']
+    const swap_menu = ['instantSwap', 'limitSwap', 'myOpenOrder']
 
-    const [selectedPoolMenu, setSelectedPoolMenu] = useState('Pool Swaps')
-    const [selectedSwapMenu, setSelectedSwapMenu] = useState('Instant Swap')
+    const [selectedPoolMenu, setSelectedPoolMenu] = useState('poolSwaps')
+    const [selectedSwapMenu, setSelectedSwapMenu] = useState('instantSwap')
     const [leverage, setLeverage] = useState(0)
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
@@ -208,16 +211,17 @@ export const Swap = () => {
 
 
     const OrdertableMenu = () => {
+
         return (
             <>
                 <div className="grid grid-cols-7 my-4 border-b text-center">
-                    <Text>Date</Text>
-                    <Text>Market</Text>
-                    <Text>Price</Text>
-                    <Text>Volume</Text>
-                    <Text>Executed</Text>
-                    <Text>TxID</Text>
-                    <Text>Action</Text>
+                    <Text>{t('swap.orderTable.date')}</Text>
+                    <Text>{t('swap.orderTable.market')}</Text>
+                    <Text>{t('swap.orderTable.price')}</Text>
+                    <Text>{t('swap.orderTable.volume')}</Text>
+                    <Text>{t('swap.orderTable.executed')}</Text>
+                    <Text>{t('swap.orderTable.txId')}</Text>
+                    <Text>{t('swap.orderTable.action')}</Text>
                 </div>
                 {
                     my_orders.map(order => <div className="grid grid-cols-7 my-4 border-b text-center items-center">
@@ -244,7 +248,7 @@ export const Swap = () => {
             <>
                 <section className="mt-4 flex items-center justify-center space-x-4">
                     <div className="space-y-2 w-full h-full">
-                        <Text>Token to Swap</Text>
+                        <Text>{t('swap.swapMenu.tokenToSwap')}</Text>
                         <div className="bg-[#0E0F19] rounded-lg p-4 flex items-center space-x-2">
                             <div className="flex items-center space-x-2 bg-[#171923] p-2 rounded-lg">
                                 <IcBitcoin height="24" width="24" />
@@ -255,7 +259,7 @@ export const Swap = () => {
                             <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">Max</Button>
                         </div>
                         <div className="flex justify-between items-center">
-                            <Text>Available Balance</Text>
+                            <Text>{t('swap.swapMenu.availableBalance')}</Text>
                             <Text>0.01452618 BTC</Text>
                         </div>
                         {selectedSwapMenu !== 'Limit Swap' && <div className="flex items-center space-x-2 bg-[#21222d] p-4 rounded-xl">
@@ -284,18 +288,18 @@ export const Swap = () => {
                                 )
                             }
                             <Button className="h-auto text-xs rounded-full bg-[#21222e] py-1 px-6" onClick={() => setLeverage(100)}>
-                                Max
+                                {t('swap.swapMenu.max')}
                             </Button>
                         </div>
                         {
                             selectedSwapMenu === 'Limit Swap' &&
                             <div className="flex justify-between items-center my-2 p-4 bg-[#21222e] rounded-lg ">
                                 <div className="space-y-4">
-                                    <Text className="text-[#90A3BF]">Swap USDT at rate</Text>
+                                    <Text className="text-[#90A3BF]">{t('swap.swapMenu.swapUsdtAtARate')}</Text>
                                     <Text>0.000015</Text>
                                 </div>
                                 <div className="space-y-4 text-right">
-                                    <Text className="text-[#F23F5D]">Use market</Text>
+                                    <Text className="text-[#F23F5D]">{t('swap.swapMenu.useMarket')}</Text>
                                     <Text className="text-[#90A3BF]">BTC</Text>
                                 </div>
                             </div>
@@ -306,7 +310,7 @@ export const Swap = () => {
                         <IcScrollV className='rotate-90' />
                     </div>
                     <div className="space-y-2 w-full h-full">
-                        <Text>Token to Receive</Text>
+                        <Text>{t('swap.swapMenu.tokenToReceive')}</Text>
                         <div className="bg-[#0E0F19] rounded-lg p-4 flex items-center space-x-2">
                             <div className="flex items-center space-x-2 bg-[#171923] p-2 rounded-lg">
                                 <IcBitcoin height="24" width="24" />
@@ -314,35 +318,35 @@ export const Swap = () => {
                                 <IcThreeDotsVertical />
                             </div>
                             <Input placeholder="0.00" className="bg-transparent" />
-                            <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">Max</Button>
+                            <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">{t('swap.swapMenu.max')}</Button>
                         </div>
                         <div className="flex justify-between items-center">
-                            <Text>Available Balance</Text>
+                            <Text>{t('swap.swapMenu.availableBalance')}</Text>
                             <Text>0.01452618 BTC</Text>
                         </div>
                         <div className="flex justify-between items-center">
-                            <Text>Slippage Tolerance</Text>
+                            <Text>{t('swap.swapMenu.slippageTolerance')}</Text>
                             <div className="bg-[#0E0F19] py-2 px-4 rounded-lg">
                                 <Text>5%</Text>
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-2">
                             <div className="bg-[#0E0F19] rounded-lg p-2">
-                                <Text className="">Min received:</Text>
+                                <Text className="">{t('swap.swapMenu.minReceived')}:</Text>
                                 <Text className="text-xs">0.00 USDT</Text>
                             </div>
                             <div className="bg-[#0E0F19] rounded-lg p-2">
-                                <Text className="">Service fee:</Text>
+                                <Text className="">{t('swap.swapMenu.serviceFee')}:</Text>
                                 <Text className="text-xs">0.00 USDT</Text>
                             </div>
                             <div className="bg-[#0E0F19] rounded-lg p-2">
-                                <Text className="">Network fee:</Text>
+                                <Text className="">{t('swap.swapMenu.networkFee')}:</Text>
                                 <Text className="text-xs">0.00 USDT</Text>
                             </div>
                         </div>
                     </div>
                 </section>
-                <Button className="rounded-full w-full mt-2 bg-[#F23F5D]">Swap</Button>
+                <Button className="rounded-full w-full mt-2 bg-[#F23F5D]">{t('swap.swapMenu.swap')}</Button>
             </>
         )
     }
@@ -364,7 +368,7 @@ export const Swap = () => {
                         <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
                             {
                                 pool_menu.map(menu =>
-                                    <Text className={`${selectedPoolMenu === menu ? 'text-white border-b-2 border-[#F23F5D]' : ''} cursor-pointer`} onClick={() => setSelectedPoolMenu(menu)}>{menu}</Text>)
+                                    <Text className={`${selectedPoolMenu === menu ? 'text-white border-b-2 border-[#F23F5D]' : ''} cursor-pointer`} onClick={() => setSelectedPoolMenu(menu)}>{t(`swap.${menu}`)}</Text>)
                             }
                         </div>
                     </div>
@@ -432,7 +436,7 @@ export const Swap = () => {
                         <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
                             {
                                 swap_menu.map(menu =>
-                                    <Text className={`${selectedSwapMenu === menu ? 'text-white border-b-2 border-[#F23F5D]' : ''} cursor-pointer`} onClick={() => setSelectedSwapMenu(menu)}>{menu}</Text>)
+                                    <Text className={`${selectedSwapMenu === menu ? 'text-white border-b-2 border-[#F23F5D]' : ''} cursor-pointer`} onClick={() => setSelectedSwapMenu(menu)}>{t(`swap.${menu}`)}</Text>)
                             }
                         </div>
                     </div>
@@ -445,7 +449,7 @@ export const Swap = () => {
             <div className="flex mt-4 border-t border-[#ADB1B8] p-2 justify-between">
                 <div className="flex space-x-1">
                     <IcUnstableConnection />
-                    <Text>Unstable Connection</Text>
+                    <Text>{t('swap.unstableConnection')}</Text>
                 </div>
                 {
                     token_rate.map(token =>

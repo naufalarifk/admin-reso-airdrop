@@ -545,6 +545,69 @@ export const PT_TRANSLATION = {
     continue: "Continuar",
     viewTransactions: "Ver Transações"
   }
+  },
+  pool: {
+  title: {
+    title: "Apresentando as Novas Listagens de Cripto na",
+    subtitle: "Pool da Rectoverso"
+  },
+  subtitle: {
+    title: "Mergulhe na mais recente pool de criptomoedas agora disponível na Rectoverso!",
+    subtitle: "Mantenha-se à frente com o dinâmico mercado de criptomoedas da Rectoverso"
+  },
+  steps: {
+    first: {
+      first: "Token",
+      second: "Informação",
+    },
+    second: "Quantidade",
+    third: "Confirmação",
+  },
+  firstStep: {
+    title: "Inserir Informações do Token",
+    subtitle: "É importante preencher informações sobre o seu token",
+    unifiedAsset: "O Identificador Unificado de Ativo Cripto (UCID)",
+    search: "Pesquisar",
+    tokenInformation: "Informações do Token",
+    ranking: "Ranking",
+    blockExplorer: "Explorador de Blocos",
+    marketCap: "Capitalização de Mercado",
+    liquidity: "Liquidez",
+    maxSupply: "Fornecimento Máximo",
+    circulationSupply: "Fornecimento Circulante",
+    historicalHigh: "Máximo Histórico",
+    historicalLow: "Mínimo Histórico",
+    officialLinks: "Links Oficiais",
+    continue: "Continuar",
+  },
+  secondStep: {
+    title: "Inserir Quantidade",
+    subtitle: "Defina a quantidade de token para o pool de liquidez",
+    listingAmount: "Quantidade de Listagem",
+    balance: "Saldo",
+    priceRate: "Taxa de Preço",
+    minimumListing: "Listagem Mínima",
+    listingFees: "Taxas de Listagem",
+    continue: "Continuar",
+  },
+  thirdStep: {
+    title: "Confirmação de Liquidez",
+    subtitle: "Confirme o seu pool de liquidez",
+    listingFees: "Taxas de Listagem",
+    ranking: "Ranking",
+    blockExplorer: "Explorador de Blocos",
+    marketCap: "Capitalização de Mercado",
+    liquidity: "Liquidez",
+    maxSupply: "Fornecimento Máximo",
+    circulationSupply: "Fornecimento Circulante",
+    historicalHigh: "Máximo Histórico",
+    historicalLow: "Mínimo Histórico",
+    addLiquidity: "Adicionar Liquidez",
+    liquidityAmount: "Quantidade de Liquidez",
+    continue: "Continuar",
+    cancel: "Cancelar"
+  }
 }
+
 
 };

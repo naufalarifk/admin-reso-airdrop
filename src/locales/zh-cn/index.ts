@@ -474,7 +474,68 @@ menu: {
     continue: "继续",
     viewTransactions: "查看交易"
   }
-}
-
+  },
+  pool: {
+  title: {
+    title: "介绍最新的加密货币列表在",
+    subtitle: "Rectoverso池"
+  },
+  subtitle: {
+    title: "现在在Rectoverso可用的最新加密货币池中深入！",
+    subtitle: "在Rectoverso的动态加密货币市场中保持领先"
+  },
+  steps: {
+    first: {
+      first: "代币",
+      second: "信息",
+    },
+    second: "数量",
+    third: "确认",
+  },
+  firstStep: {
+    title: "输入代币信息",
+    subtitle: "填写有关您的代币的信息很重要",
+    unifiedAsset: "统一加密资产ID（UCID）",
+    search: "搜索",
+    tokenInformation: "代币信息",
+    ranking: "排名",
+    blockExplorer: "区块链浏览器",
+    marketCap: "市值",
+    liquidity: "流动性",
+    maxSupply: "最大供应量",
+    circulationSupply: "流通供应量",
+    historicalHigh: "历史最高价",
+    historicalLow: "历史最低价",
+    officialLinks: "官方链接",
+    continue: "继续",
+  },
+  secondStep: {
+    title: "输入数量",
+    subtitle: "设置用于流动性池的代币数量",
+    listingAmount: "上市数量",
+    balance: "余额",
+    priceRate: "价格率",
+    minimumListing: "最低上市",
+    listingFees: "上市费用",
+    continue: "继续",
+  },
+  thirdStep: {
+    title: "流动性确认",
+    subtitle: "确认您的流动性池",
+    listingFees: "上市费用",
+    ranking: "排名",
+    blockExplorer: "区块链浏览器",
+    marketCap: "市值",
+    liquidity: "流动性",
+    maxSupply: "最大供应量",
+    circulationSupply: "流通供应量",
+    historicalHigh: "历史最高价",
+    historicalLow: "历史最低价",
+    addLiquidity: "添加流动性",
+    liquidityAmount: "流动性数量",
+    continue: "继续",
+    cancel: "取消"
+  }
+},
 
 };

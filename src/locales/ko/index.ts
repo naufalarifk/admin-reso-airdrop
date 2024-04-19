@@ -504,6 +504,69 @@ menu: {
     continue: "계속",
     viewTransactions: "거래 보기"
   }
+  },
+  pool: {
+  title: {
+    title: "새로운 암호화폐 목록 소개:",
+    subtitle: "Rectoverso 풀"
+  },
+  subtitle: {
+    title: "Rectoverso에서 지금 사용 가능한 최신 암호화폐 풀로 다이브하세요!",
+    subtitle: "Rectoverso의 다이나믹한 암호화폐 시장에서 한 발 앞서 나가세요"
+  },
+  steps: {
+    first: {
+      first: "토큰",
+      second: "정보",
+    },
+    second: "수량",
+    third: "확인",
+  },
+  firstStep: {
+    title: "토큰 정보 입력",
+    subtitle: "토큰에 관한 정보를 입력하는 것이 중요합니다",
+    unifiedAsset: "통합 암호화폐 ID (UCID)",
+    search: "검색",
+    tokenInformation: "토큰 정보",
+    ranking: "랭킹",
+    blockExplorer: "블록 탐색기",
+    marketCap: "시가 총액",
+    liquidity: "유동성",
+    maxSupply: "최대 공급량",
+    circulationSupply: "유통 공급량",
+    historicalHigh: "역대 최고가",
+    historicalLow: "역대 최저가",
+    officialLinks: "공식 링크",
+    continue: "계속",
+  },
+  secondStep: {
+    title: "수량 입력",
+    subtitle: "유동성 풀을 위한 토큰의 수량을 설정합니다",
+    listingAmount: "상장 수량",
+    balance: "잔액",
+    priceRate: "가격 비율",
+    minimumListing: "최소 상장",
+    listingFees: "상장 수수료",
+    continue: "계속",
+  },
+  thirdStep: {
+    title: "유동성 확인",
+    subtitle: "유동성 풀을 확인하세요",
+    listingFees: "상장 수수료",
+    ranking: "랭킹",
+    blockExplorer: "블록 탐색기",
+    marketCap: "시가 총액",
+    liquidity: "유동성",
+    maxSupply: "최대 공급량",
+    circulationSupply: "유통 공급량",
+    historicalHigh: "역대 최고가",
+    historicalLow: "역대 최저가",
+    addLiquidity: "유동성 추가",
+    liquidityAmount: "유동성 수량",
+    continue: "계속",
+    cancel: "취소"
+  }
 }
+
 
 };

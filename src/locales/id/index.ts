@@ -543,6 +543,68 @@ menu: {
     continue: "Lanjutkan",
     viewTransactions: "Lihat Transaksi"
   }
-}
+  },
+  pool: {
+  title: {
+    title: "Memperkenalkan Daftar Crypto Terbaru di",
+    subtitle: "Pool Rectoverso"
+  },
+  subtitle: {
+    title: "Telusuri pool terbaru dari cryptocurrency yang tersedia sekarang di Rectoverso!",
+    subtitle: "Tetap berada di depan dengan pasar kripto dinamis Rectoverso"
+  },
+  steps: {
+    first: {
+      first: "Token",
+      second: "Informasi",
+    },
+    second: "Jumlah",
+    third: "Konfirmasi",
+  },
+  firstStep: {
+    title: "Masukkan Informasi Token",
+    subtitle: "Penting untuk mengisi informasi tentang token Anda",
+    unifiedAsset: "ID Aset Crypto Terpadu (UCID)",
+    search: "Cari",
+    tokenInformation: "Informasi Token",
+    ranking: "Peringkat",
+    blockExplorer: "Penjelajah Blok",
+    marketCap: "Kapitalisasi Pasar",
+    liquidity: "Likuiditas",
+    maxSupply: "Pasokan Maksimum",
+    circulationSupply: "Pasokan Beredar",
+    historicalHigh: "Tertinggi Sejarah",
+    historicalLow: "Terendah Sejarah",
+    officialLinks: "Tautan Resmi",
+    continue: "Lanjutkan",
+  },
+  secondStep: {
+    title: "Masukkan Jumlah",
+    subtitle: "Atur jumlah token untuk pool likuiditas",
+    listingAmount: "Jumlah Daftar",
+    balance: "Saldo",
+    priceRate: "Kurs Harga",
+    minimumListing: "Daftar Minimum",
+    listingFees: "Biaya Daftar",
+    continue: "Lanjutkan",
+  },
+  thirdStep: {
+    title: "Konfirmasi Likuiditas",
+    subtitle: "Konfirmasi pool likuiditas Anda",
+    listingFees: "Biaya Daftar",
+    ranking: "Peringkat",
+    blockExplorer: "Penjelajah Blok",
+    marketCap: "Kapitalisasi Pasar",
+    liquidity: "Likuiditas",
+    maxSupply: "Pasokan Maksimum",
+    circulationSupply: "Pasokan Beredar",
+    historicalHigh: "Tertinggi Sejarah",
+    historicalLow: "Terendah Sejarah",
+    addLiquidity: "Tambahkan Likuiditas",
+    liquidityAmount: "Jumlah Likuiditas",
+    continue: "Lanjutkan",
+    cancel: "Batal"
+  }
+  },
 
 };

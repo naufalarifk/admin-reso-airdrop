@@ -478,6 +478,69 @@ menu: {
     continue: "続行",
     viewTransactions: "取引を表示"
   }
+  },
+  pool: {
+  title: {
+    title: "新しい暗号通貨リストの紹介：",
+    subtitle: "Rectoversoのプール"
+  },
+  subtitle: {
+    title: "Rectoversoで今利用可能な最新の暗号通貨のプールにダイブ！",
+    subtitle: "Rectoversoのダイナミックな暗号通貨マーケットで一歩先を行く"
+  },
+  steps: {
+    first: {
+      first: "トークン",
+      second: "情報",
+    },
+    second: "数量",
+    third: "確認",
+  },
+  firstStep: {
+    title: "トークン情報の入力",
+    subtitle: "トークンに関する情報を入力することが重要です",
+    unifiedAsset: "統一暗号資産ID（UCID）",
+    search: "検索",
+    tokenInformation: "トークン情報",
+    ranking: "ランキング",
+    blockExplorer: "ブロックエクスプローラ",
+    marketCap: "時価総額",
+    liquidity: "流動性",
+    maxSupply: "最大供給量",
+    circulationSupply: "流通供給量",
+    historicalHigh: "過去最高値",
+    historicalLow: "過去最安値",
+    officialLinks: "公式リンク",
+    continue: "続行",
+  },
+  secondStep: {
+    title: "数量の入力",
+    subtitle: "流動性プールのためのトークンの数量を設定します",
+    listingAmount: "リスティング数量",
+    balance: "残高",
+    priceRate: "価格レート",
+    minimumListing: "最低リスティング",
+    listingFees: "リスティング手数料",
+    continue: "続行",
+  },
+  thirdStep: {
+    title: "流動性の確認",
+    subtitle: "流動性プールを確認してください",
+    listingFees: "リスティング手数料",
+    ranking: "ランキング",
+    blockExplorer: "ブロックエクスプローラ",
+    marketCap: "時価総額",
+    liquidity: "流動性",
+    maxSupply: "最大供給量",
+    circulationSupply: "流通供給量",
+    historicalHigh: "過去最高値",
+    historicalLow: "過去最安値",
+    addLiquidity: "流動性を追加",
+    liquidityAmount: "流動性の数量",
+    continue: "続行",
+    cancel: "キャンセル"
+  }
 }
+
 
 };

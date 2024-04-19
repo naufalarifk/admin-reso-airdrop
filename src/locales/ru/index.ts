@@ -456,5 +456,68 @@ menu: {
     insufficientBalance: "Недостаточный Баланс",
   },
 },
+pool: {
+  title: {
+    title: "Представляем Новые Криптовалютные Листинги на",
+    subtitle: "Пул Rectoverso"
+  },
+  subtitle: {
+    title: "Погрузитесь в последний пул криптовалют, теперь доступный на Rectoverso!",
+    subtitle: "Оставайтесь впереди с динамичным криптовалютным рынком Rectoverso"
+  },
+  steps: {
+    first: {
+      first: "Токен",
+      second: "Информация",
+    },
+    second: "Количество",
+    third: "Подтверждение",
+  },
+  firstStep: {
+    title: "Введите Информацию о Токене",
+    subtitle: "Важно заполнить информацию о вашем токене",
+    unifiedAsset: "Унифицированный Идентификатор Криптоактива (UCID)",
+    search: "Поиск",
+    tokenInformation: "Информация о Токене",
+    ranking: "Рейтинг",
+    blockExplorer: "Блокчейн Обозреватель",
+    marketCap: "Капитализация Рынка",
+    liquidity: "Ликвидность",
+    maxSupply: "Максимальное Поставление",
+    circulationSupply: "Циркулирующее Поставление",
+    historicalHigh: "Исторический Максимум",
+    historicalLow: "Исторический Минимум",
+    officialLinks: "Официальные Ссылки",
+    continue: "Продолжить",
+  },
+  secondStep: {
+    title: "Введите Количество",
+    subtitle: "Установите количество токенов для пула ликвидности",
+    listingAmount: "Количество Листинга",
+    balance: "Баланс",
+    priceRate: "Курс Цены",
+    minimumListing: "Минимальный Листинг",
+    listingFees: "Плата за Листинг",
+    continue: "Продолжить",
+  },
+  thirdStep: {
+    title: "Подтверждение Ликвидности",
+    subtitle: "Подтвердите ваш пул ликвидности",
+    listingFees: "Плата за Листинг",
+    ranking: "Рейтинг",
+    blockExplorer: "Блокчейн Обозреватель",
+    marketCap: "Капитализация Рынка",
+    liquidity: "Ликвидность",
+    maxSupply: "Максимальное Поставление",
+    circulationSupply: "Циркулирующее Поставление",
+    historicalHigh: "Исторический Максимум",
+    historicalLow: "Исторический Минимум",
+    addLiquidity: "Добавить Ликвидность",
+    liquidityAmount: "Количество Ликвидности",
+    continue: "Продолжить",
+    cancel: "Отмена"
+  }
+}
 
+  
 };

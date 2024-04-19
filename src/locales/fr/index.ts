@@ -547,7 +547,70 @@ menu: {
     continue: "Continuer",
     viewTransactions: "Voir Transactions"
   }
+  },
+  pool: {
+  title: {
+    title: "Présentation des Nouvelles Listes de Crypto sur",
+    subtitle: "Pool de Rectoverso"
+  },
+  subtitle: {
+    title: "Plongez dans le dernier pool de cryptomonnaies maintenant disponible sur Rectoverso !",
+    subtitle: "Restez en avance avec le marché dynamique de cryptomonnaies de Rectoverso"
+  },
+  steps: {
+    first: {
+      first: "Token",
+      second: "Information",
+    },
+    second: "Quantité",
+    third: "Confirmation",
+  },
+  firstStep: {
+    title: "Saisir les Informations du Token",
+    subtitle: "Il est important de remplir les informations concernant votre token",
+    unifiedAsset: "L'Identifiant Unifié de Cryptoactif (UCID)",
+    search: "Rechercher",
+    tokenInformation: "Information du Token",
+    ranking: "Classement",
+    blockExplorer: "Explorateur de Blocs",
+    marketCap: "Capitalisation de Marché",
+    liquidity: "Liquidité",
+    maxSupply: "Offre Maximale",
+    circulationSupply: "Offre en Circulation",
+    historicalHigh: "Plus Haut Historique",
+    historicalLow: "Plus Bas Historique",
+    officialLinks: "Liens Officiels",
+    continue: "Continuer",
+  },
+  secondStep: {
+    title: "Saisir la Quantité",
+    subtitle: "Définir la quantité de token pour le pool de liquidité",
+    listingAmount: "Quantité de Listage",
+    balance: "Solde",
+    priceRate: "Taux de Change",
+    minimumListing: "Listage Minimum",
+    listingFees: "Frais de Listage",
+    continue: "Continuer",
+  },
+  thirdStep: {
+    title: "Confirmation de Liquidité",
+    subtitle: "Confirmez votre pool de liquidité",
+    listingFees: "Frais de Listage",
+    ranking: "Classement",
+    blockExplorer: "Explorateur de Blocs",
+    marketCap: "Capitalisation de Marché",
+    liquidity: "Liquidité",
+    maxSupply: "Offre Maximale",
+    circulationSupply: "Offre en Circulation",
+    historicalHigh: "Plus Haut Historique",
+    historicalLow: "Plus Bas Historique",
+    addLiquidity: "Ajouter de la Liquidité",
+    liquidityAmount: "Quantité de Liquidité",
+    continue: "Continuer",
+    cancel: "Annuler"
+  }
 }
+
 
 
 };
