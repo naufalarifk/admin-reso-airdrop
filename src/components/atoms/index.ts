@@ -9,3 +9,4 @@ export * from "./Calendar";
 export * from "./BalanceInput";
 export * from "./Balance";
 export * from "./Slider";
+export * from "./NumberInput";

@@ -2,10 +2,22 @@ import { CardStaking, ModalAddStaking, Tabs } from "@/components";
 import { COIN, STAKE_COIN } from "@/constants";
 import { Coin } from "@/types/components";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
+
+interface NewStakingDataPayload {
+  coinOne: Coin | null;
+  coinTwo: Coin | null;
+  amountCoinOne: string;
+  amountCoinTwo: string;
+  minUserJoin: string;
+  maxUserJoin: string;
+  rewardPerBlock: string;
+  startStake: Date | string;
+  endStake: Date | string;
+}
 
 export const Staking = () => {
   const navigate = useNavigate();
@@ -15,13 +27,57 @@ export const Staking = () => {
 
   const [openAddStakeModal, setOpenAddStakeModal] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Coin[]>([]);
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
 
-  const handleSelectedOptionsChange = (selected: Coin[] | Coin) => {
-    const newSelectedOptions =
-      typeof selected === "string" ? [selected] : selected;
-    setSelectedOptions(newSelectedOptions as Coin[]);
+  const [newStakingData, setNewStakingData] = useState<NewStakingDataPayload>({
+    coinOne: null,
+    coinTwo: null,
+    amountCoinOne: "",
+    amountCoinTwo: "",
+    endStake: "",
+    maxUserJoin: "",
+    minUserJoin: "",
+    rewardPerBlock: "",
+    startStake: "",
+  });
+
+  const handleSelectedOptionsChange = (selected: Coin[]) => {
+    setSelectedOptions(selected);
+    setNewStakingData({
+      ...newStakingData,
+      coinOne: selected[0],
+      coinTwo: selected[1],
+    });
+  };
+
+  console.log("selectedOptions", newStakingData);
+
+  const handlePriceCoinOne = (value: number) => {
+    setNewStakingData({ ...newStakingData, amountCoinOne: String(value) });
+  };
+
+  const handlePricCoinTwo = (value: number) => {
+    setNewStakingData({ ...newStakingData, amountCoinTwo: String(value) });
+  };
+
+  const handleMinUserJoin = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewStakingData({
+      ...newStakingData,
+      minUserJoin: String(event.target.value),
+    });
+  };
+
+  const handleMaxUserJoin = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewStakingData({
+      ...newStakingData,
+      maxUserJoin: String(event.target.value),
+    });
+  };
+
+  const handleRewardPerBlock = (event: ChangeEvent<HTMLInputElement>) => {
+    setNewStakingData({
+      ...newStakingData,
+      rewardPerBlock: String(event.target.value),
+    });
   };
 
   const tabs = useMemo(
@@ -121,19 +177,34 @@ export const Staking = () => {
             </>
           }
         />
+
         <ModalAddStaking
           isOpen={openAddStakeModal}
           closeModal={() => setOpenAddStakeModal(!openAddStakeModal)}
           coins={COIN}
           selectedOptions={selectedOptions}
           handleSelectedOptions={handleSelectedOptionsChange}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
+          startDate={newStakingData.startStake}
+          setStartDate={(e) =>
+            setNewStakingData({ ...newStakingData, startStake: e! })
+          }
+          endDate={newStakingData.endStake}
+          setEndDate={(e) =>
+            setNewStakingData({ ...newStakingData, endStake: e! })
+          }
           totalReward="400000"
           estimatedAPY="232"
           totalValueLocked="2128900"
+          handleChangeCoinOne={handlePriceCoinOne}
+          valueCoinOne={Number(newStakingData.amountCoinOne)}
+          handleChangeCoinTwo={handlePricCoinTwo}
+          valueCoinTwo={Number(newStakingData.amountCoinTwo)}
+          valueMinUserJoin={newStakingData.minUserJoin}
+          handleMinUserJoin={handleMinUserJoin}
+          valueMaxUserJoin={newStakingData.maxUserJoin}
+          handleMaxUserJoin={handleMaxUserJoin}
+          valueRewardPerBlock={newStakingData.rewardPerBlock}
+          handleRewardPerBlock={handleRewardPerBlock}
         />
       </div>
     </>
