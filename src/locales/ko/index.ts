@@ -1,12 +1,13 @@
 export const KO_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "거래",
-      staking: "스테이킹",
-      swap: "스왑",
-      bridge: "브리지",
-      supports: "지원",
-    },
+menu: {
+  trade: "거래",
+  staking: "스테이킹",
+  swap: "스왑",
+  bridge: "다리",
+  supports: "지원",
+  pool: "풀",
+},
   },
   landing: {
     cta: "분산형 블록체인을 위한 올인 플랫폼",
@@ -407,4 +408,102 @@ export const KO_TRANSLATION = {
     requirement: "요구 사항",
     max: "최대",
   },
+  trade: {
+  tokenList: {
+    allMarkets: "모든 시장",
+    twentyFourChange: "24시간 변동",
+    twentyFourHigh: "24시간 최고",
+    twentyFourLow: "24시간 최저",
+    twentyFourVol: "24시간 거래량 (BTC)",
+    marketCap: "시가 총액",
+    tradingActivity: "거래 활동",
+    buy: "구매",
+    sell: "판매",
+    popular: "인기",
+    all: "모두",
+    marketSentiment: "시장 센티먼트",
+  },
+  tradeComponent: {
+    trade: "거래",
+    history: "거래 내역",
+    long: "롱",
+    short: "숏",
+    swap: "스왑",
+    market: "마켓",
+    limit: "한도",
+    tp: "TP/SL",
+    pay: "지불",
+    receive: "수령",
+    balance: "잔액",
+    price: "가격",
+    mark: "표시",
+    max: "최대",
+    pool: "풀",
+    leverageSlider: "레버리지 슬라이더",
+    collateralIn: "입금 콜레터럴",
+    leverage: "레버리지",
+    entryPrice: "진입 가격",
+    liqPrice: "청산 가격",
+    feesAndPriceImpact: "수수료 (환불) 및 가격 영향",
+    insufficientBalance: "잔액 부족",
+  },
+},
+
+  bridge: {
+  title: {
+    supertitle: "RESO DEX 체인 간 연결",
+    subtitle: "다리"
+  },
+  subtitle: {
+    supertitle: "BTC, ETH, BCH, XAI 및 100개 이상의 다른 암호화폐 간의 다리입니다.",
+    subtitle: "지갑 주소를 사용하여 최고의 환율을 얻으세요."
+  },
+  step: {
+    first: "가져오기",
+    second: "검토",
+    third: "확인",
+    fourth: "받기"
+  },
+  firstStep: {
+    title: "다리 토큰",
+    subtitle: "체인 간 자산을 전송하세요",
+    label: "소스 토큰 선택",
+    minimumReceived: "최소 수령량",
+    networkFees: "네트워크 수수료",
+    continue: "계속",
+    placeholder: "지갑 주소를 입력하세요"
+  },
+  secondStep: {
+    title: "다리 토큰",
+    subtitle: "체인 간 자산을 전송하세요",
+    label: "소스 토큰 선택",
+    minimumReceived: "최소 수령량",
+    networkFees: "네트워크 수수료",
+    bridge: "다리",
+  },
+  thirdStep: {
+    title: "다리 확인 대기",
+    subtitle: "지갑 주소와 자산이 올바른지 확인하세요",
+    bridge: "다리",
+    sendToken: "토큰 전송",
+    receiveToken: "토큰 받기",
+    destinationAddress: "목적지 주소",
+    minimumReceived: "최소 수령량",
+    networkFees: "네트워크 수수료",
+    receivingAddress: "받는 주소",
+    continue: "계속",
+  },
+  fourthStep: {
+    title: "거래 완료",
+    subtitle: "축하합니다, 거래가 성공적으로 완료되었습니다",
+    totalReceived: "총 수령량",
+    totalSent: "총 전송량",
+    minimumReceived: "최소 수령량",
+    networkFees: "네트워크 수수료",
+    receivingWalletAddress: "받는 지갑 주소",
+    continue: "계속",
+    viewTransactions: "거래 보기"
+  }
+}
+
 };

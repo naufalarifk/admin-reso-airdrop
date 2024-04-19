@@ -40,6 +40,12 @@ const navLink = [
     setTo: "/support",
     code: "supports",
   },
+  {
+    id: 6,
+    name: "Pool",
+    setTo: "/pool",
+    code: "pool",
+  },
 ];
 
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
@@ -70,19 +76,16 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden"
             >
               <span
-                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
-                  toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
-                }`}
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
+                  }`}
               />
               <span
-                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${
-                  toggle ? "translate-x-3 opacity-0" : "opacity-100"
-                }`}
+                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${toggle ? "translate-x-3 opacity-0" : "opacity-100"
+                  }`}
               />
               <span
-                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
-                  toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
-                }`}
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
+                  }`}
               />
             </button>
             <Link to="/" className=" ">
@@ -160,8 +163,13 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       {chain
                         ? chain.name
                         : !supportNetwork && isConnected
+<<<<<<< HEAD
+                          ? "Network"
+                          : "Select network"}
+=======
                         ? t("button.network")
                         : t("button.selectNetwork")}
+>>>>>>> 5d7ccb8242ed11cb781a87d9df78e60430a244ba
                     </div>
                   </div>
                   <ButtonGlow
@@ -227,8 +235,13 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   {chain
                     ? chain.name
                     : !supportNetwork && isConnected
+<<<<<<< HEAD
+                      ? "Network"
+                      : "Select network"}
+=======
                     ? t("button.network")
                     : t("button.selectNetwork")}
+>>>>>>> 5d7ccb8242ed11cb781a87d9df78e60430a244ba
                 </div>
               </div>
               <ButtonConnectWallet />
@@ -258,11 +271,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                             <Menu.Item key={lang.abbr}>
                               <button
                                 onClick={() => i18n.changeLanguage(lang.abbr)}
-                                className={`flex items-center px-6 gap-1 border text-center py-3 rounded-full justify-center ${
-                                  i18n.language === lang.abbr
+                                className={`flex items-center px-6 gap-1 border text-center py-3 rounded-full justify-center ${i18n.language === lang.abbr
                                     ? "border-primary"
                                     : "border-soft/45"
-                                }`}
+                                  }`}
                               >
                                 <div>
                                   <img
@@ -272,11 +284,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                   />
                                 </div>
                                 <div
-                                  className={`${
-                                    i18n.language === lang.abbr
+                                  className={`${i18n.language === lang.abbr
                                       ? "  text-primary"
                                       : " text-white"
-                                  }`}
+                                    }`}
                                 >
                                   {lang.nativeName}
                                 </div>
@@ -329,11 +340,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         <div key={lang.abbr}>
                           <button
                             onClick={() => i18n.changeLanguage(lang.abbr)}
-                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${
-                              i18n.language === lang.abbr
+                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${i18n.language === lang.abbr
                                 ? "border-primary"
                                 : "border-soft/45"
-                            }`}
+                              }`}
                           >
                             <div>
                               <img
@@ -343,11 +353,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                               />
                             </div>
                             <div
-                              className={`${
-                                i18n.language === lang.abbr
+                              className={`${i18n.language === lang.abbr
                                   ? "  text-primary"
                                   : " text-white"
-                              } text-sm `}
+                                } text-sm `}
                             >
                               {lang.nativeName}
                             </div>

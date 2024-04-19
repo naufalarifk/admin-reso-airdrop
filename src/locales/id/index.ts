@@ -1,12 +1,14 @@
 export const ID_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "Perdagangan",
-      staking: "Staking",
-      swap: "Tukar",
-      bridge: "Jembatan",
-      supports: "Dukungan",
-    },
+menu: {
+  trade: "Perdagangan",
+  staking: "Staking",
+  swap: "Swap",
+  bridge: "Jembatan",
+  supports: "Dukungan",
+  pool: "Pool",
+},
+
   },
   landing: {
     cta: "Semua dalam Platform untuk Desentralisasi Blockchain",
@@ -445,4 +447,102 @@ export const ID_TRANSLATION = {
     requirement: "Persyaratan",
     max: "MAKS",
   },
+  trade: {
+  tokenList: {
+    allMarkets: "Semua Pasar",
+    twentyFourChange: "Perubahan 24 Jam",
+    twentyFourHigh: "Tertinggi 24 Jam",
+    twentyFourLow: "Terendah 24 Jam",
+    twentyFourVol: "Volume 24 Jam (BTC)",
+    marketCap: "Kapitalisasi Pasar",
+    tradingActivity: "Aktivitas Perdagangan",
+    buy: "Beli",
+    sell: "Jual",
+    popular: "Populer",
+    all: "Semua",
+    marketSentiment: "Sentimen Pasar",
+  },
+  tradeComponent: {
+    trade: "Perdagangan",
+    history: "Riwayat",
+    long: "Panjang",
+    short: "Pendek",
+    swap: "Tukar",
+    market: "Pasar",
+    limit: "Batas",
+    tp: "TP/SL",
+    pay: "Bayar",
+    receive: "Terima",
+    balance: "Saldo",
+    price: "Harga",
+    mark: "Tandai",
+    max: "Maks",
+    pool: "Kolam",
+    leverageSlider: "Penggeser Leverage",
+    collateralIn: "Kolateral Masuk",
+    leverage: "Leverage",
+    entryPrice: "Harga Masuk",
+    liqPrice: "Harga Likuidasi",
+    feesAndPriceImpact: "Biaya (dikembalikan) dan Dampak Harga",
+    insufficientBalance: "Saldo Tidak Cukup",
+  },
+},
+
+  bridge: {
+  title: {
+    supertitle: "Interkoneksi RESO DEX antar Rantai",
+    subtitle: "Jembatan"
+  },
+  subtitle: {
+    supertitle: "Jembatan antara BTC, ETH, BCH, XAI, dan lebih dari 100 cryptocurrency lainnya.",
+    subtitle: "Kurs terbaik, menggunakan alamat dompet Anda."
+  },
+  step: {
+    first: "Impor",
+    second: "Review",
+    third: "Konfirmasi",
+    fourth: "Terima"
+  },
+  firstStep: {
+    title: "Token Jembatan",
+    subtitle: "Kirim aset Anda melintasi rantai",
+    label: "Pilih Token Sumber",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    continue: "Lanjutkan",
+    placeholder: "Masukkan alamat dompet Anda"
+  },
+  secondStep: {
+    title: "Token Jembatan",
+    subtitle: "Kirim aset Anda melintasi rantai",
+    label: "Pilih Token Sumber",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    bridge: "Jembatan",
+  },
+  thirdStep: {
+    title: "Menunggu Konfirmasi Jembatan",
+    subtitle: "Pastikan alamat dompet dan aset Anda benar",
+    bridge: "Jembatan",
+    sendToken: "Kirim Token",
+    receiveToken: "Terima Token",
+    destinationAddress: "Alamat Tujuan",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    receivingAddress: "Alamat Penerima",
+    continue: "Lanjutkan",
+  },
+  fourthStep: {
+    title: "Transaksi Selesai",
+    subtitle: "Selamat, transaksi Anda berhasil",
+    totalReceived: "Total Diterima",
+    totalSent: "Total Dikirim",
+    minimumReceived: "Diterima Minimum",
+    networkFees: "Biaya Jaringan",
+    receivingWalletAddress: "Alamat Dompet Penerima",
+    continue: "Lanjutkan",
+    viewTransactions: "Lihat Transaksi"
+  }
+}
+
 };

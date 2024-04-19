@@ -6,6 +6,7 @@ export const PT_TRANSLATION = {
       swap: "Troca",
       bridge: "Ponte",
       supports: "Suporte",
+      pool: "Pool"
     },
   },
   landing: {
@@ -448,4 +449,102 @@ export const PT_TRANSLATION = {
     requirement: "Requisito",
     max: "MÁX",
   },
+  trade: {
+  tokenList: {
+    allMarkets: "Todos os Mercados",
+    twentyFourChange: "Mudança em 24 Horas",
+    twentyFourHigh: "Alto em 24 Horas",
+    twentyFourLow: "Baixo em 24 Horas",
+    twentyFourVol: "Volume em 24h (BTC)",
+    marketCap: "Capitalização de Mercado",
+    tradingActivity: "Atividade de Negociação",
+    buy: "Comprar",
+    sell: "Vender",
+    popular: "Popular",
+    all: "Todos",
+    marketSentiment: "Sentimento de Mercado",
+  },
+  tradeComponent: {
+    trade: "Negociar",
+    history: "Histórico",
+    long: "Longo",
+    short: "Curto",
+    swap: "Trocar",
+    market: "Mercado",
+    limit: "Limite",
+    tp: "TP/SL",
+    pay: "Pagar",
+    receive: "Receber",
+    balance: "Saldo",
+    price: "Preço",
+    mark: "Marcar",
+    max: "Máximo",
+    pool: "Pool",
+    leverageSlider: "Controle de Alavancagem",
+    collateralIn: "Colateral Recebido",
+    leverage: "Alavancagem",
+    entryPrice: "Preço de Entrada",
+    liqPrice: "Preço de Liquidação",
+    feesAndPriceImpact: "Taxas (reembolsadas) e Impacto no Preço",
+    insufficientBalance: "Saldo Insuficiente",
+  },
+},
+
+  bridge: {
+  title: {
+    supertitle: "Interconexão RESO DEX entre Cadeias",
+    subtitle: "Ponte"
+  },
+  subtitle: {
+    supertitle: "Ponte entre BTC, ETH, BCH, XAI e mais de 100 outras criptomoedas.",
+    subtitle: "Melhores taxas de câmbio, usando o endereço da sua carteira."
+  },
+  step: {
+    first: "Importar",
+    second: "Revisar",
+    third: "Confirmar",
+    fourth: "Receber"
+  },
+  firstStep: {
+    title: "Token da Ponte",
+    subtitle: "Envie seus ativos entre cadeias",
+    label: "Selecionar Token de Origem",
+    minimumReceived: "Mínimo Recebido",
+    networkFees: "Taxas de Rede",
+    continue: "Continuar",
+    placeholder: "Insira o endereço da sua carteira"
+  },
+  secondStep: {
+    title: "Token da Ponte",
+    subtitle: "Envie seus ativos entre cadeias",
+    label: "Selecionar Token de Origem",
+    minimumReceived: "Mínimo Recebido",
+    networkFees: "Taxas de Rede",
+    bridge: "Ponte",
+  },
+  thirdStep: {
+    title: "Aguardando Confirmação da Ponte",
+    subtitle: "Certifique-se de que seu endereço de carteira e ativos estão corretos",
+    bridge: "Ponte",
+    sendToken: "Enviar Token",
+    receiveToken: "Receber Token",
+    destinationAddress: "Endereço de Destino",
+    minimumReceived: "Mínimo Recebido",
+    networkFees: "Taxas de Rede",
+    receivingAddress: "Endereço de Recebimento",
+    continue: "Continuar",
+  },
+  fourthStep: {
+    title: "Transação Concluída",
+    subtitle: "Parabéns, sua transação foi bem-sucedida",
+    totalReceived: "Total Recebido",
+    totalSent: "Total Enviado",
+    minimumReceived: "Mínimo Recebido",
+    networkFees: "Taxas de Rede",
+    receivingWalletAddress: "Endereço da Carteira Recebedora",
+    continue: "Continuar",
+    viewTransactions: "Ver Transações"
+  }
+}
+
 };

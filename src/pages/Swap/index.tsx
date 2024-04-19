@@ -278,7 +278,7 @@ export const Swap = () => {
                             {
                                 leverageCount.map((value) =>
                                     <Button className="h-auto text-xs rounded-full bg-[#21222e] py-1 px-6" onClick={() => setLeverage(value)}>
-                                        {value}
+                                        {value}%
                                     </Button>
 
                                 )
@@ -392,12 +392,12 @@ export const Swap = () => {
                                 } />
                                 <Pagination />
                             </> : selectedPoolMenu === 'Owners Chart' ? <>
-                                <SwapTable row={['Rank', 'Address', 'Quantity']} col={
-                                    owners_charts.map(pool => <div className="grid grid-cols-3 my-4 border-b text-center items-center">
+                                <SwapTable className="text-left" row={['Rank', 'Address', 'Quantity']} col={
+                                    owners_charts.map(pool => <div className="grid grid-cols-3 my-4 border-b text-left items-center">
                                         <Text>{pool.rank}</Text>
                                         <Text>{pool.address}</Text>
 
-                                        <div className="flex space-x-1 items-center justify-center">
+                                        <div className="flex space-x-1 items-center justify-start">
                                             <Text>{pool.quantity}</Text>
                                             <IcQuestionMark />
                                         </div>

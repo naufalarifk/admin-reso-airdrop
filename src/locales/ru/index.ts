@@ -1,12 +1,14 @@
 export const RU_TRANSLATION = {
   navbar: {
-    menu: {
-      trade: "Торговля",
-      staking: "Стейкинг",
-      swap: "Обмен",
-      bridge: "Мост",
-      supports: "Поддержка",
-    },
+menu: {
+  trade: "Сделки",
+  staking: "Стейкинг",
+  swap: "Обмен",
+  bridge: "Мост",
+  supports: "Поддержка",
+  pool: "Пул",
+},
+
   },
   landing: {
     cta: "Всё в одной платформе для децентрализованных блокчейнов",
@@ -414,4 +416,45 @@ export const RU_TRANSLATION = {
     requirement: "Требование",
     max: "МАКС",
   },
+  trade: {
+  tokenList: {
+    allMarkets: "Все Рынки",
+    twentyFourChange: "Изменение за 24 часа",
+    twentyFourHigh: "Максимум за 24 часа",
+    twentyFourLow: "Минимум за 24 часа",
+    twentyFourVol: "Объем за 24 часа (BTC)",
+    marketCap: "Капитализация Рынка",
+    tradingActivity: "Торговая Активность",
+    buy: "Купить",
+    sell: "Продать",
+    popular: "Популярное",
+    all: "Все",
+    marketSentiment: "Настроение Рынка",
+  },
+  tradeComponent: {
+    trade: "Торговля",
+    history: "История",
+    long: "Лонг",
+    short: "Шорт",
+    swap: "Обмен",
+    market: "Рынок",
+    limit: "Лимит",
+    tp: "TP/SL",
+    pay: "Платить",
+    receive: "Получить",
+    balance: "Баланс",
+    price: "Цена",
+    mark: "Метка",
+    max: "Максимум",
+    pool: "Пул",
+    leverageSlider: "Слайдер Плеча",
+    collateralIn: "Входящий Залог",
+    leverage: "Плечо",
+    entryPrice: "Цена Входа",
+    liqPrice: "Цена Ликвидации",
+    feesAndPriceImpact: "Комиссии (возвращены) и Влияние на Цену",
+    insufficientBalance: "Недостаточный Баланс",
+  },
+},
+
 };

@@ -145,23 +145,23 @@ const SecondStep = ({ setStep, step }: ChildrenProps) => {
                     <span className="flex space-x-2 items-center"><IcBitcoin /><Text>BTC (Bitcoin)</Text></span>
                     <Text>1</Text>
                 </div>
-                <hr className="my-4" />
+                <hr className="my-4 h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
                 <div className="flex items-center justify-between w-full">
-                    <span className="flex space-x-2 items-center"><IcBitcoin /><Text>Reso (Rectoverso)</Text></span>
+                    <span className="flex space-x-2 items-center"><IcBitcoin /><Text>Reso (Rectoverso)</Text><IcDropdown /></span>
                     <Text>1000</Text>
                 </div>
-                <hr />
+                <hr className="h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
                 <div className="space-y-1">
                     <div className="flex items-center justify-between w-full">
                         <Text>BTC price rate (Minimum listing ≈ 1 BTC)</Text>
                         <Text>1 BTC = 1 BTC</Text>
                     </div>
-                    <hr />
+                    <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
                     <div className="flex items-center justify-between w-full">
                         <Text>Reso price rate (Minimum listing ≈ 1,000 RESO)</Text>
                         <Text>1,000 RESO = 1 BTC</Text>
                     </div>
-                    <hr />
+                    <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
                     <div className="flex items-center justify-between w-full">
                         <Text>Listing fees :</Text>
                         <Text>1,000 RESO</Text>
@@ -286,7 +286,10 @@ const ThirdStep = ({ setStep, step }: ChildrenProps) => {
                         </div>)
                 }
             </div>
-            <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">Continue</Button>
+            <div className="flex space-x-1">
+                <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">Continue</Button>
+                <Button onClick={handleNextStep} className="w-full bg-[#20232e]">Cancel</Button>
+            </div>
         </section>
     )
 }
