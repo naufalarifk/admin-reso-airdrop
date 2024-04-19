@@ -423,6 +423,8 @@ export const PT_TRANSLATION = {
     unstake: "Retirar Stake",
     claim: "Reivindicar",
     save: "Salvar",
+    network: "Rede",
+    selectNetwork: "Selecionar Rede",
   },
   tags: {
     language: "Idioma",

@@ -365,6 +365,8 @@ export const IT_TRANSLATION = {
     unstake: "Ritira Staking",
     claim: "Richiedi",
     save: "Salva",
+    network: "Rete",
+    selectNetwork: "Seleziona Rete",
   },
   tags: {
     language: "Lingua",

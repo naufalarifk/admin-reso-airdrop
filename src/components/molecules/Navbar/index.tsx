@@ -96,7 +96,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               />
             </Link>
           </div>
-          <ButtonConnectWallet shortname classNameButton="!w-[130px]" />
+          <ButtonConnectWallet
+            shortname
+            classNameButton="!w-[130px] lg:hidden block"
+          />
 
           <AnimatePresence>
             {toggle && (
@@ -160,8 +163,13 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       {chain
                         ? chain.name
                         : !supportNetwork && isConnected
+<<<<<<< HEAD
                           ? "Network"
                           : "Select network"}
+=======
+                        ? t("button.network")
+                        : t("button.selectNetwork")}
+>>>>>>> 5d7ccb8242ed11cb781a87d9df78e60430a244ba
                     </div>
                   </div>
                   <ButtonGlow
@@ -227,8 +235,13 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   {chain
                     ? chain.name
                     : !supportNetwork && isConnected
+<<<<<<< HEAD
                       ? "Network"
                       : "Select network"}
+=======
+                    ? t("button.network")
+                    : t("button.selectNetwork")}
+>>>>>>> 5d7ccb8242ed11cb781a87d9df78e60430a244ba
                 </div>
               </div>
               <ButtonConnectWallet />

@@ -421,6 +421,8 @@ menu: {
     unstake: "Tarik",
     claim: "Klaim",
     save: "Simpan",
+    network: "Jaringan",
+    selectNetwork: "Pilih Jaringan",
   },
   tags: {
     language: "Bahasa",

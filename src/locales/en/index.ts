@@ -426,6 +426,8 @@ export const EN_TRANSLATION = {
     unstake: "Unstake",
     claim: "Claim",
     save: "Save",
+    network: "Network",
+    selectNetwork: "Select Network",
   },
   tags: {
     language: "Language",
