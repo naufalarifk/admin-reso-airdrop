@@ -637,5 +637,4 @@ swap: {
   },
   unstableConnection: "Koneksi Tidak Stabil"
 }
-
 };

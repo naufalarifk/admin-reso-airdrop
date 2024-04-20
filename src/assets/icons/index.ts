@@ -33,3 +33,4 @@ export * from "./IcCancel";
 export * from "./IcQuestionMark";
 export * from "./IcCopy";
 export * from "./IcArrowUp";
+export * from "./IcDoubleCurrency"

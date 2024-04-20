@@ -2,7 +2,7 @@ import { Button, Input, OrderBookSwap, Pagination } from "@/components"
 import TradingView from "@/components/organisms/TradingView"
 import { ChangeEvent, useState } from "react"
 import { Text } from "@/components"
-import { IcBitcoin, IcCancel, IcExternalLink, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcUnstableConnection } from "@/assets/icons"
+import { IcBitcoin, IcCancel, IcDoubleCurrency, IcExternalLink, IcInfo, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcTrade, IcUnstableConnection } from "@/assets/icons"
 import { Slider } from "@/components"
 import { SwapTable } from "@/components"
 import { useTranslation } from "react-i18next"
@@ -246,7 +246,7 @@ export const Swap = () => {
     const SwapMenu = () => {
         return (
             <>
-                <section className="mt-4 flex items-center justify-center space-x-4">
+                <section className="mt-4 flex items-center justify-center lg:flex-row flex-col space-y-4 space-x-0 lg:space-y-0 lg:space-x-4">
                     <div className="space-y-2 w-full h-full">
                         <Text>{t('swap.swapMenu.tokenToSwap')}</Text>
                         <div className="bg-[#0E0F19] rounded-lg p-4 flex items-center space-x-2">
@@ -352,18 +352,30 @@ export const Swap = () => {
     }
     return (
         <>
-            <main className="flex space-x-4">
+            <main className="flex space-x-0 lg:flex-row flex-col lg:space-y-0 lg:space-x-4 space-y-4">
+                <div className="p-4 items-center space-x-2 lg:hidden flex bg-[#181924] rounded-lg">
+                    <div className="flex items-center space-x-2 w-full">
+                        <IcDoubleCurrency />
+                        <IcBitcoin />
+                        <Text className="text-white">BTC/USD</Text>
+                        <Text className="text-[#33D49D] p-1 bg-[#25402f] rounded-full">+2.00%</Text>
+                    </div>
+                    <div className="flex justify-end w-max">
+                        <IcTrade />
+                        <IcInfo />
+                    </div>
+                </div>
                 <OrderBookSwap />
-                <div style={styles} className="h-[40vh] lg:h-[60vh] w-4/5">
+                <div style={styles} className="h-[40vh] lg:h-[60vh] lg:w-4/5 w-full">
                     <TradingView />
                 </div>
             </main>
-            <main className="mt-4 flex space-x-4">
+            <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
                 <div style={{
                     borderRadius: `8px`,
                     background: `var(--Dark-Dark-2, #181924)`,
                     backdropFilter: `blur(12px)`
-                }} className="p-6 w-1/2">
+                }} className="p-6 lg:w-1/2 w-full">
                     <div className="flex justify-between">
                         <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
                             {
@@ -431,7 +443,7 @@ export const Swap = () => {
                     borderRadius: `8px`,
                     background: `var(--Dark-Dark-2, #181924)`,
                     backdropFilter: `blur(12px)`
-                }} className="p-6 w-1/2">
+                }} className="p-6 lg:w-1/2 w-full">
                     <div className="flex justify-between">
                         <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
                             {
@@ -446,7 +458,7 @@ export const Swap = () => {
                     }
                 </div>
             </main>
-            <div className="flex mt-4 border-t border-[#ADB1B8] p-2 justify-between">
+            <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
                 <div className="flex space-x-1">
                     <IcUnstableConnection />
                     <Text>{t('swap.unstableConnection')}</Text>

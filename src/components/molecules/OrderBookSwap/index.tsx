@@ -100,7 +100,7 @@ const BuyTab = () => {
 
 export const OrderBookSwap = () => {
     return (
-        <section className="p-4 bg-[#181924] rounded-lg w-1/5">
+        <section className="p-4 bg-[#181924] rounded-lg lg:w-1/5 w-full">
             <div className="flex justify-between items-center">
                 <Text className="text-lg font-semibold">Orderbook</Text>
                 <div className="flex space-x-1">
