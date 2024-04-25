@@ -1,4 +1,4 @@
-import { Button, Input, OrderBookSwap, Pagination } from "@/components"
+import { Button, Input, ModalConfirmInstantSwap, OrderBookSwap, Pagination } from "@/components"
 import TradingView from "@/components/organisms/TradingView"
 import { ChangeEvent, useState } from "react"
 import { Text } from "@/components"
@@ -7,6 +7,7 @@ import { Slider } from "@/components"
 import { SwapTable } from "@/components"
 import { useTranslation } from "react-i18next"
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance"
+import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo"
 
 
 export const Swap = () => {
@@ -25,6 +26,8 @@ export const Swap = () => {
     const [selectedPoolMenu, setSelectedPoolMenu] = useState('poolSwaps')
     const [selectedSwapMenu, setSelectedSwapMenu] = useState('instantSwap')
     const [openInsufficientBalance, setOpenInsufficientBalance] = useState(false)
+    const [openConfirmInstantSwap, setOpenConfirmInstantSwap] = useState(false)
+    const [openCoinInfo, setOpenCoinInfo] = useState(false)
     const [leverage, setLeverage] = useState(0)
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
@@ -314,7 +317,7 @@ export const Swap = () => {
                     <div className="space-y-2 w-full h-full">
                         <div className="flex justify-between items-center">
                             <Text>{t('swap.swapMenu.tokenToReceive')}</Text>
-                            <IcGas />
+                            <IcGas onClick={() => setOpenCoinInfo(true)} />
                         </div>
                         <div className="bg-[#0E0F19] rounded-lg p-4 flex items-center space-x-2">
                             <div className="flex items-center space-x-2 bg-[#171923] p-2 rounded-lg">
@@ -462,6 +465,7 @@ export const Swap = () => {
                             <SwapMenu />
                     }
                 </div>
+                <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button>
             </main>
             <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
                 <div className="flex space-x-1">
@@ -477,6 +481,8 @@ export const Swap = () => {
                 }
             </div>
             <ModalInsufficientBalance isOpen={openInsufficientBalance} closeModal={() => setOpenInsufficientBalance(false)} />
+            <ModalCoinInfo isOpen={openCoinInfo} closeModal={() => setOpenCoinInfo(false)} />
+            <ModalConfirmInstantSwap isOpen={openConfirmInstantSwap} closeModal={() => setOpenConfirmInstantSwap(false)} />
         </>
     )
 }

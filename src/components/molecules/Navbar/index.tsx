@@ -1,13 +1,10 @@
 import { Fragment, useState } from "react";
-import { ButtonConnectWallet, ButtonGlow } from "@/components";
-import { AnimatePresence, motion } from "framer-motion";
+import { ButtonWalletConnectV2 } from "@/components";
+// import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink } from "react-router-dom";
-import { IcWeb } from "@/assets/icons";
 import { useTranslation } from "react-i18next";
-import { Transition, Dialog, Menu } from "@headlessui/react";
+import { Transition, Dialog } from "@headlessui/react";
 import { langs, Language } from "@/locales/langs";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
-import { useAccount, useConfig, useConnections } from "wagmi";
 
 const navLink = [
   // {
@@ -52,15 +49,16 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
-  const modal = useWeb3Modal();
-  const { chain, isConnected } = useAccount();
-  const connections = useConnections();
-  const { chains } = useConfig();
 
-  const listChain = chains.map((c) => c.id);
-  const currentChain = connections[0]?.chainId;
-  const supportNetwork =
-    currentChain !== undefined && listChain.some((e) => currentChain === e);
+  // const modal = useWeb3Modal();
+  // const { chain, isConnected } = useAccount();
+  // const connections = useConnections();
+  // const { chains } = useConfig();
+
+  // const listChain = chains.map((c) => c.id);
+  // const currentChain = connections[0]?.chainId;
+  // const supportNetwork =
+  //   currentChain !== undefined && listChain.some((e) => currentChain === e);
 
   return (
     <div
@@ -76,16 +74,19 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden"
             >
               <span
-                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
-                  }`}
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                  toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
+                }`}
               />
               <span
-                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${toggle ? "translate-x-3 opacity-0" : "opacity-100"
-                  }`}
+                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${
+                  toggle ? "translate-x-3 opacity-0" : "opacity-100"
+                }`}
               />
               <span
-                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
-                  }`}
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                  toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
+                }`}
               />
             </button>
             <Link to="/" className=" ">
@@ -96,12 +97,14 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               />
             </Link>
           </div>
-          <ButtonConnectWallet
+          {/* <ButtonConnectWallet
             shortname
             classNameButton="!w-[130px] lg:hidden block"
-          />
+          /> */}
 
-          <AnimatePresence>
+          <ButtonWalletConnectV2 className="lg:hidden block" />
+
+          {/* <AnimatePresence>
             {toggle && (
               <motion.div
                 className="fixed overflow-hidden justify-between flex flex-col bottom-0 left-0 top-0 z-[60] h-full min-h-screen bg-black  lg:hidden"
@@ -176,7 +179,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                 </div>
               </motion.div>
             )}
-          </AnimatePresence>
+          </AnimatePresence> */}
 
           <div className="hidden lg:flex lg:items-center lg:justify-center gap-10">
             <ul className="flex gap-10 text-base  cursor-pointer">
@@ -200,7 +203,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
 
             {/* <div onClick={() => setOpenTokenList(!openTokenList)}>test</div> */}
             <div className="flex gap-2">
-              <div
+              {/* <div
                 onClick={() => modal.open({ view: "Networks" })}
                 className="cursor-pointer border-animate-wrapper rounded-full w-full px-28 "
               >
@@ -233,9 +236,9 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       ? t("button.network")
                       : t("button.selectNetwork")}
                 </div>
-              </div>
-              <ButtonConnectWallet />
-              <Menu>
+              </div> */}
+              <ButtonWalletConnectV2 />
+              {/* <Menu>
                 <>
                   <Menu.Button>
                     <ButtonGlow classNameButton="!w-[50px] p-0">
@@ -289,7 +292,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                     </Menu.Items>
                   </Transition>
                 </>
-              </Menu>
+              </Menu> */}
             </div>
           </div>
         </div>
@@ -330,10 +333,11 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         <div key={lang.abbr}>
                           <button
                             onClick={() => i18n.changeLanguage(lang.abbr)}
-                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${i18n.language === lang.abbr
-                              ? "border-primary"
-                              : "border-soft/45"
-                              }`}
+                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${
+                              i18n.language === lang.abbr
+                                ? "border-primary"
+                                : "border-soft/45"
+                            }`}
                           >
                             <div>
                               <img
@@ -343,10 +347,11 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                               />
                             </div>
                             <div
-                              className={`${i18n.language === lang.abbr
-                                ? "  text-primary"
-                                : " text-white"
-                                } text-sm `}
+                              className={`${
+                                i18n.language === lang.abbr
+                                  ? "  text-primary"
+                                  : " text-white"
+                              } text-sm `}
                             >
                               {lang.nativeName}
                             </div>

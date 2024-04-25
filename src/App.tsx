@@ -1,10 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/routes";
-import { createWeb3Modal } from "@web3modal/wagmi/react";
-import { WagmiProvider } from "wagmi";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SupportedChainsProvider } from "./hooks";
-import { chains, config } from "@/config";
+// import { createWeb3Modal } from "@web3modal/wagmi/react";
+// import { WagmiProvider } from "wagmi";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { SupportedChainsProvider } from "./hooks";
+// import { chains, config } from "@/config";
+import { Toaster } from "react-hot-toast";
 
 type ComponentsWithProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,7 +18,7 @@ type ComponentsWithProps<
     : readonly [TComponents[key], React.ComponentProps<TComponents[key]>];
 } & { length: TComponents["length"] };
 
-const buildProvidersTree = <
+export const buildProvidersTree = <
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends readonly React.JSXElementConstructor<any>[]
 >(
@@ -42,40 +43,39 @@ const buildProvidersTree = <
 };
 
 function App() {
-  const queryClient = new QueryClient();
-  const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
+  // const queryClient = new QueryClient();
+  // const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
 
-  createWeb3Modal({
-    wagmiConfig: config,
-    projectId,
-    enableAnalytics: true, // Optional - defaults to your Cloud configuration
-    enableOnramp: true, // Optional - false as default
-    themeVariables: {
-      "--w3m-accent": "#F23F5D",
-      "--w3m-border-radius-master": "8px",
-    },
-    excludeWalletIds: [
-      "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
-    ],
-    allWallets: "HIDE",
-    termsConditionsUrl: "https://www.mytermsandconditions.com",
-    themeMode: "dark",
-  });
+  // createWeb3Modal({
+  //   wagmiConfig: config,
+  //   projectId,
+  //   enableAnalytics: true,
+  //   enableOnramp: true,
+  //   themeVariables: {
+  //     "--w3m-accent": "#F23F5D",
+  //     "--w3m-border-radius-master": "8px",
+  //   },
+  //   excludeWalletIds: [
+  //     "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
+  //   ],
+  //   allWallets: "HIDE",
+  //   termsConditionsUrl: "https://www.mytermsandconditions.com",
+  //   themeMode: "dark",
+  // });
 
-  const chainID = chains.map((c) => c.id);
+  // const chainID = chains.map((c) => c.id);
 
-  const ProvidersTree = buildProvidersTree([
-    [WagmiProvider, { config }],
-    [QueryClientProvider, { client: queryClient }],
-    [SupportedChainsProvider, { supportedChains: chainID }],
-  ] as const);
+  // const ProvidersTree = buildProvidersTree([
+  //   [WagmiProvider, { config }],
+  //   [QueryClientProvider, { client: queryClient }],
+  //   [SupportedChainsProvider, { supportedChains: chainID }],
+  // ] as const);
 
   return (
-    <ProvidersTree>
-      <BrowserRouter>
-        <RootLayout />
-      </BrowserRouter>
-    </ProvidersTree>
+    <BrowserRouter>
+      <Toaster />
+      <RootLayout />
+    </BrowserRouter>
   );
 }
 

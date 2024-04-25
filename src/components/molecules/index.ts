@@ -16,3 +16,6 @@ export * from "./PoolSteps";
 export * from "./InfoRewardStake";
 export * from "./FormAddNewStaking";
 export * from "./ModalInsufficientBalance";
+export * from "./ButtonConnectWalletV2";
+export * from "./ModalConfirmInstantSwap";
+export * from "./SwapInput";
