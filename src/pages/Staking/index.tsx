@@ -1,11 +1,14 @@
-import { CardStaking, ModalAddStaking, Tabs } from "@/components";
+import {
+  CardStaking,
+  ModalAddStaking,
+  Tabs,
+  useWalletStore,
+} from "@/components";
 import { COIN, STAKE_COIN } from "@/constants";
 import { Coin } from "@/types/components";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { ChangeEvent, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAccount } from "wagmi";
 
 interface NewStakingDataPayload {
   coinOne: Coin | null;
@@ -22,11 +25,18 @@ interface NewStakingDataPayload {
 export const Staking = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { isConnected } = useAccount();
-  const { open } = useWeb3Modal();
+
+  const { connected, setModalVisible } = useWalletStore((state) => state);
+
+  // const { isConnected } = useAccount();
+  // const { open } = useWeb3Modal();
 
   const [openAddStakeModal, setOpenAddStakeModal] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<Coin[]>([]);
+
+  const handleConnect = () => {
+    setModalVisible(true);
+  };
 
   const [newStakingData, setNewStakingData] = useState<NewStakingDataPayload>({
     coinOne: null,
@@ -48,8 +58,6 @@ export const Staking = () => {
       coinTwo: selected[1],
     });
   };
-
-  console.log("selectedOptions", newStakingData);
 
   const handlePriceCoinOne = (value: number) => {
     setNewStakingData({ ...newStakingData, amountCoinOne: String(value) });
@@ -90,8 +98,8 @@ export const Staking = () => {
               {STAKE_COIN.map((item, i) => (
                 <CardStaking
                   key={i}
-                  handleConnected={() => open()}
-                  isConnected={isConnected}
+                  handleConnected={handleConnect}
+                  isConnected={connected}
                   whileConnected={() =>
                     navigate(
                       `create?type=${
@@ -142,7 +150,7 @@ export const Staking = () => {
         ),
       },
     ],
-    [isConnected, navigate, open, t]
+    [navigate, t, connected]
   );
 
   return (

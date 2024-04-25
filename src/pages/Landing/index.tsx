@@ -5,8 +5,12 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ButtonConnectWallet, Footer, Header } from "@/components";
-import { useAccount } from "wagmi";
+import {
+  ButtonWalletConnectV2,
+  Footer,
+  Header,
+  useWalletStore,
+} from "@/components";
 import { useTranslation } from "react-i18next";
 import { IcShape, IcStar } from "@/assets/icons";
 
@@ -15,8 +19,10 @@ export function Landing() {
 
   const { t } = useTranslation();
 
+  const { connected } = useWalletStore((state) => state);
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const account = useAccount();
+  // const account = useAccount();
   const { scrollYProgress } = useScroll({
     target: containerRef,
   });
@@ -198,7 +204,7 @@ export function Landing() {
               {t("landing.hero.subtitle")}
             </p>
 
-            {!account.isConnected && <ButtonConnectWallet />}
+            {!connected && <ButtonWalletConnectV2 />}
           </motion.div>
           <div
             style={{

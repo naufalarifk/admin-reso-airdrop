@@ -15,3 +15,4 @@ export * from "./SwapTable";
 export * from "./PoolSteps";
 export * from "./InfoRewardStake";
 export * from "./FormAddNewStaking";
+export * from "./ButtonConnectWalletV2";
