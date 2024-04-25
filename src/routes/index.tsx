@@ -13,23 +13,21 @@ import {
 import { MainMenu } from "./MainMenu";
 import { LayoutDashboard, StakeLayout } from "@/components";
 import { useScrollTop } from "@/hooks";
-import { useAccount } from "wagmi";
-import { useEffect } from "react";
 
 export const RootLayout = () => {
   useScrollTop();
-  const { chain } = useAccount();
+  // const { chain } = useAccount();
 
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    url.searchParams.set(
-      "chainId",
-      String(chain?.nativeCurrency?.symbol).toLowerCase()
-    );
-    if (url.href !== window.location.href && chain?.id !== undefined) {
-      window.location.href = url.href;
-    }
-  });
+  // useEffect(() => {
+  //   const url = new URL(window.location.href);
+  //   url.searchParams.set(
+  //     "chainId",
+  //     String(chain?.nativeCurrency?.symbol).toLowerCase()
+  //   );
+  //   if (url.href !== window.location.href && chain?.id !== undefined) {
+  //     window.location.href = url.href;
+  //   }
+  // });
 
   return (
     <Routes>
