@@ -10,12 +10,12 @@ import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount, useConfig, useConnections } from "wagmi";
 
 const navLink = [
-  {
-    id: 1,
-    name: "Trades",
-    code: "trade",
-    setTo: "/trade",
-  },
+  // {
+  //   id: 1,
+  //   name: "Trades",
+  //   code: "trade",
+  //   setTo: "/trade",
+  // },
   {
     id: 2,
     name: "Staking",

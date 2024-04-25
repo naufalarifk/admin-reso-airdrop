@@ -34,3 +34,5 @@ export * from "./IcQuestionMark";
 export * from "./IcCopy";
 export * from "./IcArrowUp";
 export * from "./IcDoubleCurrency"
+export * from "./IcWarningTriangle"
+export * from "./IcGas";

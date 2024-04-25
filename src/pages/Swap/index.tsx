@@ -2,10 +2,11 @@ import { Button, Input, OrderBookSwap, Pagination } from "@/components"
 import TradingView from "@/components/organisms/TradingView"
 import { ChangeEvent, useState } from "react"
 import { Text } from "@/components"
-import { IcBitcoin, IcCancel, IcDoubleCurrency, IcExternalLink, IcInfo, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcTrade, IcUnstableConnection } from "@/assets/icons"
+import { IcBitcoin, IcCancel, IcDoubleCurrency, IcExternalLink, IcGas, IcInfo, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcTrade, IcUnstableConnection } from "@/assets/icons"
 import { Slider } from "@/components"
 import { SwapTable } from "@/components"
 import { useTranslation } from "react-i18next"
+import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance"
 
 
 export const Swap = () => {
@@ -23,6 +24,7 @@ export const Swap = () => {
 
     const [selectedPoolMenu, setSelectedPoolMenu] = useState('poolSwaps')
     const [selectedSwapMenu, setSelectedSwapMenu] = useState('instantSwap')
+    const [openInsufficientBalance, setOpenInsufficientBalance] = useState(false)
     const [leverage, setLeverage] = useState(0)
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
@@ -310,7 +312,10 @@ export const Swap = () => {
                         <IcScrollV className='rotate-90' />
                     </div>
                     <div className="space-y-2 w-full h-full">
-                        <Text>{t('swap.swapMenu.tokenToReceive')}</Text>
+                        <div className="flex justify-between items-center">
+                            <Text>{t('swap.swapMenu.tokenToReceive')}</Text>
+                            <IcGas />
+                        </div>
                         <div className="bg-[#0E0F19] rounded-lg p-4 flex items-center space-x-2">
                             <div className="flex items-center space-x-2 bg-[#171923] p-2 rounded-lg">
                                 <IcBitcoin height="24" width="24" />
@@ -346,7 +351,7 @@ export const Swap = () => {
                         </div>
                     </div>
                 </section>
-                <Button className="rounded-full w-full mt-2 bg-[#F23F5D]">{t('swap.swapMenu.swap')}</Button>
+                <Button onClick={() => setOpenInsufficientBalance(true)} className="rounded-full w-full mt-2 bg-[#F23F5D]">{t('swap.swapMenu.swap')}</Button>
             </>
         )
     }
@@ -471,6 +476,7 @@ export const Swap = () => {
                         </div>)
                 }
             </div>
+            <ModalInsufficientBalance isOpen={openInsufficientBalance} closeModal={() => setOpenInsufficientBalance(false)} />
         </>
     )
 }

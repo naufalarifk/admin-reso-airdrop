@@ -3,7 +3,7 @@ import {
   CreateStakingPage,
   Landing,
   Staking,
-  Trade,
+  // Trade,
   Bridge,
   Swap,
   Terms,
@@ -38,7 +38,7 @@ export const RootLayout = () => {
       <Route path="/privacy" element={<Privacy />} />
       <Route element={<MainMenu />}>
         <Route element={<LayoutDashboard />}>
-          <Route path="/trade" element={<Trade />} />
+          {/* <Route path="/trade" element={<Trade />} /> */}
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap" element={<Swap />} />
           <Route path="/pool" element={<Pool />} />

@@ -618,6 +618,14 @@ cancel: "Cancel"
     instantSwap: "Instant Swap",
     limitSwap: "Limit Swap",
     myOpenOrder: "My Open Order",
+    modal: {
+      insufficient: {
+        title: "Warning",
+        text: "Insufficient Balance",
+        subtext: "Please check your balance and make sure you have enough balance",
+        close: "Close",
+}
+    },
     orderTable: {
       date: "Date",
       market: "Market",
