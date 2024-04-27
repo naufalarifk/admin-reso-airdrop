@@ -1,18 +1,19 @@
 import {
   Button,
   Input,
+  ModalConfirmInstantSwap,
   OrderBookSwap,
   Pagination,
-  useWalletStore,
 } from "@/components";
 import TradingView from "@/components/organisms/TradingView";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Text } from "@/components";
 import {
   IcBitcoin,
   IcCancel,
   IcDoubleCurrency,
   IcExternalLink,
+  IcGas,
   IcInfo,
   IcQuestionMark,
   IcScrollV,
@@ -23,9 +24,23 @@ import {
 import { Slider } from "@/components";
 import { SwapTable } from "@/components";
 import { useTranslation } from "react-i18next";
+import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance";
+import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo";
+import { usePublicMarket } from "./hooks/usePublicMarkets";
+import { getMarketList } from "@/api/services/public/markets";
+import { usePublicCurrency } from "./hooks/usePublicCurrencies";
+import { getCurrencyList } from "@/api/services/public/currencies";
 
 export const Swap = () => {
   const { t } = useTranslation();
+  const market = usePublicMarket((state) => state.market);
+  const currency = usePublicCurrency((state) => state.currency);
+  const updateCurrency = usePublicCurrency(
+    (state) => state.updateCurrencyState
+  );
+  const updateMarket = usePublicMarket((state) => state.updateMarketState);
+  console.log("currency", currency);
+  console.log("market", market);
   const styles = {
     borderRadius: `4px`,
     border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -38,7 +53,21 @@ export const Swap = () => {
 
   const [selectedPoolMenu, setSelectedPoolMenu] = useState("poolSwaps");
   const [selectedSwapMenu, setSelectedSwapMenu] = useState("instantSwap");
+  const [openInsufficientBalance, setOpenInsufficientBalance] = useState(false);
+  const [openConfirmInstantSwap, setOpenConfirmInstantSwap] = useState(false);
+  const [openCoinInfo, setOpenCoinInfo] = useState(false);
   const [leverage, setLeverage] = useState(0);
+
+  const getData = useCallback(async () => {
+    const market = await getMarketList({});
+    const currency = await getCurrencyList({});
+    updateCurrency(currency);
+    updateMarket(market);
+  }, [updateCurrency, updateMarket]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
 
   const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value);
@@ -256,8 +285,6 @@ export const Swap = () => {
     );
   };
 
-  const { balance } = useWalletStore();
-
   const SwapMenu = () => {
     return (
       <>
@@ -277,7 +304,7 @@ export const Swap = () => {
             </div>
             <div className="flex justify-between items-center">
               <Text>{t("swap.swapMenu.availableBalance")}</Text>
-              <Text> {(balance.total / 100000000).toFixed(8)} BTC</Text>
+              <Text>0.01452618 BTC</Text>
             </div>
             {selectedSwapMenu !== "Limit Swap" && (
               <div className="flex items-center space-x-2 bg-[#21222d] p-4 rounded-xl">
@@ -343,7 +370,10 @@ export const Swap = () => {
             <IcScrollV className="rotate-90" />
           </div>
           <div className="space-y-2 w-full h-full">
-            <Text>{t("swap.swapMenu.tokenToReceive")}</Text>
+            <div className="flex justify-between items-center">
+              <Text>{t("swap.swapMenu.tokenToReceive")}</Text>
+              <IcGas onClick={() => setOpenCoinInfo(true)} />
+            </div>
             <div className="bg-[#0E0F19] rounded-lg p-4 flex items-center space-x-2">
               <div className="flex items-center space-x-2 bg-[#171923] p-2 rounded-lg">
                 <IcBitcoin height="24" width="24" />
@@ -357,7 +387,7 @@ export const Swap = () => {
             </div>
             <div className="flex justify-between items-center">
               <Text>{t("swap.swapMenu.availableBalance")}</Text>
-              <Text> {(balance.total / 100000000).toFixed(8)} BTC</Text>
+              <Text>0.01452618 BTC</Text>
             </div>
             <div className="flex justify-between items-center">
               <Text>{t("swap.swapMenu.slippageTolerance")}</Text>
@@ -381,13 +411,15 @@ export const Swap = () => {
             </div>
           </div>
         </section>
-        <Button className="rounded-full w-full mt-2 bg-[#F23F5D]">
+        <Button
+          onClick={() => setOpenInsufficientBalance(true)}
+          className="rounded-full w-full mt-2 bg-[#F23F5D]"
+        >
           {t("swap.swapMenu.swap")}
         </Button>
       </>
     );
   };
-
   return (
     <>
       <main className="flex space-x-0 lg:flex-row flex-col lg:space-y-0 lg:space-x-4 space-y-4">
@@ -539,6 +571,7 @@ export const Swap = () => {
             <SwapMenu />
           )}
         </div>
+        <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button>
       </main>
       <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
         <div className="flex space-x-1">
@@ -552,6 +585,18 @@ export const Swap = () => {
           </div>
         ))}
       </div>
+      <ModalInsufficientBalance
+        isOpen={openInsufficientBalance}
+        closeModal={() => setOpenInsufficientBalance(false)}
+      />
+      <ModalCoinInfo
+        isOpen={openCoinInfo}
+        closeModal={() => setOpenCoinInfo(false)}
+      />
+      <ModalConfirmInstantSwap
+        isOpen={openConfirmInstantSwap}
+        closeModal={() => setOpenConfirmInstantSwap(false)}
+      />
     </>
   );
 };

@@ -102,19 +102,14 @@ export const Staking = () => {
                   isConnected={connected}
                   whileConnected={() =>
                     navigate(
-                      `create?type=${
-                        item.staking_card.staking_cryptos &&
+                      `create?type=${item.staking_card.staking_cryptos &&
                         item.staking_card.staking_cryptos.length > 1
-                          ? "multiple"
-                          : "one"
-                      }&ticker=${
-                        item.staking_card.ticker_symbol ?? "BTC"
-                      }&price=${
-                        item.staking_card?.current_price ?? "5000"
-                      }&reward=${
-                        item.staking_card?.estimated_reward
-                      }&stakingbalance=${
-                        item.staking_card?.staking_balance ?? 5
+                        ? "multiple"
+                        : "one"
+                      }&ticker=${item.staking_card.ticker_symbol ?? "BTC"
+                      }&price=${item.staking_card?.current_price ?? "5000"
+                      }&reward=${item.staking_card?.estimated_reward
+                      }&stakingbalance=${item.staking_card?.staking_balance ?? 5
                       }`
                     )
                   }
@@ -150,7 +145,7 @@ export const Staking = () => {
         ),
       },
     ],
-    [navigate, t, connected]
+    [t, handleConnect, connected, navigate]
   );
 
   return (

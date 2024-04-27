@@ -7,12 +7,12 @@ import { Transition, Dialog } from "@headlessui/react";
 import { langs, Language } from "@/locales/langs";
 
 const navLink = [
-  {
-    id: 1,
-    name: "Trades",
-    code: "trade",
-    setTo: "/trade",
-  },
+  // {
+  //   id: 1,
+  //   name: "Trades",
+  //   code: "trade",
+  //   setTo: "/trade",
+  // },
   {
     id: 2,
     name: "Staking",
