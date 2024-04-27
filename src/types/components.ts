@@ -17,3 +17,42 @@ export interface Coin {
   btcPrice: string;
   contractAddresses: string[];
 }
+
+export interface Market {
+    symbol:           string;
+    name:             string;
+    type:             string;
+    base_unit:        string;
+    quote_unit:       string;
+    min_price:        number;
+    max_price:        number;
+    min_amount:       number;
+    amount_precision: number;
+    price_precision:  number;
+    total_precision:  number;
+    state:            string;
+}
+
+
+export interface Currency {
+    id:                   string;
+    name:                 string;
+    description:          string;
+    homepage:             string;
+    parent_id:            string;
+    price:                string;
+    explorer_transaction: string;
+    explorer_address:     string;
+    type:                 string;
+    deposit_enabled:      string;
+    withdrawal_enabled:   string;
+    deposit_fee:          string;
+    min_deposit_amount:   string;
+    withdraw_fee:         string;
+    min_withdraw_amount:  string;
+    base_factor:          string;
+    precision:            string;
+    position:             string;
+    icon_url:             string;
+    min_confirmations:    string;
+}

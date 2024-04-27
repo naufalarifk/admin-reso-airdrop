@@ -1,6 +1,6 @@
 import { Button, Input, ModalConfirmInstantSwap, OrderBookSwap, Pagination } from "@/components"
 import TradingView from "@/components/organisms/TradingView"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 import { Text } from "@/components"
 import { IcBitcoin, IcCancel, IcDoubleCurrency, IcExternalLink, IcGas, IcInfo, IcQuestionMark, IcScrollV, IcThreeDotsVertical, IcTrade, IcUnstableConnection } from "@/assets/icons"
 import { Slider } from "@/components"
@@ -8,11 +8,21 @@ import { SwapTable } from "@/components"
 import { useTranslation } from "react-i18next"
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance"
 import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo"
+import { usePublicMarket } from "./hooks/usePublicMarkets"
+import { getMarketList } from "@/api/services/public/markets"
+import { usePublicCurrency } from "./hooks/usePublicCurrencies"
+import { getCurrencyList } from "@/api/services/public/currencies"
 
 
 export const Swap = () => {
 
-    const { t } = useTranslation()
+    const { t } = useTranslation();
+    const market = usePublicMarket((state) => state.market)
+    const currency = usePublicCurrency((state) => state.currency)
+    const updateCurrency = usePublicCurrency((state) => state.updateCurrencyState)
+    const updateMarket = usePublicMarket((state) => state.updateMarketState)
+    console.log('currency', currency)
+    console.log('market', market)
     const styles = {
         borderRadius: `4px`,
         border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -29,6 +39,17 @@ export const Swap = () => {
     const [openConfirmInstantSwap, setOpenConfirmInstantSwap] = useState(false)
     const [openCoinInfo, setOpenCoinInfo] = useState(false)
     const [leverage, setLeverage] = useState(0)
+
+    const getData = useCallback(async () => {
+        const market = await getMarketList({})
+        const currency = await getCurrencyList({})
+        updateCurrency(currency)
+        updateMarket(market)
+    }, [updateCurrency, updateMarket])
+
+    useEffect(() => {
+        getData()
+    }, [getData])
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value)
