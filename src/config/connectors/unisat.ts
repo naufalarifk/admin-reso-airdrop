@@ -27,17 +27,21 @@ export namespace UnisatWalletTypes {
 
   export type Inscription = {
     inscriptionId: string;
-    inscriptionNumber: string;
+    inscriptionNumber: number;
     address: string;
-    outputValue: string;
-    content: string;
-    contentLength: string;
-    contentType: string;
+    outputValue: number;
     preview: string;
+    content: string;
+    contentLength: number;
+    contentType: string;
+    contentBody: string;
     timestamp: number;
-    offset: number;
     genesisTransaction: string;
     location: string;
+    output: string;
+    offset: number;
+    utxoHeight: number;
+    utxoConfirmation: number;
   };
 
   export type GetInscriptionsResult = { total: number; list: Inscription[] };

@@ -1,4 +1,10 @@
-import { Button, Input, OrderBookSwap, Pagination } from "@/components";
+import {
+  Button,
+  Input,
+  OrderBookSwap,
+  Pagination,
+  useWalletStore,
+} from "@/components";
 import TradingView from "@/components/organisms/TradingView";
 import { ChangeEvent, useState } from "react";
 import { Text } from "@/components";
@@ -250,6 +256,8 @@ export const Swap = () => {
     );
   };
 
+  const { balance } = useWalletStore();
+
   const SwapMenu = () => {
     return (
       <>
@@ -269,7 +277,7 @@ export const Swap = () => {
             </div>
             <div className="flex justify-between items-center">
               <Text>{t("swap.swapMenu.availableBalance")}</Text>
-              <Text>0.01452618 BTC</Text>
+              <Text> {(balance.total / 100000000).toFixed(8)} BTC</Text>
             </div>
             {selectedSwapMenu !== "Limit Swap" && (
               <div className="flex items-center space-x-2 bg-[#21222d] p-4 rounded-xl">
@@ -349,7 +357,7 @@ export const Swap = () => {
             </div>
             <div className="flex justify-between items-center">
               <Text>{t("swap.swapMenu.availableBalance")}</Text>
-              <Text>0.01452618 BTC</Text>
+              <Text> {(balance.total / 100000000).toFixed(8)} BTC</Text>
             </div>
             <div className="flex justify-between items-center">
               <Text>{t("swap.swapMenu.slippageTolerance")}</Text>
@@ -379,6 +387,7 @@ export const Swap = () => {
       </>
     );
   };
+
   return (
     <>
       <main className="flex space-x-0 lg:flex-row flex-col lg:space-y-0 lg:space-x-4 space-y-4">
