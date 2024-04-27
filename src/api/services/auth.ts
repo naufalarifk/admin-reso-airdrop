@@ -19,6 +19,17 @@ export async function getTokenServices(payload: PayloadToken) {
   }
 }
 
+export async function getMe() {
+  try {
+    const response: AxiosResponse = await baseApi.get(
+      "trade/account/members/me"
+    );
+    return response;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
 export async function clearTokenServices() {
   try {
     const response = await baseApi.delete("auth/identity/sessions");

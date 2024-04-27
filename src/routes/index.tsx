@@ -13,6 +13,7 @@ import {
 import { MainMenu } from "./MainMenu";
 import { LayoutDashboard, StakeLayout } from "@/components";
 import { useScrollTop } from "@/hooks";
+import { Dummy } from "@/pages/Dummy";
 
 export const RootLayout = () => {
   useScrollTop();
@@ -40,6 +41,7 @@ export const RootLayout = () => {
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap" element={<Swap />} />
           <Route path="/pool" element={<Pool />} />
+          <Route path="/dummy" element={<Dummy />} />
         </Route>
       </Route>
       <Route element={<StakeLayout />}>

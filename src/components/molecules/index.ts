@@ -17,5 +17,6 @@ export * from "./InfoRewardStake";
 export * from "./FormAddNewStaking";
 export * from "./ModalInsufficientBalance";
 export * from "./ButtonConnectWalletV2";
+export * from "./HistoryTrade";
 export * from "./ModalConfirmInstantSwap";
 export * from "./SwapInput";
