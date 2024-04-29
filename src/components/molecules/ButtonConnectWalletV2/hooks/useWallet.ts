@@ -9,10 +9,12 @@ import {
   BtcWalletNetwork,
   BtcConnectorId,
   WalletNetwork,
+  RealBalance,
 } from "@/types";
 
 import BtcWalletConnect, { Connector } from "@/config/connectors/connect";
-import { clearTokenServices, getTokenServices } from "@/api/services/auth";
+import { getMe, getTokenServices } from "@/api/services/auth";
+import axios from "axios";
 
 declare global {
   interface Window {
@@ -23,6 +25,7 @@ declare global {
 export type WalletState = {
   btcWallet?: BtcWalletConnect;
   balance: Balance;
+  realBalance: RealBalance;
   publicKey: string;
   address: string;
   connected: boolean;
@@ -59,6 +62,18 @@ const defaultInitState: WalletState = {
   initStatus: false,
   modalVisible: false,
   signature: "",
+  realBalance: {
+    confirm_amount: "",
+    pending_amount: "",
+    amount: "",
+    confirm_btc_amount: "",
+    pending_btc_amount: "",
+    btc_amount: "",
+    confirm_inscription_amount: "",
+    pending_inscription_amount: "",
+    inscription_amount: "",
+    usd_value: "",
+  },
   balance: { confirmed: 0, unconfirmed: 0, total: 0 },
   connectors: [],
   publicKey: "",
@@ -66,6 +81,24 @@ const defaultInitState: WalletState = {
   address: "",
   connected: false,
   network: "livenet",
+};
+
+const getBalance = async ({ address }: { address: string }) => {
+  try {
+    const responseData = await axios.get(
+      `${
+        import.meta.env.VITE_UNISAT_API_URL
+      }/v5/address/balance?address=${address}`,
+      {
+        headers: {
+          Authorization: `Bearer 539a15a6705b98a6a5295acceb15d336b218e897362591805bf632276fbaaa49`,
+        },
+      }
+    );
+    return responseData.data?.data;
+  } catch (error: any) {
+    toast.error(error.message);
+  }
 };
 
 export const useWalletStore = create<WalletStore>()(
@@ -118,6 +151,7 @@ export const useWalletStore = create<WalletStore>()(
           throw new Error("Wallet not initialized");
         }
         await btcWallet.check();
+        const realBalance = await getBalance({ address: btcWallet.address! });
         const address = btcWallet.address;
         const publicKey = btcWallet.publicKey;
         const balance = btcWallet.balance;
@@ -128,6 +162,7 @@ export const useWalletStore = create<WalletStore>()(
           publicKey,
           address,
           balance,
+          realBalance,
           connected,
           network,
           localConnectorId,
@@ -158,25 +193,39 @@ export const useWalletStore = create<WalletStore>()(
           signature: signature,
         });
 
-        if (response?.status === 200) {
-          const address = btcWallet.address;
-          const publicKey = btcWallet.publicKey;
-          const balance = btcWallet.balance;
-          const connected = btcWallet.connected;
-          const network = btcWallet.network;
-          const localConnectorId = btcWallet.localConnectorId;
+        await getMe();
 
-          set(() => ({
-            publicKey,
-            address,
-            balance,
-            connected,
-            signature,
-            network,
-            isConnecting: false,
-            localConnectorId,
-          }));
-        }
+        // const response = await getTokenServices({
+        //   message: "tb1qhfm5sftyzsxun52338uvwy0wn5g2fld4jxukm2",
+        //   public_key:
+        //     "032f684382623cd20d4a16d1d958cdec4884883501338f4ada06ca329bb94dadc1",
+        //   signature:
+        //     "HwO9coi45E+8kMGkvfEjp1LdAiEbWnEjF2q1WRfAJce9Ywri5ZAYt4kO4n2Bu3dFqtloAkWK7y9jyc1Ft6+GUsM=",
+        // });
+
+        localStorage.setItem("auth", response?.data.csrf_token);
+
+        // if (response?.status === 200) {
+        const address = btcWallet.address;
+        const publicKey = btcWallet.publicKey;
+        const balance = btcWallet.balance;
+        const connected = btcWallet.connected;
+        const localConnectorId = btcWallet.localConnectorId;
+        const network = btcWallet.network;
+
+        const realBalance = await getBalance({ address: address! });
+
+        set(() => ({
+          publicKey,
+          address,
+          balance,
+          connected,
+          realBalance,
+          signature,
+          network,
+          isConnecting: false,
+          localConnectorId,
+        }));
       } catch (error: any) {
         set(() => ({
           isConnecting: false,
@@ -192,19 +241,20 @@ export const useWalletStore = create<WalletStore>()(
       }
       await btcWallet.disconnect();
 
-      const response = await clearTokenServices();
+      // const response = await clearTokenServices();
+      localStorage.removeItem("auth");
 
-      if (response?.status === 200) {
-        set(() => ({
-          balance: { confirmed: 0, unconfirmed: 0, total: 0 },
-          connectorId: undefined,
-          publicKey: "",
-          address: "",
-          initStatus: false,
-          connected: false,
-          network: "livenet",
-        }));
-      }
+      // if (response?.status === 200) {
+      set(() => ({
+        balance: { confirmed: 0, unconfirmed: 0, total: 0 },
+        connectorId: undefined,
+        publicKey: "",
+        address: "",
+        initStatus: false,
+        connected: false,
+        network: "livenet",
+      }));
+      // }
     },
 
     switchNetwork: async (e) => {
