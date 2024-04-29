@@ -49,3 +49,12 @@ export async function getMarketTrades(market: string) {
         console.log(error)
     }
 }
+
+export async function getMarketTicker(market: string) {
+    try {
+        const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/tickers`)
+        return  response.data
+    } catch (error) {
+        console.log(error)
+    }
+}

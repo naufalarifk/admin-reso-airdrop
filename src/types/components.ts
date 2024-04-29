@@ -56,3 +56,22 @@ export interface Currency {
     icon_url:             string;
     min_confirmations:    string;
 }
+
+
+export interface MarketTrade {
+    id:           string;
+    price:        number;
+    amount:       number;
+    state:        string;
+    txid:         string;
+    total:        number;
+    fee_currency: number;
+    fee:          number;
+    fee_amount:   number;
+    market:       string;
+    market_type:  string;
+    created_at:   string;
+    taker_type:   string;
+    side:         string;
+    order_id:     number;
+}

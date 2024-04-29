@@ -8,10 +8,10 @@ import { SwapTable } from "@/components"
 import { useTranslation } from "react-i18next"
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance"
 import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo"
-import { usePublicMarket } from "./hooks/usePublicMarkets"
-import { getMarketList } from "@/api/services/public/markets"
+import { usePublicMarket, usePublicMarketTrade } from "./hooks/usePublicMarkets"
+import { getMarketList, getMarketTrades } from "@/api/services/public/markets"
 import { usePublicCurrency } from "./hooks/usePublicCurrencies"
-import { getCurrencyList } from "@/api/services/public/currencies"
+import { getCurrencyList, getSingleCurrency } from "@/api/services/public/currencies"
 
 
 export const Swap = () => {
@@ -19,10 +19,16 @@ export const Swap = () => {
     const { t } = useTranslation();
     const market = usePublicMarket((state) => state.market)
     const currency = usePublicCurrency((state) => state.currency)
+    const marketTrades = usePublicMarketTrade((state) => state.market_trade)
+    const single_currency = usePublicCurrency((state) => state.single_currency)
     const updateCurrency = usePublicCurrency((state) => state.updateCurrencyState)
+    const updateSingleCurrency = usePublicCurrency((state) => state.updateSingleCurrency)
     const updateMarket = usePublicMarket((state) => state.updateMarketState)
+    const updateMarketTrades = usePublicMarketTrade((state) => state.updateMarketTradeState)
     console.log('currency', currency)
     console.log('market', market)
+    console.log('marketTrades', marketTrades)
+    console.log('single_currency', single_currency)
     const styles = {
         borderRadius: `4px`,
         border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -43,9 +49,13 @@ export const Swap = () => {
     const getData = useCallback(async () => {
         const market = await getMarketList({})
         const currency = await getCurrencyList({})
+        const market_trade = await getMarketTrades('btcusd')
+        const single_currency = await getSingleCurrency('usd')
         updateCurrency(currency)
         updateMarket(market)
-    }, [updateCurrency, updateMarket])
+        updateMarketTrades(market_trade)
+        updateSingleCurrency(single_currency)
+    }, [updateCurrency, updateMarket, updateMarketTrades, updateSingleCurrency])
 
     useEffect(() => {
         getData()
