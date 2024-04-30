@@ -49,20 +49,28 @@ export interface Trade {
 
 export type MarketOrderAction = {
   getListMarketOrder: () => void;
+  cancelOrderById: (value: string) => void;
+  setCurrentMarket: (value: MarketOrder) => void;
+};
+
+type OrderQuery = {
+  state: "success" | "wait" | "";
 };
 
 export type MarketOrderState = ListMarketOrderStore & MarketOrderAction;
 
 export interface ListMarketOrderStore {
   orders: MarketOrder[];
+  currentMarket: MarketOrder | null;
+  pair: string;
 }
 
 const token = localStorage.getItem("auth");
 
-const getOrder = async () => {
+const getOrder = async ({ state = "" }: OrderQuery) => {
   try {
     const response: AxiosResponse = await baseApi.get(
-      `finex/market/orders?market_type=%7B%7D&limit=100&page=1&order_by=desc`,
+      `finex/market/orders?market_type=%7B%7D&limit=100&page=1&order_by=desc&state=${state}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -78,7 +86,15 @@ const getOrder = async () => {
 
 export const cancelOrderById = async ({ id }: { id: string }) => {
   try {
-    const response = await baseApi.post(`finex/market/orders/${id}/cancel`);
+    const response = await baseApi.post(
+      `finex/market/orders/${id}/cancel`,
+      {},
+      {
+        headers: {
+          "X-CSRF-TOKEN": token,
+        },
+      }
+    );
     return response;
   } catch (error: any) {
     toast.error(error.message);
@@ -87,18 +103,35 @@ export const cancelOrderById = async ({ id }: { id: string }) => {
 
 const initialState: ListMarketOrderStore = {
   orders: [],
+  currentMarket: null,
+  pair: "BTCUSD",
 };
 
 export const useListMarketOrder = create<MarketOrderState>()(
   devtools((set) => ({
     ...initialState,
     getListMarketOrder: async () => {
-      const response = await getOrder();
+      const response = await getOrder({ state: "wait" });
       const orders = response?.data;
-
       set(() => ({
         orders,
       }));
+    },
+    cancelOrderById: async (id: string) => {
+      const response = await cancelOrderById({ id });
+      if (response?.status === 200) {
+        setTimeout(async () => {
+          const responseOrder = await getOrder({ state: "wait" });
+          const orders: MarketOrder[] = responseOrder?.data;
+
+          set(() => ({
+            orders,
+          }));
+        }, 500);
+      }
+    },
+    setCurrentMarket: (market: MarketOrder) => {
+      set(() => ({ currentMarket: market }));
     },
   }))
 );

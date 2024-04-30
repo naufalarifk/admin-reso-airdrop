@@ -23,7 +23,7 @@ export const HistoryTrade = () => {
   const { connected } = useWalletStore();
 
   useEffect(() => {
-    if (currentIndex === 3 && connected) {
+    if (currentIndex === 2 && connected) {
       getMyTradeOrder();
     }
   }, [connected, getMyTradeOrder, currentIndex]);
@@ -42,9 +42,9 @@ export const HistoryTrade = () => {
         label: "My Trade",
         content: (
           <>
-            <div className="relative overflow-x-auto">
+            <div className="relative overflow-x-scroll max-h-80">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-soft uppercase ">
+                <thead className="text-xs text-soft uppercase sticky-top-0 bg-dark2">
                   <tr>
                     <th scope="col" className="px-6 py-3">
                       Date
@@ -52,7 +52,7 @@ export const HistoryTrade = () => {
                     <th scope="col" className="px-6 py-3">
                       Assets
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 text-nowrap">
                       Order ID
                     </th>
                     <th scope="col" className="px-6 py-3">
@@ -69,7 +69,7 @@ export const HistoryTrade = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-darkSoft/30">
                   {trade?.length <= 0 ||
                   trade === undefined ||
                   trade === null ? (
@@ -83,23 +83,20 @@ export const HistoryTrade = () => {
                     </tr>
                   ) : (
                     trade?.map((item) => (
-                      <tr
-                        key={item.id}
-                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                      >
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
+                      <tr key={item.id}>
+                        <td className="px-6 py-4  whitespace-nowrap">
                           {item.created_at}
-                        </th>
-                        <td className="px-6 py-4">{item.created_at}</td>
-                        <td className="px-6 py-4">{item.market}</td>
-                        <td className="px-6 py-4">{item.order_id}</td>
-                        <td className="px-6 py-4">{item.price}</td>
-                        <td className="px-6 py-4">{item.amount}</td>
-                        <td className="px-6 py-4">{item.taker_type}</td>
-                        <td className="px-6 py-4">{item.total}</td>
+                        </td>
+                        <td className="px-6 py-4 uppercase">{item.market}</td>
+                        <td className="px-6 py-4 text-center">
+                          {item.order_id}
+                        </td>
+                        <td className="px-6 py-4 text-center">{item.price}</td>
+                        <td className="px-6 py-4 text-center">{item.amount}</td>
+                        <td className="px-6 py-4 text-center">
+                          {item.market_type ?? "-"}
+                        </td>
+                        <td className="px-6 py-4 text-right">{item.total}</td>
                       </tr>
                     ))
                   )}
