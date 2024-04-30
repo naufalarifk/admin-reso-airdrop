@@ -2,23 +2,34 @@
 import { create } from "zustand";
 
 
-import { Market, MarketTrade } from "@/types/components";
+import { Market, MarketTrade, OrderBook } from "@/types/components";
 
 
 export type MarketState = {
     market: Market[];
-
+    k_line: any;
+    depth: any;
+    order_book: OrderBook[]
 }
 
 export type MarketActions = {
     updateMarketState: (market: MarketState['market']) => void;
+    updateKLine: (market: MarketState['k_line']) => void;
+    updateDepth: (market: MarketState['depth']) => void;
+    updateOrderBook: (market: MarketState['order_book']) => void;
 }
 
 export type MarketStore = MarketState & MarketActions
 
 export const usePublicMarket = create<MarketState & MarketActions>((set) => ({
     market: [],
+    k_line: null,
+    depth: null,
+    order_book: [],
     updateMarketState: (market) => set(() => ({ market: market })),
+    updateKLine: (k_line) => set(() => ({ k_line: k_line })),
+    updateDepth: (depth) => set(() => ({ depth: depth })),
+    updateOrderBook: (order_book) => set(()=> ({order_book: order_book}))
 }))
 
 
@@ -55,11 +66,13 @@ export interface MarketTicker {
 }
 
 export type MarketTickerState = {
+all_market_ticker: MarketTicker[]
 market_ticker: MarketTicker
 }
 
 export type MarketTickerActions = {
-    updateMarketTickerState: (market_ticker:  MarketTickerState['market_ticker']) => void
+    updateMarketTickerState: (market_ticker: MarketTickerState['market_ticker']) => void
+    updateAllMarketTickers: (market_ticker: MarketTickerState['all_market_ticker']) => void
 }
 
 export type MarketTickerStore = MarketTickerState & MarketTickerActions
@@ -80,5 +93,7 @@ export const usePublicMarketTicker = create<MarketTickerState & MarketTickerActi
             volume: 0
         }
     },
-    updateMarketTickerState: (market_ticker) => set(()=> ({market_ticker: market_ticker}))
+    all_market_ticker: [],
+    updateMarketTickerState: (market_ticker) => set(() => ({ market_ticker: market_ticker })),
+    updateAllMarketTickers: (all_market_ticker) => set(() => ({ all_market_ticker: all_market_ticker }))
 }))
