@@ -30,3 +30,12 @@ export async function getCurrencyList(payload: CurrencyPayload) {
         console.log(error)
     }
 }
+
+export async function getSingleCurrency(id: string) {
+    try {
+        const response: AxiosResponse = await baseApi.get(`trade/public/currencies/${id}`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
