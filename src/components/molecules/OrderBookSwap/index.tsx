@@ -1,104 +1,47 @@
 import { IcHandicapAll, IcHandicapBuy, IcHandicapSell } from "@/assets/icons"
 import { Text } from "@/components"
+import { OrderBook } from "@/types/components"
 
 
 
-const SellTab = () => {
+const SellTab = ({ asks }: { asks: OrderBook['asks'] }) => {
     return (
         <section className="space-y-2">
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(213, 83, 83, 0.16)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(213, 83, 83, 0.16)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(213, 83, 83, 0.16)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(213, 83, 83, 0.16)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(213, 83, 83, 0.16)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
+            {
+                asks?.map(ask => <div className="grid grid-cols-3 relative z-10 place-content-center">
+                    <div style={{
+                        background: 'rgba(213, 83, 83, 0.16)'
+                    }} className="absolute h-full w-[10%] -z-10 right-0" />
+                    <Text className="bg-transparent text-center">{ask.price}</Text>
+                    <Text className="bg-transparent text-center">{ask.remaining_volume}</Text>
+                    <Text className="bg-transparent text-center">{Number(ask.price) * Number(ask.origin_volume)}</Text>
+                </div>)
+            }
         </section>)
 }
 
 
-const BuyTab = () => {
+const BuyTab = ({ bids }: { bids: OrderBook['bids'] }) => {
     return (
         <section className="space-y-2">
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(14, 203, 129, 0.10)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(14, 203, 129, 0.10)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(14, 203, 129, 0.10)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(14, 203, 129, 0.10)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
-            <div className="grid grid-cols-3 relative z-10 place-content-center">
-                <div style={{
-                    background: 'rgba(14, 203, 129, 0.10)'
-                }} className="absolute h-full w-[10%] -z-10 right-0" />
-                <Text className="bg-transparent text-center">66032.30</Text>
-                <Text className="bg-transparent text-center">0.00732</Text>
-                <Text className="bg-transparent text-center">483.35644</Text>
-            </div>
+            {
+                bids?.map((bid) =>
+                    <div className="grid grid-cols-3 relative z-10 place-content-center">
+                        <div style={{
+                            background: 'rgba(14, 203, 129, 0.10)'
+                        }} className="absolute h-full w-[10%] -z-10 right-0" />
+                        <Text className="bg-transparent text-center">{bid.price}</Text>
+                        <Text className="bg-transparent text-center">{bid.remaining_volume}</Text>
+                        <Text className="bg-transparent text-center">{Number(bid.price) * Number(bid.origin_volume)}</Text>
+                    </div>
+                )
+            }
         </section>
     )
 }
 
 
-export const OrderBookSwap = () => {
+export const OrderBookSwap = ({ data }: { data: OrderBook }) => {
     return (
         <section className="p-4 bg-[#181924] rounded-lg lg:w-1/5 w-full">
             <div className="flex justify-between items-center">
@@ -114,13 +57,13 @@ export const OrderBookSwap = () => {
                 <Text className="text-center">Qty USDT</Text>
                 <Text className="text-center">Total USDT</Text>
             </div>
-            <SellTab />
+            <SellTab asks={data.asks} />
             {/* New Price */}
             <div className="bg-[#0E0F19] rounded-lg flex items-center justify-between px-2 py-4 my-4">
                 <Text className="text-red-500">69,398.54</Text>
                 <Text>≈69,398.54 USD</Text>
             </div>
-            <BuyTab />
+            <BuyTab bids={data.bids} />
         </section>
     )
 }

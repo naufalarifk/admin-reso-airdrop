@@ -9,7 +9,7 @@ export type MarketState = {
     market: Market[];
     k_line: any;
     depth: any;
-    order_book: OrderBook[]
+    order_book: OrderBook
 }
 
 export type MarketActions = {
@@ -25,7 +25,10 @@ export const usePublicMarket = create<MarketState & MarketActions>((set) => ({
     market: [],
     k_line: null,
     depth: null,
-    order_book: [],
+    order_book: {
+        asks: [],
+        bids: [],
+    },
     updateMarketState: (market) => set(() => ({ market: market })),
     updateKLine: (k_line) => set(() => ({ k_line: k_line })),
     updateDepth: (depth) => set(() => ({ depth: depth })),

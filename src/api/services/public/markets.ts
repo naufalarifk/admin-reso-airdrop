@@ -81,7 +81,7 @@ export async function getAllMarketTicker() {
 }
 
 export async function getMarketKLine(market: string, payload: MarketKLinePayload) {
-    const { limit, period, time_from, time_to } = payload
+    const { limit= '', period ='', time_from ='', time_to='' } = payload
     const params = {
         limit,
         period,
@@ -106,12 +106,13 @@ export async function getMarketDepth(market: string, limit: number) {
 }
 
 export async function getMarketOrderBook(market: string, payload: MarketOrderBookPayload) {
-    const { asks_limit, bids_limit } = payload
+    const { asks_limit = '', bids_limit = '' } = payload
     const params = {
         asks_limit, bids_limit
     }
     try {
         const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/order-book${buildQueryString(params)}`)
+        console.log('response.data', response.data)
         return response.data
     } catch (error) {
         console.log(error)

@@ -27,7 +27,7 @@ import { useTranslation } from "react-i18next";
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance";
 import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo";
 import { usePublicMarket } from "./hooks/usePublicMarkets";
-import { getMarketList } from "@/api/services/public/markets";
+import { getMarketKLine, getMarketList, getMarketOrderBook } from "@/api/services/public/markets";
 import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
 
@@ -35,12 +35,18 @@ export const Swap = () => {
     const { t } = useTranslation();
     const market = usePublicMarket((state) => state.market);
     const currency = usePublicCurrency((state) => state.currency);
+    const orderBook = usePublicMarket((state) => state.order_book);
+    const marketKLine = usePublicMarket((state) => state.k_line);
+    const updateKLine = usePublicMarket((state) => state.updateKLine);
     const updateCurrency = usePublicCurrency(
         (state) => state.updateCurrencyState
     );
     const updateMarket = usePublicMarket((state) => state.updateMarketState);
+    const updateOrderBook = usePublicMarket((state) => state.updateOrderBook);
     console.log("currency", currency);
     console.log("market", market);
+    console.log("orderBook", orderBook);
+    console.log('marketKLine', marketKLine)
     const styles = {
         borderRadius: `4px`,
         border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -61,9 +67,14 @@ export const Swap = () => {
     const getData = useCallback(async () => {
         const market = await getMarketList({});
         const currency = await getCurrencyList({});
+        const order_book = await getMarketOrderBook('btcusd', {
+        })
+        const k_line = await getMarketKLine('btcusd', {})
+        updateKLine(k_line)
+        updateOrderBook(order_book)
         updateCurrency(currency);
         updateMarket(market);
-    }, [updateCurrency, updateMarket]);
+    }, [updateCurrency, updateKLine, updateMarket, updateOrderBook]);
 
     useEffect(() => {
         getData();
@@ -437,7 +448,7 @@ export const Swap = () => {
                         <IcInfo />
                     </div>
                 </div>
-                <OrderBookSwap />
+                <OrderBookSwap data={orderBook} />
                 <div style={styles} className="h-[40vh] lg:h-[60vh] lg:w-4/5 w-full">
                     <TradingView />
                 </div>
@@ -456,8 +467,8 @@ export const Swap = () => {
                             {pool_menu.map((menu) => (
                                 <Text
                                     className={`${selectedPoolMenu === menu
-                                            ? "text-white border-b-2 border-[#F23F5D]"
-                                            : ""
+                                        ? "text-white border-b-2 border-[#F23F5D]"
+                                        : ""
                                         } cursor-pointer`}
                                     onClick={() => setSelectedPoolMenu(menu)}
                                 >
@@ -553,8 +564,8 @@ export const Swap = () => {
                             {swap_menu.map((menu) => (
                                 <Text
                                     className={`${selectedSwapMenu === menu
-                                            ? "text-white border-b-2 border-[#F23F5D]"
-                                            : ""
+                                        ? "text-white border-b-2 border-[#F23F5D]"
+                                        : ""
                                         } cursor-pointer`}
                                     onClick={() => setSelectedSwapMenu(menu)}
                                 >
