@@ -6,21 +6,31 @@ import { IcSwapHorizontal } from "@/assets/icons";
 
 interface ModalConfirmInstantSwapProps {
   isOpen: boolean;
-  closeModal: () => void;
+  handleSubmit: () => void;
   valueSwap: string;
+  closeModal?: () => void;
   valueReceived: string;
+  type: string;
+  amountPair: string;
+  totalPair: string;
+  tokenPrice: string;
 }
 
 export const ModalConfirmInstantSwap = ({
   isOpen,
-  closeModal,
+  handleSubmit,
   valueReceived,
+  closeModal,
   valueSwap,
+  type,
+  amountPair,
+  totalPair,
+  tokenPrice,
 }: ModalConfirmInstantSwapProps) => {
   //   const { t } = useTranslation();
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative" onClose={closeModal}>
+      <Dialog as="div" className="relative" onClose={closeModal!}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -49,10 +59,13 @@ export const ModalConfirmInstantSwap = ({
                   as="h3"
                   className="text-lg font-semibold leading-6 text-center text-white"
                 >
-                  Confirm
+                  Confirm {type} Swap
                 </Dialog.Title>
                 <div className="mt-6 space-y-4">
-                  <div>{valueSwap}</div>
+                  <div className="border uppercase rounded-lg flex justify-between items-center border-soft/30 p-4">
+                    <div>{valueSwap}</div>
+                    <div>{amountPair}</div>
+                  </div>
                   {/* <SwapInput /> */}
                   <div className="p-1 rounded-full z-10">
                     <div className="bg-[#181924] rounded-full mx-auto border-4 border-[#0E0F19] w-10 h-10 grid place-items-center">
@@ -63,36 +76,40 @@ export const ModalConfirmInstantSwap = ({
                       />
                     </div>
                   </div>
-                  <div>{valueReceived}</div>
+                  <div className="border rounded-lg uppercase flex justify-between items-center border-soft/30 p-4">
+                    <div>{valueReceived}</div>
+                    <div>{totalPair}</div>
+                  </div>
                   {/* <SwapInput /> */}
                   <div>
-                    <Text className="text-right font-semibold text-[#90A3BF]">
-                      1 BTC = 69,398.54 USDT
+                    <Text className="text-right my-2 text-base font-semibold text-[#90A3BF]">
+                      1 BTC = {tokenPrice} USDT
                     </Text>
                     <div className="flex justify-between items-center">
-                      <Text>Expected Output</Text>
-                      <Text>0.0001 USDT</Text>
+                      <Text className="text-soft">Expected Output</Text>
+                      <Text className="uppercase">
+                        {valueSwap} {amountPair}
+                      </Text>
                     </div>
                     <div className="flex justify-between items-center">
-                      <Text>Price Impact</Text>
+                      <Text className="text-soft">Price Impact</Text>
                       <Text>0.00%</Text>
                     </div>
                     <hr className="my-4 h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
                     <div className="flex justify-between items-center">
-                      <Text>Minimum received after</Text>
-                      <Text>0.0001 USDT</Text>
+                      <Text className="text-soft">Minimum received after</Text>
+                      <Text className="uppercase">
+                        {valueSwap} {amountPair}
+                      </Text>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <Text>Slippage (0.05%)</Text>
-                      <Text>BTC</Text>
-                    </div>
-                    <Text className="w-4/5 mt-4">
-                      Output is estimated. You will receive at least 0.0001 USDT
-                      or the transaction will revert
+                    <Text className="w-4/5 mt-4 text-soft">
+                      Output is estimated. You will receive at least {valueSwap}{" "}
+                      <span className="uppercase">{amountPair}</span> or the
+                      transaction will revert
                     </Text>
                   </div>
                   <Button
-                    onClick={closeModal}
+                    onClick={handleSubmit}
                     className="w-full rounded-full bg-[#F23F5D]"
                   >
                     Confirm

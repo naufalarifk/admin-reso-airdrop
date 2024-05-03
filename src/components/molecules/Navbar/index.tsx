@@ -187,7 +187,12 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                 navLink.map((item, i) => (
                   <li key={i}>
                     <NavLink
-                      to={item.setTo}
+                      state={{
+                        name: item.name === "Swap" ? "Market" : null,
+                      }}
+                      to={{
+                        pathname: item.setTo,
+                      }}
                       className={({ isActive }) =>
                         isActive
                           ? "text-primary text-base font-medium"

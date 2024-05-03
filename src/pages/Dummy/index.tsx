@@ -8,14 +8,16 @@ export const Dummy = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { pair } = useListMarketOrder((state) => state);
+  console.log("location", location.state === null);
 
-  console.log("location.pathnam", window.location.pathname);
+  const { pair } = useListMarketOrder();
 
   useEffect(() => {
-    if (location.pathname === "/dummy" || location.pathname === "/dummy/") {
-      navigate(`/dummy/${pair}`);
+    // if (location.pathname === "/dummy" || location.pathname === "/dummy/") {
+    if (location.state === null) {
+      navigate(`/dummy/${pair.id.toLocaleUpperCase()}`, { state: pair });
     }
+    // }
   }, [location, navigate, pair]);
 
   return (

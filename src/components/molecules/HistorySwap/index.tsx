@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode, FC } from "react";
 
 import { cn } from "@/utils";
@@ -7,11 +8,21 @@ import {
   ButtonWalletConnectV2,
   useWalletStore,
 } from "../ButtonConnectWalletV2";
-import { useListMarketOrder } from "./hooks/useMarketOder";
+import {
+  getOrder,
+  MarketOrder,
+  useListMarketOrder,
+} from "./hooks/useMarketOder";
 import axios, { AxiosResponse } from "axios";
 import { ModalConfirmInstantSwap } from "../ModalConfirmInstantSwap";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { baseApi } from "@/api/config";
+import toast from "react-hot-toast";
+import { ModalGasFee } from "../ModalGasFee";
+import { Gas, useGasServiceState } from "../ModalGasFee/hooks/useGasStore";
+import { BalanceButtons } from "../ButtonBalancePercentage";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/atoms";
 
 export interface TabsData {
   label: string;
@@ -76,6 +87,8 @@ interface SwapComponentProps {
   balance?: string;
   currentPrice?: string;
   connected: boolean;
+  pair?: Pair;
+  unitLoading: boolean;
 }
 
 interface SwapSelectTokenProps {
@@ -84,7 +97,13 @@ interface SwapSelectTokenProps {
   value: string;
   unit: string;
   name: string;
+  disable?: boolean;
 }
+
+type Pair = {
+  id: string;
+  name: string;
+};
 
 const Tabs: FC<TabsProps> = ({
   items,
@@ -173,6 +192,7 @@ const SwapSelectToken = ({
   handleInput,
   value,
   unit,
+  disable,
   name,
 }: SwapSelectTokenProps) => {
   return (
@@ -185,7 +205,7 @@ const SwapSelectToken = ({
           <input
             type="string"
             onChange={(e) => handleInput(e.target.value)}
-            // disabled={balance.total === 0}
+            disabled={disable}
             name={name}
             autoCapitalize="off"
             autoComplete="off"
@@ -198,7 +218,7 @@ const SwapSelectToken = ({
           <button
             type="button"
             onClick={maxButton}
-            className="text-primary absolute end-5 bottom-6  md:end-6 md:bottom-6 bg-primary/10 focus:outline-none font-medium rounded-lg text-xs md:text-xs p-2"
+            className="text-primary border-primary/30 border absolute end-5 bottom-6  md:end-6 md:bottom-6 bg-primary/10 focus:outline-none font-medium rounded-lg text-xs md:text-xs p-2"
           >
             MAX
           </button>
@@ -210,23 +230,48 @@ const SwapSelectToken = ({
 
 const LAST = 63_618.38;
 const baseUrl = import.meta.env.VITE_API_URL;
-const token = localStorage.getItem("auth");
 
 const SwapComponent = ({
   currentType,
   baseUnit,
   quoteUnit,
-  balance,
   connected,
+  balance,
+  unitLoading,
 }: SwapComponentProps) => {
+  const location = useLocation();
+  const { token } = useWalletStore();
+  const { gas, getPublicGas } = useGasServiceState();
+
   const [reverse, setReverse] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [changeCalculate, setChangeCalculate] = useState(false);
+  const [modalGas, setModalGas] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [, setBalance] = useState("");
+  const [buttons] = useState(["0%", "25%", "50%", "75%", "MAX"]);
 
-  // const [openModalConfirm, setOpenModalConfirm] = useState(false);
+  const [gasValue, setGasValue] = useState<Gas | null>(null);
+
+  const [side, setSide] = useState(quoteUnit);
+
+  const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const [quantity, setQuantity] = useState("");
   const [total, setTotal] = useState("");
+
+  const pairName = location.state?.name.split("/");
+
+  const handleClickButtonPercentage = (index: number) => {
+    setActiveIndex(index);
+    const value = buttons[index];
+    let percent = parseInt(value);
+    if (value === "Max") {
+      percent = 100;
+    }
+
+    const newBalance = (percent / 100) * 1;
+    setBalance(newBalance.toString());
+  };
 
   const handleQuantityChange = (event: string) => {
     setQuantity(event);
@@ -241,14 +286,14 @@ const SwapComponent = ({
   const postData = async () => {
     setLoading(true);
     try {
-      const response = await baseApi.post(
+      await baseApi.post(
         `finex/market/orders`,
         {
-          market: "btcusd",
+          market: location.state.id,
           txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
-          side: "buy",
+          side: pairName[0] === side.toLocaleUpperCase() ? "buy" : "sell",
           quantity: Number(quantity),
-          price: currentType === "limit" ? 0.1 : null,
+          price: currentType === "limit" ? LAST : null,
           ord_type: currentType,
         },
         {
@@ -258,28 +303,33 @@ const SwapComponent = ({
         }
       );
       setLoading(false);
-      console.log("response", response);
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false);
-      console.log("error", error);
+      toast.error(error.response?.data?.errors);
     }
   };
+
+  const calculateUnit = useCallback(() => {
+    return reverse ? quoteUnit : baseUnit;
+  }, [baseUnit, quoteUnit, reverse]);
+
+  const displayUnit = useCallback(() => {
+    return reverse ? baseUnit : quoteUnit;
+  }, [baseUnit, quoteUnit, reverse]);
 
   useEffect(() => {
     if (reverse) {
       setTotal((+quantity / LAST).toString());
+      setSide(displayUnit());
     } else {
+      setSide(displayUnit());
       setTotal((+quantity * LAST).toString());
     }
-  }, [quantity, reverse]);
+  }, [quoteUnit, quantity, reverse, displayUnit]);
 
-  const calculateUnit = () => {
-    return reverse ? quoteUnit : baseUnit;
-  };
-
-  const displayUnit = () => {
-    return reverse ? baseUnit : quoteUnit;
-  };
+  useEffect(() => {
+    getPublicGas();
+  }, []);
 
   return (
     <div className="max-w-5xl relative">
@@ -287,28 +337,61 @@ const SwapComponent = ({
         <div className="mt-5 z-10">
           <div className="text-sm mb-4">Token to Swap</div>
           <div>
-            <SwapSelectToken
-              name="receive"
-              unit={calculateUnit()}
-              maxButton={() => ""}
-              handleInput={handleQuantityChange}
-              value={quantity.toString()}
-            />
-            <div className="text-xs text-soft mt-2">
-              Available balance: {balance}
+            {unitLoading ? (
+              <Skeleton>
+                <div className="h-16 w-full  bg-dark3" />
+              </Skeleton>
+            ) : (
+              <SwapSelectToken
+                name={reverse ? quoteUnit : baseUnit}
+                unit={calculateUnit()}
+                maxButton={() => ""}
+                disable={!connected}
+                handleInput={handleQuantityChange}
+                value={quantity.toString()}
+              />
+            )}
+            {unitLoading ? (
+              <Skeleton className="mt-2">
+                <div className="h-4 w-full  bg-dark3" />
+              </Skeleton>
+            ) : (
+              <div className="text-xs text-soft mt-2">
+                Available balance: {balance}
+              </div>
+            )}
+            <div className="flex gap-3 mt-2 items-center justify-between">
+              {buttons.map((button, index) => (
+                <BalanceButtons
+                  key={index}
+                  value={button}
+                  onClick={() => handleClickButtonPercentage(index)}
+                  isActive={index <= activeIndex!}
+                />
+              ))}
             </div>
           </div>
           <div className="flex justify-between gap-4 mt-5">
-            <div className="bg-[#5D636F1A] w-full p-4 space-y-4 rounded-xl ">
-              <div className="text-soft text-xs">
-                {" "}
-                {currentType === "market" ? "Estimated Price" : "Price"}
+            {unitLoading ? (
+              <Skeleton>
+                <div className="h-[5.6rem] w-full  bg-dark3" />
+              </Skeleton>
+            ) : (
+              <div className="bg-[#5D636F1A] w-full p-4 space-y-4 rounded-xl ">
+                <div className="flex justify-between items-center">
+                  <div className="text-soft text-xs">
+                    {currentType === "market" ? "Estimated Price" : "Price"}
+                  </div>
+                  {currentType === "limit" && (
+                    <div className="text-primary text-xs">Use Market</div>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="text-sm">{LAST}</div>
+                  <div className="text-xs text-soft uppercase">{quoteUnit}</div>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <div className="text-sm">{LAST}</div>
-                <div className="text-xs text-soft uppercase">{quoteUnit}</div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
         <div className="absolute inset-x-20 inset-y-20 flex items-center justify-center">
@@ -348,47 +431,95 @@ const SwapComponent = ({
         <div className="mt-5">
           <div className="text-sm mb-4">Token to Receive</div>
           <div>
-            <SwapSelectToken
-              name="receive"
-              unit={displayUnit()}
-              maxButton={() => ""}
-              handleInput={handleTotalChange}
-              value={total.toString()}
-            />
-            <div className="text-xs text-soft mt-2">
-              Available balance: {balance}
-            </div>
+            {unitLoading ? (
+              <Skeleton>
+                <div className="h-16 w-full  bg-dark3" />
+              </Skeleton>
+            ) : (
+              <SwapSelectToken
+                name={reverse ? baseUnit : quoteUnit}
+                unit={displayUnit()}
+                maxButton={() => ""}
+                disable={!connected}
+                handleInput={handleTotalChange}
+                value={total.toString()}
+              />
+            )}
+            {unitLoading ? (
+              <Skeleton className="mt-2">
+                <div className="h-4 w-full  bg-dark3" />
+              </Skeleton>
+            ) : (
+              <div className="text-xs text-soft mt-2">
+                Available balance: {balance}
+              </div>
+            )}
           </div>
 
           <div className="flex justify-between items-center mt-5">
-            <div className="text-xs text-soft">Gas fee (Network)</div>
-            <div className="text-xs text-white">Medium </div>
+            <div className="text-xs w-full text-soft">Gas fee (Network)</div>
+            {unitLoading ? (
+              <Skeleton className="mt-2 items-end">
+                <div className="h-4 w-full  bg-dark3" />
+              </Skeleton>
+            ) : (
+              <div
+                onClick={() => setModalGas(!modalGas)}
+                className="text-xs cursor-pointer text-white flex items-center gap-2"
+              >
+                <span>Medium</span>
+                <button className="bg-dark p-1 rounded">
+                  <svg
+                    width={16}
+                    height={17}
+                    viewBox="0 0 16 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.167 4.195a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h3.666a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5H5.167zm.5 3v-2h2.666v2H5.667zm-1.167-5A1.833 1.833 0 002.667 4.03v9.833H2.5a.5.5 0 000 1h9a.5.5 0 000-1h-.167V12.66A1.83 1.83 0 0014 11.032V7.14c0-.397-.129-.783-.367-1.1l-.733-.978a.5.5 0 00-.8.6l.733.978c.108.144.167.32.167.5v3.892a.83.83 0 01-1.66 0v-1.17a.507.507 0 00-.007-.08V4.028A1.834 1.834 0 009.5 2.195h-5zm5.833 11.667H3.667V4.029c0-.46.373-.834.833-.834h5c.46 0 .833.374.833.834v9.833z"
+                      fill="#90A3BF"
+                    />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
           <div className="flex justify-between items-center mt-4 gap-2">
-            <div className="bg-dark space-y-2 rounded-lg text-center p-1">
-              <div className="text-xxs whitespace-nowrap text-soft">
-                Service Fee (0.6%):
-              </div>
-              <div className="text-xxs whitespace-nowrap text-white">
-                0.00000000 BTC
-              </div>
-            </div>
-            <div className="bg-dark space-y-2 rounded-lg text-center p-1">
-              <div className="text-xxs whitespace-nowrap text-soft">
-                Network Fee:
-              </div>
-              <div className="text-xxs whitespace-nowrap text-white">
-                0.00000000 BTC
-              </div>
-            </div>
-            <div className="bg-dark space-y-2 rounded-lg text-center p-1">
-              <div className="text-xxs whitespace-nowrap text-soft">
-                Total received:
-              </div>
-              <div className="text-xxs whitespace-nowrap text-white">
-                0.00000000 BTC
-              </div>
-            </div>
+            {unitLoading ? (
+              Array.from({ length: 3 }).map(() => (
+                <Skeleton>
+                  <div className="h-16 w-full  bg-dark3" />
+                </Skeleton>
+              ))
+            ) : (
+              <>
+                <div className="bg-dark space-y-2 rounded-lg text-center p-1">
+                  <div className="text-xxs whitespace-nowrap text-soft">
+                    Service Fee (0.6%):
+                  </div>
+                  <div className="text-xxs whitespace-nowrap text-white">
+                    0.00000000 BTC
+                  </div>
+                </div>
+                <div className="bg-dark space-y-2 rounded-lg text-center p-1">
+                  <div className="text-xxs whitespace-nowrap text-soft">
+                    Network Fee:
+                  </div>
+                  <div className="text-xxs whitespace-nowrap text-white">
+                    0.00000000 BTC
+                  </div>
+                </div>
+                <div className="bg-dark space-y-2 rounded-lg text-center p-1">
+                  <div className="text-xxs whitespace-nowrap text-soft">
+                    Total received:
+                  </div>
+                  <div className="text-xxs whitespace-nowrap text-white">
+                    0.00000000 BTC
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -396,8 +527,8 @@ const SwapComponent = ({
       <div>
         {connected ? (
           <button
-            disabled={+quantity <= 0}
-            onClick={postData}
+            disabled={+quantity <= 0 || loading}
+            onClick={() => setOpenModalConfirm(!openModalConfirm)}
             className="rounded-full w-full py-3 mt-10  bg-primary disabled:bg-primary/30"
           >
             {loading ? "Loading..." : "Swap"}
@@ -406,12 +537,30 @@ const SwapComponent = ({
           <ButtonWalletConnectV2 className="bg-primary w-full flex items-center justify-center mt-10 hover:bg-primary/75" />
         )}
 
-        {/* <ModalConfirmInstantSwap
+        <ModalConfirmInstantSwap
           isOpen={openModalConfirm}
           valueReceived={total}
+          closeModal={() => setOpenModalConfirm(false)}
           valueSwap={quantity}
-          closeModal={() => setOpenModalConfirm(!openModalConfirm)}
-        /> */}
+          totalPair={reverse ? baseUnit : quoteUnit}
+          amountPair={reverse ? quoteUnit : baseUnit}
+          tokenPrice={LAST.toString()}
+          type={currentType === "market" ? "Instant" : "Limit"}
+          handleSubmit={() => {
+            postData();
+            setOpenModalConfirm(false);
+            setQuantity("");
+            setTotal("");
+          }}
+        />
+
+        <ModalGasFee
+          isOpen={modalGas}
+          gasList={gas}
+          selected={gasValue}
+          handleSelectedGas={setGasValue}
+          closeModal={() => setModalGas(!modalGas)}
+        />
       </div>
     </div>
   );
@@ -419,29 +568,54 @@ const SwapComponent = ({
 
 export const HistorySwap = () => {
   const params = useParams();
-  const { connected } = useWalletStore();
-  const { getListMarketOrder, orders, cancelOrderById } = useListMarketOrder(
+  const { connected, token } = useWalletStore();
+
+  const { orders, cancelOrderById, setOrder } = useListMarketOrder(
     (state) => state
   );
 
   const [market, setMarket] = useState<Market[]>([]);
-  const [currencies, setCurrencies] = useState<Currencies[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentType, setCurrentType] = useState<"market" | "limit">("market");
+
+  const { data: ListOrder, isLoading: listLoading } = useQuery({
+    queryKey: ["myMarketOrder"],
+    queryFn: async () => await getOrder({ state: "wait", token }),
+    enabled: currentIndex === 2 && connected,
+  });
+
+  const getCurrencies = async () => {
+    try {
+      const response: AxiosResponse = await axios.get(
+        `${baseUrl}/api/v2/trade/public/currencies?limit=100&page=1&ordering=asc&order_by=position`
+      );
+      return response.data;
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const { data: listCurrencies, isLoading: unitLoading } = useQuery<
+    Currencies[],
+    string
+  >({
+    queryKey: ["curencies"],
+    queryFn: getCurrencies,
+  });
 
   const getCurrentMarket = market.find(
     (item) => item.id.toLowerCase() === params.market?.toLowerCase()
   );
 
-  const getCurrentPair = currencies.find(
+  const getCurrentPair = listCurrencies?.find(
     (item) => item.id === getCurrentMarket?.quote_unit
   );
 
   useEffect(() => {
-    if (currentIndex === 2 && connected) {
-      getListMarketOrder();
+    if (ListOrder && connected) {
+      setOrder(ListOrder);
     }
-  }, [connected, currentIndex, getListMarketOrder]);
+  }, [ListOrder, setOrder, connected]);
 
   useEffect(() => {
     if (currentIndex === 0) {
@@ -462,22 +636,8 @@ export const HistorySwap = () => {
     }
   };
 
-  const getCurrencies = async () => {
-    try {
-      const response: AxiosResponse = await axios.get(
-        `${baseUrl}/api/v2/trade/public/currencies?limit=100&page=1&ordering=asc&order_by=position`
-      );
-      setCurrencies(response.data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
   useEffect(() => {
-    getCurrencies();
-  }, []);
-
-  useEffect(() => {
+    // getCurrencies();
     getMarkets();
   }, []);
 
@@ -487,6 +647,7 @@ export const HistorySwap = () => {
         label: "Instant Swap",
         content: (
           <SwapComponent
+            unitLoading={unitLoading}
             balance="0"
             currentPrice={getCurrentPair?.price}
             baseUnit={getCurrentMarket?.base_unit!}
@@ -500,6 +661,8 @@ export const HistorySwap = () => {
         label: "Limit Swap",
         content: (
           <SwapComponent
+            unitLoading={unitLoading}
+            balance="0"
             connected={connected}
             currentType={currentType}
             baseUnit={getCurrentMarket?.base_unit!}
@@ -515,7 +678,7 @@ export const HistorySwap = () => {
               <table className="w-full text-sm text-left rtl:text-right  text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-soft uppercase sticky top-0 bg-dark2">
                   <tr>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-3 whitespace-nowrap">
                       Order Date
                     </th>
                     <th scope="col" className="px-6 py-3">
@@ -539,9 +702,22 @@ export const HistorySwap = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-darkSoft/30 overflow-y-scroll">
-                  {orders?.length > 0 ? (
-                    orders?.map((item) => (
-                      <tr key={item.id}>
+                  {listLoading ? (
+                    <tr>
+                      <td
+                        className="text-center pt-4 gap-3 space-y-2"
+                        colSpan={7}
+                      >
+                        {Array.from({ length: 4 }).map(() => (
+                          <Skeleton>
+                            <div className="h-10 w-full  bg-dark3" />
+                          </Skeleton>
+                        ))}
+                      </td>
+                    </tr>
+                  ) : orders?.length > 0 ? (
+                    orders?.map((item: MarketOrder) => (
+                      <tr key={item.uuid}>
                         <th
                           scope="row"
                           className="px-6 py-4 font-medium whitespace-nowrap"
@@ -586,8 +762,8 @@ export const HistorySwap = () => {
                   ) : (
                     <tr>
                       <td
-                        className="text-gray-200 pt-28 py-4 text-center"
-                        colSpan={12}
+                        className="text-gray-200 pt-28 text-center"
+                        colSpan={7}
                       >
                         No Data Available
                       </td>
@@ -602,12 +778,13 @@ export const HistorySwap = () => {
     ],
     [
       cancelOrderById,
+      connected,
       currentType,
       getCurrentMarket?.base_unit,
       getCurrentMarket?.quote_unit,
       getCurrentPair?.price,
+      listLoading,
       orders,
-      connected,
     ]
   );
 

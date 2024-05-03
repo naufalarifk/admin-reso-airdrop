@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-interface Trade {
+export interface Trade {
   id: string;
   price: number;
   amount: number;
@@ -24,25 +24,28 @@ interface Trade {
 }
 
 export type MyTradeAction = {
-  getMyTradeOrder: () => void;
+  resetState: () => void;
+  setListMyTrade: (item: Trade[]) => void;
 };
 
 export type MyTradeState = ListMyTrade & MyTradeAction;
 
 export interface ListMyTrade {
-  trade: Trade[];
+  trades: Trade[];
 }
 
-const token = localStorage.getItem("auth");
-
-const getMyTrade = async () => {
+export const getMyTradeAction = async ({
+  token,
+}: {
+  token: string | undefined;
+}) => {
   try {
     const response: AxiosResponse = await baseApi.get(`finex/market/trades`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response;
+    return response.data;
   } catch (error: any) {
     toast.error(error.message);
     console.log("error", error);
@@ -50,19 +53,17 @@ const getMyTrade = async () => {
 };
 
 const initialState: ListMyTrade = {
-  trade: [],
+  trades: [],
 };
 
 export const useListTrade = create<MyTradeState>()(
   devtools((set) => ({
     ...initialState,
-    getMyTradeOrder: async () => {
-      const response = await getMyTrade();
-      const trade = response?.data;
-
+    resetState: () => {
       set(() => ({
-        trade,
+        trades: [],
       }));
     },
+    setListMyTrade: (trades: Trade[]) => set(() => ({ trades })),
   }))
 );
