@@ -1,11 +1,12 @@
 import {
     Button,
+    CurrentMarket,
     Input,
     ModalConfirmInstantSwap,
     OrderBookSwap,
     Pagination,
 } from "@/components";
-import TradingView from "@/components/organisms/TradingView";
+// import TradingView from "@/components/organisms/TradingView";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Text } from "@/components";
 import {
@@ -26,20 +27,29 @@ import { SwapTable } from "@/components";
 import { useTranslation } from "react-i18next";
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance";
 import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo";
-import { usePublicMarket } from "./hooks/usePublicMarkets";
-import { getMarketKLine, getMarketList, getMarketOrderBook } from "@/api/services/public/markets";
+import { usePublicMarket, usePublicMarketTicker, usePublicMarketTrade } from "./hooks/usePublicMarkets";
+import { getMarketDepth, getMarketKLine, getMarketList, getMarketOrderBook, getMarketTicker, getMarketTrades } from "@/api/services/public/markets";
 import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
+import TradingViewV2 from "@/components/organisms/TradingView/tradingViewV2";
 
 export const Swap = () => {
     const { t } = useTranslation();
     const market = usePublicMarket((state) => state.market);
+    const marketTicker = usePublicMarketTicker((state) => state.market_ticker)
+    const trades = usePublicMarketTrade((state) => state.market_trade);
     const currency = usePublicCurrency((state) => state.currency);
     const orderBook = usePublicMarket((state) => state.order_book);
     const marketKLine = usePublicMarket((state) => state.k_line);
+    const marketTrade = usePublicMarketTrade((state) => state.market_trade);
+    const depth = usePublicMarket((state) => state.depth);
+    const updateMarketTicker = usePublicMarketTicker((state) => state.updateMarketTickerState)
+    const updateTradeMarket = usePublicMarketTrade((state) => state.updateMarketTradeState)
     const updateKLine = usePublicMarket((state) => state.updateKLine);
     const updateCurrency = usePublicCurrency(
         (state) => state.updateCurrencyState
+    );
+    const updateDepth = usePublicMarket((state) => state.updateDepth
     );
     const updateMarket = usePublicMarket((state) => state.updateMarketState);
     const updateOrderBook = usePublicMarket((state) => state.updateOrderBook);
@@ -47,6 +57,10 @@ export const Swap = () => {
     console.log("market", market);
     console.log("orderBook", orderBook);
     console.log('marketKLine', marketKLine)
+    console.log('trades', trades)
+    console.log('marketTicker', marketTicker)
+    console.log('marketTrade', marketTrade)
+    console.log('depth', depth)
     const styles = {
         borderRadius: `4px`,
         border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -69,12 +83,18 @@ export const Swap = () => {
         const currency = await getCurrencyList({});
         const order_book = await getMarketOrderBook('btcusd', {
         })
+        const marketTicker = await getMarketTicker('btcusd')
         const k_line = await getMarketKLine('btcusd', {})
+        const market_trade = await getMarketTrades('btcusd')
+        const depth = await getMarketDepth('btcusd', 5)
+        updateMarketTicker(marketTicker)
         updateKLine(k_line)
         updateOrderBook(order_book)
         updateCurrency(currency);
         updateMarket(market);
-    }, [updateCurrency, updateKLine, updateMarket, updateOrderBook]);
+        updateTradeMarket(market_trade)
+        updateDepth(depth);
+    }, [updateCurrency, updateDepth, updateKLine, updateMarket, updateMarketTicker, updateOrderBook, updateTradeMarket]);
 
     useEffect(() => {
         getData();
@@ -317,7 +337,7 @@ export const Swap = () => {
                             <Text>{t("swap.swapMenu.availableBalance")}</Text>
                             <Text>0.01452618 BTC</Text>
                         </div>
-                        {selectedSwapMenu !== "Limit Swap" && (
+                        {selectedSwapMenu !== "limitSwap" && (
                             <div className="flex items-center space-x-2 bg-[#21222d] p-4 rounded-xl">
                                 <Slider
                                     defaultValue={[0]}
@@ -448,9 +468,13 @@ export const Swap = () => {
                         <IcInfo />
                     </div>
                 </div>
-                <OrderBookSwap data={orderBook} />
-                <div style={styles} className="h-[40vh] lg:h-[60vh] lg:w-4/5 w-full">
-                    <TradingView />
+                <OrderBookSwap data={orderBook} ticker_data={marketTicker} />
+                <div style={styles} className="h-[40vh] lg:h-[60vh] lg:w-4/5 w-full p-4">
+                    <CurrentMarket market={market} depth={depth} ticker={marketTicker} />
+                    <div className="h-full">
+                        <TradingViewV2 data={marketKLine} />
+                    </div>
+                    {/* <TradingView /> */}
                 </div>
             </main>
             <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
@@ -478,7 +502,7 @@ export const Swap = () => {
                         </div>
                     </div>
 
-                    {selectedPoolMenu === "Pool Swaps" ? (
+                    {selectedPoolMenu === "poolSwaps" ? (
                         <>
                             <SwapTable
                                 row={[
@@ -511,7 +535,7 @@ export const Swap = () => {
                             />
                             <Pagination />
                         </>
-                    ) : selectedPoolMenu === "Owners Chart" ? (
+                    ) : selectedPoolMenu === "ownersChart" ? (
                         <>
                             <SwapTable
                                 className="text-left"
@@ -574,13 +598,13 @@ export const Swap = () => {
                             ))}
                         </div>
                     </div>
-                    {selectedSwapMenu === "My Open Order" ? (
+                    {selectedSwapMenu === "myOpenOrder" ? (
                         <OrdertableMenu />
                     ) : (
                         <SwapMenu />
                     )}
                 </div>
-                <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button>
+                {/* <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button> */}
             </main>
             <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
                 <div className="flex space-x-1">

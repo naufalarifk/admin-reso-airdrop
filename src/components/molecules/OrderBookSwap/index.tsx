@@ -1,5 +1,6 @@
 import { IcHandicapAll, IcHandicapBuy, IcHandicapSell } from "@/assets/icons"
 import { Text } from "@/components"
+import { MarketTicker } from "@/pages/Swap/hooks/usePublicMarkets"
 import { OrderBook } from "@/types/components"
 
 
@@ -22,6 +23,7 @@ const SellTab = ({ asks }: { asks: OrderBook['asks'] }) => {
 
 
 const BuyTab = ({ bids }: { bids: OrderBook['bids'] }) => {
+
     return (
         <section className="space-y-2">
             {
@@ -41,7 +43,13 @@ const BuyTab = ({ bids }: { bids: OrderBook['bids'] }) => {
 }
 
 
-export const OrderBookSwap = ({ data }: { data: OrderBook }) => {
+export const OrderBookSwap = ({ data, ticker_data }: { data: OrderBook, ticker_data: MarketTicker }) => {
+    const { ticker } = ticker_data
+    console.log('ticker', ticker)
+    console.log(typeof ticker.price_change_percent);
+    const change_percent = Number(ticker.price_change_percent)
+    console.log('change_percent', change_percent)
+
     return (
         <section className="p-4 bg-[#181924] rounded-lg lg:w-1/5 w-full">
             <div className="flex justify-between items-center">
@@ -60,8 +68,8 @@ export const OrderBookSwap = ({ data }: { data: OrderBook }) => {
             <SellTab asks={data.asks} />
             {/* New Price */}
             <div className="bg-[#0E0F19] rounded-lg flex items-center justify-between px-2 py-4 my-4">
-                <Text className="text-red-500">69,398.54</Text>
-                <Text>≈69,398.54 USD</Text>
+                <Text className="text-red-500">{ticker.last}</Text>
+                {/* <Text>≈{Number(ticker.last) * change_percent.toFixed(2)} USD</Text> */}
             </div>
             <BuyTab bids={data.bids} />
         </section>

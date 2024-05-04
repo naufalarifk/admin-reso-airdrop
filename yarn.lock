@@ -4211,6 +4211,11 @@ keyvaluestorage-interface@^1.0.0:
   resolved "https://registry.yarnpkg.com/keyvaluestorage-interface/-/keyvaluestorage-interface-1.0.0.tgz#13ebdf71f5284ad54be94bd1ad9ed79adad515ff"
   integrity sha512-8t6Q3TclQ4uZynJY9IGr2+SsIGwK9JHcO6ootkHCGA0CrQCRy+VkouYNO2xicET6b9al7QKzpebNow+gkpCL8g==
 
+klinecharts@^9.8.5:
+  version "9.8.5"
+  resolved "https://registry.yarnpkg.com/klinecharts/-/klinecharts-9.8.5.tgz#4277ec66dc4ad64ed45439fb44327860e97bb1f5"
+  integrity sha512-sBuFmnwuxwC51VQ17WOEem80bzfX/4nUMuEzTvfcMvUtTiYb7HYP3jqlI+ei3f2WkqplfYKrpNOn5ejucq1NrQ==
+
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
