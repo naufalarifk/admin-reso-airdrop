@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/routes";
 // import { createWeb3Modal } from "@web3modal/wagmi/react";
 // import { WagmiProvider } from "wagmi";
-// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { SupportedChainsProvider } from "./hooks";
 // import { chains, config } from "@/config";
 import { Toaster } from "react-hot-toast";
@@ -43,7 +43,7 @@ export const buildProvidersTree = <
 };
 
 function App() {
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
   // const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
 
   // createWeb3Modal({
@@ -72,10 +72,12 @@ function App() {
   // ] as const);
 
   return (
-    <BrowserRouter>
-      <Toaster />
-      <RootLayout />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Toaster />
+        <RootLayout />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 

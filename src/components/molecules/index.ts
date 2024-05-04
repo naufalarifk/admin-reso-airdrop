@@ -20,3 +20,5 @@ export * from "./ButtonConnectWalletV2";
 export * from "./HistoryTrade";
 export * from "./ModalConfirmInstantSwap";
 export * from "./SwapInput";
+export * from "./ModalGasFee";
+export * from "./ButtonBalancePercentage";

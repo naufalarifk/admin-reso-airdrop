@@ -2,7 +2,7 @@
 import { baseApi } from "@/api/config";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import { create } from "zustand";
+import create from "zustand";
 import { devtools } from "zustand/middleware";
 
 export interface MarketOrder {
@@ -29,6 +29,11 @@ export interface MarketOrder {
   trades: Trade[];
 }
 
+type Pair = {
+  name: string;
+  id: string;
+};
+
 export interface Trade {
   id: string;
   price: number;
@@ -48,37 +53,61 @@ export interface Trade {
 }
 
 export type MarketOrderAction = {
-  getListMarketOrder: () => void;
+  resetState: () => void;
+  cancelOrderById: (value: string) => void;
+  setCurrentMarket: (value: MarketOrder) => void;
+  setOrder: (item: MarketOrder[]) => void;
+};
+
+type OrderQuery = {
+  state: "success" | "wait" | "";
+  token?: string | null;
 };
 
 export type MarketOrderState = ListMarketOrderStore & MarketOrderAction;
 
 export interface ListMarketOrderStore {
   orders: MarketOrder[];
+  currentMarket: MarketOrder | null;
+  pair: Pair;
 }
 
-const token = localStorage.getItem("auth");
+// const token = localStorage.getItem("auth");
 
-const getOrder = async () => {
+export const getOrder = async ({ state = "", token }: OrderQuery) => {
   try {
     const response: AxiosResponse = await baseApi.get(
-      `finex/market/orders?market_type=%7B%7D&limit=100&page=1&order_by=desc`,
+      `finex/market/orders?market_type=%7B%7D&limit=100&page=1&order_by=asc&state=${state}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    return response;
+    return response.data;
   } catch (error: any) {
     toast.error(error.message);
     console.log("error", error);
   }
 };
 
-export const cancelOrderById = async ({ id }: { id: string }) => {
+export const cancelOrderById = async ({
+  id,
+  token,
+}: {
+  id: string;
+  token: string | null;
+}) => {
   try {
-    const response = await baseApi.post(`finex/market/orders/${id}/cancel`);
+    const response = await baseApi.post(
+      `finex/market/orders/${id}/cancel`,
+      {},
+      {
+        headers: {
+          "X-CSRF-TOKEN": token,
+        },
+      }
+    );
     return response;
   } catch (error: any) {
     toast.error(error.message);
@@ -87,18 +116,39 @@ export const cancelOrderById = async ({ id }: { id: string }) => {
 
 const initialState: ListMarketOrderStore = {
   orders: [],
+
+  currentMarket: null,
+  pair: {
+    id: "btcusd",
+    name: "BTC/USD",
+  },
 };
 
 export const useListMarketOrder = create<MarketOrderState>()(
   devtools((set) => ({
     ...initialState,
-    getListMarketOrder: async () => {
-      const response = await getOrder();
-      const orders = response?.data;
-
+    resetState: () => {
       set(() => ({
-        orders,
+        orders: [],
       }));
     },
+    cancelOrderById: async (id: string) => {
+      const token = localStorage.getItem("auth");
+      const response = await cancelOrderById({ id, token });
+      if (response?.status === 200) {
+        setTimeout(async () => {
+          const responseOrder = await getOrder({ state: "wait" });
+          const orders: MarketOrder[] = responseOrder?.data;
+
+          set(() => ({
+            orders,
+          }));
+        }, 500);
+      }
+    },
+    setCurrentMarket: (market: MarketOrder) => {
+      set(() => ({ currentMarket: market }));
+    },
+    setOrder: (orders: MarketOrder[]) => set(() => ({ orders })),
   }))
 );
