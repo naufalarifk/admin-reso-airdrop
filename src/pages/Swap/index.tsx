@@ -28,10 +28,18 @@ import { useTranslation } from "react-i18next";
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance";
 import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo";
 import { usePublicMarket, usePublicMarketTicker, usePublicMarketTrade } from "./hooks/usePublicMarkets";
-import { getMarketDepth, getMarketKLine, getMarketList, getMarketOrderBook, getMarketTicker, getMarketTrades } from "@/api/services/public/markets";
+import {
+    getMarketDepth,
+    getMarketKLine,
+    getMarketList,
+    getMarketOrderBook, getMarketTicker, getMarketTrades,
+} from "@/api/services/public/markets";
 import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
 import TradingViewV2 from "@/components/organisms/TradingView/tradingViewV2";
+import { Dummy } from "../Dummy";
+import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Swap = () => {
     const { t } = useTranslation();
@@ -56,7 +64,7 @@ export const Swap = () => {
     console.log("currency", currency);
     console.log("market", market);
     console.log("orderBook", orderBook);
-    console.log('marketKLine', marketKLine)
+    console.log("marketKLine", marketKLine);
     console.log('trades', trades)
     console.log('marketTicker', marketTicker)
     console.log('marketTrade', marketTrade)
