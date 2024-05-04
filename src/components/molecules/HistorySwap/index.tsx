@@ -13,9 +13,8 @@ import {
   MarketOrder,
   useListMarketOrder,
 } from "./hooks/useMarketOder";
-import axios, { AxiosResponse } from "axios";
 import { ModalConfirmInstantSwap } from "../ModalConfirmInstantSwap";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { baseApi } from "@/api/config";
 import toast from "react-hot-toast";
 import { ModalGasFee } from "../ModalGasFee";
@@ -23,52 +22,12 @@ import { Gas, useGasServiceState } from "../ModalGasFee/hooks/useGasStore";
 import { BalanceButtons } from "../ButtonBalancePercentage";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/atoms";
+import { Currencies, Market } from "@/pages/Dummy/types";
 
 export interface TabsData {
   label: string;
   content: ReactNode;
 }
-
-type Market = {
-  id: string;
-  symbol: string;
-  name: string;
-  type: string;
-  base_unit?: string;
-  quote_unit?: string;
-  min_price: string;
-  max_price: string;
-  min_amount: string;
-  amount_precision: number;
-  price_precision: number;
-  total_precision: number;
-  state: string;
-};
-
-type Currencies = {
-  id: string;
-  name: string;
-  description: null;
-  homepage: null;
-  parent_id: null;
-  inscription_id: null;
-  details: null;
-  supplies: null;
-  price: string;
-  explorer_transaction: string;
-  explorer_address: string;
-  type: string;
-  deposit_enabled: boolean;
-  withdrawal_enabled: boolean;
-  deposit_fee: string;
-  min_deposit_amount: string;
-  withdraw_fee: string;
-  min_withdraw_amount: string;
-  base_factor: number;
-  precision: number;
-  position: number;
-  min_confirmations: number;
-};
 
 type TabsProps = {
   items: TabsData[];
@@ -84,6 +43,7 @@ interface SwapComponentProps {
   setCurrentIndex?: (index: number) => void;
   baseUnit: string;
   quoteUnit: string;
+  price: number;
   balance?: string;
   currentPrice?: string;
   connected: boolean;
@@ -228,8 +188,7 @@ const SwapSelectToken = ({
   );
 };
 
-const LAST = 63_618.38;
-const baseUrl = import.meta.env.VITE_API_URL;
+const LAST = 38;
 
 const SwapComponent = ({
   currentType,
@@ -238,6 +197,7 @@ const SwapComponent = ({
   connected,
   balance,
   unitLoading,
+  price,
 }: SwapComponentProps) => {
   const location = useLocation();
   const { token } = useWalletStore();
@@ -275,12 +235,12 @@ const SwapComponent = ({
 
   const handleQuantityChange = (event: string) => {
     setQuantity(event);
-    setTotal((+event * LAST).toString());
+    setTotal((+event * price).toString());
   };
 
   const handleTotalChange = (event: string) => {
     setTotal(event);
-    setQuantity((+event / LAST).toString());
+    setQuantity((+event / price).toString());
   };
 
   const postData = async () => {
@@ -387,7 +347,7 @@ const SwapComponent = ({
                   )}
                 </div>
                 <div className="flex justify-between items-center">
-                  <div className="text-sm">{LAST}</div>
+                  <div className="text-sm">{price}</div>
                   <div className="text-xs text-soft uppercase">{quoteUnit}</div>
                 </div>
               </div>
@@ -566,15 +526,23 @@ const SwapComponent = ({
   );
 };
 
-export const HistorySwap = () => {
-  const params = useParams();
+interface HistorySwapProps {
+  unitLoading: boolean;
+  getCurrentPair: Currencies;
+  getCurrentMarket: Market;
+}
+
+export const HistorySwap = ({
+  unitLoading,
+  getCurrentPair,
+  getCurrentMarket,
+}: HistorySwapProps) => {
   const { connected, token } = useWalletStore();
 
   const { orders, cancelOrderById, setOrder } = useListMarketOrder(
     (state) => state
   );
 
-  const [market, setMarket] = useState<Market[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentType, setCurrentType] = useState<"market" | "limit">("market");
 
@@ -583,33 +551,6 @@ export const HistorySwap = () => {
     queryFn: async () => await getOrder({ state: "wait", token }),
     enabled: currentIndex === 2 && connected,
   });
-
-  const getCurrencies = async () => {
-    try {
-      const response: AxiosResponse = await axios.get(
-        `${baseUrl}/api/v2/trade/public/currencies?limit=100&page=1&ordering=asc&order_by=position`
-      );
-      return response.data;
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  const { data: listCurrencies, isLoading: unitLoading } = useQuery<
-    Currencies[],
-    string
-  >({
-    queryKey: ["curencies"],
-    queryFn: getCurrencies,
-  });
-
-  const getCurrentMarket = market.find(
-    (item) => item.id.toLowerCase() === params.market?.toLowerCase()
-  );
-
-  const getCurrentPair = listCurrencies?.find(
-    (item) => item.id === getCurrentMarket?.quote_unit
-  );
 
   useEffect(() => {
     if (ListOrder && connected) {
@@ -625,22 +566,6 @@ export const HistorySwap = () => {
     }
   }, [currentIndex]);
 
-  const getMarkets = async () => {
-    try {
-      const response: AxiosResponse = await axios.get(
-        `${baseUrl}/api/v2/trade/public/markets?limit=100&page=1&ordering=asc&order_by=position`
-      );
-      setMarket(response.data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  useEffect(() => {
-    // getCurrencies();
-    getMarkets();
-  }, []);
-
   const tabs = useMemo(
     () => [
       {
@@ -654,6 +579,7 @@ export const HistorySwap = () => {
             quoteUnit={getCurrentMarket?.quote_unit!}
             currentType={currentType}
             connected={connected}
+            price={Number(getCurrentPair?.price)}
           />
         ),
       },
@@ -667,6 +593,7 @@ export const HistorySwap = () => {
             currentType={currentType}
             baseUnit={getCurrentMarket?.base_unit!}
             quoteUnit={getCurrentMarket?.quote_unit!}
+            price={Number(getCurrentPair?.price)}
           />
         ),
       },
@@ -785,6 +712,7 @@ export const HistorySwap = () => {
       getCurrentPair?.price,
       listLoading,
       orders,
+      unitLoading,
     ]
   );
 

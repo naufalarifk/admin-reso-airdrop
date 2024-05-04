@@ -24,7 +24,7 @@ export async function getCurrencyList(payload: CurrencyPayload) {
         type,
     }
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/currencies?${buildQueryString(params)}`) 
+        const response: AxiosResponse = await baseApi.get(`trade/public/currencies${buildQueryString(params)}`) 
         return response.data
     } catch (error) {
         console.log(error)

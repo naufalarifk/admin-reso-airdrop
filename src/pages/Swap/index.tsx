@@ -27,20 +27,33 @@ import { useTranslation } from "react-i18next";
 import { ModalInsufficientBalance } from "@/components/molecules/ModalInsufficientBalance";
 import { ModalCoinInfo } from "@/components/molecules/ModalCoinInfo";
 import { usePublicMarket } from "./hooks/usePublicMarkets";
-import { getMarketList } from "@/api/services/public/markets";
+import {
+  getMarketKLine,
+  getMarketList,
+  getMarketOrderBook,
+} from "@/api/services/public/markets";
 import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
+import { Dummy } from "../Dummy";
+import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Swap = () => {
   const { t } = useTranslation();
   const market = usePublicMarket((state) => state.market);
   const currency = usePublicCurrency((state) => state.currency);
+  const orderBook = usePublicMarket((state) => state.order_book);
+  const marketKLine = usePublicMarket((state) => state.k_line);
+  const updateKLine = usePublicMarket((state) => state.updateKLine);
   const updateCurrency = usePublicCurrency(
     (state) => state.updateCurrencyState
   );
   const updateMarket = usePublicMarket((state) => state.updateMarketState);
+  const updateOrderBook = usePublicMarket((state) => state.updateOrderBook);
   console.log("currency", currency);
   console.log("market", market);
+  console.log("orderBook", orderBook);
+  console.log("marketKLine", marketKLine);
   const styles = {
     borderRadius: `4px`,
     border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -61,9 +74,13 @@ export const Swap = () => {
   const getData = useCallback(async () => {
     const market = await getMarketList({});
     const currency = await getCurrencyList({});
+    const order_book = await getMarketOrderBook("btcusd", {});
+    const k_line = await getMarketKLine("btcusd", {});
+    updateKLine(k_line);
+    updateOrderBook(order_book);
     updateCurrency(currency);
     updateMarket(market);
-  }, [updateCurrency, updateMarket]);
+  }, [updateCurrency, updateKLine, updateMarket, updateOrderBook]);
 
   useEffect(() => {
     getData();
@@ -420,6 +437,24 @@ export const Swap = () => {
       </>
     );
   };
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { pair } = useListMarketOrder();
+
+  console.log("enak", location.state);
+
+  useEffect(() => {
+    if (
+      location.pathname === "/swap" ||
+      location.pathname === "/swap/" ||
+      location.state === null
+    ) {
+      navigate(`/swap/${pair.id.toLocaleUpperCase()}`, { state: pair });
+    }
+  }, [location, navigate, pair]);
+
   return (
     <>
       <main className="flex space-x-0 lg:flex-row flex-col lg:space-y-0 lg:space-x-4 space-y-4">
@@ -437,141 +472,13 @@ export const Swap = () => {
             <IcInfo />
           </div>
         </div>
-        <OrderBookSwap />
+        <OrderBookSwap data={orderBook} />
         <div style={styles} className="h-[40vh] lg:h-[60vh] lg:w-4/5 w-full">
           <TradingView />
         </div>
       </main>
       <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
-        <div
-          style={{
-            borderRadius: `8px`,
-            background: `var(--Dark-Dark-2, #181924)`,
-            backdropFilter: `blur(12px)`,
-          }}
-          className="p-6 lg:w-1/2 w-full"
-        >
-          <div className="flex justify-between">
-            <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
-              {pool_menu.map((menu) => (
-                <Text
-                  className={`${
-                    selectedPoolMenu === menu
-                      ? "text-white border-b-2 border-[#F23F5D]"
-                      : ""
-                  } cursor-pointer`}
-                  onClick={() => setSelectedPoolMenu(menu)}
-                >
-                  {t(`swap.${menu}`)}
-                </Text>
-              ))}
-            </div>
-          </div>
-
-          {selectedPoolMenu === "Pool Swaps" ? (
-            <>
-              <SwapTable
-                row={[
-                  "#",
-                  "Address",
-                  "Protocol",
-                  "Type",
-                  "Pay",
-                  "Receive",
-                  "Time",
-                  "TxID",
-                  "Status",
-                ]}
-                col={pool_swaps.map((pool) => (
-                  <div className="grid grid-cols-9 my-4 border-b text-center items-center">
-                    <Text>{pool.number}</Text>
-                    <Text>{pool.address}</Text>
-                    <Text>{pool.protocol}</Text>
-                    <Text>{pool.type}</Text>
-                    <Text>{pool.pay}</Text>
-                    <Text>{pool.receive}</Text>
-                    <div>
-                      <Text>{pool.date}</Text>
-                      <Text>{pool.time}</Text>
-                    </div>
-                    <Text>{pool.txid}</Text>
-                    <Text>{pool.status}</Text>
-                  </div>
-                ))}
-              />
-              <Pagination />
-            </>
-          ) : selectedPoolMenu === "Owners Chart" ? (
-            <>
-              <SwapTable
-                className="text-left"
-                row={["Rank", "Address", "Quantity"]}
-                col={owners_charts.map((pool) => (
-                  <div className="grid grid-cols-3 my-4 border-b text-left items-center">
-                    <Text>{pool.rank}</Text>
-                    <Text>{pool.address}</Text>
-
-                    <div className="flex space-x-1 items-center justify-start">
-                      <Text>{pool.quantity}</Text>
-                      <IcQuestionMark />
-                    </div>
-                  </div>
-                ))}
-              />
-              <Pagination />
-            </>
-          ) : (
-            <>
-              <SwapTable
-                row={["Date", "Assets", "Order ID", "Price", "Amount"]}
-                col={my_trades.map((pool) => (
-                  <div className="grid grid-cols-5 my-4 border-b text-center items-center">
-                    <div>
-                      <Text>{pool.date}</Text>
-                      <Text>{pool.time}</Text>
-                    </div>
-                    <Text>{pool.assets}</Text>
-                    <Text>{pool.order_id}</Text>
-                    <Text>{pool.price}</Text>
-                    <Text>{pool.amount}</Text>
-                  </div>
-                ))}
-              />
-              <Pagination />
-            </>
-          )}
-        </div>
-        <div
-          style={{
-            borderRadius: `8px`,
-            background: `var(--Dark-Dark-2, #181924)`,
-            backdropFilter: `blur(12px)`,
-          }}
-          className="p-6 lg:w-1/2 w-full"
-        >
-          <div className="flex justify-between">
-            <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
-              {swap_menu.map((menu) => (
-                <Text
-                  className={`${
-                    selectedSwapMenu === menu
-                      ? "text-white border-b-2 border-[#F23F5D]"
-                      : ""
-                  } cursor-pointer`}
-                  onClick={() => setSelectedSwapMenu(menu)}
-                >
-                  {t(`swap.${menu}`)}
-                </Text>
-              ))}
-            </div>
-          </div>
-          {selectedSwapMenu === "My Open Order" ? (
-            <OrdertableMenu />
-          ) : (
-            <SwapMenu />
-          )}
-        </div>
-        <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button>
+        <Dummy />
       </main>
       <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
         <div className="flex space-x-1">

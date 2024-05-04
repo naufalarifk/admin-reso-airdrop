@@ -188,7 +188,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   <li key={i}>
                     <NavLink
                       state={{
-                        name: item.name === "Swap" ? "Market" : null,
+                        id: item.name === "Swap" ? "btcusd" : null,
+                        name: item.name === "Swap" ? "BTC/USD" : null,
                       }}
                       to={{
                         pathname: item.setTo,
