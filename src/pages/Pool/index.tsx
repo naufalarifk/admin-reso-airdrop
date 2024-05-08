@@ -1,4 +1,4 @@
-import { IcBitcoin, IcDiscord, IcDropdown, IcMedium, IcRoundAdd, IcTelegram, IcWeb, IcX } from "@/assets/icons";
+import { IcBitcoin, IcDiscord, IcDropdown, IcMedium, IcPending, IcQuestionMark, IcRoundAdd, IcTelegram, IcWeb, IcX } from "@/assets/icons";
 import { Button, Input, PoolSteps, Text } from "@/components"
 import { Dispatch, useState } from "react"
 import { useTranslation } from "react-i18next";
@@ -44,16 +44,26 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
         if (step === 4) {
             setStep(1)
         } else {
-            setStep(step + 1)
+            setStep(3)
         }
     }
 
     return (
         <section className="bg-[#181924] mx-auto p-6 border-[0.5px] border-[#FFFFFF1A] w-full lg:w-3/4 min-w-sm rounded-xl space-y-4">
             <Text className="font-semibold text-lg">{t('pool.firstStep.title')}</Text>
-            <Text className="text-[#9F9F9F]">{t('pool.firstStep.subtitle')}</Text>
+            <Text className="text-[#90A3BF]">{t('pool.firstStep.subtitle')}</Text>
+            <div className="flex justify-between">
+                <div className="flex space-x-2">
+                    <Button className="bg-[#F23F5D] px-4 py-[6px] rounded-[4px] h-8">CMC Based Token</Button>
+                    <Button className="bg-[#0E0F19] text-[#90A3BF] px-4 py-[6px] rounded-[4px] h-8">Custom Token</Button>
+                </div>
+                <Button className="bg-[#0E0F19] text-[#90A3BF] px-4 py-[6px] rounded-[4px] h-8">My Listing</Button>
+            </div>
             <div className="mt-6 space-y-2">
-                <Text className="text-[#9F9F9F]">{t('pool.firstStep.unifiedAsset')}</Text>
+                <div className="flex space-x-1">
+                    <Text className="text-white">{t('pool.firstStep.unifiedAsset')}</Text>
+                    <IcQuestionMark />
+                </div>
                 <div className="bg-[#0E0F19] rounded-lg p-2 flex items-center space-x-2">
                     <Input placeholder="1" className="bg-transparent" />
                     <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">{t('pool.firstStep.search')}</Button>
@@ -126,58 +136,58 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
 }
 
 
-const SecondStep = ({ setStep, step }: ChildrenProps) => {
-    const { t } = useTranslation()
-    const handleNextStep = () => {
-        if (step === 4) {
-            setStep(1)
-        } else {
-            setStep(step + 1)
-        }
-    }
-    return (
-        <section className="bg-[#181924] mx-auto p-6 border-[0.5px] border-[#FFFFFF1A] w-full lg:w-3/4 min-w-sm rounded-xl space-y-4">
-            <Text className="font-semibold text-lg">{t('pool.secondStep.title')}</Text>
-            <Text className="text-[#9F9F9F]">{t('pool.secondStep.subtitle')}</Text>
-            <div className="bg-[#0E0F19] rounded-lg px-4 py-6 space-y-4">
-                <div className="flex items-center justify-between w-full">
-                    <Text>{t('pool.secondStep.listingAmount')}</Text>
-                    <Text>Balance : 121.42351331 BTC</Text>
-                </div>
-                <div className="flex items-center justify-between w-full">
-                    <span className="flex space-x-2 items-center"><IcBitcoin /><Text>BTC (Bitcoin)</Text></span>
-                    <Text>1</Text>
-                </div>
-                <hr className="my-4 h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
-                <div className="flex items-center justify-between w-full">
-                    <span className="flex space-x-2 items-center"><IcBitcoin /><Text>Reso (Rectoverso)</Text><IcDropdown /></span>
-                    <Text>1000</Text>
-                </div>
-                <hr className="h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
-                <div className="space-y-1">
-                    <div className="flex items-center justify-between w-full">
-                        <Text>BTC {t('pool.secondStep.priceRate')} ({t('pool.secondStep.minimumListing')} ≈ 1 BTC)</Text>
-                        <Text>1 BTC = 1 BTC</Text>
-                    </div>
-                    <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
-                    <div className="flex items-center justify-between w-full">
-                        <Text>Reso {t('pool.secondStep.priceRate')} ({t('pool.secondStep.minimumListing')} ≈ 1,000 RESO)</Text>
-                        <Text>1,000 RESO = 1 BTC</Text>
-                    </div>
-                    <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
-                    <div className="flex items-center justify-between w-full">
-                        <Text>{t('pool.secondStep.listingFees')} :</Text>
-                        <Text>1,000 RESO</Text>
-                    </div>
-                </div>
-            </div>
-            <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">{t('pool.secondStep.continue')}</Button>
-        </section>
-    )
-}
+// const SecondStep = ({ setStep, step }: ChildrenProps) => {
+//     const { t } = useTranslation()
+//     const handleNextStep = () => {
+//         if (step === 4) {
+//             setStep(1)
+//         } else {
+//             setStep(step + 1)
+//         }
+//     }
+//     return (
+//         <section className="bg-[#181924] mx-auto p-6 border-[0.5px] border-[#FFFFFF1A] w-full lg:w-3/4 min-w-sm rounded-xl space-y-4">
+//             <Text className="font-semibold text-lg">{t('pool.secondStep.title')}</Text>
+//             <Text className="text-[#9F9F9F]">{t('pool.secondStep.subtitle')}</Text>
+//             <div className="bg-[#0E0F19] rounded-lg px-4 py-6 space-y-4">
+//                 <div className="flex items-center justify-between w-full">
+//                     <Text>{t('pool.secondStep.listingAmount')}</Text>
+//                     <Text>Balance : 121.42351331 BTC</Text>
+//                 </div>
+//                 <div className="flex items-center justify-between w-full">
+//                     <span className="flex space-x-2 items-center"><IcBitcoin /><Text>BTC (Bitcoin)</Text></span>
+//                     <Text>1</Text>
+//                 </div>
+//                 <hr className="my-4 h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
+//                 <div className="flex items-center justify-between w-full">
+//                     <span className="flex space-x-2 items-center"><IcBitcoin /><Text>Reso (Rectoverso)</Text><IcDropdown /></span>
+//                     <Text>1000</Text>
+//                 </div>
+//                 <hr className="h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
+//                 <div className="space-y-1">
+//                     <div className="flex items-center justify-between w-full">
+//                         <Text>BTC {t('pool.secondStep.priceRate')} ({t('pool.secondStep.minimumListing')} ≈ 1 BTC)</Text>
+//                         <Text>1 BTC = 1 BTC</Text>
+//                     </div>
+//                     <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
+//                     <div className="flex items-center justify-between w-full">
+//                         <Text>Reso {t('pool.secondStep.priceRate')} ({t('pool.secondStep.minimumListing')} ≈ 1,000 RESO)</Text>
+//                         <Text>1,000 RESO = 1 BTC</Text>
+//                     </div>
+//                     <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
+//                     <div className="flex items-center justify-between w-full">
+//                         <Text>{t('pool.secondStep.listingFees')} :</Text>
+//                         <Text>1,000 RESO</Text>
+//                     </div>
+//                 </div>
+//             </div>
+//             <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">{t('pool.secondStep.continue')}</Button>
+//         </section>
+//     )
+// }
 
 
-const ThirdStep = ({ setStep, step }: ChildrenProps) => {
+const FinalStep = ({ setStep, step }: ChildrenProps) => {
 
     const { t } = useTranslation()
 
@@ -223,9 +233,14 @@ const ThirdStep = ({ setStep, step }: ChildrenProps) => {
             <Text className="text-[#9F9F9F]"></Text>
             <div className="mt-6 space-y-2">
                 <div className="bg-[#0E0F19] rounded-lg p-4">
-                    <div className="flex items-center space-x-2">
-                        <IcBitcoin />
-                        <Text>BTC <span className="text-[#90A3BF]">Bitcoin</span></Text>
+                    <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-2">
+                            <IcBitcoin />
+                            <Text>BTC <span className="text-[#90A3BF]">Bitcoin</span></Text>
+                        </div>
+                        <div className="flex space-x-2">{
+                            official_links.map(link => <div className="rounded-full p-2 bg-[#181924]">{link.icon}</div>)
+                        }</div>
                     </div>
                     <Text className="text-[#90A3BF] my-1">Bitcoin is a digital asset and a payment system invented by Satoshi Nakamoto who published a related paper in 2008 and released it as open-source software in 2009. The system featured as peer-to-peer; users can transact directly without an intermediary.</Text>
                     <div className="p-4 grid grid-cols-3 bg-[#181924] rounded-lg mt-2 gap-4">
@@ -264,34 +279,96 @@ const ThirdStep = ({ setStep, step }: ChildrenProps) => {
                     </div>
                 </div>
             </div>
-            <div className="mt-6 space-y-2 bg-[#0E0F19] px-4 py-6 rounded-xl">
-                <div className="flex items-center justify-between">
-                    <Text>{t('pool.thirdStep.addLiquidity')}</Text>
-                    <span className="flex items-center space-x-1"><IcBitcoin /><Text>BTC</Text></span>
+            <div>
+                <div className="flex space-x-1 items-center">
+                    <Text className="text-[#90A3BF] text-sm font-semibold">Token Price</Text>
+                    <IcQuestionMark />
                 </div>
-                <div className="flex items-center justify-between">
-                    <Text>{t('pool.thirdStep.liquidityAmount')}</Text>
-                    <Text>1</Text>
+                <div className="bg-[#0E0F19] p-3 rounded-2xl mt-2 flex space-x-2 items-center">
+                    <div className="flex items-center space-x-2 w-3/5">
+                        <img
+                            src="/images/reso.png"
+                            className="cursor-pointer w-7 relative h-7 z-[999]"
+                            alt=""
+                        />
+                        <Text>RESO (Rectoverso)</Text>
+                        <IcDropdown />
+                    </div>
+                    <Input className="bg-transparent" placeholder="Input token price" />
+                    <Text className="text-[#90A3BF]">RESO</Text>
                 </div>
-                <hr className="my-2" />
-                <div className="flex items-center justify-between">
-                    <Text>{t('pool.thirdStep.listingFees')}</Text>
+                <div className="flex justify-between items-center mt-2">
+                    <Text className="text-[#9F9F9F]">Available Balance</Text>
                     <Text>1,000 RESO</Text>
                 </div>
-                {
-                    official_links.map(item =>
-                        <div className="flex justify-between bg-[#0E0F19] p-2  items-center rounded-xl">
-                            <div className="flex space-x-2 items-center">
-                                <>{item.icon}</>
-                                <Text>{item.name}</Text>
-                                <IcDropdown />
-                            </div>
-                            <Text>{item.link}</Text>
-                        </div>)
-                }
+            </div>
+            <div>
+                <div className="flex justify-between items-center">
+                    <div className="flex space-x-1 items-center">
+                        <Text className="text-[#90A3BF] text-sm font-semibold">Listing Fee</Text>
+                        <IcQuestionMark />
+                    </div>
+                    <div className="flex space-x-1 items-center">
+                        <IcPending />
+                        <Text>Waiting</Text>
+                    </div>
+                </div>
+                <div className="bg-[#0E0F19] p-3 rounded-2xl mt-2 flex space-x-2 items-center justify-between">
+                    <Text>1000</Text>
+                    <div className="flex space-x-3 items-center">
+                        <Text className="text-[#90A3BF] font-semibold">RESO</Text>
+                        <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">Pay</Button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div className="flex justify-between items-center">
+                    <div className="flex space-x-1 items-center">
+                        <Text className="text-[#90A3BF] text-sm font-semibold">Pair Liquidity</Text>
+                        <IcQuestionMark />
+                    </div>
+                    <div className="flex space-x-1 items-center">
+                        <IcPending />
+                        <Text>Waiting</Text>
+                    </div>
+                </div>
+                <div className="bg-[#0E0F19] p-3 rounded-2xl mt-2 flex space-x-2 items-center justify-between">
+                    <Input className="bg-transparent" placeholder="Input pair liquidity" />
+                    <div className="flex space-x-3 items-center">
+                        <Text className="text-[#90A3BF] font-semibold">RESO</Text>
+                        <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">Add</Button>
+                    </div>
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                    <Text className="text-[#9F9F9F]">Available Balance</Text>
+                    <Text>1,000 RESO</Text>
+                </div>
+            </div>
+            <div>
+                <div className="flex justify-between items-center">
+                    <div className="flex space-x-1 items-center">
+                        <Text className="text-[#90A3BF] text-sm font-semibold">Token Liquidity</Text>
+                        <IcQuestionMark />
+                    </div>
+                    <div className="flex space-x-1 items-center">
+                        <IcPending />
+                        <Text>Waiting</Text>
+                    </div>
+                </div>
+                <div className="bg-[#0E0F19] p-3 rounded-2xl mt-2 flex space-x-2 items-center justify-between">
+                    <Input className="bg-transparent" placeholder="Input token liquidity" />
+                    <div className="flex space-x-3 items-center">
+                        <Text className="text-[#90A3BF] font-semibold">BTC</Text>
+                        <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">Add</Button>
+                    </div>
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                    <Text className="text-[#9F9F9F]">Available Balance</Text>
+                    <Text>50 BTC</Text>
+                </div>
             </div>
             <div className="flex space-x-1">
-                <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">{t('pool.thirdStep.continue')}</Button>
+                <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">Listing</Button>
                 <Button onClick={handleNextStep} className="w-full bg-[#20232e]">{t('pool.thirdStep.cancel')}</Button>
             </div>
         </section>
@@ -311,7 +388,7 @@ export const Pool = () => {
             <Text className="text-center text-sm lg:text-lg text-[#90A3BF]">{t('pool.subtitle.title')} <br /> {t('pool.subtitle.subtitle')}</Text>
             <PoolSteps active={step} />
             {
-                step === 1 ? <FirstStep step={step} setStep={setStep} /> : step === 2 ? <SecondStep step={step} setStep={setStep} /> : <ThirdStep step={step} setStep={setStep} />
+                step === 1 ? <FirstStep step={step} setStep={setStep} /> : <FinalStep step={step} setStep={setStep} />
             }
         </main>
     )

@@ -563,7 +563,7 @@ viewTransactions: "View Transactions"
         first: "Token",
         second: "Information",
       },
-      second: "Amount",
+      second: "Confirmation",
       third: "Confirmation",
     },
     firstStep: {

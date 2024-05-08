@@ -2,7 +2,7 @@ import {
     Button,
     CurrentMarket,
     Input,
-    ModalConfirmInstantSwap,
+    // ModalConfirmInstantSwap,
     OrderBookSwap,
     Pagination,
 } from "@/components";
@@ -37,9 +37,9 @@ import {
 import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
 import TradingViewV2 from "@/components/organisms/TradingView/tradingViewV2";
-import { Dummy } from "../Dummy";
-import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { Dummy } from "../Dummy";
+// import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
+// import { useLocation, useNavigate } from "react-router-dom";
 
 export const Swap = () => {
     const { t } = useTranslation();
@@ -82,7 +82,7 @@ export const Swap = () => {
     const [selectedPoolMenu, setSelectedPoolMenu] = useState("poolSwaps");
     const [selectedSwapMenu, setSelectedSwapMenu] = useState("instantSwap");
     const [openInsufficientBalance, setOpenInsufficientBalance] = useState(false);
-    const [openConfirmInstantSwap, setOpenConfirmInstantSwap] = useState(false);
+    // const [openConfirmInstantSwap, setOpenConfirmInstantSwap] = useState(false);
     const [openCoinInfo, setOpenCoinInfo] = useState(false);
     const [leverage, setLeverage] = useState(0);
 
@@ -634,10 +634,11 @@ export const Swap = () => {
                 isOpen={openCoinInfo}
                 closeModal={() => setOpenCoinInfo(false)}
             />
-            <ModalConfirmInstantSwap
+            {/* <ModalConfirmInstantSwap
+                
                 isOpen={openConfirmInstantSwap}
                 closeModal={() => setOpenConfirmInstantSwap(false)}
-            />
+            /> */}
         </>
     );
 };

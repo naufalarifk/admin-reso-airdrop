@@ -1,10 +1,10 @@
 import { HistoryTrade } from "@/components";
 import { HistorySwap } from "@/components/molecules/HistorySwap";
-import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
+// import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Currencies, Market } from "./types";
 
 const baseUrl = import.meta.env.VITE_API_URL;
@@ -13,7 +13,7 @@ export const Dummy = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  const [currMarket, setCurrMarket] = useState<Market | null>(null);
+  const [currMarket] = useState<Market | null>(null);
 
   const getCurrencies = async () => {
     try {
@@ -57,9 +57,9 @@ export const Dummy = () => {
     }
   };
 
-  const handleRoute = (item: Market) => {
-    setCurrMarket(item);
-  };
+  // const handleRoute = (item: Market) => {
+  //   setCurrMarket(item);
+  // };
 
   useEffect(() => {
     if (currMarket) {

@@ -37,3 +37,4 @@ export * from "./IcDoubleCurrency"
 export * from "./IcWarningTriangle"
 export * from "./IcGas";
 export * from "./IcCoinPairs";
+export * from "./IcPending";
