@@ -635,7 +635,6 @@ export const Swap = () => {
                 closeModal={() => setOpenCoinInfo(false)}
             />
             {/* <ModalConfirmInstantSwap
-                
                 isOpen={openConfirmInstantSwap}
                 closeModal={() => setOpenConfirmInstantSwap(false)}
             /> */}
