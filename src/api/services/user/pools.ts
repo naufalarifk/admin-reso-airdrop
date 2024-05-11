@@ -140,5 +140,4 @@ export async function postAddNewCurrency(payload: AddNewCurrencyPayload) {
         formData.append(key, payload.supplies[key as keyof typeof payload.supplies])
     }
     formData.append('type', payload.type)
-
 }
