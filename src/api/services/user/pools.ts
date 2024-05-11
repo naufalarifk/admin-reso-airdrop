@@ -133,4 +133,12 @@ export async function postAddNewCurrency(payload: AddNewCurrencyPayload) {
     formData.append('name', payload.name)
     formData.append('position', payload.position)
     formData.append('precision', payload.precision.toString())
+    formData.append('price', payload.price.toString())
+    formData.append('status', payload.status)
+    formData.append('subunits', payload.subunits)
+    for (const key of Object.keys(payload.supplies)) {
+        formData.append(key, payload.supplies[key as keyof typeof payload.supplies])
+    }
+    formData.append('type', payload.type)
+
 }
