@@ -509,7 +509,6 @@ export const Swap = () => {
                             ))}
                         </div>
                     </div>
-
                     {selectedPoolMenu === "poolSwaps" ? (
                         <>
                             <SwapTable

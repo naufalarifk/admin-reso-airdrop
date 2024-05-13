@@ -61,6 +61,13 @@ interface AddNewCurrencyPayload {
     subunits: string;
 }
 
+
+interface GetCurrenciesPayload {
+    currency?: string;
+    pair_currency?: string;
+    market?: string;
+}
+
 export async function postPoolPayment(payload: PaymentPayload) {
     const { amount, hash, kinds, uid } = payload
     const params = {
@@ -119,7 +126,6 @@ export async function getPoolMarket(payload: PoolMarketPayload) {
 
 export async function postAddNewCurrency(payload: AddNewCurrencyPayload) {
 
-
     const formData = new FormData();
     formData.append('base_factor', payload.base_factor)
     formData.append('code', payload.code)
@@ -140,4 +146,28 @@ export async function postAddNewCurrency(payload: AddNewCurrencyPayload) {
         formData.append(key, payload.supplies[key as keyof typeof payload.supplies])
     }
     formData.append('type', payload.type)
+
+    try {
+        const response = await baseApi.post(`pool/currencies/new`, formData)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export async function getPoolCurrencies(payload: GetCurrenciesPayload) {
+    const { currency = '', market = '', pair_currency = '' } = payload
+    
+    const params = {
+        currency,
+        market,
+        pair_currency
+    }
+    try {
+        const response = await baseApi.get(`pool/currencies${buildQueryString(params)}`)
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
 }
