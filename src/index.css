@@ -7,12 +7,6 @@
   line-height: 1.5;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.87);
-  background-image: url("/texture.svg"),
-    radial-gradient(circle at top left, black 100%, #fe9f00 50%),
-    radial-gradient(circle at bottom right, black 100%, #fe9f00 50%);
-  background-color: black;
-  background-size: cover;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

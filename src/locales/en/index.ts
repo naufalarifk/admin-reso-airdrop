@@ -32,6 +32,7 @@ export const EN_TRANSLATION = {
           two: "Bridge Platform",
           three: "Swap Trade",
           four: "Staking Platform",
+          five: "Pool Platform",
         },
         desc: {
           one: "Experience the freedom and security of decentralized trading.",
@@ -39,6 +40,7 @@ export const EN_TRANSLATION = {
           three:
             "Swap your cryptocurrencies effortlessly and securely, diversifying your portfolio with ease.",
           four: "Earn passive income and actively participate in blockchain networks by staking your assets, contributing to network security, and being rewarded for your support",
+          five: "Dive into the latest pool of cryptocurrencies now available on Rectoverso! Stay ahead of the curve with Rectoverso's dynamic crypto marketplace"
         },
       },
     },

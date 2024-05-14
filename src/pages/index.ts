@@ -8,3 +8,4 @@ export * from "./Swap";
 export * from "./Terms";
 export * from "./Privacy";
 export * from "./Pool";
+export * from "./NotFound";

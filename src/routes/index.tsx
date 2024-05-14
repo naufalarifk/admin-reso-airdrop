@@ -9,6 +9,7 @@ import {
   Terms,
   Privacy,
   Pool,
+  NotFound,
 } from "@/pages";
 import { MainMenu } from "./MainMenu";
 import { LayoutDashboard, StakeLayout } from "@/components";
@@ -36,13 +37,13 @@ export const RootLayout = () => {
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route element={<MainMenu />}>
+        <Route path="/*" element={<NotFound />} />
         <Route element={<LayoutDashboard />}>
           {/* <Route path="/trade" element={<Trade />} /> */}
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap/:market" element={<Swap />} />
           <Route path="/pool" element={<Pool />} />
           <Route path="/dummy/:market" element={<Dummy />} />
-          <Route path="/*" element={<Swap />} />
         </Route>
       </Route>
       <Route element={<StakeLayout />}>
