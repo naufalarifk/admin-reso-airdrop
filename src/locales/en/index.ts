@@ -7,6 +7,7 @@ export const EN_TRANSLATION = {
       bridge: "Bridge",
       supports: "Supports",
       pool: "Pool",
+      docs: "Docs",
     },
   },
   landing: {

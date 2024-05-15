@@ -113,6 +113,7 @@ export const ButtonWalletConnectV2 = ({
       {!connected ? (
         <>
           <button
+            disabled
             onClick={handleConnect}
             className={cn(
               `py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-black text-white hover:bg-black/80 disabled:opacity-50 disabled:pointer-events-none`,

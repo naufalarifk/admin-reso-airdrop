@@ -716,7 +716,7 @@ export function Landing() {
                   height={3000}
                   width={3000}
                   className="z-10 absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-40%] max-w-[150%]"
-                  src="/images/bordertrade.svg"
+                  src="/images/bordertrade1.svg"
                   alt="border-trade"
                 />
               </div>
