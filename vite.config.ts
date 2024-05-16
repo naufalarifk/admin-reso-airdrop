@@ -16,6 +16,7 @@ export default ({ mode }: { mode: never }) => {
       },
     },
     server: {
+      port: 3000,
       hmr: {
         overlay: true,
       },

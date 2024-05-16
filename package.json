@@ -40,6 +40,7 @@
     "tailwind-merge": "^2.3.0",
     "viem": "^2.9.31",
     "wagmi": "^2.8.0",
+    "websocket": "^1.0.35",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
