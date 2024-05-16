@@ -1,3 +1,4 @@
+import { cn } from "@/utils";
 import type { ReactNode, FC } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -9,9 +10,17 @@ export interface TabsData {
 type TabsProps = {
   items: TabsData[];
   isBetween?: boolean;
+  classNameWrapper?: string;
+  rightContent?: ReactNode;
+  classNameButtons?: string;
 };
 
-export const Tabs: FC<TabsProps> = ({ items, isBetween = false }) => {
+export const Tabs: FC<TabsProps> = ({
+  items,
+  isBetween = false,
+  classNameWrapper,
+  rightContent,
+}) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
@@ -40,12 +49,17 @@ export const Tabs: FC<TabsProps> = ({ items, isBetween = false }) => {
     setActiveTabIndex(index);
   };
   return (
-    <div>
-      <div className="relative">
+    <>
+      <div className="bg-dark2 relative grid place-items-center md:flex  gap-5 md:gap-0  md:justify-between   p-4 md:py-4 md:px-8  border-soft/15 rounded-2xl border-[0.5px]">
         <div
-          className={`flex ${
-            isBetween ? "items-center justify-between" : "gap-4"
-          } rounded-lg  p-1 px-1`}
+          className={
+            (cn(
+              `flex ${
+                isBetween ? "items-center justify-between" : "gap-4"
+              } rounded-lg  p-1 px-1`
+            ),
+            classNameWrapper)
+          }
         >
           {items.map((tab, idx) => (
             <button
@@ -57,7 +71,7 @@ export const Tabs: FC<TabsProps> = ({ items, isBetween = false }) => {
               className={`text-center py-2 text-xs rounded px-4 font-semibold ${
                 activeTabIndex === idx
                   ? "bg-primary text-white"
-                  : "text-soft bg-[#5D636F1A]"
+                  : "text-soft bg-dark"
               }`}
               onClick={() => handleTabClick(idx)}
             >
@@ -69,12 +83,13 @@ export const Tabs: FC<TabsProps> = ({ items, isBetween = false }) => {
           className="absolute bottom-3 block h-1 rounded-lg bg-primary-1 transition-all duration-300"
           style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         />
+        {rightContent}
       </div>
       {typeof contents === "string" ? (
-        <div className="mt-10">{contents}</div>
+        <div className="mt-4">{contents}</div>
       ) : (
         contents
       )}
-    </div>
+    </>
   );
 };

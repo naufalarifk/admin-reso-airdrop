@@ -6,7 +6,6 @@
   border-radius: 10px;
   border: 1px solid #fe9f00;
   background-color: white;
-  overflow: visible;
   cursor: pointer;
 }
 /* -------------------------- Firefox */
@@ -17,6 +16,5 @@
   border-radius: 10px;
   border: 1px solid #fe9f00;
   background-color: white;
-  overflow: visible;
   cursor: pointer;
 }

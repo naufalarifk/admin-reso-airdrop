@@ -1,50 +1,87 @@
+import { BrowserRouter } from "react-router-dom";
+import { RootLayout } from "@/routes";
+import { createWeb3Modal } from "@web3modal/wagmi/react";
+// import { WagmiProvider } from "wagmi";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { SupportedChainsProvider } from "./hooks";
+import {
+  // chains,
+  config
+} from "@/config";
+import { Toaster } from "react-hot-toast";
 
-import './App.css'
-import { BrowserRouter } from 'react-router-dom'
-import { RootLayout } from '@/routes'
-import { createWeb3Modal } from '@web3modal/wagmi/react'
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
+type ComponentsWithProps<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TComponents extends readonly React.JSXElementConstructor<any>[]
+> = {
+  [key in keyof TComponents]: keyof React.ComponentProps<
+    TComponents[key]
+  > extends never
+  ? readonly [TComponents[key]]
+  : readonly [TComponents[key], React.ComponentProps<TComponents[key]>];
+} & { length: TComponents["length"] };
 
-import { WagmiProvider } from 'wagmi'
-import { arbitrum, mainnet } from 'wagmi/chains'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+export const buildProvidersTree = <
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T extends readonly React.JSXElementConstructor<any>[]
+>(
+  componentsWithProps: ComponentsWithProps<T>
+) => {
+  const initialComponent: React.FC<React.PropsWithChildren> = ({
+    children,
+  }) => <>{children}</>;
+
+  return componentsWithProps.reduce(
+    (AccumulatedComponents, [Provider, props = {}]) => {
+      return ({ children }) => {
+        return (
+          <AccumulatedComponents>
+            <Provider {...props}>{children}</Provider>
+          </AccumulatedComponents>
+        );
+      };
+    },
+    initialComponent
+  );
+};
 
 function App() {
-  const queryClient = new QueryClient()
-  const projectId = 'b19059d1209d33e9994a738bd1562013'
+  const queryClient = new QueryClient();
+  const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
 
-  const metadata = {
-    name: 'Web3Modal',
-    description: 'Web3Modal Example',
-    url: 'https://web3modal.com', // origin must match your domain & subdomain
-    icons: ['https://avatars.githubusercontent.com/u/37784886']
-  }
-
-  const chains = [mainnet, arbitrum] as const
-  const config = defaultWagmiConfig({
-    chains,
-    projectId,
-    metadata,
-  })
-
-  // 3. Create modal
   createWeb3Modal({
     wagmiConfig: config,
     projectId,
-    enableAnalytics: true, // Optional - defaults to your Cloud configuration
-    enableOnramp: true // Optional - false as default
-  })
+    enableAnalytics: true,
+    enableOnramp: true,
+    themeVariables: {
+      "--w3m-accent": "#F23F5D",
+      "--w3m-border-radius-master": "8px",
+    },
+    excludeWalletIds: [
+      "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
+    ],
+    allWallets: "HIDE",
+    termsConditionsUrl: "https://www.mytermsandconditions.com",
+    themeMode: "dark",
+  });
 
+  // const chainID = chains.map((c) => c.id);
+
+  // const ProvidersTree = buildProvidersTree([
+  //   [WagmiProvider, { config }],
+  //   [QueryClientProvider, { client: queryClient }],
+  //   [SupportedChainsProvider, { supportedChains: chainID }],
+  // ] as const);
 
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <RootLayout />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </WagmiProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Toaster />
+        <RootLayout />
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;

@@ -7,12 +7,6 @@
   line-height: 1.5;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.87);
-  background-image: url("/texture.svg"),
-    radial-gradient(circle at top left, black 100%, #fe9f00 50%),
-    radial-gradient(circle at bottom right, black 100%, #fe9f00 50%);
-  background-color: black;
-  background-size: cover;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -32,7 +26,7 @@
 
 @layer base {
   body {
-    @apply bg-[#040102];
+    @apply bg-[#0E0F19];
   }
 
   /* Chrome, Safari, Edge, Opera */
@@ -40,6 +34,17 @@
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  .clip-hexa {
+    --hexagon-size: 36px; /* Adjust the size as needed */
+    --hexagon-border-radius: 11px; /* Adjust the border radius as needed */
+    width: var(--hexagon-size);
+    height: calc(
+      var(--hexagon-size) * 0.366
+    ); /* Ensures correct height for hexagon */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    border-radius: var(--hexagon-border-radius);
   }
 
   /* Firefox */
@@ -53,14 +58,19 @@
     @apply mx-auto w-11/12;
   }
 
+  .layout-dashboard {
+    max-width: 88.75rem;
+    @apply md:mx-auto w-full mx-3;
+  }
+
   .border-animate-wrapper {
-    @apply relative overflow-hidden bg-[#2F292B];
+    @apply relative overflow-hidden bg-[#1d1e2a];
   }
 
   .border-animate-wrapper:before {
     background: conic-gradient(
       rgb(255, 255, 255) 0deg,
-      rgba(254, 159, 0, 1) 0deg,
+      rgba(242, 63, 93, 1) 0deg,
       transparent 100deg
     );
 
@@ -73,26 +83,35 @@
 
   .gradient_1 {
     position: absolute;
-    top: 1%;
-    left: 50%;
+    left: 55%;
+    margin-top: 55rem;
     transform: translate(-50%, -50%);
     border-radius: 46% 54% 70% 30% / 30% 51% 49% 70%;
     filter: blur(100px);
-    background: #fe9f0066;
-    background: linear-gradient(45deg, #fea10097, #fe9f0066);
+    background: #f23f5d;
+    background: linear-gradient(90deg, #f23f5d22, #941d3114);
   }
 
-  #tsparticlessnow,
   #tsparticlessnowSecond {
     height: 600px;
   }
 
   .gradient_border {
-    background: rgb(254, 159, 0);
+    background: rgba(242, 63, 93, 1);
     background: radial-gradient(
       circle,
-      rgba(254, 159, 0, 1) 0%,
+      rgb(255, 159, 175) 0%,
       rgba(0, 212, 255, 0) 29%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fe9f00",endColorstr="#00d4ff",GradientType=1);
+  }
+
+  .gradient_border_long {
+    background: rgba(242, 63, 93, 1);
+    background: radial-gradient(
+      circle,
+      rgba(242, 63, 93, 1) 0%,
+      rgba(0, 212, 255, 0) 75%
     );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fe9f00",endColorstr="#00d4ff",GradientType=1);
   }
@@ -104,8 +123,8 @@
     transform: translate(-50%, -50%);
     border-radius: 46% 54% 70% 30% / 30% 51% 49% 70%;
     filter: blur(100px);
-    background: #fea10049;
-    background: linear-gradient(45deg, #fe9d009e, #fe9f0066);
+    background: #f23f5d;
+    background: linear-gradient(45deg, #f23f5d4e, #f23f5d42);
   }
 
   .gradient_3 {
@@ -115,8 +134,16 @@
     transform: translate(-50%, -50%);
     border-radius: 46% 54% 70% 30% / 30% 51% 49% 70%;
     filter: blur(100px);
-    background: #fea10049;
-    background: linear-gradient(45deg, #fe9d009e, #fe9f0066);
+    background: #f23f5d;
+    background: linear-gradient(45deg, #f23f5d60, #f23f5d3f);
+  }
+
+  .gradient_red {
+    position: absolute;
+    border-radius: 46% 54% 70% 30% / 30% 51% 49% 70%;
+    filter: blur(100px);
+    background: #f23f5d;
+    background: linear-gradient(45deg, #f23f5d60, #f23f5d3f);
   }
 
   .animation-ping {
