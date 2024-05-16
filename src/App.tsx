@@ -1,10 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/routes";
-// import { createWeb3Modal } from "@web3modal/wagmi/react";
+import { createWeb3Modal } from "@web3modal/wagmi/react";
 // import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import { SupportedChainsProvider } from "./hooks";
-// import { chains, config } from "@/config";
+import {
+  // chains,
+  config
+} from "@/config";
 import { Toaster } from "react-hot-toast";
 
 type ComponentsWithProps<
@@ -14,8 +17,8 @@ type ComponentsWithProps<
   [key in keyof TComponents]: keyof React.ComponentProps<
     TComponents[key]
   > extends never
-    ? readonly [TComponents[key]]
-    : readonly [TComponents[key], React.ComponentProps<TComponents[key]>];
+  ? readonly [TComponents[key]]
+  : readonly [TComponents[key], React.ComponentProps<TComponents[key]>];
 } & { length: TComponents["length"] };
 
 export const buildProvidersTree = <
@@ -44,24 +47,24 @@ export const buildProvidersTree = <
 
 function App() {
   const queryClient = new QueryClient();
-  // const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
+  const projectId = import.meta.env.VITE_WAGMI_PROJECT_ID;
 
-  // createWeb3Modal({
-  //   wagmiConfig: config,
-  //   projectId,
-  //   enableAnalytics: true,
-  //   enableOnramp: true,
-  //   themeVariables: {
-  //     "--w3m-accent": "#F23F5D",
-  //     "--w3m-border-radius-master": "8px",
-  //   },
-  //   excludeWalletIds: [
-  //     "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
-  //   ],
-  //   allWallets: "HIDE",
-  //   termsConditionsUrl: "https://www.mytermsandconditions.com",
-  //   themeMode: "dark",
-  // });
+  createWeb3Modal({
+    wagmiConfig: config,
+    projectId,
+    enableAnalytics: true,
+    enableOnramp: true,
+    themeVariables: {
+      "--w3m-accent": "#F23F5D",
+      "--w3m-border-radius-master": "8px",
+    },
+    excludeWalletIds: [
+      "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96",
+    ],
+    allWallets: "HIDE",
+    termsConditionsUrl: "https://www.mytermsandconditions.com",
+    themeMode: "dark",
+  });
 
   // const chainID = chains.map((c) => c.id);
 

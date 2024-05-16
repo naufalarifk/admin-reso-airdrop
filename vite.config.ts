@@ -27,16 +27,16 @@ export default ({ mode }: { mode: never }) => {
         },
       },
     },
-    test: {
-      globals: true,
-      environment: "happy-dom",
-      setupFiles: ["src/setupTest.ts"],
-      coverage: {
-        provider: "v8",
-        reporter: ["html", "text"],
-        exclude: ["./node_modules", "src/setupTest.ts"],
-      },
-    },
+    // test: {
+    //   globals: true,
+    //   environment: "happy-dom",
+    //   setupFiles: ["src/setupTest.ts"],
+    //   coverage: {
+    //     provider: "v8",
+    //     reporter: ["html", "text"],
+    //     exclude: ["./node_modules", "src/setupTest.ts"],
+    //   },
+    // },
     // build: {
     //    rollupOptions: {
     //       output: {

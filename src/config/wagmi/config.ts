@@ -9,13 +9,13 @@ export const chains = [eth, matic, bsc] as const;
 const metadata = {
   name: "Web3Modal",
   description: "Web3Modal Example",
-  url: "https://web3modal.com", // origin must match your domain & subdomain
+  url: "https://web3modal.com", 
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
 export const config = defaultWagmiConfig({
   chains,
-  projectId: import.meta.env.VITE_WAGMI_PROJECT_ID,
+  projectId: "b19059d1209d33e9994a738bd1562013",
   metadata,
   // storage: createStorage({
   //   storage: cookieStorage,
