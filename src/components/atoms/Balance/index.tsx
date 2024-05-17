@@ -13,7 +13,7 @@ interface BalancePorps {
 
 const formatNumber = new Intl.NumberFormat("en", {
   notation: "compact",
-  minimumFractionDigits: 1,
+  minimumFractionDigits: 0,
 }).format;
 
 const formatStringNumber = (value: string | number) => {
