@@ -21,7 +21,7 @@ export const RootLayout = () => {
   // const { chain } = useAccount();
 
   // useEffect(() => {
-  //   const url = new URL(window.location.href);
+  //   const url = new URL(window.location.h66ref);
   //   url.searchParams.set(
   //     "chainId",
   //     String(chain?.nativeCurrency?.symbol).toLowerCase()
@@ -30,6 +30,8 @@ export const RootLayout = () => {
   //     window.location.href = url.href;
   //   }
   // });
+
+
 
   return (
     <Routes>

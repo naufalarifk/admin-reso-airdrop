@@ -1,10 +1,32 @@
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { ButtonWalletConnectV2 } from "@/components";
 // import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Transition, Dialog } from "@headlessui/react";
 import { langs, Language } from "@/locales/langs";
+import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
+import { getMarketList } from "@/api/services/public/markets";
+
+
+export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
+  const { i18n, t } = useTranslation();
+  const [toggle, setToggle] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const market = usePublicMarket((state) => state.market);
+  const updateMarket = usePublicMarket((state) => state.updateMarketState);
+
+  console.log("MARKET", market);
+
+  const getData = useCallback(async () => {
+    const market = await getMarketList({});
+    updateMarket(market);
+}, [updateMarket]);
+
+useEffect(() => {
+    getData();
+}, [getData]);
 
 const navLink = [
   {
@@ -28,7 +50,7 @@ const navLink = [
   {
     id: 3,
     name: "Swap",
-    setTo: "/swap",
+    setTo: `/swap/${market?.[0]?.name?.replace('/', '-')}`,
     code: "swap",
   },
   {
@@ -50,11 +72,7 @@ const navLink = [
     code: "supports",
   },
 ];
-
-export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
-  const { i18n, t } = useTranslation();
-  const [toggle, setToggle] = useState(false);
-  const [open, setOpen] = useState(false);
+  
 
   // const modal = useWeb3Modal();
   // const { chain, isConnected } = useAccount();

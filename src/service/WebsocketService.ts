@@ -1,14 +1,37 @@
 import { useEffect } from "react"; 
-import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
+// import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
+import { useWalletStore } from "@/components";
 
-const handleWebSocketMessage = (message: any) => {
-  const kLineData = JSON.parse(message);
-  usePublicMarket.getState().updateKLine(kLineData);
+const handleWebSocketMessage = (message) => {
+  // const kLineData = JSON.parse(message);
+  // usePublicMarket.getState().updateKLine(kLineData);
+  // usePublicMarket.getState().updateOrderBook(kLineData);
 };
 
+const WS_URL = import.meta.env.VITE_API_WS_URL;
+
 const WebsocketService = () => {
+  const {connected} = useWalletStore();
+
+  // const generateSocketURI = (baseUrl: string, s: string[]) => `${baseUrl}?stream=${s.sort().join('&stream=')}`;
+
   useEffect(() => {
-    const ws = new WebSocket('wss://beta.rectoverso.exchange/api/v2/websocket/public'); 
+    // const baseUrl = `${WS_URL}/${connected ? 'private' : 'public'}`;
+    // const streams: string[] = ['global.tickers'];
+
+    // if (connected) {
+    //     streams = [
+    //         ...streams,
+    //         'balances',
+    //         'order',
+    //         'trade',
+    //         'deposit_address',
+    //     ];
+    // }
+
+    // const ws = new WebSocket(generateSocketURI(baseUrl, streams)); 
+    const baseUrl = `${WS_URL}/public?stream=global.tickers`;
+    const ws = new WebSocket(baseUrl); 
 
     ws.onopen = () => {
       console.log('WebSocket connection established.');
@@ -19,11 +42,7 @@ const WebsocketService = () => {
     };
 
     ws.onerror = (error) => {
-      if (error && error.message) {
-        console.error('WebSocket error:', error.message); 
-      } else {
-        console.error('WebSocket error:', error);
-      }
+      console.error('WebSocket error:', error);
     };
 
     ws.onclose = () => {
@@ -33,7 +52,7 @@ const WebsocketService = () => {
     return () => {
       ws.close();
     };
-  }, []);
+  }, [connected]);
 
   return null; 
 };
