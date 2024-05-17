@@ -14,7 +14,6 @@ import {
   useListMarketOrder,
 } from "./hooks/useMarketOder";
 import { ModalConfirmInstantSwap } from "../ModalConfirmInstantSwap";
-import { useLocation, useParams } from "react-router-dom";
 import { baseApi } from "@/api/config";
 import toast from "react-hot-toast";
 import { ModalGasFee } from "../ModalGasFee";
@@ -199,9 +198,9 @@ const SwapComponent = ({
   unitLoading,
   price,
 }: SwapComponentProps) => {
-  const location = useLocation();
+  // const location = useLocation();
   // const { token } = useWalletStore();
-  const token = localStorage?.getItem("auth")
+  const token = localStorage?.getItem("auth");
   const { gas, getPublicGas } = useGasServiceState();
 
   const [reverse, setReverse] = useState(false);
@@ -213,24 +212,22 @@ const SwapComponent = ({
 
   const [gasValue, setGasValue] = useState<Gas | null>(null);
 
-  const [side, setSide] = useState(quoteUnit);
+  const [, setSide] = useState(quoteUnit);
 
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const [quantity, setQuantity] = useState("");
   const [total, setTotal] = useState("");
 
-  const pairName = location.state?.name.split("/");
+  // const pairName = location.state?.name.split("/");
 
-   const handleClickButtonPercentage = (index: number) => {
+  const handleClickButtonPercentage = (index: number) => {
     setActiveIndex(index);
     const value = buttons[index];
     let percent = parseInt(value);
     if (value === "Max") {
       percent = 100;
     }
-
-    
 
     const newBalance = (percent / 100) * 1;
     setBalance(newBalance.toString());
@@ -257,13 +254,13 @@ const SwapComponent = ({
     //   price: currentType === "limit" ? LAST : null,
     //   ord_type: currentType,
     // },
-    
+
     try {
       console.log("enak");
       await baseApi.post(
         `/finex/market/orders`,
         {
-          market: 'memeusdt',
+          market: "memeusdt",
           txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
           side: "buy",
           quantity: Number(quantity),
@@ -280,7 +277,7 @@ const SwapComponent = ({
     } catch (error: any) {
       setLoading(false);
       console.log("error", error);
-      
+
       toast.error(error);
     }
   };
@@ -719,7 +716,17 @@ export const HistorySwap = ({
         ),
       },
     ],
-    [cancelOrderById, connected, currentType, getCurrentMarket?.base_unit, getCurrentMarket?.quote_unit, getCurrentPair?.price, listLoading, orders, unitLoading]
+    [
+      cancelOrderById,
+      connected,
+      currentType,
+      getCurrentMarket?.base_unit,
+      getCurrentMarket?.quote_unit,
+      getCurrentPair?.price,
+      listLoading,
+      orders,
+      unitLoading,
+    ]
   );
 
   return (

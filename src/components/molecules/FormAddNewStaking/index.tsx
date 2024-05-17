@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 
@@ -81,7 +82,7 @@ export const FormAddNewStaking = ({
               className="p-4 block placeholder:text-sm placeholder:md:text-base w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
             />
             <img
-              src={selectedOptions[0]?.iconUrl}
+              src={selectedOptions[0]?.iconUrl!}
               className="absolute inset-y-5 w-5 h-5 right-4"
               alt="icon-coin-one"
             />
@@ -102,7 +103,7 @@ export const FormAddNewStaking = ({
               onChange={handleChangeCoinTwo}
             />
             <img
-              src={selectedOptions[1]?.iconUrl}
+              src={selectedOptions[1]?.iconUrl!}
               className="absolute inset-y-5 w-5 h-5 right-4"
               alt="icon-coin-one"
             />

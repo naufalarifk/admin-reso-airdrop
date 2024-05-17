@@ -3,7 +3,7 @@ export interface Coin {
   symbol: string;
   name: string;
   color: string;
-  iconUrl: string | null;
+  iconUrl: string | null | undefined;
   marketCap: string;
   price: string;
   listedAt: number;
