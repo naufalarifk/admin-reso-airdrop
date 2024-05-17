@@ -6,7 +6,7 @@ pipeline {
         DOCKERFILE = 'Dockerfile'
         CONTAINER_NAMES = 'reso-frontend-1'
         CONTAINER_TO_RESTARTS = 'frontend'
-        DEV_REMOTE_USER = 'root'
+        DEV_REMOTE_USER = 'reso'
         DEV_SERVER_ADDRESS = '194.233.91.242'
         DEV_DEPLOYMENT_PATH = '/home/reso/platform'
         PROD_REMOTE_USER = ''
