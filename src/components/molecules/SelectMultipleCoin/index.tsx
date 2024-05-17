@@ -50,11 +50,14 @@ export const MultipleSelectCoin: React.FC<MultipleSelectProps> = memo(
                   </span>
                 ) : (
                   selectedOptions.map((option, i) => (
-                    <picture className="flex gap-2" key={option.uuid}>
+                    <picture
+                      className="flex gap-2 capitalize"
+                      key={option.uuid}
+                    >
                       <img
-                        src={option.iconUrl}
+                        src={option.iconUrl || "/images/reso.png"}
                         alt={option.name}
-                        className="w-6 h-6"
+                        className="w-6 h-6 rounded-full overflow-hidden"
                       />
                       {option.name} {selectedOptions.length - 1 !== i && ", "}
                     </picture>
@@ -105,8 +108,8 @@ export const MultipleSelectCoin: React.FC<MultipleSelectProps> = memo(
                             {({ selected, active }) => (
                               <div className="flex items-center gap-2">
                                 <img
-                                  src={option.iconUrl}
-                                  className="w-6 h-6"
+                                  src={option.iconUrl || "/images/reso.png"}
+                                  className="w-6 h-6 rounded-full overflow-hidden"
                                   alt=""
                                 />
                                 <span

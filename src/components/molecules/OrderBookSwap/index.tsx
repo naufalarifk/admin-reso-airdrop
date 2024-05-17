@@ -43,8 +43,8 @@ const BuyTab = ({ bids }: { bids: OrderBook['bids'] }) => {
 }
 
 
-export const OrderBookSwap = ({ data, ticker_data }: { data: OrderBook, ticker_data: MarketTicker }) => {
-    const { ticker } = ticker_data!
+export const OrderBookSwap = ({ data, ticker_data }: { data: OrderBook, ticker_data?: MarketTicker }) => {
+    const { ticker } = ticker_data || {};
     console.log('ticker', ticker)
     console.log(typeof ticker?.price_change_percent);
     const change_percent = Number(ticker?.price_change_percent)
@@ -65,13 +65,13 @@ export const OrderBookSwap = ({ data, ticker_data }: { data: OrderBook, ticker_d
                 <Text className="text-center">Qty USDT</Text>
                 <Text className="text-center">Total USDT</Text>
             </div>
-            <SellTab asks={data.asks} />
+            <SellTab asks={data?.asks} />
             {/* New Price */}
             <div className="bg-[#0E0F19] rounded-lg flex items-center justify-between px-2 py-4 my-4">
                 <Text className="text-red-500">{ticker?.last}</Text>
                 {/* <Text>≈{Number(ticker.last) * change_percent.toFixed(2)} USD</Text> */}
             </div>
-            <BuyTab bids={data.bids} />
+            <BuyTab bids={data?.bids} />
         </section>
     )
 }

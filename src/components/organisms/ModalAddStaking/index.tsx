@@ -37,6 +37,7 @@ interface ModalAddStakeProps {
   handleMaxUserJoin: (value: ChangeEvent<HTMLInputElement>) => void;
   valueRewardPerBlock: string;
   handleRewardPerBlock: (value: ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: () => void;
 }
 
 export const ModalAddStaking = memo(
@@ -63,6 +64,7 @@ export const ModalAddStaking = memo(
     handleMaxUserJoin,
     valueRewardPerBlock,
     handleRewardPerBlock,
+    handleSubmit,
   }: ModalAddStakeProps) => {
     const { t } = useTranslation();
     return (
@@ -139,7 +141,7 @@ export const ModalAddStaking = memo(
                       {selectedOptions.length >= 2 &&
                         selectedOptions !== null && (
                           <div className="space-y-3">
-                            <label className="text-sm md:text-base">
+                            <label className="text-sm md:text-base capitalize">
                               {selectedOptions[0]?.name} (
                               {selectedOptions[0]?.symbol}){" "}
                             </label>
@@ -153,8 +155,11 @@ export const ModalAddStaking = memo(
                                 className="p-4 block placeholder:text-sm placeholder:md:text-base w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                               />
                               <img
-                                src={selectedOptions[0]?.iconUrl}
-                                className="absolute inset-y-5 w-5 h-5 right-4"
+                                src={
+                                  selectedOptions[0]?.iconUrl ||
+                                  "/images/reso.png"
+                                }
+                                className="absolute overflow-hidden rounded-full inset-y-5 w-5 h-5 right-4"
                                 alt="icon-coin-one"
                               />
                             </div>
@@ -164,7 +169,7 @@ export const ModalAddStaking = memo(
                       {selectedOptions.length >= 2 &&
                         selectedOptions !== null && (
                           <div className="space-y-3">
-                            <label className="text-sm md:text-base">
+                            <label className="text-sm md:text-base capitalize">
                               {selectedOptions[1]?.name} (
                               {selectedOptions[1]?.symbol})
                             </label>
@@ -178,8 +183,11 @@ export const ModalAddStaking = memo(
                                 onChange={handleChangeCoinTwo}
                               />
                               <img
-                                src={selectedOptions[1]?.iconUrl}
-                                className="absolute inset-y-5 w-5 h-5 right-4"
+                                src={
+                                  selectedOptions[1]?.iconUrl ||
+                                  "/images/reso.png"
+                                }
+                                className="absolute overflow-hidden rounded-full inset-y-5 w-5 h-5 right-4"
                                 alt="icon-coin-one"
                               />
                             </div>
@@ -338,7 +346,7 @@ export const ModalAddStaking = memo(
                   </div>
                   <div>
                     <button
-                      onClick={closeModal}
+                      onClick={handleSubmit}
                       className="p-4 w-full bg-primary rounded-full"
                     >
                       {t("button.continue")}
