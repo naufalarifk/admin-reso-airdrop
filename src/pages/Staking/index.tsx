@@ -154,6 +154,18 @@ export const Staking = () => {
   useEffect(() => {
     setTimeout(() => {
       setModalSuccess(false);
+      setNewStakingData({
+        coinOne: null,
+        coinTwo: null,
+        amountCoinOne: "",
+        amountCoinTwo: "",
+        endStake: "",
+        maxUserJoin: "",
+        minUserJoin: "",
+        rewardPerBlock: "",
+        startStake: "",
+      });
+      setSelectedOptions([]);
     }, 8000);
   }, [modalSucces]);
 
