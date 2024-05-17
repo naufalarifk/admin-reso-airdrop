@@ -67,6 +67,7 @@ export const ModalAddStaking = memo(
     handleSubmit,
   }: ModalAddStakeProps) => {
     const { t } = useTranslation();
+
     return (
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative" onClose={closeModal}>
@@ -81,7 +82,6 @@ export const ModalAddStaking = memo(
           >
             <div className="fixed inset-0 z-[99]  bg-black/50 " />
           </Transition.Child>
-
           <div className="fixed z-[999] backdrop-blur-sm inset-0 overflow-y-auto">
             <div className="flex min-h-full   items-center justify-center p-4">
               <Transition.Child
@@ -137,7 +137,6 @@ export const ModalAddStaking = memo(
                           )}
                         />
                       </div>
-
                       {selectedOptions.length >= 2 &&
                         selectedOptions !== null && (
                           <div className="space-y-3">
@@ -159,7 +158,7 @@ export const ModalAddStaking = memo(
                                   selectedOptions[0]?.iconUrl ||
                                   "/images/reso.png"
                                 }
-                                className="absolute overflow-hidden rounded-full inset-y-5 w-5 h-5 right-4"
+                                className="absolute overflow-hidden rounded-full inset-y-4 size-7 right-4"
                                 alt="icon-coin-one"
                               />
                             </div>
@@ -187,7 +186,7 @@ export const ModalAddStaking = memo(
                                   selectedOptions[1]?.iconUrl ||
                                   "/images/reso.png"
                                 }
-                                className="absolute overflow-hidden rounded-full inset-y-5 w-5 h-5 right-4"
+                                className="absolute overflow-hidden rounded-full inset-y-4 size-7 right-4"
                                 alt="icon-coin-one"
                               />
                             </div>
@@ -347,7 +346,17 @@ export const ModalAddStaking = memo(
                   <div>
                     <button
                       onClick={handleSubmit}
-                      className="p-4 w-full bg-primary rounded-full"
+                      disabled={
+                        selectedOptions.length <= 0 ||
+                        !valueCoinOne ||
+                        !valueCoinTwo ||
+                        !valueMaxUserJoin ||
+                        !valueMinUserJoin ||
+                        !valueRewardPerBlock ||
+                        !startDate ||
+                        !endDate
+                      }
+                      className="p-4 w-full bg-primary rounded-full disabled:bg-opacity-50"
                     >
                       {t("button.continue")}
                     </button>
