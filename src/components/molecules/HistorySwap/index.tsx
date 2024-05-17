@@ -14,7 +14,7 @@ import {
   useListMarketOrder,
 } from "./hooks/useMarketOder";
 import { ModalConfirmInstantSwap } from "../ModalConfirmInstantSwap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { baseApi } from "@/api/config";
 import toast from "react-hot-toast";
 import { ModalGasFee } from "../ModalGasFee";
@@ -200,7 +200,8 @@ const SwapComponent = ({
   price,
 }: SwapComponentProps) => {
   const location = useLocation();
-  const { token } = useWalletStore();
+  // const { token } = useWalletStore();
+  const token = localStorage?.getItem("auth")
   const { gas, getPublicGas } = useGasServiceState();
 
   const [reverse, setReverse] = useState(false);
@@ -221,13 +222,15 @@ const SwapComponent = ({
 
   const pairName = location.state?.name.split("/");
 
-  const handleClickButtonPercentage = (index: number) => {
+   const handleClickButtonPercentage = (index: number) => {
     setActiveIndex(index);
     const value = buttons[index];
     let percent = parseInt(value);
     if (value === "Max") {
       percent = 100;
     }
+
+    
 
     const newBalance = (percent / 100) * 1;
     setBalance(newBalance.toString());
@@ -245,27 +248,40 @@ const SwapComponent = ({
 
   const postData = async () => {
     setLoading(true);
+
+    // {
+    //   market: 'memeusdt',
+    //   txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
+    //   side: pairName?.[0] === side.toLocaleUpperCase() ? "buy" : "sell",
+    //   quantity: Number(quantity),
+    //   price: currentType === "limit" ? LAST : null,
+    //   ord_type: currentType,
+    // },
+    
     try {
+      console.log("enak");
       await baseApi.post(
-        `finex/market/orders`,
+        `/finex/market/orders`,
         {
-          market: location.state.id,
+          market: 'memeusdt',
           txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
-          side: pairName[0] === side.toLocaleUpperCase() ? "buy" : "sell",
+          side: "buy",
           quantity: Number(quantity),
-          price: currentType === "limit" ? LAST : null,
+          price: "0.02",
           ord_type: currentType,
         },
         {
           headers: {
-            "X-CSRF-TOKEN": token,
+            "x-csrf-token": token,
           },
         }
       );
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
-      toast.error(error.response?.data?.errors);
+      console.log("error", error);
+      
+      toast.error(error);
     }
   };
 
@@ -703,17 +719,7 @@ export const HistorySwap = ({
         ),
       },
     ],
-    [
-      cancelOrderById,
-      connected,
-      currentType,
-      getCurrentMarket?.base_unit,
-      getCurrentMarket?.quote_unit,
-      getCurrentPair?.price,
-      listLoading,
-      orders,
-      unitLoading,
-    ]
+    [cancelOrderById, connected, currentType, getCurrentMarket?.base_unit, getCurrentMarket?.quote_unit, getCurrentPair?.price, listLoading, orders, unitLoading]
   );
 
   return (

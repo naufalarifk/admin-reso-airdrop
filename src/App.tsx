@@ -9,6 +9,7 @@ import {
   config
 } from "@/config";
 import { Toaster } from "react-hot-toast";
+import WebsocketService from "./service/WebsocketService";
 
 type ComponentsWithProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,6 +78,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <WebsocketService />
         <Toaster />
         <RootLayout />
       </BrowserRouter>

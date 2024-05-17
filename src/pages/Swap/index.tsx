@@ -37,12 +37,17 @@ import {
 import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
 import TradingViewV2 from "@/components/organisms/TradingView/tradingViewV2";
+import { useParams } from "react-router-dom";
 // import { Dummy } from "../Dummy";
 // import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
 // import { useLocation, useNavigate } from "react-router-dom";
 
 export const Swap = () => {
     const { t } = useTranslation();
+    const params = useParams();
+    const marketId = params?.market?.replace('-', '')?.toLowerCase();
+    // const currId = params?.market?.split('-')[0]?.toLowerCase();
+    
     const market = usePublicMarket((state) => state.market);
     const marketTicker = usePublicMarketTicker((state) => state.market_ticker)
     const trades = usePublicMarketTrade((state) => state.market_trade);
@@ -89,24 +94,40 @@ export const Swap = () => {
     const getData = useCallback(async () => {
         const market = await getMarketList({});
         const currency = await getCurrencyList({});
-        const order_book = await getMarketOrderBook('btcusd', {
-        })
-        const marketTicker = await getMarketTicker('btcusd')
-        const k_line = await getMarketKLine('btcusd', {})
-        const market_trade = await getMarketTrades('btcusd')
-        const depth = await getMarketDepth('btcusd', 5)
+        const marketTicker = await getMarketTicker(marketId!)
+
+        const market_trade = await getMarketTrades(marketId!)
+        const depth = await getMarketDepth(marketId!, 5)
         updateMarketTicker(marketTicker)
-        updateKLine(k_line)
-        updateOrderBook(order_book)
         updateCurrency(currency);
         updateMarket(market);
         updateTradeMarket(market_trade)
         updateDepth(depth);
-    }, [updateCurrency, updateDepth, updateKLine, updateMarket, updateMarketTicker, updateOrderBook, updateTradeMarket]);
+    }, [marketId, updateCurrency, updateDepth, updateMarket, updateMarketTicker, updateTradeMarket]);
 
     useEffect(() => {
         getData();
     }, [getData]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const k_line = await getMarketKLine(marketId!, {});
+            const order_book = await getMarketOrderBook(marketId!, {
+            })
+            
+            updateKLine(k_line);
+            updateOrderBook(order_book)
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+    
+        const intervalId = setInterval(fetchData, 5000);
+        return () => clearInterval(intervalId);
+      }, [marketId, updateKLine, updateOrderBook]);
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value);
