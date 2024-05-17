@@ -6,11 +6,13 @@ import { Currency } from "@/types/components";
 export type CurrencyState = {
     currency: Currency[]
     single_currency: Currency
+    loading?: boolean
 }
 
 export type CurrencyActions = {
     updateCurrencyState: (currency: CurrencyState['currency']) => void
     updateSingleCurrency: (currency: CurrencyState['single_currency']) => void
+    setLoadingCurrency: (value: boolean) => void
 }
 
 
@@ -19,6 +21,7 @@ export type CurrencyStore = CurrencyState & CurrencyActions;
 
 export const usePublicCurrency = create<CurrencyState & CurrencyActions>((set) => ({
     currency: [],
+    loading: false,
     single_currency: {
         base_factor: '',
         deposit_enabled: '',
@@ -42,5 +45,8 @@ export const usePublicCurrency = create<CurrencyState & CurrencyActions>((set) =
         withdrawal_enabled: ''
     },
     updateCurrencyState: (currency) => set(() => ({ currency: currency })),
+    setLoadingCurrency: (visible: boolean) => {
+        set(() => ({ loading: visible }));
+      },
     updateSingleCurrency: (single_currency) => set(()=> ({single_currency: single_currency}))
 }))
