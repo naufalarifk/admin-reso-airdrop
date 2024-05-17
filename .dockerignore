@@ -1,0 +1,57 @@
+# Node modules
+node_modules
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build outputs
+dist
+build
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Temporary files and swap files
+*.swp
+*.swo
+*.tmp
+*.log
+
+# IDE/editor folders and project files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Coverage and test outputs
+coverage/
+.jest/
+__tests__/
+__mocks__/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Git files
+.git
+.gitignore
+
+# Jenkins files
+Jenkinsfile
+
+# Config files that are not needed in the build
+.nvmrc
+README.md
