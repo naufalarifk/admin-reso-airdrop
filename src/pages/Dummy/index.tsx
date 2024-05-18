@@ -92,7 +92,7 @@ export const Dummy = () => {
         <div className="bg-dark2 p-4 rounded-2xl h-[452px]">
           <HistoryTrade />
         </div>
-        <div className="bg-dark2 p-4 rounded-2xl h-[452px] overflow-hidden">
+        <div className="bg-dark2 p-4 rounded-2xl h-full lg:h-[452px] overflow-hidden">
           <HistorySwap
             unitLoading={unitLoading}
             getCurrentPair={getCurrentPair!}

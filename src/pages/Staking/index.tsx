@@ -79,24 +79,32 @@ export const Staking = () => {
   };
 
   const handleMinUserJoin = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewStakingData({
-      ...newStakingData,
-      minUserJoin: String(event.target.value),
-    });
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue))
+      setNewStakingData({
+        ...newStakingData,
+        minUserJoin: String(newValue),
+      });
   };
 
   const handleMaxUserJoin = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewStakingData({
-      ...newStakingData,
-      maxUserJoin: String(event.target.value),
-    });
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setNewStakingData({
+        ...newStakingData,
+        maxUserJoin: String(newValue),
+      });
+    }
   };
 
   const handleRewardPerBlock = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewStakingData({
-      ...newStakingData,
-      rewardPerBlock: String(event.target.value),
-    });
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setNewStakingData({
+        ...newStakingData,
+        rewardPerBlock: String(newValue),
+      });
+    }
   };
 
   const tabs = useMemo(
@@ -208,6 +216,18 @@ export const Staking = () => {
           isOpen={openAddStakeModal}
           closeModal={() => {
             setOpenAddStakeModal(!openAddStakeModal);
+            setNewStakingData({
+              coinOne: null,
+              coinTwo: null,
+              amountCoinOne: "",
+              amountCoinTwo: "",
+              endStake: "",
+              maxUserJoin: "",
+              minUserJoin: "",
+              rewardPerBlock: "",
+              startStake: "",
+            });
+            setSelectedOptions([]);
           }}
           coins={COIN}
           selectedOptions={selectedOptions}
