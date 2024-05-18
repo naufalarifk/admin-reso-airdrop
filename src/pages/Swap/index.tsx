@@ -47,7 +47,7 @@ export const Swap = () => {
     const params = useParams();
     const marketId = params?.market?.replace('-', '')?.toLowerCase();
     // const currId = params?.market?.split('-')[0]?.toLowerCase();
-    
+
     const market = usePublicMarket((state) => state.market);
     const marketTicker = usePublicMarketTicker((state) => state.market_ticker)
     const trades = usePublicMarketTrade((state) => state.market_trade);
@@ -112,21 +112,21 @@ export const Swap = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const order_book = await getMarketOrderBook(marketId!, {
-            })
-            
-            updateOrderBook(order_book)
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
+            try {
+                const order_book = await getMarketOrderBook(marketId!, {
+                })
+
+                updateOrderBook(order_book)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
-    
+
         fetchData();
-    
+
         const intervalId = setInterval(fetchData, 5000);
         return () => clearInterval(intervalId);
-      }, [marketId, updateOrderBook]);
+    }, [marketId, updateOrderBook]);
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value);
@@ -498,7 +498,7 @@ export const Swap = () => {
                 </div>
                 <OrderBookSwap data={orderBook} ticker_data={marketTicker} />
                 <div style={styles} className="h-[40vh] lg:h-[60vh] lg:w-4/5 w-full p-4">
-                    <CurrentMarket market={market} depth={depth} ticker={marketTicker} />
+                    <CurrentMarket currentMarket={params?.market} market={market} depth={depth} ticker={marketTicker} />
                     <div className="h-full">
                         <TradingViewV2 data={marketKLine} />
                     </div>
@@ -512,7 +512,7 @@ export const Swap = () => {
                         background: `var(--Dark-Dark-2, #181924)`,
                         backdropFilter: `blur(12px)`,
                     }}
-                    className="p-6 lg:w-1/2 w-full"
+                    className="p-6 lg:w-1/2 w-auto overflow-x-scroll"
                 >
                     <div className="flex justify-between">
                         <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
@@ -544,7 +544,7 @@ export const Swap = () => {
                                     "Status",
                                 ]}
                                 col={pool_swaps.map((pool) => (
-                                    <div className="grid grid-cols-9 my-4 border-b text-center items-center">
+                                    <div className="grid grid-cols-9 my-4 border-b text-center items-center lg:w-auto w-[150vw] overflow-x-scroll">
                                         <Text>{pool.number}</Text>
                                         <Text>{pool.address}</Text>
                                         <Text>{pool.protocol}</Text>
@@ -586,7 +586,7 @@ export const Swap = () => {
                             <SwapTable
                                 row={["Date", "Assets", "Order ID", "Price", "Amount"]}
                                 col={my_trades.map((pool) => (
-                                    <div className="grid grid-cols-5 my-4 border-b text-center items-center">
+                                    <div className="grid grid-cols-5 my-4 border-b text-center items-center lg:w-auto w-[150vw] overflow-x-scroll">
                                         <div>
                                             <Text>{pool.date}</Text>
                                             <Text>{pool.time}</Text>
@@ -631,7 +631,6 @@ export const Swap = () => {
                         <SwapMenu />
                     )}
                 </div>
-                {/* <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button> */}
             </main>
             <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
                 <div className="flex space-x-1">

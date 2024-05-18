@@ -35,12 +35,12 @@ const navLink = [
     code: "docs",
     setTo: "/",
   },
-  {
-    id: 1,
-    name: "Trades",
-    code: "trade",
-    setTo: "/trade",
-  },
+  // {
+  //   id: 1,
+  //   name: "Trades",
+  //   code: "trade",
+  //   setTo: "/trade",
+  // },
   {
     id: 2,
     name: "Bridge",
