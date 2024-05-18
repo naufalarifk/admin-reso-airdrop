@@ -4,7 +4,7 @@ import { init, dispose } from 'klinecharts'
 
 const TradingViewV2 = ({ data }: { data: any }) => {
     useEffect(() => {
-        console.log('data', data)
+        // console.log('data', data)
 
         const convertedData = data?.map((item: any) => {
             return {

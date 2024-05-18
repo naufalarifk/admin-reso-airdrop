@@ -1,62 +1,100 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
-// import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
+import { useLocation } from "react-router-dom";
 import { useWalletStore } from "@/components";
-
-const handleWebSocketMessage = (data: any) => {
-  // const kLineData = JSON.parse(message);
-  // usePublicMarket.getState().updateKLine(kLineData);
-  // usePublicMarket.getState().updateOrderBook(kLineData);
-  console.log("data", data);
-};
+import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
+import { getMarketKLine } from "@/api/services/public/markets";
 
 const WS_URL = import.meta.env.VITE_API_WS_URL;
 
 const WebsocketService = () => {
   const { connected } = useWalletStore();
+  const location = useLocation();
+  const marketPathname = location?.pathname?.toLowerCase().replace(/[^a-z/]/g, '')?.split('/');
+  const marketId = marketPathname[marketPathname.length - 1];
 
-  // const generateSocketURI = (baseUrl: string, s: string[]) => `${baseUrl}?stream=${s.sort().join('&stream=')}`;
+  const handleWebSocketMessage = async (message: any) => {
+    try {
+      const data = JSON.parse(message);
+      // console.log("Received data:", data);
+
+      if (data.hasOwnProperty(`${marketId}.kline-15m`)) {
+        const klineData = data[`${marketId}.kline-15m`];
+        // console.log("Update K-Line data:", klineData);
+        const kLine = await getMarketKLine(marketId, {});
+        // console.log("kLine", kLine);
+        
+        const updates = [...kLine, klineData];
+        usePublicMarket.getState().updateKLine(updates);
+      } 
+      
+    //   else if (data.hasOwnProperty("global.tickers")) {
+    //     const tickersData = data["global.tickers"];
+    //     // usePublicMarketTicker.getState().updateAllMarketTickers(tickersData);
+    //     console.log("Update Global Tickers data:", tickersData);
+    //     // Handle global tickers update
+    //   }
+    } catch (error) {
+      console.error("Error parsing message:", error);
+    }
+  }
 
   useEffect(() => {
-    // const baseUrl = `${WS_URL}/${connected ? 'private' : 'public'}`;
-    // const streams: string[] = ['global.tickers'];
+    let ws: WebSocket;
 
-    // if (connected) {
-    //     streams = [
-    //         ...streams,
-    //         'balances',
-    //         'order',
-    //         'trade',
-    //         'deposit_address',
-    //     ];
-    // }
+    const connectWebSocket = () => {
+      const baseUrl = `${WS_URL}/${connected ? 'private' : 'public'}`;
+      let streams: string[] = ['global.tickers'];
 
-    // const ws = new WebSocket(generateSocketURI(baseUrl, streams));
-    const baseUrl = `${WS_URL}/public?stream=global.tickers`;
-    const ws = new WebSocket(baseUrl);
+      if (connected) {
+        streams = [
+          ...streams,
+          'balances',
+          'order',
+          'trade',
+          'deposit_address',
+        ];
+      }
 
-    ws.onopen = () => {
-      console.log("WebSocket connection established.");
+      if (location.pathname.includes('/swap/')) {
+        streams.push(`${marketId}.kline-15m`);
+      }
+
+      ws = new WebSocket(generateSocketURI(baseUrl, streams));
+
+      ws.onopen = () => {
+        console.log("WebSocket connection established.");
+      };
+
+      ws.onmessage = (event) => {
+        console.log("Received message:", event.data);
+        handleWebSocketMessage(event.data);
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket connection closed.");
+        // Reconnect WebSocket
+        connectWebSocket();
+      };
     };
 
-    ws.onmessage = (event) => {
-      handleWebSocketMessage(event.data);
-    };
-
-    ws.onerror = (error) => {
-      console.error("WebSocket error:", error);
-    };
-
-    ws.onclose = () => {
-      console.log("WebSocket connection closed.");
-    };
+    connectWebSocket();
 
     return () => {
-      ws.close();
+      if (ws) {
+        ws.close();
+      }
     };
-  }, [connected]);
+  }, [connected, location.pathname, marketId]);
 
   return null;
 };
+
+const generateSocketURI = (baseUrl: string, streams: string[]) =>
+  `${baseUrl}?stream=${streams.sort().join('&stream=')}`;
 
 export default WebsocketService;
