@@ -306,7 +306,7 @@ const SwapComponent = ({
 
   return (
     <div className="max-w-5xl relative">
-      <div className="grid relative grid-cols-2 gap-16">
+      <div className="grid relative grid-cols-1 md:grid-cols-2 gap-16">
         <div className="mt-5 z-10">
           <div className="text-sm mb-4">Token to Swap</div>
           <div>
@@ -614,7 +614,7 @@ export const HistorySwap = ({
         label: "My Open Order",
         content: (
           <>
-            <div className="relative overflow-x-scroll max-h-96">
+            <div className="relative overflow-x-scroll h-full lg:max-h-96">
               <table className="w-full text-sm text-left rtl:text-right  text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-soft uppercase sticky top-0 bg-dark2">
                   <tr>

@@ -298,7 +298,7 @@ export const CreateStakingPage = () => {
                     onChange={handleCryptoAmountChange}
                   />
                   {amount.length > 0 && (
-                    <div className="absolute text-red-500 left-14 text-xs font-bold">
+                    <div className="absolute text-slate-400 left-14 text-xs font-bold">
                       ~ {usdAmount?.toFixed(4)} USD
                     </div>
                   )}
