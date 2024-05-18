@@ -1,4 +1,4 @@
-import { IcBitcoin, IcDiscord, IcDropdown, IcMedium, IcPending, IcQuestionMark, IcRoundAdd, IcTelegram, IcWeb, IcX } from "@/assets/icons";
+import { IcDiscord, IcDropdown, IcMedium, IcPending, IcQuestionMark, IcRoundAdd, IcTelegram, IcWeb, IcX } from "@/assets/icons";
 import { Button, Input, PoolSteps, Text } from "@/components"
 import { Dispatch, useState } from "react"
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,8 @@ interface ChildrenProps {
 
 const FirstStep = ({ setStep, step }: ChildrenProps) => {
 
-    const { t } = useTranslation()
+    const { t } = useTranslation();
+    const [showToken, setShowToken] = useState(false);
 
     const official_links = [
         {
@@ -53,11 +54,11 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
             <Text className="font-semibold text-lg">{t('pool.firstStep.title')}</Text>
             <Text className="text-[#90A3BF]">{t('pool.firstStep.subtitle')}</Text>
             <div className="flex justify-between">
-                <div className="flex space-x-2">
-                    <Button className="bg-[#F23F5D] px-4 py-[6px] rounded-[4px] h-8">CMC Based Token</Button>
-                    <Button className="bg-[#0E0F19] text-[#90A3BF] px-4 py-[6px] rounded-[4px] h-8">Custom Token</Button>
+                <div className="flex space-x-2 w-2/3">
+                    <Button className="bg-[#F23F5D] lg:px-4 lg:py-[6px] rounded-[4px] h-8 text-xs">CMC Based</Button>
+                    <Button className="bg-[#0E0F19] text-[#90A3BF] lg:px-4 lg:py-[6px] rounded-[4px] h-8 text-xs">Custom</Button>
                 </div>
-                <Button className="bg-[#0E0F19] text-[#90A3BF] px-4 py-[6px] rounded-[4px] h-8">My Listing</Button>
+                <Button className="bg-[#0E0F19] text-[#90A3BF] px-4 py-[6px] rounded-[4px] h-8 w-1/3">My Listing</Button>
             </div>
             <div className="mt-6 space-y-2">
                 <div className="flex space-x-1">
@@ -66,71 +67,77 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                 </div>
                 <div className="bg-[#0E0F19] rounded-lg p-2 flex items-center space-x-2">
                     <Input placeholder="1" className="bg-transparent" />
-                    <Button className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">{t('pool.firstStep.search')}</Button>
+                    <Button onClick={() => setShowToken(!showToken)} className="border border-[#F23F5D] bg-[#20131e] text-[#F23F5D] py-2 px-4 h-auto">{t('pool.firstStep.search')}</Button>
                 </div>
             </div>
-            <div className="mt-6 space-y-2">
-                <Text className="text-[#9F9F9F]">{t('pool.firstStep.tokenInformation')}</Text>
-                <div className="bg-[#0E0F19] rounded-lg p-4">
-                    <div className="flex items-center space-x-2">
-                        <IcBitcoin />
-                        <Text>SOL <span className="text-[#90A3BF]">Solana</span></Text>
-                    </div>
-                    <Text className="text-[#90A3BF] my-1">Bitcoin is a digital asset and a payment system invented by Satoshi Nakamoto who published a related paper in 2008 and released it as open-source software in 2009. The system featured as peer-to-peer; users can transact directly without an intermediary.</Text>
-                    <div className="p-4 grid grid-cols-3 bg-[#181924] rounded-lg mt-2 gap-4">
-                        <div>
-                            <Text>{t('pool.firstStep.ranking')}</Text>
-                            <Text>#1</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.blockExplorer')}</Text>
-                            <Text>https://blockchair.com/bit</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.marketCap')}</Text>
-                            <Text>329.479.24 USD</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.liquidity')}</Text>
-                            <Text>1,324</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.maxSupply')}</Text>
-                            <Text>21,000,000</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.circulationSupply')}</Text>
-                            <Text>19,670,743</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                            <Text>73,750.074 USD</Text>
-                        </div>
-                        <div>
-                            <Text>{t('pool.firstStep.historicalLow')}</Text>
-                            <Text>0.049 USD</Text>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-6 space-y-2">
-                <div className="flex justify-between items-center">
-                    <Text>{t('pool.firstStep.officialLinks')}</Text>
-                    <IcRoundAdd />
-                </div>
-                {
-                    official_links.map(item =>
-                        <div className="flex justify-between bg-[#0E0F19] p-2  items-center rounded-xl">
-                            <div className="flex space-x-2 items-center">
-                                <>{item.icon}</>
-                                <Text>{item.name}</Text>
-                                <IcDropdown />
+            {
+                showToken &&
+
+                <>
+                    <div className="mt-6 space-y-2">
+                        <Text className="text-[#9F9F9F]">{t('pool.firstStep.tokenInformation')}</Text>
+                        <div className="bg-[#0E0F19] rounded-lg p-4">
+                            <div className="flex items-center space-x-2">
+                                <img src="/images/sol.png" height={32} width={32} />
+                                <Text>SOL <span className="text-[#90A3BF]">Solana</span></Text>
                             </div>
-                            <Text>{item.link}</Text>
-                        </div>)
-                }
-            </div>
-            <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">{t('pool.firstStep.continue')}</Button>
+                            <Text className="text-[#90A3BF] my-1">Bitcoin is a digital asset and a payment system invented by Satoshi Nakamoto who published a related paper in 2008 and released it as open-source software in 2009. The system featured as peer-to-peer; users can transact directly without an intermediary.</Text>
+                            <div className="p-4 flex flex-col lg:grid lg:grid-cols-3 bg-[#181924] rounded-lg mt-2 gap-4">
+                                <div>
+                                    <Text>{t('pool.firstStep.ranking')}</Text>
+                                    <Text>#1</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.blockExplorer')}</Text>
+                                    <Text>https://blockchair.com/bit</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.marketCap')}</Text>
+                                    <Text>329.479.24 USD</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.liquidity')}</Text>
+                                    <Text>1,324</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.maxSupply')}</Text>
+                                    <Text>21,000,000</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.circulationSupply')}</Text>
+                                    <Text>19,670,743</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.historicalHigh')}</Text>
+                                    <Text>73,750.074 USD</Text>
+                                </div>
+                                <div>
+                                    <Text>{t('pool.firstStep.historicalLow')}</Text>
+                                    <Text>0.049 USD</Text>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-6 space-y-2">
+                        <div className="flex justify-between items-center">
+                            <Text>{t('pool.firstStep.officialLinks')}</Text>
+                            <IcRoundAdd />
+                        </div>
+                        {
+                            official_links.map(item =>
+                                <div className="flex justify-between bg-[#0E0F19] p-2  items-center rounded-xl">
+                                    <div className="flex space-x-2 items-center">
+                                        <>{item.icon}</>
+                                        <Text>{item.name}</Text>
+                                        <IcDropdown />
+                                    </div>
+                                    <Text>{item.link}</Text>
+                                </div>)
+                        }
+                    </div>
+                    <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">{t('pool.firstStep.continue')}</Button>
+                </>
+            }
         </section>
     )
 }
@@ -181,24 +188,25 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
             <Text className="text-[#9F9F9F]"></Text>
             <div className="mt-6 space-y-2">
                 <div className="bg-[#0E0F19] rounded-lg p-4">
-                    <div className="flex justify-between items-center">
+                    <div className="block lg:flex lg:justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <IcBitcoin />
+                            {/* <IcBitcoin /> */}
+                            <img src="/images/sol.png" height={32} width={32} />
                             <Text>SOL <span className="text-[#90A3BF]">Solana</span></Text>
                         </div>
-                        <div className="flex space-x-2">{
+                        <div className="flex space-x-2 mt-2 lg:mt-0">{
                             official_links.map(link => <div className="rounded-full p-2 bg-[#181924]">{link.icon}</div>)
                         }</div>
                     </div>
-                    <Text className="text-[#90A3BF] my-1">Bitcoin is a digital asset and a payment system invented by Satoshi Nakamoto who published a related paper in 2008 and released it as open-source software in 2009. The system featured as peer-to-peer; users can transact directly without an intermediary.</Text>
-                    <div className="p-4 grid grid-cols-3 bg-[#181924] rounded-lg mt-2 gap-4">
+                    <Text className="text-[#90A3BF] my-1">Solana is a blockchain platform which uses a proof-of-stake mechanism to provide smart contract functionality. Its native cryptocurrency is SOL.</Text>
+                    <div className="p-4 lg:grid lg:grid-cols-3 flex flex-col bg-[#181924] rounded-lg mt-2 gap-4">
                         <div>
                             <Text>{t('pool.thirdStep.ranking')}</Text>
                             <Text>#1</Text>
                         </div>
                         <div>
                             <Text>{t('pool.thirdStep.blockExplorer')}</Text>
-                            <Text>https://blockchair.com/bit</Text>
+                            <Text>https://blockchair.com/sol</Text>
                         </div>
                         <div>
                             <Text>{t('pool.thirdStep.marketCap')}</Text>

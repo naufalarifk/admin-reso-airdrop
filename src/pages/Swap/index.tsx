@@ -38,7 +38,6 @@ import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
 import TradingViewV2 from "@/components/organisms/TradingView/tradingViewV2";
 import { useParams } from "react-router-dom";
-import { Dummy } from "../Dummy";
 // import { Dummy } from "../Dummy";
 // import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
 // import { useLocation, useNavigate } from "react-router-dom";
@@ -507,8 +506,7 @@ export const Swap = () => {
                     {/* <TradingView /> */}
                 </div>
             </main>
-            <Dummy />
-            {/* <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
+            <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
                 <div
                     style={{
                         borderRadius: `8px`,
@@ -547,7 +545,7 @@ export const Swap = () => {
                                     "Status",
                                 ]}
                                 col={pool_swaps.map((pool) => (
-                                    <div className="grid grid-cols-9 my-4 border-b text-center items-center">
+                                    <div className="grid grid-cols-9 my-4 border-b text-center items-center lg:w-auto w-[150vw] overflow-x-scroll">
                                         <Text>{pool.number}</Text>
                                         <Text>{pool.address}</Text>
                                         <Text>{pool.protocol}</Text>
@@ -589,7 +587,7 @@ export const Swap = () => {
                             <SwapTable
                                 row={["Date", "Assets", "Order ID", "Price", "Amount"]}
                                 col={my_trades.map((pool) => (
-                                    <div className="grid grid-cols-5 my-4 border-b text-center items-center">
+                                    <div className="grid grid-cols-5 my-4 border-b text-center items-center lg:w-auto w-[150vw] overflow-x-scroll">
                                         <div>
                                             <Text>{pool.date}</Text>
                                             <Text>{pool.time}</Text>
@@ -634,7 +632,7 @@ export const Swap = () => {
                         <SwapMenu />
                     )}
                 </div>
-            </main> */}
+            </main>
             <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
                 <div className="flex space-x-1">
                     <IcUnstableConnection />
