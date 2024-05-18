@@ -44,8 +44,6 @@ export const Dummy = () => {
     (item) => item.id === getCurrentMarket?.quote_unit
   );
 
-  console.log("getCurrentMarket", getCurrentMarket);
-
   const getMarkets = async () => {
     try {
       const response: AxiosResponse = await axios.get(

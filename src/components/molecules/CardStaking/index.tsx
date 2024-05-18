@@ -39,6 +39,7 @@ interface Token0Class {
   isNative: boolean;
   imgUrl: string | null;
   isToken: boolean;
+  price?: number | undefined;
   address: string;
   projectLink?: string;
 }

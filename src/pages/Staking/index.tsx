@@ -115,13 +115,15 @@ export const Staking = () => {
                     navigate(
                       `create?type=one&ticker=${
                         item.token0.name ?? "RESO"
-                      }&symbol=${item.token1.symbol}&totalStaked=${
+                      }&symbol=${item.token1?.symbol}&totalStaked=${
                         item.totalStaked
-                      }&apy=${item.apy}&token0=${item.token0.imgUrl}&token1=${
-                        item.token1.imgUrl
+                      }&apy=${item.apy}&token0=${item.token0?.imgUrl}&token1=${
+                        item.token1?.imgUrl
                       }&price=${item.quoteTokenPriceBusd ?? "5000"}&reward=${
                         item.reward
-                      }&stakingbalance=${item.feeAmount ?? 5}`
+                      }&stakingbalance=${item.feeAmount ?? 5}&rate=${
+                        item.token1?.price
+                      }&decimal=${item.token1.decimals}`
                     )
                   }
                   item={item}
@@ -148,7 +150,7 @@ export const Staking = () => {
         ),
       },
     ],
-    [t, handleConnect, connected, navigate]
+    [connected, handleConnect, navigate, t]
   );
 
   useEffect(() => {

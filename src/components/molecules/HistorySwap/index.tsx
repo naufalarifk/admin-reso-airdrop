@@ -472,7 +472,7 @@ const SwapComponent = ({
                     Service Fee (0.6%):
                   </div>
                   <div className="text-xxs whitespace-nowrap text-white">
-                    0.00000000 BTC
+                    0.00000000
                   </div>
                 </div>
                 <div className="bg-dark space-y-2 rounded-lg text-center p-1">
@@ -480,7 +480,7 @@ const SwapComponent = ({
                     Network Fee:
                   </div>
                   <div className="text-xxs whitespace-nowrap text-white">
-                    0.00000000 BTC
+                    0.00000000
                   </div>
                 </div>
                 <div className="bg-dark space-y-2 rounded-lg text-center p-1">
@@ -488,7 +488,7 @@ const SwapComponent = ({
                     Total received:
                   </div>
                   <div className="text-xxs whitespace-nowrap text-white">
-                    0.00000000 BTC
+                    0.00000000
                   </div>
                 </div>
               </>
