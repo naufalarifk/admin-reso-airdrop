@@ -14,7 +14,6 @@ import {
   useListMarketOrder,
 } from "./hooks/useMarketOder";
 import { ModalConfirmInstantSwap } from "../ModalConfirmInstantSwap";
-import { useLocation } from "react-router-dom";
 import { baseApi } from "@/api/config";
 import toast from "react-hot-toast";
 import { ModalGasFee } from "../ModalGasFee";
@@ -199,8 +198,9 @@ const SwapComponent = ({
   unitLoading,
   price,
 }: SwapComponentProps) => {
-  const location = useLocation();
-  const { token } = useWalletStore();
+  // const location = useLocation();
+  // const { token } = useWalletStore();
+  const token = localStorage?.getItem("auth");
   const { gas, getPublicGas } = useGasServiceState();
 
   const [reverse, setReverse] = useState(false);
@@ -212,14 +212,14 @@ const SwapComponent = ({
 
   const [gasValue, setGasValue] = useState<Gas | null>(null);
 
-  const [side, setSide] = useState(quoteUnit);
+  const [, setSide] = useState(quoteUnit);
 
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
   const [quantity, setQuantity] = useState("");
   const [total, setTotal] = useState("");
 
-  const pairName = location.state?.name.split("/");
+  // const pairName = location.state?.name.split("/");
 
   const handleClickButtonPercentage = (index: number) => {
     setActiveIndex(index);
@@ -245,27 +245,40 @@ const SwapComponent = ({
 
   const postData = async () => {
     setLoading(true);
+
+    // {
+    //   market: 'memeusdt',
+    //   txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
+    //   side: pairName?.[0] === side.toLocaleUpperCase() ? "buy" : "sell",
+    //   quantity: Number(quantity),
+    //   price: currentType === "limit" ? LAST : null,
+    //   ord_type: currentType,
+    // },
+
     try {
+      console.log("enak");
       await baseApi.post(
-        `finex/market/orders`,
+        `/finex/market/orders`,
         {
-          market: location.state.id,
+          market: "memeusdt",
           txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
-          side: pairName[0] === side.toLocaleUpperCase() ? "buy" : "sell",
+          side: "buy",
           quantity: Number(quantity),
-          price: currentType === "limit" ? LAST : null,
+          price: "0.02",
           ord_type: currentType,
         },
         {
           headers: {
-            "X-CSRF-TOKEN": token,
+            "x-csrf-token": token,
           },
         }
       );
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
-      toast.error(error.response?.data?.errors);
+      console.log("error", error);
+
+      toast.error(error);
     }
   };
 

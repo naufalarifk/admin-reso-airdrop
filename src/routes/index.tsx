@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import {
   CreateStakingPage,
-  Landing,
+  // Landing,
   Staking,
   // Trade,
   Bridge,
@@ -21,7 +21,7 @@ export const RootLayout = () => {
   // const { chain } = useAccount();
 
   // useEffect(() => {
-  //   const url = new URL(window.location.href);
+  //   const url = new URL(window.location.h66ref);
   //   url.searchParams.set(
   //     "chainId",
   //     String(chain?.nativeCurrency?.symbol).toLowerCase()
@@ -31,9 +31,12 @@ export const RootLayout = () => {
   //   }
   // });
 
+
+
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
+      {/* <Route path="/" element={<Landing />} /> */}
+      <Route path="/" element={<Navigate to="/swap/btcusd" replace />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route element={<MainMenu />}>

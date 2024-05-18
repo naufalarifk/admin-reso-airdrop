@@ -55,7 +55,7 @@ export async function getMarketList(payload: MarketPayload) {
 
 export async function getMarketTrades(market: string) {
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/trades`)
+        const response: AxiosResponse = await baseApi.get(`/trade/public/markets/${market}/trades`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -64,7 +64,7 @@ export async function getMarketTrades(market: string) {
 
 export async function getMarketTicker(market: string) {
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/tickers`)
+        const response: AxiosResponse = await baseApi.get(`/trade/public/markets/${market}/tickers`)
         return  response.data
     } catch (error) {
         console.log(error)
@@ -73,7 +73,7 @@ export async function getMarketTicker(market: string) {
 
 export async function getAllMarketTicker() {
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/markets/tickers`)
+        const response: AxiosResponse = await baseApi.get(`/trade/public/markets/tickers`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -89,7 +89,7 @@ export async function getMarketKLine(market: string, payload: MarketKLinePayload
         time_to
     }
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/k-line${buildQueryString(params)}`)
+        const response: AxiosResponse = await baseApi.get(`/trade/public/markets/${market}/k-line${buildQueryString(params)}`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -98,7 +98,7 @@ export async function getMarketKLine(market: string, payload: MarketKLinePayload
 
 export async function getMarketDepth(market: string, limit: number) {
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/depth?limit=${limit}`)
+        const response: AxiosResponse = await baseApi.get(`/trade/public/markets/${market}/depth?limit=${limit}`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -111,7 +111,7 @@ export async function getMarketOrderBook(market: string, payload: MarketOrderBoo
         asks_limit, bids_limit
     }
     try {
-        const response: AxiosResponse = await baseApi.get(`trade/public/markets/${market}/order-book${buildQueryString(params)}`)
+        const response: AxiosResponse = await baseApi.get(`/trade/public/markets/${market}/order-book${buildQueryString(params)}`)
         console.log('response.data', response.data)
         return response.data
     } catch (error) {

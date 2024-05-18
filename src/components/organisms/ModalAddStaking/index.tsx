@@ -37,6 +37,7 @@ interface ModalAddStakeProps {
   handleMaxUserJoin: (value: ChangeEvent<HTMLInputElement>) => void;
   valueRewardPerBlock: string;
   handleRewardPerBlock: (value: ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: () => void;
 }
 
 export const ModalAddStaking = memo(
@@ -63,8 +64,10 @@ export const ModalAddStaking = memo(
     handleMaxUserJoin,
     valueRewardPerBlock,
     handleRewardPerBlock,
+    handleSubmit,
   }: ModalAddStakeProps) => {
     const { t } = useTranslation();
+
     return (
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative" onClose={closeModal}>
@@ -79,7 +82,6 @@ export const ModalAddStaking = memo(
           >
             <div className="fixed inset-0 z-[99]  bg-black/50 " />
           </Transition.Child>
-
           <div className="fixed z-[999] backdrop-blur-sm inset-0 overflow-y-auto">
             <div className="flex min-h-full   items-center justify-center p-4">
               <Transition.Child
@@ -135,11 +137,10 @@ export const ModalAddStaking = memo(
                           )}
                         />
                       </div>
-
                       {selectedOptions.length >= 2 &&
                         selectedOptions !== null && (
                           <div className="space-y-3">
-                            <label className="text-sm md:text-base">
+                            <label className="text-sm md:text-base capitalize">
                               {selectedOptions[0]?.name} (
                               {selectedOptions[0]?.symbol}){" "}
                             </label>
@@ -153,8 +154,11 @@ export const ModalAddStaking = memo(
                                 className="p-4 block placeholder:text-sm placeholder:md:text-base w-full border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft"
                               />
                               <img
-                                src={selectedOptions[0]?.iconUrl}
-                                className="absolute inset-y-5 w-5 h-5 right-4"
+                                src={
+                                  selectedOptions[0]?.iconUrl ||
+                                  "/images/reso.png"
+                                }
+                                className="absolute overflow-hidden rounded-full inset-y-4 size-7 right-4"
                                 alt="icon-coin-one"
                               />
                             </div>
@@ -164,7 +168,7 @@ export const ModalAddStaking = memo(
                       {selectedOptions.length >= 2 &&
                         selectedOptions !== null && (
                           <div className="space-y-3">
-                            <label className="text-sm md:text-base">
+                            <label className="text-sm md:text-base capitalize">
                               {selectedOptions[1]?.name} (
                               {selectedOptions[1]?.symbol})
                             </label>
@@ -178,8 +182,11 @@ export const ModalAddStaking = memo(
                                 onChange={handleChangeCoinTwo}
                               />
                               <img
-                                src={selectedOptions[1]?.iconUrl}
-                                className="absolute inset-y-5 w-5 h-5 right-4"
+                                src={
+                                  selectedOptions[1]?.iconUrl ||
+                                  "/images/reso.png"
+                                }
+                                className="absolute overflow-hidden rounded-full inset-y-4 size-7 right-4"
                                 alt="icon-coin-one"
                               />
                             </div>
@@ -338,8 +345,18 @@ export const ModalAddStaking = memo(
                   </div>
                   <div>
                     <button
-                      onClick={closeModal}
-                      className="p-4 w-full bg-primary rounded-full"
+                      onClick={handleSubmit}
+                      disabled={
+                        selectedOptions.length <= 0 ||
+                        !valueCoinOne ||
+                        !valueCoinTwo ||
+                        !valueMaxUserJoin ||
+                        !valueMinUserJoin ||
+                        !valueRewardPerBlock ||
+                        !startDate ||
+                        !endDate
+                      }
+                      className="p-4 w-full bg-primary rounded-full disabled:bg-opacity-50"
                     >
                       {t("button.continue")}
                     </button>
