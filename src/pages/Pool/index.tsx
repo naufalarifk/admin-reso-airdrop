@@ -74,7 +74,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                 <div className="bg-[#0E0F19] rounded-lg p-4">
                     <div className="flex items-center space-x-2">
                         <IcBitcoin />
-                        <Text>BTC <span className="text-[#90A3BF]">Bitcoin</span></Text>
+                        <Text>SOL <span className="text-[#90A3BF]">Solana</span></Text>
                     </div>
                     <Text className="text-[#90A3BF] my-1">Bitcoin is a digital asset and a payment system invented by Satoshi Nakamoto who published a related paper in 2008 and released it as open-source software in 2009. The system featured as peer-to-peer; users can transact directly without an intermediary.</Text>
                     <div className="p-4 grid grid-cols-3 bg-[#181924] rounded-lg mt-2 gap-4">
@@ -135,58 +135,6 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
     )
 }
 
-
-// const SecondStep = ({ setStep, step }: ChildrenProps) => {
-//     const { t } = useTranslation()
-//     const handleNextStep = () => {
-//         if (step === 4) {
-//             setStep(1)
-//         } else {
-//             setStep(step + 1)
-//         }
-//     }
-//     return (
-//         <section className="bg-[#181924] mx-auto p-6 border-[0.5px] border-[#FFFFFF1A] w-full lg:w-3/4 min-w-sm rounded-xl space-y-4">
-//             <Text className="font-semibold text-lg">{t('pool.secondStep.title')}</Text>
-//             <Text className="text-[#9F9F9F]">{t('pool.secondStep.subtitle')}</Text>
-//             <div className="bg-[#0E0F19] rounded-lg px-4 py-6 space-y-4">
-//                 <div className="flex items-center justify-between w-full">
-//                     <Text>{t('pool.secondStep.listingAmount')}</Text>
-//                     <Text>Balance : 121.42351331 BTC</Text>
-//                 </div>
-//                 <div className="flex items-center justify-between w-full">
-//                     <span className="flex space-x-2 items-center"><IcBitcoin /><Text>BTC (Bitcoin)</Text></span>
-//                     <Text>1</Text>
-//                 </div>
-//                 <hr className="my-4 h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
-//                 <div className="flex items-center justify-between w-full">
-//                     <span className="flex space-x-2 items-center"><IcBitcoin /><Text>Reso (Rectoverso)</Text><IcDropdown /></span>
-//                     <Text>1000</Text>
-//                 </div>
-//                 <hr className="h-[0.5px] border-t-[0.5px] border-[#FFFFFF1A]" />
-//                 <div className="space-y-1">
-//                     <div className="flex items-center justify-between w-full">
-//                         <Text>BTC {t('pool.secondStep.priceRate')} ({t('pool.secondStep.minimumListing')} ≈ 1 BTC)</Text>
-//                         <Text>1 BTC = 1 BTC</Text>
-//                     </div>
-//                     <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
-//                     <div className="flex items-center justify-between w-full">
-//                         <Text>Reso {t('pool.secondStep.priceRate')} ({t('pool.secondStep.minimumListing')} ≈ 1,000 RESO)</Text>
-//                         <Text>1,000 RESO = 1 BTC</Text>
-//                     </div>
-//                     <hr className="h-[1px] border-t-[1px] border-[#FFFFFF1A]" />
-//                     <div className="flex items-center justify-between w-full">
-//                         <Text>{t('pool.secondStep.listingFees')} :</Text>
-//                         <Text>1,000 RESO</Text>
-//                     </div>
-//                 </div>
-//             </div>
-//             <Button onClick={handleNextStep} className="w-full bg-[#F23F5D]">{t('pool.secondStep.continue')}</Button>
-//         </section>
-//     )
-// }
-
-
 const FinalStep = ({ setStep, step }: ChildrenProps) => {
 
     const { t } = useTranslation()
@@ -236,7 +184,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
                             <IcBitcoin />
-                            <Text>BTC <span className="text-[#90A3BF]">Bitcoin</span></Text>
+                            <Text>SOL <span className="text-[#90A3BF]">Solana</span></Text>
                         </div>
                         <div className="flex space-x-2">{
                             official_links.map(link => <div className="rounded-full p-2 bg-[#181924]">{link.icon}</div>)
