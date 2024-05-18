@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 
 import { Balance, Button, ModalUnstake } from "@/components";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -15,8 +15,31 @@ export const CreateStakingPage = () => {
 
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
+  const [usdAmount, setUsdAmount] = useState<number | null>(null);
 
   const isMultiple = searchParams.get("type");
+
+  const handleCryptoAmountChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value;
+      const decimals = searchParams.get("decimals") || "9";
+      const rate = searchParams.get("rate") || "171.05";
+      const regex = new RegExp(`^\\d*\\.?\\d{0,${decimals}}$`);
+
+      if (value === "" || regex.test(value)) {
+        setAmount(value);
+        const numericValue = parseFloat(value);
+        if (!isNaN(numericValue)) {
+          setUsdAmount(
+            parseFloat((numericValue * parseFloat(rate)).toFixed(5))
+          );
+        } else {
+          setUsdAmount(null);
+        }
+      }
+    },
+    [searchParams]
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -266,14 +289,20 @@ export const CreateStakingPage = () => {
                     alt=""
                   />
                 </div>
-                <input
-                  type="number"
-                  id="default-search"
-                  value={amount}
-                  className="block bg-transparent w-full p-4 ps-14 text-sm  placeholder:text-soft text-white font-semibold outline-none  rounded-lg"
-                  placeholder="0.00"
-                  onChange={(e) => setAmount(e.target.value)}
-                />
+                <div className="relative">
+                  <input
+                    type="string"
+                    value={amount}
+                    className="block bg-transparent w-full p-4 ps-14 text-sm  placeholder:text-soft text-white font-semibold outline-none  rounded-lg"
+                    placeholder="0.00"
+                    onChange={handleCryptoAmountChange}
+                  />
+                  {amount.length > 0 && (
+                    <div className="absolute text-red-500 left-14 text-xs font-bold">
+                      ~ {usdAmount?.toFixed(4)} USD
+                    </div>
+                  )}
+                </div>
                 <button
                   type="button"
                   className="text-primary absolute end-5 bottom-5 bg-primary/10 focus:outline-none font-medium rounded-lg text-xs md:text-base p-2"
@@ -378,7 +407,15 @@ export const CreateStakingPage = () => {
         </>
       );
     }
-  }, [isMultiple, t, searchParams, amount, modalConfirm, open]);
+  }, [
+    isMultiple,
+    t,
+    searchParams,
+    amount,
+    handleCryptoAmountChange,
+    modalConfirm,
+    open,
+  ]);
 
   return (
     <>
