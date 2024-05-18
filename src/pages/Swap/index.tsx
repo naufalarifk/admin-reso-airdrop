@@ -38,6 +38,7 @@ import { usePublicCurrency } from "./hooks/usePublicCurrencies";
 import { getCurrencyList } from "@/api/services/public/currencies";
 import TradingViewV2 from "@/components/organisms/TradingView/tradingViewV2";
 import { useParams } from "react-router-dom";
+import { Dummy } from "../Dummy";
 // import { Dummy } from "../Dummy";
 // import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
 // import { useLocation, useNavigate } from "react-router-dom";
@@ -506,14 +507,15 @@ export const Swap = () => {
                     {/* <TradingView /> */}
                 </div>
             </main>
-            <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
+            <Dummy />
+            {/* <main className="mt-4 flex lg:space-x-4 lg:space-y-0 space-y-4 space-x-0 flex-col-reverse lg:flex-row">
                 <div
                     style={{
                         borderRadius: `8px`,
                         background: `var(--Dark-Dark-2, #181924)`,
                         backdropFilter: `blur(12px)`,
                     }}
-                    className="p-6 lg:w-1/2 w-auto overflow-x-scroll relative"
+                    className="p-6 lg:w-1/2 w-auto overflow-x-scroll"
                 >
                     <div className="flex justify-between">
                         <div className="flex space-x-4 border-b-[0.5px] border-b-[#F23F5D] w-full">
@@ -632,8 +634,7 @@ export const Swap = () => {
                         <SwapMenu />
                     )}
                 </div>
-                {/* <button onClick={() => setOpenConfirmInstantSwap(true)}>swap</button> */}
-            </main>
+            </main> */}
             <div className="hidden mt-4 border-t border-[#ADB1B8] p-2 justify-between lg:flex">
                 <div className="flex space-x-1">
                     <IcUnstableConnection />
