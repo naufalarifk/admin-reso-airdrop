@@ -79,24 +79,32 @@ export const Staking = () => {
   };
 
   const handleMinUserJoin = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewStakingData({
-      ...newStakingData,
-      minUserJoin: String(event.target.value),
-    });
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue))
+      setNewStakingData({
+        ...newStakingData,
+        minUserJoin: String(newValue),
+      });
   };
 
   const handleMaxUserJoin = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewStakingData({
-      ...newStakingData,
-      maxUserJoin: String(event.target.value),
-    });
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setNewStakingData({
+        ...newStakingData,
+        maxUserJoin: String(newValue),
+      });
+    }
   };
 
   const handleRewardPerBlock = (event: ChangeEvent<HTMLInputElement>) => {
-    setNewStakingData({
-      ...newStakingData,
-      rewardPerBlock: String(event.target.value),
-    });
+    const newValue = event.target.value;
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setNewStakingData({
+        ...newStakingData,
+        rewardPerBlock: String(newValue),
+      });
+    }
   };
 
   const tabs = useMemo(
@@ -115,13 +123,15 @@ export const Staking = () => {
                     navigate(
                       `create?type=one&ticker=${
                         item.token0.name ?? "RESO"
-                      }&symbol=${item.token1.symbol}&totalStaked=${
+                      }&symbol=${item.token1?.symbol}&totalStaked=${
                         item.totalStaked
-                      }&apy=${item.apy}&token0=${item.token0.imgUrl}&token1=${
-                        item.token1.imgUrl
+                      }&apy=${item.apy}&token0=${item.token0?.imgUrl}&token1=${
+                        item.token1?.imgUrl
                       }&price=${item.quoteTokenPriceBusd ?? "5000"}&reward=${
                         item.reward
-                      }&stakingbalance=${item.feeAmount ?? 5}`
+                      }&stakingbalance=${item.feeAmount ?? 5}&rate=${
+                        item.token1?.price
+                      }&decimal=${item.token1.decimals}`
                     )
                   }
                   item={item}
@@ -148,7 +158,7 @@ export const Staking = () => {
         ),
       },
     ],
-    [t, handleConnect, connected, navigate]
+    [connected, handleConnect, navigate, t]
   );
 
   useEffect(() => {
@@ -206,6 +216,18 @@ export const Staking = () => {
           isOpen={openAddStakeModal}
           closeModal={() => {
             setOpenAddStakeModal(!openAddStakeModal);
+            setNewStakingData({
+              coinOne: null,
+              coinTwo: null,
+              amountCoinOne: "",
+              amountCoinTwo: "",
+              endStake: "",
+              maxUserJoin: "",
+              minUserJoin: "",
+              rewardPerBlock: "",
+              startStake: "",
+            });
+            setSelectedOptions([]);
           }}
           coins={COIN}
           selectedOptions={selectedOptions}

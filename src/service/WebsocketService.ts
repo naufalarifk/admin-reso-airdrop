@@ -18,8 +18,8 @@ const WebsocketService = () => {
       const data = JSON.parse(message);
       // console.log("Received data:", data);
 
-      if (data.hasOwnProperty(`${marketId}.kline-15m`)) {
-        const klineData = data[`${marketId}.kline-15m`];
+      if (data.hasOwnProperty(`${marketId}.kline-3m`)) {
+        const klineData = data[`${marketId}.kline-3m`];
         // console.log("Update K-Line data:", klineData);
         const kLine = await getMarketKLine(marketId, {});
         // console.log("kLine", kLine);
@@ -57,7 +57,7 @@ const WebsocketService = () => {
       }
 
       if (location.pathname.includes('/swap/')) {
-        streams.push(`${marketId}.kline-15m`);
+        streams.push(`${marketId}.kline-3m`);
       }
 
       ws = new WebSocket(generateSocketURI(baseUrl, streams));
@@ -67,7 +67,7 @@ const WebsocketService = () => {
       };
 
       ws.onmessage = (event) => {
-        console.log("Received message:", event.data);
+        // console.log("Received message:", event.data);
         handleWebSocketMessage(event.data);
       };
 
