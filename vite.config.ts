@@ -25,6 +25,12 @@ export default ({ mode }: { mode: never }) => {
           changeOrigin: true,
           secure: false,
         },
+        '/ws': {
+          target: process.env.VITE_API_WS_URL,
+          ws: true,
+          changeOrigin: true,
+          secure: false,
+        }    
       },
     },
     // test: {

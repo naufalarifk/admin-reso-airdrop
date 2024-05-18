@@ -147,7 +147,7 @@ def deploy(String remoteUser, String serverAddress) {
             ssh -o StrictHostKeyChecking=no ${remoteUser}@${serverAddress} '
                 docker rmi -f ${env.IMAGE_FULL_NAME}
                 cd ${env.DEPLOYMENT_PATH}
-                docker-compose up -Vd ${services}
+                docker-compose up -Vd ${services} --force-recreate
                 docker image prune -f
             '
         """

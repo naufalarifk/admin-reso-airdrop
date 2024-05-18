@@ -95,7 +95,7 @@ export const Swap = () => {
         const market = await getMarketList({});
         const currency = await getCurrencyList({});
         const marketTicker = await getMarketTicker(marketId!)
-
+        const k_line = await getMarketKLine(marketId!, {});
         const market_trade = await getMarketTrades(marketId!)
         const depth = await getMarketDepth(marketId!, 5)
         updateMarketTicker(marketTicker)
@@ -103,7 +103,8 @@ export const Swap = () => {
         updateMarket(market);
         updateTradeMarket(market_trade)
         updateDepth(depth);
-    }, [marketId, updateCurrency, updateDepth, updateMarket, updateMarketTicker, updateTradeMarket]);
+        updateKLine(k_line);
+    }, [marketId, updateCurrency, updateDepth, updateKLine, updateMarket, updateMarketTicker, updateTradeMarket]);
 
     useEffect(() => {
         getData();
@@ -112,11 +113,9 @@ export const Swap = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const k_line = await getMarketKLine(marketId!, {});
                 const order_book = await getMarketOrderBook(marketId!, {
                 })
 
-                updateKLine(k_line);
                 updateOrderBook(order_book)
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -127,7 +126,7 @@ export const Swap = () => {
 
         const intervalId = setInterval(fetchData, 5000);
         return () => clearInterval(intervalId);
-    }, [marketId, updateKLine, updateOrderBook]);
+    }, [marketId, updateOrderBook]);
 
     const handleChangeInputSlider = (event: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value);
