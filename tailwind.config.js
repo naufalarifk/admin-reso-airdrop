@@ -38,9 +38,14 @@ export default {
             transform: "rotate(-360deg)",
           },
         },
+        backgroundMove: {
+          "0%, 100%": { transform: "translateX(0%)" },
+          "50%": { transform: "translateX(-10px)" },
+        },
       },
       animation: {
         "border-spin": "border-spin 5s linear infinite",
+        backgroundMove: "backgroundMove 2s ease-in-out infinite",
       },
       backgroundImage: {
         "card-background":
