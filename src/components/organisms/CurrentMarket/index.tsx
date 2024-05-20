@@ -41,7 +41,7 @@ export const CurrentMarket = ({
     <section className="lg:block hidden">
       <div className="flex space-x-3">
         <IcCoinPairs className="bg-[#20232e] p-1 h-10 w-10 rounded-lg" />
-        {market.map((e) => (
+        {market?.map((e) => (
           <div
             key={e.base_unit}
             onClick={() => navigate(`/swap/${e.name.replace("/", "-")}`)}
