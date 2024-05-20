@@ -10,6 +10,7 @@ import {
   Privacy,
   Pool,
   NotFound,
+  DummySwap,
 } from "@/pages";
 import { MainMenu } from "./MainMenu";
 import { LayoutDashboard, StakeLayout } from "@/components";
@@ -31,12 +32,10 @@ export const RootLayout = () => {
   //   }
   // });
 
-
-
   return (
     <Routes>
       {/* <Route path="/" element={<Landing />} /> */}
-      <Route path="/" element={<Navigate to="/swap/btcusd" replace />} />
+      {/* <Route path="/" element={<Navigate to="/swap/btcusd" replace />} /> */}
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route element={<MainMenu />}>
@@ -47,6 +46,7 @@ export const RootLayout = () => {
           <Route path="/swap/:market" element={<Swap />} />
           <Route path="/pool" element={<Pool />} />
           <Route path="/dummy/:market" element={<Dummy />} />
+          <Route path="/dummyswap" element={<DummySwap />} />
         </Route>
       </Route>
       <Route element={<StakeLayout />}>

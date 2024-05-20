@@ -579,6 +579,8 @@ export const HistorySwap = ({
     }
   }, [currentIndex]);
 
+  console.log("current price", getCurrentPair);
+
   const tabs = useMemo(
     () => [
       {
@@ -614,7 +616,7 @@ export const HistorySwap = ({
         label: "My Open Order",
         content: (
           <>
-            <div className="relative overflow-x-scroll h-full lg:max-h-96">
+            <div className="relative overflow-x-scroll  h-full lg:max-h-96">
               <table className="w-full text-sm text-left rtl:text-right  text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-soft uppercase sticky top-0 bg-dark2">
                   <tr>
@@ -700,11 +702,8 @@ export const HistorySwap = ({
                       </tr>
                     ))
                   ) : (
-                    <tr>
-                      <td
-                        className="text-gray-200 pt-28 text-center"
-                        colSpan={7}
-                      >
+                    <tr className=" h-96">
+                      <td className="text-gray-200  text-center" colSpan={7}>
                         No Data Available
                       </td>
                     </tr>
