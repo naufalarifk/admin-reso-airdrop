@@ -79,7 +79,7 @@ export interface OrderBook {
   bids: Ask[];
 }
 
-interface Ask {
+export interface Ask {
   id: number;
   uuid: string;
   txid: string;

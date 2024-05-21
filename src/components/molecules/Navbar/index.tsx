@@ -8,7 +8,6 @@ import { langs, Language } from "@/locales/langs";
 import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
 import { getMarketList } from "@/api/services/public/markets";
 
-
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
   const [toggle, setToggle] = useState(false);
@@ -22,57 +21,56 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const getData = useCallback(async () => {
     const market = await getMarketList({});
     updateMarket(market);
-}, [updateMarket]);
+  }, [updateMarket]);
 
-useEffect(() => {
+  useEffect(() => {
     getData();
-}, [getData]);
+  }, [getData]);
 
-const navLink = [
-  {
-    id: 0,
-    name: "Docs",
-    code: "docs",
-    setTo: "/",
-  },
-  // {
-  //   id: 1,
-  //   name: "Trades",
-  //   code: "trade",
-  //   setTo: "/trade",
-  // },
-  {
-    id: 2,
-    name: "Bridge",
-    setTo: "/bridge",
-    code: "bridge",
-  },
-  {
-    id: 3,
-    name: "Swap",
-    setTo: `/swap/${market?.[0]?.name?.replace('/', '-')}`,
-    code: "swap",
-  },
-  {
-    id: 4,
-    name: "Staking",
-    code: "staking",
-    setTo: "/staking",
-  },
-  {
-    id: 5,
-    name: "Pool",
-    setTo: "/pool",
-    code: "pool",
-  },
-  {
-    id: 6,
-    name: "Supports",
-    setTo: "/support",
-    code: "supports",
-  },
-];
-  
+  const navLink = [
+    {
+      id: 0,
+      name: "Docs",
+      code: "docs",
+      setTo: "/",
+    },
+    // {
+    //   id: 1,
+    //   name: "Trades",
+    //   code: "trade",
+    //   setTo: "/trade",
+    // },
+    {
+      id: 2,
+      name: "Bridge",
+      setTo: "/bridge",
+      code: "bridge",
+    },
+    {
+      id: 3,
+      name: "Swap",
+      setTo: `/swap/${market?.[0]?.name?.replace("/", "-")}`,
+      code: "swap",
+    },
+    {
+      id: 4,
+      name: "Staking",
+      code: "staking",
+      setTo: "/staking",
+    },
+    {
+      id: 5,
+      name: "Pool",
+      setTo: "/pool",
+      code: "pool",
+    },
+    {
+      id: 6,
+      name: "Supports",
+      setTo: "/support",
+      code: "supports",
+    },
+  ];
 
   // const modal = useWeb3Modal();
   // const { chain, isConnected } = useAccount();
@@ -98,19 +96,25 @@ const navLink = [
               className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden"
             >
               <span
-                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
-                  }`}
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                  toggle ? "translate-y-0 rotate-45" : "-translate-y-2"
+                }`}
               />
               <span
-                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${toggle ? "translate-x-3 opacity-0" : "opacity-100"
-                  }`}
+                className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${
+                  toggle ? "translate-x-3 opacity-0" : "opacity-100"
+                }`}
               />
               <span
-                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
-                  }`}
+                className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                  toggle ? "translate-y-0 -rotate-45" : "translate-y-2"
+                }`}
               />
             </button>
-            <Link to="/" className=" ">
+            <Link
+              to={`/swap/${market?.[0]?.name?.replace("/", "-")}`}
+              className=" "
+            >
               <img
                 src="/images/brand.png"
                 className="cursor-pointer w-full relative h-10 z-[999]"
@@ -207,10 +211,16 @@ const navLink = [
               {navLink &&
                 navLink.map((item, i) => (
                   <li key={i}>
-                    {
-                      item.code === 'docs' ? <a target="_blank" className="text-white text-base font-medium" href="https://docs.rectover.so/">
+                    {item.code === "docs" ? (
+                      <a
+                        target="_blank"
+                        className="text-white text-base font-medium"
+                        href="https://docs.rectover.so/"
+                      >
                         {t(`navbar.menu.${item.code}`)}
-                      </a> : <NavLink
+                      </a>
+                    ) : (
+                      <NavLink
                         state={{
                           id: item.name === "Swap" ? "btcusd" : null,
                           name: item.name === "Swap" ? "BTC/USD" : null,
@@ -227,7 +237,7 @@ const navLink = [
                       >
                         {t(`navbar.menu.${item.code}`)}
                       </NavLink>
-                    }
+                    )}
                   </li>
                 ))}
             </ul>
@@ -364,10 +374,11 @@ const navLink = [
                         <div key={lang.abbr}>
                           <button
                             onClick={() => i18n.changeLanguage(lang.abbr)}
-                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${i18n.language === lang.abbr
-                              ? "border-primary"
-                              : "border-soft/45"
-                              }`}
+                            className={`flex items-center w-full gap-2 border text-center py-3 rounded-full justify-center ${
+                              i18n.language === lang.abbr
+                                ? "border-primary"
+                                : "border-soft/45"
+                            }`}
                           >
                             <div>
                               <img
@@ -377,10 +388,11 @@ const navLink = [
                               />
                             </div>
                             <div
-                              className={`${i18n.language === lang.abbr
-                                ? "  text-primary"
-                                : " text-white"
-                                } text-sm `}
+                              className={`${
+                                i18n.language === lang.abbr
+                                  ? "  text-primary"
+                                  : " text-white"
+                              } text-sm `}
                             >
                               {lang.nativeName}
                             </div>
