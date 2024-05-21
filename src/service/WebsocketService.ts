@@ -1,95 +1,117 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useWalletStore } from "@/components";
-import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
+import { MarketTicker, usePublicMarket, usePublicMarketTicker } from "@/pages/Swap/hooks/usePublicMarkets";
 import { getMarketKLine } from "@/api/services/public/markets";
 
 const WS_URL = import.meta.env.VITE_API_WS_URL;
 
+const RECONNECT_INTERVAL = 5000; // Interval waktu (dalam milidetik) sebelum mencoba kembali koneksi
+const MAX_RECONNECT_ATTEMPTS = 5; // Maksimal jumlah percobaan koneksi ulang
+
 const WebsocketService = () => {
-  const { connected } = useWalletStore();
   const location = useLocation();
   const marketPathname = location?.pathname?.toLowerCase().replace(/[^a-z/]/g, '')?.split('/');
   const marketId = marketPathname[marketPathname.length - 1];
 
-  const handleWebSocketMessage = async (message: any) => {
+  const reconnectAttemptsRef = useRef(0);
+  const wsRef = useRef<WebSocket | null>(null);
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleWebSocketMessage = useCallback(async (message: any) => {
     try {
       const data = JSON.parse(message);
-      // console.log("Received data:", data);
-
-      if (data.hasOwnProperty(`${marketId}.kline-3m`)) {
+  
+      if (Object.prototype.hasOwnProperty.call(data, `${marketId}.kline-3m`)) {
         const klineData = data[`${marketId}.kline-3m`];
-        // console.log("Update K-Line data:", klineData);
         const kLine = await getMarketKLine(marketId, {});
-        // console.log("kLine", kLine);
-        
+  
         const updates = [...kLine, klineData];
         usePublicMarket.getState().updateKLine(updates);
       } 
-      
-    //   else if (data.hasOwnProperty("global.tickers")) {
-    //     const tickersData = data["global.tickers"];
-    //     // usePublicMarketTicker.getState().updateAllMarketTickers(tickersData);
-    //     console.log("Update Global Tickers data:", tickersData);
-    //     // Handle global tickers update
-    //   }
+      else if (Object.prototype.hasOwnProperty.call(data, "global.tickers")) {
+        const tickersData = data["global.tickers"];
+  
+        const newTicker: MarketTicker[] = Object.values(tickersData);
+        usePublicMarketTicker.getState().updateAllMarketTickers(newTicker);
+  
+        if (tickersData[marketId]) {
+          const newMarketTicker = {
+              at: parseInt(tickersData[marketId].at, 10),
+              ticker: {
+                  amount: parseFloat(tickersData[marketId].amount),
+                  at: parseInt(tickersData[marketId].at, 10),
+                  avg_price: parseFloat(tickersData[marketId].avg_price),
+                  high: parseFloat(tickersData[marketId].high),
+                  last: parseFloat(tickersData[marketId].last),
+                  low: parseFloat(tickersData[marketId].low),
+                  open: parseFloat(tickersData[marketId].open),
+                  price_change_percent: tickersData[marketId].price_change_percent,
+                  vol: parseFloat(tickersData[marketId].volume), 
+                  volume: parseFloat(tickersData[marketId].volume)
+              }
+          };
+          usePublicMarketTicker.getState().updateMarketTickerState(newMarketTicker);
+        }
+      }
     } catch (error) {
       console.error("Error parsing message:", error);
     }
-  }
+  }, [marketId]);
 
-  useEffect(() => {
-    let ws: WebSocket;
+  const connectWebSocket = useCallback(() => {
+    const baseUrl = `${WS_URL}/public`;
 
-    const connectWebSocket = () => {
-      const baseUrl = `${WS_URL}/${connected ? 'private' : 'public'}`;
-      let streams: string[] = ['global.tickers'];
+    const streams: string[] = ['global.tickers'];
 
-      if (connected) {
-        streams = [
-          ...streams,
-          'balances',
-          'order',
-          'trade',
-          'deposit_address',
-        ];
-      }
+    if (location.pathname.includes('/swap/')) {
+      streams.push(`${marketId}.kline-3m`);
+    }
 
-      if (location.pathname.includes('/swap/')) {
-        streams.push(`${marketId}.kline-3m`);
-      }
+    const ws = new WebSocket(generateSocketURI(baseUrl, streams));
+    wsRef.current = ws;
 
-      ws = new WebSocket(generateSocketURI(baseUrl, streams));
-
-      ws.onopen = () => {
-        console.log("WebSocket connection established.");
-      };
-
-      ws.onmessage = (event) => {
-        // console.log("Received message:", event.data);
-        handleWebSocketMessage(event.data);
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
-
-      ws.onclose = () => {
-        console.log("WebSocket connection closed.");
-        // Reconnect WebSocket
-        connectWebSocket();
-      };
+    ws.onopen = () => {
+      console.log("WebSocket connection established.");
+      reconnectAttemptsRef.current = 0; // Reset reconnect attempts on successful connection
     };
 
+    ws.onmessage = (event) => {
+      handleWebSocketMessage(event.data);
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket connection closed.");
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
+      }
+      if (reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS) {
+        reconnectTimeoutRef.current = setTimeout(() => {
+          reconnectAttemptsRef.current += 1;
+          connectWebSocket();
+        }, RECONNECT_INTERVAL);
+      } else {
+        console.error("Max reconnect attempts reached. Will not reconnect.");
+      }
+    };
+  }, [handleWebSocketMessage, location.pathname, marketId]);
+
+  useEffect(() => {
     connectWebSocket();
 
     return () => {
-      if (ws) {
-        ws.close();
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+      if (reconnectTimeoutRef.current) {
+        clearTimeout(reconnectTimeoutRef.current);
       }
     };
-  }, [connected, location.pathname, marketId]);
+  }, [connectWebSocket]);
 
   return null;
 };
