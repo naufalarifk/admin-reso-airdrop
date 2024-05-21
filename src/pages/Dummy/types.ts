@@ -5,9 +5,9 @@ export type Market = {
   type: string;
   base_unit?: string;
   quote_unit?: string;
-  min_price: string;
-  max_price: string;
-  min_amount: string;
+  min_price: string | number;
+  max_price: string | number;
+  min_amount: string | number;
   amount_precision: number;
   price_precision: number;
   total_precision: number;

@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from "react";
-import { ButtonWalletConnectV2 } from "@/components";
+import { ButtonGlow, ButtonWalletConnectV2 } from "@/components";
 // import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,9 @@ import { Transition, Dialog } from "@headlessui/react";
 import { langs, Language } from "@/locales/langs";
 import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
 import { getMarketList } from "@/api/services/public/markets";
+import { IcWeb } from "@/assets/icons";
+import { AnimatePresence, motion } from "framer-motion";
+// import { chain } from "lodash";
 
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
@@ -89,7 +92,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
     >
       <div className={` ${isLanding ? "layout" : "layout-dashboard"}`}>
         <div className="flex items-center justify-between">
-          <div className="flex  gap-3">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setToggle(!toggle)}
@@ -117,7 +120,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             >
               <img
                 src="/images/brand.png"
-                className="cursor-pointer w-full relative h-10 z-[999]"
+                className="cursor-pointer w-full relative h-7 lg:h-10 z-[999]"
                 alt=""
               />
             </Link>
@@ -129,7 +132,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
 
           <ButtonWalletConnectV2 className="lg:hidden block" />
 
-          {/* <AnimatePresence>
+          <AnimatePresence>
             {toggle && (
               <motion.div
                 className="fixed overflow-hidden justify-between flex flex-col bottom-0 left-0 top-0 z-[60] h-full min-h-screen bg-black  lg:hidden"
@@ -161,7 +164,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                     ))}
                 </ul>
                 <div className="flex  py-5 layout items-center justify-between gap-3">
-                  <div
+                  {/* <div
                     onClick={() => modal.open({ view: "Networks" })}
                     className="cursor-pointer border-animate-wrapper rounded-full w-full h-12 px-20 py-5 "
                   >
@@ -191,10 +194,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       {chain
                         ? chain.name
                         : !supportNetwork && isConnected
-                          ? t("button.network")
-                          : t("button.selectNetwork")}
+                        ? t("button.network")
+                        : t("button.selectNetwork")}
                     </div>
-                  </div>
+                  </div> */}
                   <ButtonGlow
                     onClick={() => setOpen(!open)}
                     className="w-12 p-0"
@@ -204,7 +207,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                 </div>
               </motion.div>
             )}
-          </AnimatePresence> */}
+          </AnimatePresence>
 
           <div className="hidden lg:flex lg:items-center lg:justify-center gap-10">
             <ul className="flex gap-10 text-base  cursor-pointer">
