@@ -65,6 +65,7 @@ export interface MarketTicker {
     avg_price:            number;
     price_change_percent: string;
     at:                   number;
+    transactions:         number;
     }
 }
 
@@ -93,7 +94,8 @@ export const usePublicMarketTicker = create<MarketTickerState & MarketTickerActi
             open: 0,
             price_change_percent: '',
             vol: 0,
-            volume: 0
+            volume: 0,
+            transactions: 0
         }
     },
     all_market_ticker: [],

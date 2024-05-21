@@ -48,11 +48,17 @@ const WebsocketService = () => {
                   open: parseFloat(tickersData[marketId].open),
                   price_change_percent: tickersData[marketId].price_change_percent,
                   vol: parseFloat(tickersData[marketId].volume), 
-                  volume: parseFloat(tickersData[marketId].volume)
+                  volume: parseFloat(tickersData[marketId].volume),
+                  transactions:  parseFloat(tickersData[marketId].transactions)
               }
           };
           usePublicMarketTicker.getState().updateMarketTickerState(newMarketTicker);
         }
+      } else if (Object.prototype.hasOwnProperty.call(data, `${marketId}.depth`)) {
+        // const currentData = await getMarketDepth(marketId, {});
+        console.log('RESPONSE WS DEPTH', data)
+        
+        usePublicMarket.getState().updateDepth(data);
       }
     } catch (error) {
       console.error("Error parsing message:", error);
@@ -65,7 +71,7 @@ const WebsocketService = () => {
     const streams: string[] = ['global.tickers'];
 
     if (location.pathname.includes('/swap/')) {
-      streams.push(`${marketId}.kline-3m`);
+      streams.push(`${marketId}.kline-3m`, `${marketId}.depth`, `${marketId}.trades`);
     }
 
     const ws = new WebSocket(generateSocketURI(baseUrl, streams));
@@ -120,3 +126,44 @@ const generateSocketURI = (baseUrl: string, streams: string[]) =>
   `${baseUrl}?stream=${streams.sort().join('&stream=')}`;
 
 export default WebsocketService;
+
+
+
+// const updateDepth = (currentDepth, newDepth) => {
+//   const currentBestAsk = currentDepth.asks.length > 0 ? currentDepth.asks[0] : null;
+//   const currentBestBid = currentDepth.bids.length > 0 ? currentDepth.bids[0] : null;
+//   const newBestAsk = newDepth.asks.length > 0 ? newDepth.asks[0] : null;
+//   const newBestBid = newDepth.bids.length > 0 ? newDepth.bids[0] : null;
+
+//   let isUpdated = false;
+
+//   // Compare best asks
+//   if (currentBestAsk && newBestAsk) {
+//       if (currentBestAsk[0] !== newBestAsk[0] || currentBestAsk[1] !== newBestAsk[1]) {
+//           currentDepth.asks = newDepth.asks;
+//           isUpdated = true;
+//       }
+//   } else if (newBestAsk) {
+//       currentDepth.asks = newDepth.asks;
+//       isUpdated = true;
+//   }
+
+//   // Compare best bids
+//   if (currentBestBid && newBestBid) {
+//       if (currentBestBid[0] !== newBestBid[0] || currentBestBid[1] !== newBestBid[1]) {
+//           currentDepth.bids = newDepth.bids;
+//           isUpdated = true;
+//       }
+//   } else if (newBestBid) {
+//       currentDepth.bids = newDepth.bids;
+//       isUpdated = true;
+//   }
+
+//   if (isUpdated) {
+//       console.log("Depth data updated:", currentDepth);
+//       return currentDepth;
+//   } else {
+//       console.log("Depth data not updated. No significant changes.");
+//       return currentDepth;
+//   }
+// };
