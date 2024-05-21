@@ -19,18 +19,20 @@ export interface Coin {
 }
 
 export interface Market {
+  id: string;
   symbol: string;
   name: string;
   type: string;
   base_unit: string;
   quote_unit: string;
-  min_price: number;
+  min_price: number | string;
   max_price: number;
   min_amount: number;
   amount_precision: number;
   price_precision: number;
   total_precision: number;
   state: string;
+  liquidity: string;
 }
 
 export interface Currency {
