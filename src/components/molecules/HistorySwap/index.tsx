@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode, FC } from "react";
 
-import { cn } from "@/utils";
+// import { cn } from "@/utils";
 import {
   ButtonWalletConnectV2,
   useWalletStore,
 } from "../ButtonConnectWalletV2";
+
 import {
   getOrder,
   MarketOrder,
@@ -64,13 +65,7 @@ type Pair = {
   name: string;
 };
 
-const Tabs: FC<TabsProps> = ({
-  items,
-  getCurrentIndex,
-  isBetween = false,
-  classNameWrapper,
-  rightContent,
-}) => {
+const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
@@ -102,41 +97,31 @@ const Tabs: FC<TabsProps> = ({
 
   return (
     <>
-      <div className="bg-dark2 relative grid place-items-center md:flex  gap-5 md:gap-0  md:justify-between  border-b  border-b-primary/45">
-        <div
-          className={
-            (cn(
-              `flex ${
-                isBetween ? "items-center justify-between" : "gap-4"
-              } rounded-lg  p-1 px-1`
-            ),
-            classNameWrapper)
-          }
-        >
-          {items.map((tab, idx) => (
-            <button
-              key={idx}
-              type="button"
-              ref={(el: HTMLButtonElement | null) =>
-                (tabsRef.current[idx] = el as HTMLButtonElement)
-              }
-              className={`text-center py-3 text-xs border-b-2 px-4 font-semibold ${
-                activeTabIndex === idx
-                  ? "border-primary text-white"
-                  : "text-soft border-transparent"
-              }`}
-              onClick={() => handleTabClick(idx)}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-        <span
-          className="absolute bottom-3 block h-1 rounded-lg bg-primary-1 transition-all duration-300"
-          style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
-        />
-        {rightContent}
+      <div className="bg-dark2 relative z-20 flex border-b justify-between  border-b-primary/45">
+        {items.map((tab, idx) => (
+          <button
+            key={idx}
+            type="button"
+            ref={(el: HTMLButtonElement | null) =>
+              (tabsRef.current[idx] = el as HTMLButtonElement)
+            }
+            className={`text-center py-3 text-xs border-b-2  px-3 font-semibold ${
+              activeTabIndex === idx
+                ? "border-primary text-white"
+                : "text-soft border-transparent"
+            }`}
+            onClick={() => handleTabClick(idx)}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
+      <span
+        className="absolute bottom-3 block h-1 rounded-lg bg-primary-1 transition-all duration-300"
+        style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
+      />
+      {rightContent}
+
       {typeof contents === "string" ? (
         <div className="mt-4">{contents}</div>
       ) : (
@@ -256,7 +241,6 @@ const SwapComponent = ({
     // },
 
     try {
-      console.log("enak");
       await baseApi.post(
         `/finex/market/orders`,
         {
@@ -329,11 +313,11 @@ const SwapComponent = ({
                 <div className="h-4 w-full  bg-dark3" />
               </Skeleton>
             ) : (
-              <div className="text-xs text-soft mt-2">
+              <div className="text-xs text-soft my-2">
                 Available balance: {balance}
               </div>
             )}
-            <div className="flex gap-3 mt-2 items-center justify-between">
+            <div className="flex gap-3 mt-4 items-center justify-between">
               {buttons.map((button, index) => (
                 <BalanceButtons
                   key={index}
@@ -367,9 +351,9 @@ const SwapComponent = ({
             )}
           </div>
         </div>
-        <div className="absolute inset-x-20 inset-y-20 flex items-center justify-center">
+        <div className="absolute -inset-y-5 -mt-24 lg:-mt-0 inset-x-10 lg:inset-x-20 lg:inset-y-20 flex items-center justify-center">
           <div
-            className="cursor-pointer   bg-primary/20 text-primary w-8 h-8 flex items-center justify-center border-primary/40 border-2 rounded-lg  mt-12"
+            className="cursor-pointer rotate-90 lg:rotate-0 bg-primary/20 text-primary w-8 h-8 flex items-center justify-center border-primary/40 border-2 rounded-lg  mt-12"
             onClick={() => {
               setReverse((prev) => !prev);
               setQuantity("");
@@ -458,7 +442,7 @@ const SwapComponent = ({
               </div>
             )}
           </div>
-          <div className="flex justify-between items-center mt-4 gap-2">
+          <div className="flex flex-wrap lg:flex-row lg:flex-nowrap mt-4 gap-1">
             {unitLoading ? (
               Array.from({ length: 3 }).map(() => (
                 <Skeleton>
@@ -467,7 +451,7 @@ const SwapComponent = ({
               ))
             ) : (
               <>
-                <div className="bg-dark space-y-2 rounded-lg text-center p-1">
+                <div className="bg-dark space-y-2 w-full rounded-lg text-center p-1">
                   <div className="text-xxs whitespace-nowrap text-soft">
                     Service Fee (0.6%):
                   </div>
@@ -475,7 +459,7 @@ const SwapComponent = ({
                     0.00000000
                   </div>
                 </div>
-                <div className="bg-dark space-y-2 rounded-lg text-center p-1">
+                <div className="bg-dark w-full space-y-2 rounded-lg text-center p-1">
                   <div className="text-xxs whitespace-nowrap text-soft">
                     Network Fee:
                   </div>
@@ -483,7 +467,7 @@ const SwapComponent = ({
                     0.00000000
                   </div>
                 </div>
-                <div className="bg-dark space-y-2 rounded-lg text-center p-1">
+                <div className="bg-dark w-full space-y-2 rounded-lg text-center p-1">
                   <div className="text-xxs whitespace-nowrap text-soft">
                     Total received:
                   </div>

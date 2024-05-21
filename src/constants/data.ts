@@ -11,19 +11,19 @@ export const POOL_SWAPS = [
 
 export const TOKEN_RATE = [
   {
-    name: "BTC/USDT",
+    name: "SOL/USDT",
     rate: "+0.25%",
   },
   {
-    name: "ETH/USDT",
+    name: "MEME/USDT",
     rate: "+0.25%",
   },
   {
-    name: "XRP/USDT",
+    name: "WIFF/USDT",
     rate: "+0.25%",
   },
   {
-    name: "XRP/ETH",
+    name: "MEW/ETH",
     rate: "+0.25%",
   },
   {
