@@ -41,11 +41,177 @@ export const HistoryTrade = () => {
     () => [
       {
         label: "Pool Swaps",
-        content: <>Pool swap</>,
+        content: (
+          <>
+            <div className="relative overflow-x-scroll max-h-80">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-soft uppercase sticky-top-0 bg-dark2">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      #
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Address
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Protocol
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-nowrap">
+                      Type
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Pay
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Receive
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Time
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      TxID
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-darkSoft/30 overflow-y-scroll">
+                  {listTradeLoading ? (
+                    <tr>
+                      <td
+                        className="text-center pt-4 gap-3 space-y-2"
+                        colSpan={7}
+                      >
+                        {Array.from({ length: 4 }).map(() => (
+                          <Skeleton>
+                            <div className="h-10 w-full  bg-dark3" />
+                          </Skeleton>
+                        ))}
+                      </td>
+                    </tr>
+                  ) : trades?.length <= 0 ||
+                    trades === undefined ||
+                    trades === null ? (
+                    <tr className="h-96">
+                      <td
+                        className="text-gray-200   py-4 text-center"
+                        colSpan={12}
+                      >
+                        No Data Available
+                      </td>
+                    </tr>
+                  ) : (
+                    trades?.map((item: Trade) => (
+                      <tr key={item.id}>
+                        <td className="px-6 py-4  whitespace-nowrap">
+                          {item.created_at}
+                        </td>
+                        <td className="px-6 py-4 uppercase">{item.market}</td>
+                        <td className="px-6 py-4 text-center">
+                          {item.order_id}
+                        </td>
+                        <td className="px-6 py-4 text-center">{item.price}</td>
+                        <td className="px-6 py-4 text-center">{item.amount}</td>
+                        <td className="px-6 py-4 text-center">
+                          {item.market_type ?? "-"}
+                        </td>
+                        <td className="px-6 py-4 text-right">{item.total}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ),
       },
       {
         label: "Owners Chart",
-        content: <>Owner chart</>,
+        content: (
+          <>
+            <div className="relative overflow-x-scroll max-h-80">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-soft uppercase sticky-top-0 bg-dark2">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      #
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Address
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Protocol
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-nowrap">
+                      Type
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Pay
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Receive
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Time
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      TxID
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-darkSoft/30 overflow-y-scroll">
+                  {listTradeLoading ? (
+                    <tr>
+                      <td
+                        className="text-center pt-4 gap-3 space-y-2"
+                        colSpan={7}
+                      >
+                        {Array.from({ length: 4 }).map(() => (
+                          <Skeleton>
+                            <div className="h-10 w-full  bg-dark3" />
+                          </Skeleton>
+                        ))}
+                      </td>
+                    </tr>
+                  ) : trades?.length <= 0 ||
+                    trades === undefined ||
+                    trades === null ? (
+                    <tr className="h-96">
+                      <td
+                        className="text-gray-200   py-4 text-center"
+                        colSpan={12}
+                      >
+                        No Data Available
+                      </td>
+                    </tr>
+                  ) : (
+                    trades?.map((item: Trade) => (
+                      <tr key={item.id}>
+                        <td className="px-6 py-4  whitespace-nowrap">
+                          {item.created_at}
+                        </td>
+                        <td className="px-6 py-4 uppercase">{item.market}</td>
+                        <td className="px-6 py-4 text-center">
+                          {item.order_id}
+                        </td>
+                        <td className="px-6 py-4 text-center">{item.price}</td>
+                        <td className="px-6 py-4 text-center">{item.amount}</td>
+                        <td className="px-6 py-4 text-center">
+                          {item.market_type ?? "-"}
+                        </td>
+                        <td className="px-6 py-4 text-right">{item.total}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ),
       },
       {
         label: "My Trade",

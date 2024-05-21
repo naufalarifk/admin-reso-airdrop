@@ -63,6 +63,11 @@
     @apply md:mx-auto w-full mx-3;
   }
 
+  .layout-main {
+    max-width: 88.75rem;
+    @apply md:mx-auto w-full;
+  }
+
   .border-animate-wrapper {
     @apply relative overflow-hidden bg-[#1d1e2a];
   }

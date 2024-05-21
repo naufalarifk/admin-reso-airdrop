@@ -35,9 +35,10 @@ export const Dummy = () => {
   });
 
   const [market, setMarket] = useState<Market[]>([]);
+  const marketId = params?.market?.replace("-", "")?.toLowerCase();
 
   const getCurrentMarket = market.find(
-    (item) => item.id.toLowerCase() === params.market?.toLowerCase()
+    (item) => item.id.toLowerCase() === marketId
   );
 
   const getCurrentPair = listCurrencies?.find(
@@ -89,10 +90,10 @@ export const Dummy = () => {
       </div> */}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-7">
-        <div className="bg-dark2 p-4 rounded-2xl h-[452px]">
+        <div className="bg-dark2 p-4 order-2 lg:order-1 rounded-2xl h-[452px]">
           <HistoryTrade />
         </div>
-        <div className="bg-dark2 p-4 rounded-2xl h-full lg:h-[452px] overflow-hidden">
+        <div className="bg-dark2 p-4 order-1 lg:order-2 rounded-2xl h-full lg:h-[452px] overflow-hidden">
           <HistorySwap
             unitLoading={unitLoading}
             getCurrentPair={getCurrentPair!}
