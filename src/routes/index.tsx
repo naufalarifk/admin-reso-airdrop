@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import {
   CreateStakingPage,
   // Landing,
@@ -35,6 +35,8 @@ export const RootLayout = () => {
   //   }
   // });
 
+  console.log('market', market);
+
   return (
     <Routes>
       {/* <Route path="/" element={<Landing />} /> */}
@@ -47,7 +49,7 @@ export const RootLayout = () => {
           {/* <Route path="/trade" element={<Trade />} /> */}
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap/:market" element={<Swap />} />
-          <Route path="/pool" element={<Pool />} />
+          <Route path="/market" element={<Pool />} />
           <Route path="/dummy/:market" element={<Dummy />} />
           <Route path="/dummyswap/:market" element={<DummySwap />} />
         </Route>
