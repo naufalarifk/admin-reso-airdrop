@@ -56,10 +56,15 @@ export const DummySwap = () => {
       const market = await getMarketList({});
       const k_line = await getMarketKLine(marketId!, {});
       const market_trade = await getMarketTrades(marketId!);
+      const depth = await getMarketDepth(marketId!, 60);
+      const marketTicker = await getMarketTicker(marketId!);
+
+      updateDepth(depth);
+      updateMarketTicker(marketTicker);
       updateMarket(market);
       updateTradeMarket(market_trade);
       updateKLine(k_line);
-   }, [marketId, updateKLine, updateMarket, updateTradeMarket]);
+   }, [marketId, updateDepth, updateKLine, updateMarket, updateMarketTicker, updateTradeMarket]);
 
    const getCurrencies = async () => {
       try {
@@ -82,25 +87,6 @@ export const DummySwap = () => {
    const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
-
-   useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const depth = await getMarketDepth(marketId!, 60);
-            const marketTicker = await getMarketTicker(marketId!);
-
-            updateDepth(depth);
-            updateMarketTicker(marketTicker);
-         } catch (error) {
-            console.error('Error fetching data:', error);
-         }
-      };
-
-      fetchData();
-
-      const intervalId = setInterval(fetchData, 8000);
-      return () => clearInterval(intervalId);
-   }, [marketId, updateDepth, updateMarketTicker]);
 
    useEffect(() => {
       getData();
