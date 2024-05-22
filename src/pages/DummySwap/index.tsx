@@ -29,6 +29,8 @@ import { cn } from '@/utils';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
 import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
+import { SwapMobileContainer } from '@/components/dummy/SwapMobileContainer';
+import { OrderBookMobile } from '@/components/dummy/OrderBookMobile';
 
 export const DummySwap = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
