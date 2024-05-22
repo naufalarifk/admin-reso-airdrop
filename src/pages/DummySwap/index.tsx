@@ -31,12 +31,14 @@ import { Decimal } from '@/components/molecules/Decimal';
 import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
 import { SwapMobileContainer } from '@/components/dummy/SwapMobileContainer';
 import { OrderBookMobile } from '@/components/dummy/OrderBookMobile';
+import { HistoryTradeMobile } from '@/components/dummy/HistoryTradeMobile';
 
 export const DummySwap = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
    const navigate = useNavigate();
    const [showTradingChart, setShowTradingChart] = useState(false);
    const [showModalMarket, setShowModalMarket] = useState(false);
+   const [showOrderBook, setShowOrderBook] = useState(true);
 
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
@@ -118,7 +120,7 @@ export const DummySwap = () => {
          <div className="layout-main mb-14">
             <div className="grid h-full grid-cols-1 gap-2 lg:gap-4">
                {/* Mobile view design */}
-               <div className="flex h-[64px] items-center justify-between gap-2 rounded-lg bg-dark2 p-4 px-3 lg:hidden">
+               <div className="flex h-[64px] items-center justify-between gap-2 rounded bg-dark2 p-4 px-3 lg:hidden">
                   <div
                      onClick={() => setShowModalMarket(!showModalMarket)}
                      className="flex gap-2">
@@ -126,7 +128,34 @@ export const DummySwap = () => {
                      <div className="text-base font-bold uppercase">{getCurrentMarket?.name}</div>
                   </div>
                   <div className="flex gap-1">
-                     <div onClick={() => setShowTradingChart(!showTradingChart)}>
+                     <div
+                        onClick={() => {
+                           setShowOrderBook(!showOrderBook);
+                           setShowTradingChart(!showTradingChart);
+                        }}>
+                        <svg
+                           className={cn(`size-6 ${showOrderBook ? 'text-primary' : 'text-soft'}`)}
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M17 4H7a2 2 0 00-2 2v13a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2z"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                           />
+                           <path
+                              d="M9 9h6m-6 4h6m-6 4h4"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                           />
+                        </svg>
+                     </div>
+                     <div
+                        onClick={() => {
+                           setShowTradingChart(!showTradingChart);
+                           setShowOrderBook(!showOrderBook);
+                        }}>
                         <svg
                            className={cn(
                               `size-6 ${showTradingChart ? 'text-primary' : 'text-soft'}`,
@@ -155,22 +184,34 @@ export const DummySwap = () => {
                      </div>
                   </div>
                </div>
-               <div className="flex gap-2 lg:hidden">
-                  <div className="block w-full lg:hidden">
-                     <OrderBookMobile
-                        data={depth}
-                        ticker={marketTicker}
-                        currency={currency!}
-                        usdt={usdt!}
-                     />
+               {showOrderBook && (
+                  <div className="grid grid-cols-2 gap-2 lg:hidden">
+                     <div className="block w-full lg:hidden">
+                        <OrderBookMobile
+                           data={depth}
+                           ticker={marketTicker}
+                           currency={currency!}
+                           usdt={usdt!}
+                        />
+                     </div>
+                     <div className="rounded bg-dark2 p-2">
+                        <SwapMobileContainer
+                           unitLoading={unitLoading}
+                           getCurrentPair={getCurrentPair!}
+                           getCurrentMarket={getCurrentMarket!}
+                        />
+                     </div>
                   </div>
-                  <div className="rounded-sm bg-dark2 p-2">
-                     <SwapMobileContainer
-                        unitLoading={unitLoading}
-                        getCurrentPair={getCurrentPair!}
-                        getCurrentMarket={getCurrentMarket!}
-                     />
+               )}
+
+               {showTradingChart && (
+                  <div className="h-96 overflow-hidden rounded bg-dark2 p-2 lg:hidden">
+                     <TradingViewV2 />
                   </div>
+               )}
+
+               <div className="rounded bg-dark2 p-2 lg:hidden">
+                  <HistoryTradeMobile />
                </div>
 
                {/* End Mobile view design */}
@@ -197,10 +238,10 @@ export const DummySwap = () => {
                      <div className="font-semibold">This pair had low liquidity</div>
                   </div>
                </div> */}
-               <div className="flex h-full flex-col gap-4 lg:flex-row ">
+               <div className="hidden h-full flex-col gap-4 lg:flex lg:flex-row ">
                   {/* OrderBook */}
 
-                  <div className="hidden w-full lg:block lg:w-[350px]">
+                  <div className="w-full lg:block lg:w-[350px]">
                      <OrderBook
                         data={depth}
                         ticker={marketTicker}

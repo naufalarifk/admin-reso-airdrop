@@ -449,7 +449,7 @@ const SwapComponent = ({
                   {loading ? 'Loading...' : 'Trade'}
                </button>
             ) : (
-               <ButtonWalletConnectV2 className="mt-10 flex w-full items-center justify-center bg-primary hover:bg-primary/75" />
+               <ButtonWalletConnectV2 className="mt-6 flex w-full items-center justify-center bg-primary hover:bg-primary/75" />
             )}
 
             <ModalConfirmInstantSwap
@@ -554,7 +554,7 @@ export const SwapContainer = ({
             label: 'My Open Order',
             content: (
                <>
-                  <div className="relative h-full  overflow-x-scroll lg:max-h-96">
+                  <div className="no-scrollbar relative h-full overflow-x-scroll lg:max-h-96">
                      <table className="w-full text-left text-sm text-gray-500  rtl:text-right dark:text-gray-400">
                         <thead className="sticky top-0 bg-dark2 text-xs uppercase text-soft">
                            <tr>
@@ -595,7 +595,7 @@ export const SwapContainer = ({
                               </th>
                            </tr>
                         </thead>
-                        <tbody className="divide-y divide-darkSoft/30 overflow-y-scroll">
+                        <tbody className="no-scrollbar divide-y divide-darkSoft/30 overflow-y-scroll">
                            {listLoading ? (
                               <tr>
                                  <td
