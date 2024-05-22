@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import {
    CreateStakingPage,
    // Landing,
@@ -16,8 +16,11 @@ import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
 import { useScrollTop } from '@/hooks';
 import { Dummy } from '@/pages/Dummy';
+import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
 
 export const RootLayout = () => {
+   const market = usePublicMarket(state => state.market);
+
    useScrollTop();
    // const { chain } = useAccount();
 
@@ -32,9 +35,19 @@ export const RootLayout = () => {
    //   }
    // });
 
+   console.log('market', market);
+
    return (
       <Routes>
-         {/* <Route path="/" element={<Landing />} /> */}
+         <Route
+            path="/"
+            element={
+               <Navigate
+                  to={`/swap/${market?.[0]?.name?.replace('/', '-') || `MEME-USDT`} `}
+                  replace
+               />
+            }
+         />
          {/* <Route path="/" element={<Navigate to="/swap/btcusd" replace />} /> */}
          <Route
             path="/terms"
