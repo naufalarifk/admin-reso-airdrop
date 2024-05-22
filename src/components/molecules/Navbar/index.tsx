@@ -123,8 +123,9 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             shortname
             classNameButton="!w-[130px] lg:hidden block"
           /> */}
-
-               <ButtonWalletConnectV2 className="block lg:hidden" />
+               <div>
+                  <ButtonWalletConnectV2 className="block lg:hidden" />
+               </div>
 
                <AnimatePresence>
                   {toggle && (
@@ -235,7 +236,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   </ul>
 
                   {/* <div onClick={() => setOpenTokenList(!openTokenList)}>test</div> */}
-                  <div className="flex gap-2">
+                  <div className="flex items-center gap-4">
                      {/* <div
                 onClick={() => modal.open({ view: "Networks" })}
                 className="cursor-pointer border-animate-wrapper rounded-full w-full px-28 "
@@ -271,6 +272,11 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                 </div>
               </div> */}
                      <ButtonWalletConnectV2 />
+                     <div
+                        className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark"
+                        onClick={() => setOpen(!open)}>
+                        <IcWeb className="text-white" />
+                     </div>
                      {/* <Menu>
                 <>
                   <Menu.Button>
@@ -360,7 +366,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95">
-                        <Dialog.Panel className="relative h-full  w-full max-w-3xl transform  overflow-hidden rounded-lg border border-soft/15 bg-dark  p-2  shadow-xl transition-all">
+                        <Dialog.Panel className="relative h-full  w-full max-w-xl transform  overflow-hidden rounded-lg border border-soft/15 bg-dark  p-2  shadow-xl transition-all">
                            <div className="py-6">
                               <div className="text-center font-bold text-white">
                                  {t('tags.language')}
