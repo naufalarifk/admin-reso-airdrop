@@ -19,7 +19,7 @@ import {
 } from '@/components/molecules';
 import {
    getOrder,
-   MarketOrder,
+   // MarketOrder,
    useListMarketOrder,
 } from '@/components/molecules/SwapContainer/hooks/useMarketOder';
 
@@ -123,7 +123,7 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
 };
 
 const SwapSelectToken = ({
-   maxButton,
+   // maxButton,
    handleInput,
    value,
    unit,
@@ -494,12 +494,12 @@ export const SwapMobileContainer = ({
 }: SwapContainerProps) => {
    const { connected, token } = useWalletStore();
 
-   const { orders, cancelOrderById, setOrder } = useListMarketOrder(state => state);
+   const { setOrder } = useListMarketOrder(state => state);
 
    const [currentIndex, setCurrentIndex] = useState(0);
    const [currentType, setCurrentType] = useState<'market' | 'limit'>('market');
 
-   const { data: ListOrder, isLoading: listLoading } = useQuery({
+   const { data: ListOrder } = useQuery({
       queryKey: ['myMarketOrder'],
       queryFn: async () => await getOrder({ state: 'wait', token }),
       enabled: currentIndex === 2 && connected,

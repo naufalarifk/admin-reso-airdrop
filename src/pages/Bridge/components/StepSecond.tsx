@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Text } from '@/components';
 import { IcCopy } from '@/assets/icons';
-import { COIN } from '@/constants';
 import { memo } from 'react';
+import { chains } from '@/constants/chains';
 
 interface StepSecondProps {
    amount: string;
    receive: string;
    addressFrom: string;
    addressTo: string;
-   selectedFrom: (typeof COIN)[number];
-   selectedTo: (typeof COIN)[number];
+   selectedFrom: (typeof chains)[number];
+   selectedTo: (typeof chains)[number];
    setModalPaymentLoading: (value: boolean) => void;
 }
 
@@ -46,7 +46,7 @@ function StepSecondMemo({
                         <div className="flex items-center gap-2">
                            <div className="size-6 overflow-hidden rounded-full">
                               <img
-                                 src={selectedFrom?.iconUrl || ''}
+                                 src={selectedFrom?.custom?.icon || ''}
                                  alt={selectedFrom?.name}
                                  className="size-full object-cover"
                               />
@@ -56,15 +56,15 @@ function StepSecondMemo({
                               variant="heading3"
                               textColor={selectedFrom ? 'default' : 'lighGray'}>
                               {selectedFrom
-                                 ? `${selectedFrom?.name} (${selectedFrom?.symbol})`
-                                 : 'Select token'}
+                                 ? `${selectedFrom?.name} (${selectedFrom?.nativeCurrency.symbol})`
+                                 : 'Select chain'}
                            </Text>
                         </div>
                         <span>-</span>
                         <div className="flex items-center gap-2">
                            <div className="size-6 overflow-hidden rounded-full">
                               <img
-                                 src={selectedTo?.iconUrl || ''}
+                                 src={selectedTo?.custom?.icon || ''}
                                  alt={selectedTo?.name}
                                  className="size-full object-cover"
                               />
@@ -74,7 +74,7 @@ function StepSecondMemo({
                               variant="heading3"
                               textColor={selectedTo ? 'default' : 'lighGray'}>
                               {selectedTo
-                                 ? `${selectedTo?.name} (${selectedTo?.symbol})`
+                                 ? `${selectedTo?.name} (${selectedTo?.nativeCurrency.symbol})`
                                  : 'Select token'}
                            </Text>
                         </div>

@@ -1,7 +1,7 @@
 import { IcSwapHorizontal } from '@/assets/icons';
 import { Button, SelectToken, Text } from '@/components';
 import { cn } from '@/utils';
-import { memo, useState } from 'react';
+import { memo, startTransition, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface StepFirstProps {
@@ -34,6 +34,13 @@ function StepFirstMemo({
    const { t } = useTranslation();
    const [isViaConnectAddress, setIsViaConnectAddress] = useState(true);
 
+   const handleSwitch = useCallback(() => {
+      startTransition(() => {
+         setFrom(to);
+         setTo(from);
+      });
+   }, [from, setFrom, setTo, to]);
+
    return (
       <div className="space-y-6.5">
          <div>
@@ -44,6 +51,7 @@ function StepFirstMemo({
             />
             <button
                type="button"
+               onClick={handleSwitch}
                className="mx-auto mt-11 grid size-12.5 place-items-center rounded-full border-4 border-dark bg-dark2 transition-all duration-300 hover:rotate-180 hover:bg-primary/5">
                <IcSwapHorizontal
                   height="24"
@@ -57,12 +65,20 @@ function StepFirstMemo({
             />
          </div>
          <div className="space-y-3">
-            <Text
-               weight="medium"
-               variant="heading2"
-               textColor="lighGray">
-               Amount Sent
-            </Text>
+            <div className="flex items-center justify-between">
+               <Text
+                  weight="medium"
+                  variant="heading2"
+                  textColor="lighGray">
+                  Amount Sent
+               </Text>
+               <Text
+                  weight="medium"
+                  textColor="lighGray"
+                  variant="heading2">
+                  Balance : 10.000
+               </Text>
+            </div>
             <div className="flex gap-3">
                <div className="relative grow">
                   <input
@@ -82,6 +98,7 @@ function StepFirstMemo({
                   value={currency}
                   setValue={setCurrency}
                   wrapperInputClassName={cn('rounded-l-none')}
+                  type="token"
                />
             </div>
          </div>

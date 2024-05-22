@@ -28,8 +28,7 @@ import { IcCoinPairs } from '@/assets/icons';
 import { cn } from '@/utils';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
-import { OrderBookMobile } from '@/components/dummy/OrderBookMobile';
-import { SwapMobileContainer } from '@/components/dummy/SwapMobileContainer';
+import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
 
 export const DummySwap = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
@@ -319,9 +318,8 @@ export const DummySwap = () => {
                               </div>
                            </div>
                         </div>
-
-                        <div className="hidden h-full max-h-96 w-full place-content-center overflow-y-scroll lg:grid">
-                           Trading chart
+                        <div className="h-full max-h-96 w-full">
+                           <TradingViewV2 />
                         </div>
                      </section>
                   </div>
