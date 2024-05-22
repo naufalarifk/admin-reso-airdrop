@@ -24,3 +24,4 @@ export * from './ModalConfirmInstantSwap';
 export * from './SwapInput';
 export * from './ModalGasFee';
 export * from './ButtonBalancePercentage';
+export * from './SwapContainer'
