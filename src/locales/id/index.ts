@@ -6,7 +6,7 @@ menu: {
   swap: "Swap",
   bridge: "Jembatan",
   supports: "Dukungan",
-  pool: "Pool",
+  market: "Market",
 },
 
   },

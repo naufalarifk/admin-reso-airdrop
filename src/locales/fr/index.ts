@@ -6,7 +6,7 @@ menu: {
   swap: "Échange",
   bridge: "Pont",
   supports: "Supports",
-  pool: "Pool",
+  market: "Market",
 },
 
   },

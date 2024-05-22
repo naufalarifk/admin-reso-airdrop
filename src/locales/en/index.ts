@@ -6,7 +6,7 @@ export const EN_TRANSLATION = {
          swap: 'Swap',
          bridge: 'Bridge',
          supports: 'Supports',
-         pool: 'Pool',
+         market: 'Market',
          docs: 'Docs',
       },
    },
@@ -33,14 +33,14 @@ export const EN_TRANSLATION = {
                two: 'Bridge Platform',
                three: 'Swap Trade',
                four: 'Staking Platform',
-               five: 'Pool Platform',
+               five: 'Market Platform',
             },
             desc: {
                one: 'Experience the freedom and security of decentralized trading.',
                two: 'Bridge your crypto assets easily to access more opportunities across various blockchain networks, expanding your investment possibilities',
                three: 'Swap your cryptocurrencies effortlessly and securely, diversifying your portfolio with ease.',
                four: 'Earn passive income and actively participate in blockchain networks by staking your assets, contributing to network security, and being rewarded for your support',
-               five: "Dive into the latest pool of cryptocurrencies now available on Rectoverso! Stay ahead of the curve with Rectoverso's dynamic crypto marketplace",
+               five: "Dive into the latest market of cryptocurrencies now available on Rectoverso! Stay ahead of the curve with Rectoverso's dynamic crypto marketplace",
             },
          },
       },
@@ -481,7 +481,7 @@ export const EN_TRANSLATION = {
          price: 'Price',
          mark: 'Mark',
          max: 'Max',
-         pool: 'Pool',
+         pool: 'Market',
          leverageSlider: 'Leverage Slider',
          collateralIn: 'Collateral In',
          leverage: 'Leverage',
@@ -550,7 +550,7 @@ export const EN_TRANSLATION = {
    pool: {
       title: {
          title: 'Introducing the Newest Crypto Listings on',
-         subtitle: 'Rectoverso`s Pool',
+         subtitle: 'Rectoverso`s Market',
       },
       subtitle: {
          title: 'Dive into the latest pool of cryptocurrencies now available on Rectoverso!',

@@ -6,7 +6,7 @@ menu: {
   swap: "スワップ",
   bridge: "ブリッジ",
   supports: "サポート",
-  pool: "プール",
+  market: "プール",
 },
   },
   landing: {

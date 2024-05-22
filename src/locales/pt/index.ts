@@ -6,7 +6,7 @@ export const PT_TRANSLATION = {
       swap: "Troca",
       bridge: "Ponte",
       supports: "Suporte",
-      pool: "Pool"
+      market: "Pool"
     },
   },
   landing: {

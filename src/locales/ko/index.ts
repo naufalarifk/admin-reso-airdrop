@@ -6,7 +6,7 @@ menu: {
   swap: "스왑",
   bridge: "다리",
   supports: "지원",
-  pool: "풀",
+  market: "풀",
 },
   },
   landing: {
