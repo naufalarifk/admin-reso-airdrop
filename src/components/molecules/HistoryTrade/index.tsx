@@ -1,9 +1,10 @@
-import { cn } from "@/utils";
+import { cn, shortenString } from "@/utils";
 import { ReactNode, FC, useState, useRef, useEffect, useMemo } from "react";
 import { getMyTradeAction, Trade, useListTrade } from "./hooks/useHistoryTrade";
 import { useWalletStore } from "../ButtonConnectWalletV2";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components";
+import { HOLDERS, RECENT_TRADES } from "@/constants/data";
 
 interface TabsData {
   label: string;
@@ -18,6 +19,34 @@ type TabsProps = {
   rightContent?: ReactNode;
   classNameButtons?: string;
 };
+
+interface Transaction {
+  receive: {
+    name: string;
+    amount: number;
+  };
+  pay: {
+    name: string;
+    amount: number;
+  };
+}
+
+interface RecentTrades {
+  id: number;
+  address: string;
+  protocol: string;
+  type: string;
+  createdAt: string; // ISO 8601 format string
+  transaction: Transaction;
+  txId: string;
+}
+
+interface Holders {
+  id: number;
+  rank: number;
+  address: string;
+  quantity: number;
+}
 
 export const HistoryTrade = () => {
   const { connected, token } = useWalletStore();
@@ -40,39 +69,36 @@ export const HistoryTrade = () => {
   const tabs = useMemo(
     () => [
       {
-        label: "Pool Swaps",
+        label: "Recent Trades",
         content: (
           <>
-            <div className="relative overflow-x-scroll max-h-80">
+            <div className="relative overflow-x-scroll max-h-96">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-soft uppercase sticky-top-0 bg-dark2">
+                <thead className="text-xs border-b border-soft/20 text-soft uppercase sticky-top-0 bg-dark2">
                   <tr>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       #
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       Address
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       Protocol
                     </th>
-                    <th scope="col" className="px-6 py-3 text-nowrap">
+                    <th scope="col" className="px-6 py-4 text-nowrap">
                       Type
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       Pay
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       Receive
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       Time
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-6 py-4">
                       TxID
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Status
                     </th>
                   </tr>
                 </thead>
@@ -90,9 +116,9 @@ export const HistoryTrade = () => {
                         ))}
                       </td>
                     </tr>
-                  ) : trades?.length <= 0 ||
-                    trades === undefined ||
-                    trades === null ? (
+                  ) : RECENT_TRADES?.length <= 0 ||
+                    RECENT_TRADES === undefined ||
+                    RECENT_TRADES === null ? (
                     <tr className="h-96">
                       <td
                         className="text-gray-200   py-4 text-center"
@@ -102,21 +128,61 @@ export const HistoryTrade = () => {
                       </td>
                     </tr>
                   ) : (
-                    trades?.map((item: Trade) => (
-                      <tr key={item.id}>
-                        <td className="px-6 py-4  whitespace-nowrap">
-                          {item.created_at}
+                    RECENT_TRADES?.map((item: RecentTrades, i) => (
+                      <tr key={i}>
+                        <td className="text-center text-soft">{item.id}</td>
+                        <td className="px-6 py-4 text-nowrap  whitespace-nowrap text-soft">
+                          {shortenString(item.address, 5, 5)}
                         </td>
-                        <td className="px-6 py-4 uppercase">{item.market}</td>
-                        <td className="px-6 py-4 text-center">
-                          {item.order_id}
+                        <td className="px-6 py-4 text-nowrap uppercase text-soft">
+                          {item.protocol}
                         </td>
-                        <td className="px-6 py-4 text-center">{item.price}</td>
-                        <td className="px-6 py-4 text-center">{item.amount}</td>
-                        <td className="px-6 py-4 text-center">
-                          {item.market_type ?? "-"}
+                        <td
+                          className={cn(
+                            `px-6 py-4 text-nowrap text-center capitalize ${
+                              item.type === "buy"
+                                ? "text-success"
+                                : "text-primary"
+                            }`
+                          )}
+                        >
+                          {item.type}
                         </td>
-                        <td className="px-6 py-4 text-right">{item.total}</td>
+                        <td className="px-6 py-4 text-nowrap text-center uppercase text-soft">
+                          {item.transaction.pay.name}{" "}
+                          {item.transaction.pay.amount}
+                        </td>
+                        <td className="px-6 py-4 text-nowrap text-center uppercase text-soft">
+                          {item.transaction.receive.name}{" "}
+                          {item.transaction.receive.amount}
+                        </td>
+                        <td className="px-6 py-4 text-nowrap text-center uppercase text-soft">
+                          {item.createdAt}
+                        </td>
+                        <td className="px-6 py-4 text-nowrap text-center text-primary">
+                          <a
+                            target="_blank"
+                            className="flex items-center gap-1"
+                            href={`https://solscan.io/tx/${item.txId}`}
+                          >
+                            {shortenString(item.txId, 5, 5)}
+                            <svg
+                              width={12}
+                              height={12}
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M8.25 1.125h2.625V3.75m-.563-2.063L7.5 4.5M6.375 1.875H3A1.125 1.125 0 001.875 3v6A1.125 1.125 0 003 10.125h6A1.125 1.125 0 0010.125 9V5.625"
+                                stroke="#F23F5D"
+                                strokeWidth={1.5}
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </a>
+                        </td>
                       </tr>
                     ))
                   )}
@@ -127,7 +193,7 @@ export const HistoryTrade = () => {
         ),
       },
       {
-        label: "Owners Chart",
+        label: "Holders",
         content: (
           <>
             <div className="relative overflow-x-scroll max-h-80">
@@ -135,31 +201,13 @@ export const HistoryTrade = () => {
                 <thead className="text-xs text-soft uppercase sticky-top-0 bg-dark2">
                   <tr>
                     <th scope="col" className="px-6 py-3">
-                      #
+                      Rank
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Address
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Protocol
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-nowrap">
-                      Type
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Pay
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Receive
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Time
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      TxID
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Status
+                      Quantity
                     </th>
                   </tr>
                 </thead>
@@ -177,33 +225,27 @@ export const HistoryTrade = () => {
                         ))}
                       </td>
                     </tr>
-                  ) : trades?.length <= 0 ||
-                    trades === undefined ||
-                    trades === null ? (
+                  ) : HOLDERS?.length <= 0 ||
+                    HOLDERS === undefined ||
+                    HOLDERS === null ? (
                     <tr className="h-96">
                       <td
-                        className="text-gray-200   py-4 text-center"
+                        className="text-gray-200 py-4 text-center"
                         colSpan={12}
                       >
                         No Data Available
                       </td>
                     </tr>
                   ) : (
-                    trades?.map((item: Trade) => (
+                    HOLDERS?.map((item: Holders) => (
                       <tr key={item.id}>
-                        <td className="px-6 py-4  whitespace-nowrap">
-                          {item.created_at}
+                        <td className="px-6 py-4 text-soft  whitespace-nowrap">
+                          {item.rank}
                         </td>
-                        <td className="px-6 py-4 uppercase">{item.market}</td>
-                        <td className="px-6 py-4 text-center">
-                          {item.order_id}
+                        <td className="px-6 py-4 text-soft">
+                          {shortenString(item.address, 10, 10)}
                         </td>
-                        <td className="px-6 py-4 text-center">{item.price}</td>
-                        <td className="px-6 py-4 text-center">{item.amount}</td>
-                        <td className="px-6 py-4 text-center">
-                          {item.market_type ?? "-"}
-                        </td>
-                        <td className="px-6 py-4 text-right">{item.total}</td>
+                        <td className="px-6 py-4 text-soft">{item.quantity}</td>
                       </tr>
                     ))
                   )}
@@ -214,7 +256,7 @@ export const HistoryTrade = () => {
         ),
       },
       {
-        label: "My Trade",
+        label: "History Trades",
         content: (
           <>
             <div className="relative overflow-x-scroll max-h-80">
@@ -295,7 +337,7 @@ export const HistoryTrade = () => {
         ),
       },
     ],
-    [trades, listTradeLoading]
+    [trades, listTradeLoading, RECENT_TRADES]
   );
 
   return (
