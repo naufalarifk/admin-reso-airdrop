@@ -1,13 +1,17 @@
-import { BridgeSteps, ModalPending, Text } from '@/components';
-import { COIN } from '@/constants';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { COIN } from '@/constants';
+
+import { BridgeSteps, ModalPending, Text } from '@/components';
+
 import { StepFirst } from './components/StepFirst';
 import { StepSecond } from './components/StepSecond';
 import { StepLast } from './components/StepLast';
 
 export const Bridge = () => {
    const { t } = useTranslation();
+
    const [step, setStep] = useState(0);
    const [from, setFrom] = useState('');
    const [to, setTo] = useState('');
@@ -29,53 +33,44 @@ export const Bridge = () => {
       }
    }, [modalPaymentLoading]);
 
-   const renderStep = useMemo<Record<number, ReactNode>>(
-      () => ({
+   const renderStep = useMemo<Record<number, ReactNode>>(() => {
+      const commonProps = {
+         amount,
+         receive,
+         addressFrom,
+         addressTo,
+         selectedFrom: selected(from)!,
+         selectedTo: selected(to)!,
+         setStep,
+      };
+
+      return {
          0: (
             <StepFirst
                {...{
-                  receive,
-                  setReceive,
-                  amount,
-                  setAmount,
+                  ...commonProps,
                   from,
                   setFrom,
                   to,
                   setTo,
                   currency,
                   setCurrency,
-                  setStep,
+                  setAmount,
+                  setReceive,
                }}
             />
          ),
          1: (
             <StepSecond
                {...{
-                  amount,
-                  receive,
-                  addressFrom,
-                  addressTo,
-                  selectedFrom: selected(from)!,
-                  selectedTo: selected(to)!,
+                  ...commonProps,
                   setModalPaymentLoading,
                }}
             />
          ),
-         2: (
-            <StepLast
-               {...{
-                  amount,
-                  receive,
-                  addressTo,
-                  selectedFrom: selected(from)!,
-                  selectedTo: selected(to)!,
-                  setStep,
-               }}
-            />
-         ),
-      }),
-      [addressFrom, addressTo, amount, currency, from, receive, selected, to],
-   );
+         2: <StepLast {...commonProps} />,
+      };
+   }, [addressFrom, addressTo, amount, currency, from, receive, selected, to]);
 
    return (
       <section className="mb-10 lg:mt-10">
