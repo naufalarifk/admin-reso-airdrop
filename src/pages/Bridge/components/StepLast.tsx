@@ -1,5 +1,5 @@
 import { Button, Text } from '@/components';
-import { COIN } from '@/constants';
+import { chains } from '@/constants/chains';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -7,8 +7,8 @@ interface StepLastProps {
    amount: string;
    receive: string;
    addressTo: string;
-   selectedFrom: (typeof COIN)[number];
-   selectedTo: (typeof COIN)[number];
+   selectedFrom: (typeof chains)[number];
+   selectedTo: (typeof chains)[number];
    setStep: (value: number) => void;
 }
 
@@ -29,7 +29,7 @@ function StepLastMemo({
                <div className="flex items-center gap-2">
                   <div className="size-6 overflow-hidden rounded-full">
                      <img
-                        src={selectedFrom?.iconUrl || ''}
+                        src={selectedFrom?.custom.icon || ''}
                         alt={selectedFrom?.name}
                         className="size-full object-cover"
                      />
@@ -38,7 +38,7 @@ function StepLastMemo({
                      weight="medium"
                      variant="heading3"
                      textColor={selectedFrom ? 'default' : 'lighGray'}>
-                     {selectedFrom?.name} ({selectedFrom?.symbol})
+                     {selectedFrom?.name} ({selectedFrom?.nativeCurrency.symbol})
                   </Text>
                </div>
                <svg
@@ -56,7 +56,7 @@ function StepLastMemo({
                <div className="flex items-center justify-end gap-2">
                   <div className="size-6 overflow-hidden rounded-full">
                      <img
-                        src={selectedTo?.iconUrl || ''}
+                        src={selectedTo?.custom.icon || ''}
                         alt={selectedTo?.name}
                         className="size-full object-cover"
                      />
@@ -65,7 +65,7 @@ function StepLastMemo({
                      weight="medium"
                      variant="heading3"
                      textColor={selectedTo ? 'default' : 'lighGray'}>
-                     {selectedTo?.name} ({selectedTo?.symbol})
+                     {selectedTo?.name} ({selectedTo?.nativeCurrency.symbol})
                   </Text>
                </div>
             </div>

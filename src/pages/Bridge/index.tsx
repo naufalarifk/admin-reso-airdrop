@@ -1,13 +1,12 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { COIN } from '@/constants';
-
 import { BridgeSteps, ModalPending, Text } from '@/components';
 
 import { StepFirst } from './components/StepFirst';
 import { StepSecond } from './components/StepSecond';
 import { StepLast } from './components/StepLast';
+import { chains } from '@/constants/chains';
 
 export const Bridge = () => {
    const { t } = useTranslation();
@@ -22,7 +21,10 @@ export const Bridge = () => {
    const [addressTo] = useState('0x2C0ed74caBeF1EFd...');
    const [modalPaymentLoading, setModalPaymentLoading] = useState(false);
 
-   const selected = useCallback((value: string) => COIN.find(e => e.symbol === value), []);
+   const selectedChain = useCallback(
+      (value: string) => chains.find(e => e.nativeCurrency.symbol === value),
+      [],
+   );
 
    useEffect(() => {
       if (modalPaymentLoading) {
@@ -39,8 +41,8 @@ export const Bridge = () => {
          receive,
          addressFrom,
          addressTo,
-         selectedFrom: selected(from)!,
-         selectedTo: selected(to)!,
+         selectedFrom: selectedChain(from)!,
+         selectedTo: selectedChain(to)!,
          setStep,
       };
 
@@ -70,7 +72,7 @@ export const Bridge = () => {
          ),
          2: <StepLast {...commonProps} />,
       };
-   }, [addressFrom, addressTo, amount, currency, from, receive, selected, to]);
+   }, [addressFrom, addressTo, amount, currency, from, receive, selectedChain, to]);
 
    return (
       <section className="mb-10 lg:mt-10">
