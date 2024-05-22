@@ -133,13 +133,13 @@ export const OrderBook = ({
               className="flex pr-1 h-[18px] justify-between text-[11.63px] relative"
             >
               <div className="text-primary flex-1">
-                {Decimal.format(order?.[0], precision, ",")}
+                {Decimal.format(order?.[0] ?? 0, precision, ",")}
               </div>
               <div className="text-soft flex-1 text-right">
-                {Decimal.format(order?.[1], precision, ",")}
+                {Decimal.format(order?.[1] ?? 0, precision, ",")}
               </div>
               <div className="text-soft flex-1 text-right">
-                {generateTotal(+order?.[0], +order?.[1])}
+                {generateTotal(+order?.[0] ?? 0, +order?.[1])}
               </div>
 
               <div
@@ -160,9 +160,9 @@ export const OrderBook = ({
             type === "sell" ? "mb-0" : type === "buy" ? "mt-0" : ""
           )}
         >
-          <div className="text-base font-normal text-primary">{tick?.last}</div>
+          <div className="text-base font-normal text-primary">{Decimal.format(tick?.last ?? 0, precision, ",")}</div>
           <div className="text-xs font-normal text-soft">
-            ≈{tick?.last / +usdtPrice} USDT
+            ≈{Decimal.format((tick?.last / +usdtPrice) ?? 0, precision, ",")}USDT
           </div>
         </div>
         {/* End Ticker */}
@@ -184,13 +184,13 @@ export const OrderBook = ({
               className="flex pr-1 h-[18px] justify-between text-[11.63px] relative"
             >
               <div className="text-success flex-1">
-                {Decimal.format(order?.[0], precision, ",")}
+                {Decimal.format(order?.[0] ?? 0, precision, ",")}
               </div>
               <div className="text-soft flex-1 text-right">
-                {Decimal.format(order?.[1], precision, ",")}
+                {Decimal.format(order?.[1] ?? 0, precision, ",")}
               </div>
               <div className="text-soft flex-1 text-right">
-                {generateTotal(+order?.[0], +order?.[1])}
+                {generateTotal(+order?.[0] ?? 0, +order?.[1])}
               </div>
               <div
                 className="absolute right-0 bg-success/15 h-full transition-[width] duration-200 ease-in-out animate-backgroundWidth"

@@ -14,7 +14,7 @@ pipeline {
         PROD_DEPLOYMENT_PATH = ''
         MATTERMOST_ENDPOINT = 'https://team.nusatech.id/hooks/gdr9ikp64pdejqxb6zd6irfjrw'
         MATTERMOST_CHANNEL = '0xsd'
-        MATTERMOST_ICON = 'https://betaminio.cryptogadai.com/asset/Asset%203.png'
+        MATTERMOST_ICON = 'https://www.jenkins.io/images/logos/baturro/baturro.png'
     }
 
     stages {

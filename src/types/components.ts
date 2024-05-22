@@ -32,6 +32,7 @@ export interface Market {
   price_precision: number;
   total_precision: number;
   state: string;
+  liquidity: string;
 }
 
 export interface Currency {

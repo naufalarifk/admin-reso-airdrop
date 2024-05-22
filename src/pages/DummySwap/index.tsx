@@ -21,7 +21,9 @@ import axios, { AxiosResponse } from "axios";
 import { Currencies } from "../Dummy/types";
 import { IcCoinPairs } from "@/assets/icons";
 import { cn } from "@/utils";
-import { Dialog, Transition, Popover } from "@headlessui/react";
+import { Dialog, Popover, Transition } from "@headlessui/react";
+import dayjs from 'dayjs';
+import { Decimal } from "@/components/molecules/Decimal";
 
 export const DummySwap = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -103,7 +105,7 @@ export const DummySwap = () => {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 5000);
+    const intervalId = setInterval(fetchData, 8000);
     return () => clearInterval(intervalId);
   }, [marketId, updateDepth, updateMarketTicker]);
 
@@ -118,8 +120,14 @@ export const DummySwap = () => {
   };
 
   const filteredData = market?.filter((crypto) =>
-    crypto?.name.toLowerCase().includes(searchTerm.toLowerCase())
+    crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const getColor = (changePrice : string) => {
+    return changePrice?.includes("+") ? 'text-green' : changePrice?.includes("-") ? 'text-primary' : 'text-soft';
+  }
+
+  console.log("handleSearch", handleSearch);
 
   return (
     <>
@@ -305,7 +313,7 @@ export const DummySwap = () => {
                     <div
                       key={e.base_unit}
                       onClick={() =>
-                        navigate(`/swap/${e.name.replace("/", "-")}`)
+                        navigate(`/dummyswap/${e.name.replace("/", "-")}`)
                       }
                       className={`${
                         marketId === e.name
@@ -334,37 +342,37 @@ export const DummySwap = () => {
                 <div className="flex gap-7 my-2 items-center">
                   <div>
                     <div className="flex space-x-1 items-center">
-                      <div className="text-xl font-semibold">69,398.54</div>
-                      <div className="text-green">+1.777 (1.82%)</div>
+                      <div className="text-xl font-semibold">{Decimal.format(marketTicker?.ticker?.last ?? 0, currency?.precision!, ",")}</div>
+                      <div className={getColor(marketTicker?.ticker?.price_change_percent)}>({marketTicker?.ticker?.price_change_percent ?? '-'})</div>
                     </div>
                     <div className="mt-1 text-[#90A3BF]">
-                      Nov 22, 2023, 09:00 AM
+                      {dayjs(marketTicker?.at * 1000).format('MMM DD, YYYY, hh:mm A')}
                     </div>
                   </div>
                   <div className="text-xl text-soft/15">|</div>
                   <div>
                     <div className="text-xs">Change 24H</div>
-                    <div className="text-green">+1.82%</div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent)}>{marketTicker?.ticker?.price_change_percent ?? '0%'}</div>
                   </div>
                   <div>
                     <div className="text-xs">24h High</div>
-                    <div className="text-green">+1.82%</div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent)}>{Decimal.format(marketTicker?.ticker?.high ?? 0, currency?.precision!, ",")}</div>
                   </div>
                   <div>
                     <div className="text-xs">24h Low</div>
-                    <div className="text-green">+1.82%</div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent)}>{Decimal.format(marketTicker?.ticker?.low ?? 0, currency?.precision!, ",")}</div>
                   </div>
                   <div>
                     <div className="text-xs">24h Volume</div>
-                    <div className="text-green">+1.82%</div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent)}>{Decimal.format(marketTicker?.ticker?.volume ?? 0, currency?.precision!, ",")}</div>
                   </div>
-                  <div>
+                  {/* <div>
                     <div className="text-xs">Transactions</div>
-                    <div className="text-green">+1.82%</div>
-                  </div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent)}>+1.82%</div>
+                  </div> */}
                   <div>
                     <div className="text-xs">Total Liquidity</div>
-                    <div className="text-green">+1.82%</div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent ?? '0%')}>{getCurrentMarket?.liquidity ?? '0'}</div>
                   </div>
                   {/* <div className="flex space-x-1 bg-[#FE9F00] bg-opacity-10 p-2 rounded-xl">
                     <svg

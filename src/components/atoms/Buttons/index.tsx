@@ -1,42 +1,42 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { forwardRef } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { forwardRef } from 'react';
 
-import { cva } from "class-variance-authority";
-import type { VariantProps } from "class-variance-authority";
+import { cva } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
 
-import { cn } from "@/utils";
+import { cn } from '@/utils';
 
 interface ButtonProps
    extends ButtonHTMLAttributes<HTMLButtonElement>,
-   VariantProps<typeof buttonVariants> {
+      VariantProps<typeof buttonVariants> {
    isLoading?: boolean;
    children: ReactNode;
 }
 
 const buttonVariants = cva(
-   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
    {
       variants: {
          variant: {
-            "default": "bg-yellow text-white",
-            "outline-primary":
-               "border border-yellow text-yellow bg-background hover:bg-yellow hover:text-white",
-            "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-            "outline-green": "bg-green/20 border border-green",
-            "ghost": "bg-white2 text-gray2",
-            "ghost-light": "bg-white2/30",
-            "link": "text-primary underline-offset-4 hover:underline",
+            'default': 'bg-primary text-white',
+            'outline-primary':
+               'bg-[linear-gradient(236deg,_rgba(93,_99,_111,_0.10)_1.26%,_rgba(25,_30,_40,_0.35)_100%)]',
+            'secondary': 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+            'outline-green': 'bg-green/20 border border-green',
+            'ghost': 'bg-white2 text-gray2',
+            'ghost-light': 'bg-white2/30',
+            'link': 'text-primary underline-offset-4 hover:underline',
          },
          size: {
-            default: "h-[54px] rounded-xl p-4",
-            sm: "h-9 rounded-md px-3",
-            lg: "h-11 rounded-md px-8",
-            icon: "h-10 w-10",
+            default: 'h-[54px] rounded-xl p-4',
+            sm: 'h-9 rounded-md px-3',
+            lg: 'h-11 rounded-md px-8',
+            icon: 'h-10 w-10',
          },
       },
       defaultVariants: {
-         variant: "default",
-         size: "default",
+         variant: 'default',
+         size: 'default',
       },
    },
 );
@@ -69,7 +69,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   />
                </svg>
             )}
-            {isLoading ? "Please wait..." : children}
+            {isLoading ? 'Please wait...' : children}
          </button>
       );
    },
