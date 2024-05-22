@@ -91,7 +91,7 @@ export const ModalMobileChangeMarket = ({
                                     <div
                                        key={item.id}
                                        onClick={() => {
-                                          navigate(`/dummyswap/${item.name?.replace('/', '-')}`);
+                                          navigate(`/swap/${item.name?.replace('/', '-')}`);
                                           setShowModalMarket(false);
                                           setSearchTerm('');
                                        }}

@@ -177,7 +177,7 @@ export const DummySwap = () => {
                <div className="flex h-full flex-col gap-4 lg:flex-row ">
                   {/* OrderBook */}
 
-                  <div className="w-full md:w-[312px]">
+                  <div className="w-full lg:w-[350px]">
                      <OrderBook
                         data={depth}
                         ticker={marketTicker}
@@ -189,7 +189,7 @@ export const DummySwap = () => {
                   {/* End OrderBook */}
 
                   {/*  Trading Chart */}
-                  <div className="flex flex-1 overflow-hidden rounded-2xl bg-dark2 p-4">
+                  <div className="flex flex-grow overflow-hidden rounded-2xl bg-dark2 p-4">
                      <section className="hidden w-full lg:block">
                         <div className="flex cursor-pointer items-center space-x-3">
                            {/* Pop up change market */}

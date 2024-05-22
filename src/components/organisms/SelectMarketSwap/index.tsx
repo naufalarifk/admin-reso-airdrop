@@ -79,7 +79,7 @@ export const SelectMarketSwap = ({
                                        key={item.id}
                                        onClick={() => {
                                           setShowModalMarket(false);
-                                          navigate(`/dummyswap/${item.name?.replace('/', '-')}`);
+                                          navigate(`/swap/${item.name?.replace('/', '-')}`);
                                           close;
                                           setSearchTerm('');
                                        }}
