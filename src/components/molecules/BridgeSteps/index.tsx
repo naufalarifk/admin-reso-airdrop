@@ -1,29 +1,30 @@
 import { IcCheck } from '@/assets/icons';
 import { Card, Text } from '@/components';
 import { cn } from '@/utils';
+import { AnimatePresence, motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
+const variants = {
+   hidden: { opacity: 0, x: -24, y: 0 },
+   enter: { opacity: 1, x: 0, y: 0 },
+   exit: { opacity: 0, x: 24, y: 0 },
+};
+
+const width: Record<number, string> = {
+   0: '0%',
+   1: 'calc(50% - 32px)',
+   2: 'calc(100% - 64px)',
+};
+
+const renderName: Record<number, string> = {
+   0: 'first',
+   1: 'third',
+   2: 'fourth',
+};
+
 export const BridgeSteps = ({ active, children }: { active: number; children: ReactNode }) => {
    const { t } = useTranslation();
-
-   const width: Record<number, string> = {
-      0: '0%',
-      1: 'calc(50% - 32px)',
-      2: 'calc(100% - 64px)',
-   };
-
-   const renderName: Record<number, string> = {
-      0: 'first',
-      1: 'third',
-      2: 'fourth',
-   };
-
-   const renderTitleContent: Record<number, string> = {
-      0: 'first',
-      1: 'third',
-      2: 'fourth',
-   };
 
    return (
       <div className="space-y-8">
@@ -31,7 +32,7 @@ export const BridgeSteps = ({ active, children }: { active: number; children: Re
             <div className="relative flex w-full items-center justify-between">
                <div
                   className={cn(
-                     'z-1 absolute inset-x-8 top-6 h-0.5 rounded-lg bg-primary transition-[width] duration-1000',
+                     'absolute inset-x-8 top-6 z-1 h-0.5 rounded-lg bg-primary transition-[width] duration-1000',
                   )}
                   style={{ width: width[active] }}
                />
@@ -68,18 +69,28 @@ export const BridgeSteps = ({ active, children }: { active: number; children: Re
                   <Text
                      weight="semiBold"
                      className="text-base lg:text-2xl">
-                     {t(`bridge.${renderTitleContent[active]}Step.title`)}
+                     {t(`bridge.${renderName[active]}Step.title`)}
                   </Text>
                   <Text
                      weight="medium"
                      textColor="lighGray"
                      className="text-sm lg:text-base">
-                     {t(`bridge.${renderTitleContent[active]}Step.subtitle`)}
+                     {t(`bridge.${renderName[active]}Step.subtitle`)}
                   </Text>
                </div>
                {active === 2 && <IcCheck />}
             </div>
-            {children}
+            <AnimatePresence mode="wait">
+               <motion.div
+                  key={active}
+                  variants={variants}
+                  initial="hidden"
+                  animate="enter"
+                  exit="exit"
+                  transition={{ type: 'linear' }}>
+                  {children}
+               </motion.div>
+            </AnimatePresence>
          </Card>
       </div>
    );

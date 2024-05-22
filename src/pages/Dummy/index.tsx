@@ -1,5 +1,4 @@
-import { HistoryTrade } from "@/components";
-import { HistorySwap } from "@/components/molecules/HistorySwap";
+import { HistoryTrade, SwapContainer } from "@/components";
 // import { useListMarketOrder } from "@/components/molecules/HistorySwap/hooks/useMarketOder";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
@@ -94,7 +93,7 @@ export const Dummy = () => {
           <HistoryTrade />
         </div>
         <div className="bg-dark2 p-4 order-1 lg:order-2 rounded-2xl h-full lg:h-[452px] overflow-hidden">
-          <HistorySwap
+          <SwapContainer
             unitLoading={unitLoading}
             getCurrentPair={getCurrentPair!}
             getCurrentMarket={getCurrentMarket!}

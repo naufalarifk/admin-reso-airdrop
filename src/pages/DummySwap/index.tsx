@@ -1,8 +1,12 @@
 import Marquee from 'react-fast-marquee';
-import { TOKEN_RATE } from '@/constants/data';
+// import { TOKEN_RATE } from "@/constants/data";
 import { OrderBook } from '@/components/dummy/OrderBook';
-import { HistoryTrade } from '@/components';
-import { HistorySwap } from '@/components/molecules/HistorySwap';
+import {
+   HistoryTrade,
+   ModalMobileChangeMarket,
+   SelectMarketSwap,
+   SwapContainer,
+} from '@/components';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
    usePublicMarket,
@@ -16,13 +20,12 @@ import {
    getMarketDepth,
    getMarketTicker,
 } from '@/api/services/public/markets';
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { Currencies } from '../Dummy/types';
 import { IcCoinPairs } from '@/assets/icons';
 import { cn } from '@/utils';
-import { Dialog, Transition } from '@headlessui/react';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
 
@@ -53,10 +56,15 @@ export const DummySwap = () => {
       const market = await getMarketList({});
       const k_line = await getMarketKLine(marketId!, {});
       const market_trade = await getMarketTrades(marketId!);
+      const depth = await getMarketDepth(marketId!, 60);
+      const marketTicker = await getMarketTicker(marketId!);
+
+      updateDepth(depth);
+      updateMarketTicker(marketTicker);
       updateMarket(market);
       updateTradeMarket(market_trade);
       updateKLine(k_line);
-   }, [marketId, updateKLine, updateMarket, updateTradeMarket]);
+   }, [marketId, updateDepth, updateKLine, updateMarket, updateMarketTicker, updateTradeMarket]);
 
    const getCurrencies = async () => {
       try {
@@ -81,29 +89,8 @@ export const DummySwap = () => {
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
 
    useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const depth = await getMarketDepth(marketId!, 60);
-            const marketTicker = await getMarketTicker(marketId!);
-
-            updateDepth(depth);
-            updateMarketTicker(marketTicker);
-         } catch (error) {
-            console.error('Error fetching data:', error);
-         }
-      };
-
-      fetchData();
-
-      // const intervalId = setInterval(fetchData, 8000);
-      // return () => clearInterval(intervalId);
-   }, [marketId, updateDepth, updateMarketTicker]);
-
-   useEffect(() => {
       getData();
    }, [getData]);
-
-   console.log('ejanebkaj', currency);
 
    const [searchTerm, setSearchTerm] = useState('');
 
@@ -122,8 +109,6 @@ export const DummySwap = () => {
            ? 'text-primary'
            : 'text-soft';
    };
-
-   console.log('handleSearch', handleSearch);
 
    return (
       <>
@@ -202,14 +187,22 @@ export const DummySwap = () => {
                   </div>
 
                   {/* End OrderBook */}
-                  {/*  Trading Chart */}
 
+                  {/*  Trading Chart */}
                   <div className="flex flex-1 overflow-hidden rounded-2xl bg-dark2 p-4">
                      <section className="hidden w-full lg:block">
-                        <div
-                           onClick={() => setShowModalMarket(!showModalMarket)}
-                           className="flex cursor-pointer items-center space-x-3">
-                           <IcCoinPairs className="h-8 w-8 rounded-lg bg-dark3 p-1 text-white" />
+                        <div className="flex cursor-pointer items-center space-x-3">
+                           {/* Pop up change market */}
+                           <SelectMarketSwap
+                              searchTerm={searchTerm}
+                              handleSearch={handleSearch}
+                              filteredData={filteredData}
+                              setSearchTerm={setSearchTerm}
+                              setShowModalMarket={setShowModalMarket}
+                           />
+                           {/* End Pop up change market */}
+
+                           {/* Button Market */}
                            {market?.map(e => (
                               <div
                                  key={e.base_unit}
@@ -219,7 +212,7 @@ export const DummySwap = () => {
                                        ? 'bg-[#20232e]'
                                        : 'border border-[#20232e] bg-transparent'
                                  } flex cursor-pointer items-center space-x-1 rounded-lg px-2 py-1`}>
-                                 <div className="relative m-1 h-6 w-8">
+                                 <div className="relative m-1 h-6 w-6 overflow-hidden rounded-full object-cover">
                                     <img
                                        src={
                                           market[0]?.base_unit === e?.base_unit
@@ -228,14 +221,14 @@ export const DummySwap = () => {
                                        }
                                        alt="kokom"
                                     />
-                                    {/* <IcBitcoin height={24} width={24} className="absolute z-10" />
-              <IcBitcoin height={24} width={24} className="absolute left-2" /> */}
                                  </div>
                                  <div className="font-semibold">{e.name}</div>
                               </div>
                            ))}
+                           {/* End Button Market */}
                         </div>
-                        <div className="my-2  flex items-center gap-7">
+
+                        <div className="my-2 flex items-center gap-7">
                            <div>
                               <div className="flex items-center space-x-1">
                                  <div className="text-xl font-semibold">
@@ -293,12 +286,10 @@ export const DummySwap = () => {
                                  )}
                               </div>
                            </div>
-                           <div>
-                              <div className="text-xs">24h Transactions</div>
-                              <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                                 {marketTicker?.ticker?.transactions}
-                              </div>
-                           </div>
+                           {/* <div>
+                    <div className="text-xs">Transactions</div>
+                    <div className={getColor(marketTicker?.ticker?.price_change_percent)}>+1.82%</div>
+                  </div> */}
                            <div>
                               <div className="text-xs">Total Liquidity</div>
                               <div
@@ -344,12 +335,12 @@ export const DummySwap = () => {
                </div>
                <div className="h-full">
                   {/* Form & Table Swap */}
-                  <div className="grid grid-cols-1 gap-7 xl:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                      <div className="order-2 h-[452px] rounded-2xl bg-dark2 p-4 lg:order-1">
                         <HistoryTrade />
                      </div>
                      <div className="order-1 h-full overflow-hidden rounded-2xl bg-dark2 p-4 lg:order-2 lg:h-[452px]">
-                        <HistorySwap
+                        <SwapContainer
                            unitLoading={unitLoading}
                            getCurrentPair={getCurrentPair!}
                            getCurrentMarket={getCurrentMarket!}
@@ -362,81 +353,24 @@ export const DummySwap = () => {
          </div>
          <div className="fixed bottom-0 z-20 hidden h-5 w-full flex-row items-center border-t border-soft/30 bg-dark text-sm lg:flex">
             <Marquee>
-               {TOKEN_RATE.map(token => (
+               {market?.map(token => (
                   <div className="flex space-x-5 px-2 text-xs">
                      <div>{token.name}</div>
-                     <div className="text-green">{token.rate}</div>
+                     <div className="text-green">{token.max_price}</div>
                   </div>
                ))}
             </Marquee>
          </div>
 
          {/* Modal Change Market */}
-         <Transition
-            appear
-            show={showModalMarket}
-            as={Fragment}>
-            <Dialog
-               as="div"
-               className="relative"
-               onClose={() => setShowModalMarket(!showModalMarket)}>
-               <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0">
-                  <div className="fixed inset-0 z-[99]  bg-black/20 " />
-               </Transition.Child>
-
-               <div className="fixed inset-0 z-[999] overflow-y-auto backdrop-blur-sm">
-                  <div className="flex min-h-full   items-center justify-center p-4">
-                     <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0 scale-95"
-                        enterTo="opacity-100 scale-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100 scale-100"
-                        leaveTo="opacity-0 scale-95">
-                        <Dialog.Panel className="relative  w-full max-w-lg transform  overflow-hidden rounded-lg border border-soft/15 bg-dark  p-6  shadow-xl transition-all">
-                           <div>
-                              <input type="text" />
-                           </div>
-                           <div className="flex items-center justify-between border-b border-primary/50 pb-2 text-xs text-soft">
-                              <div>Pairs</div>
-                              <div>Last Price</div>
-                              <div>Volume 24h</div>
-                           </div>
-                           <div className="mt-3 space-y-2">
-                              {filteredData?.map(item => (
-                                 <div
-                                    key={item.id}
-                                    onClick={() => {
-                                       navigate(`/dummyswap/${item.name?.replace('/', '-')}`);
-                                       setShowModalMarket(false);
-                                    }}
-                                    className="flex cursor-pointer justify-between">
-                                    <div className="w-full text-xs font-medium text-soft">
-                                       {item.name}
-                                    </div>
-                                    <div className="w-full text-center text-xs font-light text-soft">
-                                       00
-                                    </div>
-                                    <div className="w-full text-right text-xs font-light text-soft">
-                                       00
-                                    </div>
-                                 </div>
-                              ))}
-                           </div>
-                        </Dialog.Panel>
-                     </Transition.Child>
-                  </div>
-               </div>
-            </Dialog>
-         </Transition>
+         <ModalMobileChangeMarket
+            searchTerm={searchTerm}
+            handleSearch={handleSearch}
+            filteredData={filteredData}
+            showModalMarket={showModalMarket}
+            setSearchTerm={setSearchTerm}
+            setShowModalMarket={setShowModalMarket}
+         />
       </>
    );
 };

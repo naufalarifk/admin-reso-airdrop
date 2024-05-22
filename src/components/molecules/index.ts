@@ -9,6 +9,7 @@ export * from './ButtonConnectWallet';
 export * from './OrderBookSwap';
 export * from './SelectToken';
 export * from './Pagination';
+export * from './ModalPending';
 export * from './SelectMultipleCoin';
 export * from './OrderBookSwap';
 export * from './PoolSteps';
@@ -23,3 +24,4 @@ export * from './ModalConfirmInstantSwap';
 export * from './SwapInput';
 export * from './ModalGasFee';
 export * from './ButtonBalancePercentage';
+export * from './SwapContainer'
