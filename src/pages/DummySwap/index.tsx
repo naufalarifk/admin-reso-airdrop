@@ -28,6 +28,8 @@ import { IcCoinPairs } from '@/assets/icons';
 import { cn } from '@/utils';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
+import { OrderBookMobile } from '@/components/dummy/OrderBookMobile';
+import { SwapMobileContainer } from '@/components/dummy/SwapMobileContainer';
 
 export const DummySwap = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
@@ -113,7 +115,8 @@ export const DummySwap = () => {
    return (
       <>
          <div className="layout-main mb-14">
-            <div className="grid h-full grid-cols-1 gap-4">
+            <div className="grid h-full grid-cols-1 gap-2 lg:gap-4">
+               {/* Mobile view design */}
                <div className="flex h-[64px] items-center justify-between gap-2 rounded-lg bg-dark2 p-4 px-3 lg:hidden">
                   <div
                      onClick={() => setShowModalMarket(!showModalMarket)}
@@ -151,7 +154,26 @@ export const DummySwap = () => {
                      </div>
                   </div>
                </div>
-               <div className="flex h-[52px] items-center gap-2 rounded-lg bg-yellow/10 px-3 lg:hidden">
+               <div className="flex gap-2 lg:hidden">
+                  <div className="block w-full lg:hidden">
+                     <OrderBookMobile
+                        data={depth}
+                        ticker={marketTicker}
+                        currency={currency!}
+                        usdt={usdt!}
+                     />
+                  </div>
+                  <div className="rounded-sm bg-dark2 p-2">
+                     <SwapMobileContainer
+                        unitLoading={unitLoading}
+                        getCurrentPair={getCurrentPair!}
+                        getCurrentMarket={getCurrentMarket!}
+                     />
+                  </div>
+               </div>
+
+               {/* End Mobile view design */}
+               {/* <div className="flex h-[52px] items-center gap-2 rounded-lg bg-yellow/10 px-3 lg:hidden">
                   <div>
                      <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -173,11 +195,11 @@ export const DummySwap = () => {
                      <div className="font-normal">Info</div>
                      <div className="font-semibold">This pair had low liquidity</div>
                   </div>
-               </div>
+               </div> */}
                <div className="flex h-full flex-col gap-4 lg:flex-row ">
                   {/* OrderBook */}
 
-                  <div className="w-full lg:w-[350px]">
+                  <div className="hidden w-full lg:block lg:w-[350px]">
                      <OrderBook
                         data={depth}
                         ticker={marketTicker}
@@ -297,7 +319,8 @@ export const DummySwap = () => {
                               </div>
                            </div>
                         </div>
-                        <div className="grid h-full max-h-96 w-full place-content-center overflow-y-scroll">
+
+                        <div className="hidden h-full max-h-96 w-full place-content-center overflow-y-scroll lg:grid">
                            Trading chart
                         </div>
                      </section>
@@ -305,7 +328,7 @@ export const DummySwap = () => {
 
                   {/* End Trading Chart */}
                </div>
-               <div className="h-full">
+               <div className="hidden h-full lg:block">
                   {/* Form & Table Swap */}
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                      <div className="order-2 h-[452px] rounded-2xl bg-dark2 p-4 lg:order-1">

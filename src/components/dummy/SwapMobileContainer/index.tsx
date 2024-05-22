@@ -4,18 +4,24 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode, FC } from 'react';
 
 // import { cn } from "@/utils";
-import { ButtonWalletConnectV2, useWalletStore } from '../ButtonConnectWalletV2';
 
-import { getOrder, MarketOrder, useListMarketOrder } from './hooks/useMarketOder';
-import { ModalConfirmInstantSwap } from '../ModalConfirmInstantSwap';
 import { baseApi } from '@/api/config';
 import toast from 'react-hot-toast';
-import { ModalGasFee } from '../ModalGasFee';
-import { Gas, useGasServiceState } from '../ModalGasFee/hooks/useGasStore';
-import { BalanceButtons } from '../ButtonBalancePercentage';
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/atoms';
 import { Currencies, Market } from '@/pages/Dummy/types';
+import { Gas, useGasServiceState } from '@/components/molecules/ModalGasFee/hooks/useGasStore';
+import {
+   ButtonWalletConnectV2,
+   ModalConfirmInstantSwap,
+   ModalGasFee,
+   useWalletStore,
+} from '@/components/molecules';
+import {
+   getOrder,
+   MarketOrder,
+   useListMarketOrder,
+} from '@/components/molecules/SwapContainer/hooks/useMarketOder';
 
 interface TabsData {
    label: string;
@@ -95,7 +101,7 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
                   ref={(el: HTMLButtonElement | null) =>
                      (tabsRef.current[idx] = el as HTMLButtonElement)
                   }
-                  className={`border-b-2 px-3 py-3 text-center  text-xs font-semibold ${
+                  className={`border-b-2 px-3 py-3 text-center  text-[10px] font-semibold ${
                      activeTabIndex === idx
                         ? 'border-primary text-white'
                         : 'border-transparent text-soft'
@@ -127,10 +133,7 @@ const SwapSelectToken = ({
    return (
       <>
          <div className="bg-dark2">
-            <div className="relative w-full rounded-lg bg-dark p-4">
-               <div className="pointer-events-none absolute inset-y-0 top-5 flex h-10 items-center rounded-md bg-neutral-800 px-3 uppercase ">
-                  {unit}
-               </div>
+            <div className="relative w-full rounded-lg bg-dark p-2">
                <input
                   type="string"
                   onChange={e => handleInput(e.target.value)}
@@ -141,15 +144,12 @@ const SwapSelectToken = ({
                   autoCorrect="off"
                   value={value}
                   id="default-search"
-                  className="block w-10/12 rounded-lg bg-transparent p-4 ps-20 text-sm  font-semibold text-white outline-none placeholder:text-soft  md:w-9/12"
+                  className="block w-2/12 rounded-lg bg-transparent  text-sm  font-semibold text-white outline-none placeholder:text-soft"
                   placeholder="0.00"
                />
-               <button
-                  type="button"
-                  onClick={maxButton}
-                  className="absolute bottom-6 end-5 rounded-lg border border-primary/30  bg-primary/10 p-2 text-xs font-medium text-primary focus:outline-none md:bottom-6 md:end-6 md:text-xs">
-                  MAX
-               </button>
+               <div className="pointer-events-none absolute inset-y-3 right-2 items-center  text-[10px] uppercase  text-soft ">
+                  {unit}
+               </div>
             </div>
          </div>
       </>
@@ -175,9 +175,9 @@ const SwapComponent = ({
    const [reverse, setReverse] = useState(false);
    const [loading, setLoading] = useState(false);
    const [modalGas, setModalGas] = useState(false);
-   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-   const [, setBalance] = useState('');
-   const [buttons] = useState(['0%', '25%', '50%', '75%', 'MAX']);
+   //    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+   //    const [, setBalance] = useState('');
+   //    const [buttons] = useState(['0%', '25%', '50%', '75%', 'MAX']);
 
    const [gasValue, setGasValue] = useState<Gas | null>(null);
 
@@ -190,17 +190,17 @@ const SwapComponent = ({
 
    // const pairName = location.state?.name.split("/");
 
-   const handleClickButtonPercentage = (index: number) => {
-      setActiveIndex(index);
-      const value = buttons[index];
-      let percent = parseInt(value);
-      if (value === 'Max') {
-         percent = 100;
-      }
+   //    const handleClickButtonPercentage = (index: number) => {
+   //       setActiveIndex(index);
+   //       const value = buttons[index];
+   //       let percent = parseInt(value);
+   //       if (value === 'Max') {
+   //          percent = 100;
+   //       }
 
-      const newBalance = (percent / 100) * 1;
-      setBalance(newBalance.toString());
-   };
+   //       const newBalance = (percent / 100) * 1;
+   //       setBalance(newBalance.toString());
+   //    };
 
    const handleQuantityChange = (event: string) => {
       setQuantity(event);
@@ -267,7 +267,7 @@ const SwapComponent = ({
       <div className="relative max-w-5xl">
          <div className="relative grid grid-cols-1 gap-16 md:grid-cols-2">
             <div className="z-10 mt-5">
-               <div className="mb-4 text-sm">Token to Trade</div>
+               <div className="mb-4 text-[10px]">Token to Trade</div>
                <div>
                   {unitLoading ? (
                      <Skeleton>
@@ -288,37 +288,37 @@ const SwapComponent = ({
                         <div className="h-4 w-full  bg-dark3" />
                      </Skeleton>
                   ) : (
-                     <div className="my-2 text-xs text-soft">Available balance: {balance}</div>
+                     <div className="mt-2 text-[10px] text-soft">Available balance: {balance}</div>
                   )}
-                  <div className="mt-4 flex items-center justify-between gap-3">
-                     {buttons.map((button, index) => (
+                  <div className="mt-2 flex items-center justify-between gap-3">
+                     {/* {buttons.map((button, index) => (
                         <BalanceButtons
                            key={index}
                            value={button}
                            onClick={() => handleClickButtonPercentage(index)}
                            isActive={index <= activeIndex!}
                         />
-                     ))}
+                     ))} */}
                   </div>
                </div>
-               <div className="mt-5 flex justify-between gap-4">
+               <div className="mt-0 flex justify-between">
                   {unitLoading ? (
                      <Skeleton>
                         <div className="h-[5.6rem] w-full  bg-dark3" />
                      </Skeleton>
                   ) : (
-                     <div className="w-full space-y-4 rounded-xl bg-[#5D636F1A] p-4 ">
+                     <div className="w-full rounded bg-[#5D636F1A] p-2 ">
                         <div className="flex items-center justify-between">
-                           <div className="text-xs text-soft">
+                           <div className="text-[8px] text-soft">
                               {currentType === 'market' ? 'Estimated Price' : 'Price'}
                            </div>
                            {currentType === 'limit' && (
                               <div className="text-xs text-primary">Use Market</div>
                            )}
-                        </div>
-                        <div className="flex items-center justify-between">
-                           <div className="text-sm">{price}</div>
-                           <div className="text-xs uppercase text-soft">{quoteUnit}</div>
+                           <div className="flex items-center justify-between gap-2">
+                              <div className="text-[8px]">{price}</div>
+                              <div className="text-[8px] uppercase text-soft">{quoteUnit}</div>
+                           </div>
                         </div>
                      </div>
                   )}
@@ -487,7 +487,7 @@ interface SwapContainerProps {
    getCurrentMarket: Market;
 }
 
-export const SwapContainer = ({
+export const SwapMobileContainer = ({
    unitLoading,
    getCurrentPair,
    getCurrentMarket,
@@ -522,7 +522,7 @@ export const SwapContainer = ({
    const tabs = useMemo(
       () => [
          {
-            label: 'Instant Trade',
+            label: 'Instant',
             content: (
                <SwapComponent
                   unitLoading={unitLoading}
@@ -537,7 +537,7 @@ export const SwapContainer = ({
             ),
          },
          {
-            label: 'Limit Trade',
+            label: 'Limit',
             content: (
                <SwapComponent
                   unitLoading={unitLoading}
@@ -550,128 +550,13 @@ export const SwapContainer = ({
                />
             ),
          },
-         {
-            label: 'My Open Order',
-            content: (
-               <>
-                  <div className="relative h-full  overflow-x-scroll lg:max-h-96">
-                     <table className="w-full text-left text-sm text-gray-500  rtl:text-right dark:text-gray-400">
-                        <thead className="sticky top-0 bg-dark2 text-xs uppercase text-soft">
-                           <tr>
-                              <th
-                                 scope="col"
-                                 className="whitespace-nowrap px-6 py-3">
-                                 Order Date
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-3">
-                                 Market
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-3">
-                                 Price
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-3">
-                                 Volume
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-3">
-                                 Executed
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-3">
-                                 TxID
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-3">
-                                 Action
-                              </th>
-                           </tr>
-                        </thead>
-                        <tbody className="divide-y divide-darkSoft/30 overflow-y-scroll">
-                           {listLoading ? (
-                              <tr>
-                                 <td
-                                    className="gap-3 space-y-2 pt-4 text-center"
-                                    colSpan={7}>
-                                    {Array.from({ length: 4 }).map(() => (
-                                       <Skeleton>
-                                          <div className="h-10 w-full  bg-dark3" />
-                                       </Skeleton>
-                                    ))}
-                                 </td>
-                              </tr>
-                           ) : orders?.length > 0 ? (
-                              orders?.map((item: MarketOrder) => (
-                                 <tr key={item.uuid}>
-                                    <th
-                                       scope="row"
-                                       className="whitespace-nowrap px-6 py-4 font-medium">
-                                       {item.created_at}
-                                    </th>
-                                    <td className="px-6 py-4 uppercase">{item.market}</td>
-                                    <td className="px-6 py-4">{item.price}</td>
-                                    <td className="px-6 py-4">{item.origin_volume}</td>
-                                    <td className="px-6 py-4">{item.executed_volume}</td>
-                                    <td className="px-6 py-4">
-                                       {item.txid.length <= 0 ? '-' : item.txid}
-                                    </td>
-                                    <td className="text-center">
-                                       {item.state === 'wait' ? (
-                                          <button
-                                             onClick={() => cancelOrderById(item?.uuid.toString())}>
-                                             <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                stroke="currentColor"
-                                                className="h-6 w-6 text-primary">
-                                                <path
-                                                   strokeLinecap="round"
-                                                   strokeLinejoin="round"
-                                                   d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                                />
-                                             </svg>
-                                          </button>
-                                       ) : (
-                                          <button>Check</button>
-                                       )}
-                                    </td>
-                                 </tr>
-                              ))
-                           ) : (
-                              <tr className=" h-96">
-                                 <td
-                                    className="text-center  text-gray-200"
-                                    colSpan={7}>
-                                    No Data Available
-                                 </td>
-                              </tr>
-                           )}
-                        </tbody>
-                     </table>
-                  </div>
-               </>
-            ),
-         },
       ],
       [
-         cancelOrderById,
          connected,
          currentType,
          getCurrentMarket?.base_unit,
          getCurrentMarket?.quote_unit,
          getCurrentPair?.price,
-         listLoading,
-         orders,
          unitLoading,
       ],
    );

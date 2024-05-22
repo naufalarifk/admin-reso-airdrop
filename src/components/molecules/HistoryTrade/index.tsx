@@ -77,25 +77,25 @@ export const HistoryTrade = () => {
             label: 'Recent Trades',
             content: (
                <>
-                  <div className="no-scrollbar relative max-h-96 overflow-x-scroll">
+                  <div className="no-scrollbar relative max-h-96 overflow-x-hidden">
                      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                        <thead className="sticky-top-0 border-b border-soft/20 bg-dark2 text-xs uppercase text-soft">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xs uppercase text-soft">
                            <tr>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
                                  #
                               </th>
-                              <th
+                              {/* <th
                                  scope="col"
                                  className="px-6 py-4">
                                  Address
-                              </th>
-                              <th
+                              </th> */}
+                              {/* <th
                                  scope="col"
                                  className="px-6 py-4">
                                  Protocol
-                              </th>
+                              </th> */}
                               <th
                                  scope="col"
                                  className="text-nowrap px-6 py-4">
@@ -150,12 +150,12 @@ export const HistoryTrade = () => {
                               RECENT_TRADES?.map((item: RecentTrades, i) => (
                                  <tr key={i}>
                                     <td className="text-center text-soft">{item.id}</td>
-                                    <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
+                                    {/* <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
                                        {shortenString(item.address, 5, 5)}
-                                    </td>
-                                    <td className="text-nowrap px-6 py-4 uppercase text-soft">
+                                    </td> */}
+                                    {/* <td className="text-nowrap px-6 py-4 uppercase text-soft">
                                        {item.protocol}
-                                    </td>
+                                    </td> */}
                                     <td
                                        className={cn(
                                           `text-nowrap px-6 py-4 text-center capitalize ${
@@ -164,22 +164,23 @@ export const HistoryTrade = () => {
                                        )}>
                                        {item.type}
                                     </td>
-                                    <td className="text-nowrap px-6 py-4 text-center uppercase text-soft">
+                                    <td className=" px-6 py-4 text-center uppercase text-soft">
                                        {currId && currId[0].toUpperCase()}{' '}
                                        {item.transaction.pay.amount}
                                     </td>
-                                    <td className="text-nowrap px-6 py-4 text-center uppercase text-soft">
+                                    <td className="px-6 py-4 text-center uppercase text-soft">
                                        {currId && currId[1].toUpperCase()}{' '}
                                        {item.transaction.receive.amount}
                                     </td>
-                                    <td className="text-nowrap px-6 py-4 text-center uppercase text-soft">
+                                    <td className="px-6 py-4 text-center uppercase text-soft">
                                        {item.createdAt}
                                     </td>
                                     <td className="text-nowrap px-6 py-4 text-center text-primary">
-                                       <a
-                                          target="_blank"
+                                       <div
+                                          // target="_blank"
                                           className="flex items-center gap-1"
-                                          href={`https://solscan.io/tx/${item.txId}`}>
+                                          // href={`https://solscan.io/tx/${item.txId}`}
+                                       >
                                           {shortenString(item.txId, 5, 5)}
                                           <svg
                                              width={12}
@@ -195,7 +196,7 @@ export const HistoryTrade = () => {
                                                 strokeLinejoin="round"
                                              />
                                           </svg>
-                                       </a>
+                                       </div>
                                     </td>
                                  </tr>
                               ))
@@ -277,7 +278,7 @@ export const HistoryTrade = () => {
                <>
                   <div className="no-scrollbar relative max-h-80 overflow-x-scroll">
                      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                        <thead className="sticky-top-0 bg-dark2 text-xs uppercase text-soft">
+                        <thead className="sticky top-0 bg-dark2 text-xs uppercase text-soft">
                            <tr>
                               <th
                                  scope="col"
@@ -324,7 +325,7 @@ export const HistoryTrade = () => {
                                     colSpan={7}>
                                     {Array.from({ length: 4 }).map(() => (
                                        <Skeleton>
-                                          <div className="h-10 w-full  bg-dark3" />
+                                          <div className="h-10 w-full bg-dark3" />
                                        </Skeleton>
                                     ))}
                                  </td>
@@ -361,7 +362,7 @@ export const HistoryTrade = () => {
             ),
          },
       ],
-      [trades, listTradeLoading, RECENT_TRADES],
+      [currId, listTradeLoading, trades],
    );
 
    return (
