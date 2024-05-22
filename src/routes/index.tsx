@@ -44,7 +44,7 @@ export const RootLayout = () => {
           {/* <Route path="/trade" element={<Trade />} /> */}
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap/:market" element={<Swap />} />
-          <Route path="/pool" element={<Pool />} />
+          <Route path="/market" element={<Pool />} />
           <Route path="/dummy/:market" element={<Dummy />} />
           <Route path="/dummyswap/:market" element={<DummySwap />} />
         </Route>

@@ -6,7 +6,7 @@ menu: {
   swap: "交换",
   bridge: "桥接",
   supports: "支持",
-  pool: "资金池",
+  market: "资金池",
 },
   },
   landing: {
