@@ -165,11 +165,11 @@ export const HistoryTrade = () => {
                                        {item.type}
                                     </td>
                                     <td className="text-nowrap px-6 py-4 text-center uppercase text-soft">
-                                       {currId[0].toUpperCase() ?? '-'}{' '}
+                                       {currId && currId[0].toUpperCase()}{' '}
                                        {item.transaction.pay.amount}
                                     </td>
                                     <td className="text-nowrap px-6 py-4 text-center uppercase text-soft">
-                                       {currId[1].toUpperCase() ?? '-'}{' '}
+                                       {currId && currId[1].toUpperCase()}{' '}
                                        {item.transaction.receive.amount}
                                     </td>
                                     <td className="text-nowrap px-6 py-4 text-center uppercase text-soft">
