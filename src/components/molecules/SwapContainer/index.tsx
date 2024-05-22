@@ -215,15 +215,6 @@ const SwapComponent = ({
    const postData = async () => {
       setLoading(true);
 
-      // {
-      //   market: 'memeusdt',
-      //   txid: "e35d9d1636ec0375b4f524b9825d400c20ca77bd1fd9b49252874dde8983a301",
-      //   side: pairName?.[0] === side.toLocaleUpperCase() ? "buy" : "sell",
-      //   quantity: Number(quantity),
-      //   price: currentType === "limit" ? LAST : null,
-      //   ord_type: currentType,
-      // },
-
       try {
          await baseApi.post(
             `/finex/market/orders`,
