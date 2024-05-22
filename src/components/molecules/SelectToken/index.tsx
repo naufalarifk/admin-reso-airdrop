@@ -12,8 +12,10 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/utils';
 import { COIN } from '@/constants';
+import { chains } from '@/constants/chains';
 
 type SelectTokenProps = {
+   type?: 'network' | 'token';
    label?: string;
    value: string;
    setValue: (value: string) => void;
@@ -41,10 +43,20 @@ const variants = {
    },
 };
 
-export function SelectToken({ label, value, setValue, wrapperInputClassName }: SelectTokenProps) {
+export function SelectToken({
+   type = 'network',
+   label,
+   value,
+   setValue,
+   wrapperInputClassName,
+}: SelectTokenProps) {
    const [show, setShow] = useState(false);
 
-   const selected = useMemo(() => COIN.find(e => e.symbol === value), [value]);
+   const selectedToken = useMemo(() => COIN.find(e => e.symbol === value), [value]);
+   const selectedChain = useMemo(
+      () => chains.find(e => e.nativeCurrency.symbol === value),
+      [value],
+   );
 
    return (
       <>
@@ -64,11 +76,17 @@ export function SelectToken({ label, value, setValue, wrapperInputClassName }: S
                )}
                onClick={() => setShow(true)}>
                <div className="flex items-center gap-2">
-                  {selected && (
+                  {(selectedToken || selectedChain) && (
                      <div className="size-6 overflow-hidden rounded-full">
                         <img
-                           src={selected.iconUrl || ''}
-                           alt={selected.name}
+                           src={
+                              (type === 'token'
+                                 ? selectedToken?.iconUrl
+                                 : selectedChain?.custom.icon) || ''
+                           }
+                           alt={
+                              (type === 'token' ? selectedToken?.name : selectedChain?.name) || ''
+                           }
                            className="size-full object-cover"
                         />
                      </div>
@@ -76,8 +94,10 @@ export function SelectToken({ label, value, setValue, wrapperInputClassName }: S
                   <Text
                      weight="medium"
                      variant="heading3"
-                     textColor={selected ? 'default' : 'lighGray'}>
-                     {selected ? `${selected?.name} (${selected?.symbol})` : 'Select token'}
+                     textColor={selectedToken || selectedChain ? 'default' : 'lighGray'}>
+                     {selectedToken || selectedChain
+                        ? `${type === 'token' ? selectedToken?.name : selectedChain?.name} (${type === 'token' ? selectedToken?.symbol : selectedChain?.nativeCurrency.symbol})`
+                        : `Select ${type}`}
                   </Text>
                </div>
                <button className={cn(show && 'rotate-180', 'transition-all duration-500')}>
@@ -92,7 +112,7 @@ export function SelectToken({ label, value, setValue, wrapperInputClassName }: S
                   show={show}>
                   <Dialog
                      as="div"
-                     className="z-full relative focus:outline-none"
+                     className="relative z-full focus:outline-none"
                      onClose={() => setShow(false)}>
                      <motion.div
                         initial={{ opacity: 0 }}
@@ -100,7 +120,7 @@ export function SelectToken({ label, value, setValue, wrapperInputClassName }: S
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/30 backdrop-blur-sm"
                      />
-                     <div className="z-full fixed inset-0 w-screen overflow-y-auto">
+                     <div className="fixed inset-0 z-full w-screen overflow-y-auto">
                         <div className="flex min-h-full items-center justify-center p-4">
                            <TransitionChild
                               enter="ease-out duration-300"
@@ -120,7 +140,7 @@ export function SelectToken({ label, value, setValue, wrapperInputClassName }: S
                                     <DialogTitle
                                        as="h3"
                                        className="text-2xl font-semibold text-white">
-                                       Select Token
+                                       Select {type}
                                     </DialogTitle>
                                     <CloseButton className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
                                        <IcClose />
@@ -135,31 +155,58 @@ export function SelectToken({ label, value, setValue, wrapperInputClassName }: S
                                  </Text>
                                  <div className="mt-6.5">
                                     <div className="space-y-3">
-                                       {COIN.map(e => (
-                                          <div
-                                             key={e.symbol}
-                                             onClick={() => {
-                                                setValue(e.symbol);
-                                                setShow(false);
-                                             }}
-                                             className={cn(
-                                                'flex h-14 cursor-pointer items-center gap-2 rounded-2xl',
-                                                'bg-dark',
-                                                value === e.symbol && 'bg-primary/35',
-                                                'px-4 transition-all duration-300 hover:bg-opacity-30',
-                                             )}>
-                                             <div className="size-6 overflow-hidden rounded-full">
-                                                <img
-                                                   src={e.iconUrl || ''}
-                                                   alt={e.name}
-                                                   className="size-full object-cover"
-                                                />
-                                             </div>
-                                             <span>
-                                                {e.name} ({e.symbol})
-                                             </span>
-                                          </div>
-                                       ))}
+                                       {type === 'token'
+                                          ? COIN.map(e => (
+                                               <div
+                                                  key={e.symbol}
+                                                  onClick={() => {
+                                                     setValue(e.symbol);
+                                                     setShow(false);
+                                                  }}
+                                                  className={cn(
+                                                     'flex h-14 cursor-pointer items-center gap-2 rounded-2xl',
+                                                     'bg-dark',
+                                                     value === e.symbol && 'bg-primary/35',
+                                                     'px-4 transition-all duration-300 hover:bg-opacity-30',
+                                                  )}>
+                                                  <div className="size-6 overflow-hidden rounded-full">
+                                                     <img
+                                                        src={e.iconUrl || ''}
+                                                        alt={e.name}
+                                                        className="size-full object-cover"
+                                                     />
+                                                  </div>
+                                                  <span>
+                                                     {e.name} ({e.symbol})
+                                                  </span>
+                                               </div>
+                                            ))
+                                          : chains.map(e => (
+                                               <div
+                                                  key={e.nativeCurrency.symbol}
+                                                  onClick={() => {
+                                                     setValue(e.nativeCurrency.symbol);
+                                                     setShow(false);
+                                                  }}
+                                                  className={cn(
+                                                     'flex h-14 cursor-pointer items-center gap-2 rounded-2xl',
+                                                     'bg-dark',
+                                                     value === e.nativeCurrency.symbol &&
+                                                        'bg-primary/35',
+                                                     'px-4 transition-all duration-300 hover:bg-opacity-30',
+                                                  )}>
+                                                  <div className="size-6 overflow-hidden rounded-full">
+                                                     <img
+                                                        src={e.custom.icon || ''}
+                                                        alt={e.name}
+                                                        className="size-full object-cover"
+                                                     />
+                                                  </div>
+                                                  <span>
+                                                     {e.name} ({e.nativeCurrency.symbol})
+                                                  </span>
+                                               </div>
+                                            ))}
                                     </div>
                                  </div>
                               </DialogPanel>

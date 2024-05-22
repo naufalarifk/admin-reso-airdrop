@@ -1,25 +1,22 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
-import { ButtonGlow, ButtonWalletConnectV2 } from "@/components";
+import { Fragment, useCallback, useEffect, useState } from 'react';
+import { ButtonGlow, ButtonWalletConnectV2 } from '@/components';
 // import { AnimatePresence, motion } from "framer-motion";
-import { Link, NavLink } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Transition, Dialog } from "@headlessui/react";
-import { langs, Language } from "@/locales/langs";
-import { usePublicMarket } from "@/pages/Swap/hooks/usePublicMarkets";
-import { getMarketList } from "@/api/services/public/markets";
-import { IcWeb } from "@/assets/icons";
-import { AnimatePresence, motion } from "framer-motion";
-// import { chain } from "lodash";
+import { Link, NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Transition, Dialog } from '@headlessui/react';
+import { langs, Language } from '@/locales/langs';
+import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
+import { getMarketList } from '@/api/services/public/markets';
+import { IcWeb } from '@/assets/icons';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
   const { i18n, t } = useTranslation();
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const market = usePublicMarket((state) => state.market);
-  const updateMarket = usePublicMarket((state) => state.updateMarketState);
-
-  console.log("MARKET", market);
+  const market = usePublicMarket(state => state.market);
+  const updateMarket = usePublicMarket(state => state.updateMarketState);
 
   const getData = useCallback(async () => {
     const market = await getMarketList({});
@@ -126,23 +123,23 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             shortname
             classNameButton="!w-[130px] lg:hidden block"
           /> */}
-
-          <ButtonWalletConnectV2 className="lg:hidden block" />
+          <div>
+            <ButtonWalletConnectV2 className="block lg:hidden" />
+          </div>
 
           <AnimatePresence>
             {toggle && (
               <motion.div
-                className="fixed overflow-hidden justify-between flex flex-col bottom-0 left-0 top-0 z-[60] h-full min-h-screen bg-black  lg:hidden"
+                className="fixed bottom-0 left-0 top-0 z-[60] flex h-full min-h-screen flex-col justify-between overflow-hidden bg-black  lg:hidden"
                 initial={{ width: 0 }}
                 animate={{
-                  width: "100%",
+                  width: '100%',
                 }}
                 exit={{
                   width: 0,
-                  transition: { ease: "circIn" },
-                }}
-              >
-                <ul className="mt-20 border-t-[0.98px] border-darkSoft flex flex-col justify-center space-y-7 p-5">
+                  transition: { ease: 'circIn' },
+                }}>
+                <ul className="mt-20 flex flex-col justify-center space-y-7 border-t-[0.98px] border-darkSoft p-5">
                   {navLink &&
                     navLink.map((item, i) => (
                       <li key={i}>
@@ -150,17 +147,16 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           to={item.setTo}
                           className={({ isActive }) =>
                             isActive
-                              ? "text-primary text-base font-medium"
-                              : "text-white text-base font-medium"
+                              ? 'text-base font-medium text-primary'
+                              : 'text-base font-medium text-white'
                           }
-                          onClick={() => setToggle(false)}
-                        >
+                          onClick={() => setToggle(false)}>
                           {t(`navbar.menu.${item.code}`)}
                         </NavLink>
                       </li>
                     ))}
                 </ul>
-                <div className="flex  py-5 layout items-center justify-between gap-3">
+                <div className="layout  flex items-center justify-between gap-3 py-5">
                   {/* <div
                     onClick={() => modal.open({ view: "Networks" })}
                     className="cursor-pointer border-animate-wrapper rounded-full w-full h-12 px-20 py-5 "
@@ -197,8 +193,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   </div> */}
                   <ButtonGlow
                     onClick={() => setOpen(!open)}
-                    className="w-12 p-0"
-                  >
+                    className="w-12 p-0">
                     <IcWeb className="text-white" />
                   </ButtonGlow>
                 </div>
@@ -206,35 +201,33 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             )}
           </AnimatePresence>
 
-          <div className="hidden lg:flex lg:items-center lg:justify-center gap-10">
-            <ul className="flex gap-10 text-base  cursor-pointer">
+          <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
+            <ul className="flex cursor-pointer gap-10  text-base">
               {navLink &&
                 navLink.map((item, i) => (
                   <li key={i}>
-                    {item.code === "docs" ? (
+                    {item.code === 'docs' ? (
                       <a
                         target="_blank"
-                        className="text-white text-base font-medium"
-                        href="https://docs.rectover.so/"
-                      >
+                        className="text-base font-medium text-white"
+                        href="https://docs.rectover.so/">
                         {t(`navbar.menu.${item.code}`)}
                       </a>
                     ) : (
                       <NavLink
                         state={{
-                          id: item.name === "Swap" ? "btcusd" : null,
-                          name: item.name === "Swap" ? "BTC/USD" : null,
+                          id: item.name === 'Swap' ? 'btcusd' : null,
+                          name: item.name === 'Swap' ? 'BTC/USD' : null,
                         }}
                         to={{
                           pathname: item.setTo,
                         }}
                         className={({ isActive }) =>
                           isActive
-                            ? "text-primary text-base font-medium"
-                            : "text-white text-base font-medium"
+                            ? 'text-base font-medium text-primary'
+                            : 'text-base font-medium text-white'
                         }
-                        onClick={() => setToggle(false)}
-                      >
+                        onClick={() => setToggle(false)}>
                         {t(`navbar.menu.${item.code}`)}
                       </NavLink>
                     )}
@@ -243,7 +236,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             </ul>
 
             {/* <div onClick={() => setOpenTokenList(!openTokenList)}>test</div> */}
-            <div className="flex gap-2">
+            <div className="flex items-center gap-4">
               {/* <div
                 onClick={() => modal.open({ view: "Networks" })}
                 className="cursor-pointer border-animate-wrapper rounded-full w-full px-28 "
@@ -279,6 +272,11 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                 </div>
               </div> */}
               <ButtonWalletConnectV2 />
+              <div
+                className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark"
+                onClick={() => setOpen(!open)}>
+                <IcWeb className="text-white" />
+              </div>
               {/* <Menu>
                 <>
                   <Menu.Button>
@@ -339,8 +337,14 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
         </div>
       </div>
 
-      <Transition appear show={open} as={Fragment}>
-        <Dialog as="div" className="relative" onClose={() => setOpen(!open)}>
+      <Transition
+        appear
+        show={open}
+        as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative"
+          onClose={() => setOpen(!open)}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -348,8 +352,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+            leaveTo="opacity-0">
             <div className="fixed inset-0 z-[99]  bg-black/50 " />
           </Transition.Child>
 

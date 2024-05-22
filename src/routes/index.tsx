@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
 import {
   CreateStakingPage,
   // Landing,
@@ -11,13 +11,16 @@ import {
   Pool,
   NotFound,
   DummySwap,
-} from "@/pages";
-import { MainMenu } from "./MainMenu";
-import { LayoutDashboard, StakeLayout } from "@/components";
-import { useScrollTop } from "@/hooks";
-import { Dummy } from "@/pages/Dummy";
+} from '@/pages';
+import { MainMenu } from './MainMenu';
+import { LayoutDashboard, StakeLayout } from '@/components';
+import { useScrollTop } from '@/hooks';
+import { Dummy } from '@/pages/Dummy';
+import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
 
 export const RootLayout = () => {
+  const market = usePublicMarket(state => state.market);
+
   useScrollTop();
   // const { chain } = useAccount();
 
@@ -44,7 +47,7 @@ export const RootLayout = () => {
           {/* <Route path="/trade" element={<Trade />} /> */}
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap/:market" element={<Swap />} />
-          <Route path="/market" element={<Pool />} />
+          <Route path="/pool" element={<Pool />} />
           <Route path="/dummy/:market" element={<Dummy />} />
           <Route path="/dummyswap/:market" element={<DummySwap />} />
         </Route>
