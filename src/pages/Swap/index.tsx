@@ -190,7 +190,8 @@ export const Swap = () => {
                   ticker={marketTicker}
                />
                <div className="h-full">
-                  <TradingViewV2 data={marketKLine} />
+                  {/* <TradingViewV2 data={marketKLine} /> */}
+                  <TradingViewV2 />
                </div>
                {/* <TradingView /> */}
             </div>
