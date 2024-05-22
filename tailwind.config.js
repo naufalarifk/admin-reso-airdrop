@@ -26,6 +26,7 @@ export default {
          },
          fontSize: {
             xxs: '10px',
+            xxxs: '8px',
          },
          zIndex: {
             1: 1,

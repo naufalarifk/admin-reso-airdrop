@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode, FC } from 'react';
 
 // import { cn } from "@/utils";
@@ -144,7 +144,7 @@ const SwapSelectToken = ({
                   autoCorrect="off"
                   value={value}
                   id="default-search"
-                  className="block w-2/12 rounded-lg bg-transparent  text-sm  font-semibold text-white outline-none placeholder:text-soft"
+                  className="block w-6/12 rounded-lg bg-transparent  text-sm  font-semibold text-white outline-none placeholder:text-soft"
                   placeholder="0.00"
                />
                <div className="pointer-events-none absolute inset-y-3 right-2 items-center  text-[10px] uppercase  text-soft ">
@@ -172,7 +172,7 @@ const SwapComponent = ({
    const token = localStorage?.getItem('auth');
    const { gas, getPublicGas } = useGasServiceState();
 
-   const [reverse, setReverse] = useState(false);
+   // const [reverse, setReverse] = useState(false);
    const [loading, setLoading] = useState(false);
    const [modalGas, setModalGas] = useState(false);
    //    const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -181,7 +181,7 @@ const SwapComponent = ({
 
    const [gasValue, setGasValue] = useState<Gas | null>(null);
 
-   const [, setSide] = useState(quoteUnit);
+   // const [, setSide] = useState(quoteUnit);
 
    const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
@@ -241,23 +241,23 @@ const SwapComponent = ({
       }
    };
 
-   const calculateUnit = useCallback(() => {
-      return reverse ? quoteUnit : baseUnit;
-   }, [baseUnit, quoteUnit, reverse]);
+   // const calculateUnit = useCallback(() => {
+   //    return reverse ? quoteUnit : baseUnit;
+   // }, [baseUnit, quoteUnit, reverse]);
 
-   const displayUnit = useCallback(() => {
-      return reverse ? baseUnit : quoteUnit;
-   }, [baseUnit, quoteUnit, reverse]);
+   // const displayUnit = useCallback(() => {
+   //    return reverse ? baseUnit : quoteUnit;
+   // }, [baseUnit, quoteUnit, reverse]);
 
-   useEffect(() => {
-      if (reverse) {
-         setTotal((+quantity / LAST).toString());
-         setSide(displayUnit());
-      } else {
-         setSide(displayUnit());
-         setTotal((+quantity * LAST).toString());
-      }
-   }, [quoteUnit, quantity, reverse, displayUnit]);
+   // useEffect(() => {
+   //    if (reverse) {
+   //       setTotal((+quantity / LAST).toString());
+   //       setSide(displayUnit());
+   //    } else {
+   //       setSide(displayUnit());
+   //       setTotal((+quantity * LAST).toString());
+   //    }
+   // }, [quoteUnit, quantity, reverse, displayUnit]);
 
    useEffect(() => {
       getPublicGas();
@@ -265,9 +265,9 @@ const SwapComponent = ({
 
    return (
       <div className="relative max-w-5xl">
-         <div className="relative grid grid-cols-1 gap-16 md:grid-cols-2">
+         <div className="relative grid grid-cols-1 md:grid-cols-2">
             <div className="z-10 mt-5">
-               <div className="mb-4 text-[10px]">Token to Trade</div>
+               <div className="mb-2 text-[10px]">Token to Trade</div>
                <div>
                   {unitLoading ? (
                      <Skeleton>
@@ -275,8 +275,10 @@ const SwapComponent = ({
                      </Skeleton>
                   ) : (
                      <SwapSelectToken
-                        name={reverse ? quoteUnit : baseUnit}
-                        unit={calculateUnit()}
+                        // name={reverse ? quoteUnit : baseUnit}
+                        // unit={calculateUnit()}
+                        name={baseUnit}
+                        unit={''}
                         maxButton={() => ''}
                         disable={!connected}
                         handleInput={handleQuantityChange}
@@ -288,26 +290,28 @@ const SwapComponent = ({
                         <div className="h-4 w-full  bg-dark3" />
                      </Skeleton>
                   ) : (
-                     <div className="mt-2 text-[10px] text-soft">Available balance: {balance}</div>
+                     <div className="text-xxxs my-1 text-soft">
+                        <span className="capitalize">{baseUnit}</span> balance: {balance}
+                     </div>
                   )}
-                  <div className="mt-2 flex items-center justify-between gap-3">
-                     {/* {buttons.map((button, index) => (
+                  {/* <div className="mt-2 flex items-center justify-between gap-3">
+                     {buttons.map((button, index) => (
                         <BalanceButtons
                            key={index}
                            value={button}
                            onClick={() => handleClickButtonPercentage(index)}
                            isActive={index <= activeIndex!}
                         />
-                     ))} */}
-                  </div>
+                     ))}
+                  </div> */}
                </div>
-               <div className="mt-0 flex justify-between">
+               <div className="mt-0">
                   {unitLoading ? (
                      <Skeleton>
                         <div className="h-[5.6rem] w-full  bg-dark3" />
                      </Skeleton>
                   ) : (
-                     <div className="w-full rounded bg-[#5D636F1A] p-2 ">
+                     <div className="w-full rounded bg-[#5D636F1A] p-2">
                         <div className="flex items-center justify-between">
                            <div className="text-[8px] text-soft">
                               {currentType === 'market' ? 'Estimated Price' : 'Price'}
@@ -324,7 +328,7 @@ const SwapComponent = ({
                   )}
                </div>
             </div>
-            <div className="absolute -inset-y-5 inset-x-10 -mt-24 flex items-center justify-center lg:inset-x-20 lg:inset-y-20 lg:-mt-0">
+            {/* <div className="absolute -inset-y-5 inset-x-10 -mt-24 flex items-center justify-center lg:inset-x-20 lg:inset-y-20 lg:-mt-0">
                <div
                   className="mt-12 flex h-8 w-8 rotate-90 cursor-pointer items-center justify-center rounded-lg border-2 border-primary/40 bg-primary/20 text-primary  lg:rotate-0"
                   onClick={() => {
@@ -354,10 +358,10 @@ const SwapComponent = ({
                      </defs>
                   </svg>
                </div>
-            </div>
+            </div> */}
 
-            <div className="mt-5">
-               <div className="mb-4 text-sm">Token to Receive</div>
+            <div className="mt-2">
+               <div className="mb-2 text-xxs">Token to Receive</div>
                <div>
                   {unitLoading ? (
                      <Skeleton>
@@ -365,8 +369,10 @@ const SwapComponent = ({
                      </Skeleton>
                   ) : (
                      <SwapSelectToken
-                        name={reverse ? baseUnit : quoteUnit}
-                        unit={displayUnit()}
+                        // name={reverse ? baseUnit : quoteUnit}
+                        // unit={displayUnit()}
+                        name={quoteUnit}
+                        unit={''}
                         maxButton={() => ''}
                         disable={!connected}
                         handleInput={handleTotalChange}
@@ -377,13 +383,12 @@ const SwapComponent = ({
                      <Skeleton className="mt-2">
                         <div className="h-4 w-full  bg-dark3" />
                      </Skeleton>
-                  ) : (
-                     <div className="mt-2 text-xs text-soft">Available balance: {balance}</div>
-                  )}
+                  ) : // <div className="my-2 text-xxs text-soft">Available balance: {balance}</div>
+                  null}
                </div>
 
-               <div className="mt-5 flex items-center justify-between">
-                  <div className="w-full text-xs text-soft">Gas fee (Network)</div>
+               <div className="mt-2 flex items-center justify-between">
+                  <div className="w-full text-xxs text-soft">Gas fee (Network)</div>
                   {unitLoading ? (
                      <Skeleton className="mt-2 items-end">
                         <div className="h-4 w-full  bg-dark3" />
@@ -391,12 +396,11 @@ const SwapComponent = ({
                   ) : (
                      <div
                         onClick={() => setModalGas(!modalGas)}
-                        className="flex cursor-pointer items-center gap-2 text-xs text-white">
+                        className="flex cursor-pointer items-center gap-2 text-xxs text-white">
                         <span>Medium</span>
                         <button className="rounded bg-dark p-1">
                            <svg
-                              width={16}
-                              height={17}
+                              className="size-3"
                               viewBox="0 0 16 17"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -409,7 +413,7 @@ const SwapComponent = ({
                      </div>
                   )}
                </div>
-               <div className="mt-4 flex flex-wrap gap-1 lg:flex-row lg:flex-nowrap">
+               <div className="mt-1 flex flex-wrap gap-1 lg:flex-row lg:flex-nowrap">
                   {unitLoading ? (
                      Array.from({ length: 3 }).map(() => (
                         <Skeleton>
@@ -418,21 +422,31 @@ const SwapComponent = ({
                      ))
                   ) : (
                      <>
-                        <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                           <div className="whitespace-nowrap text-xxs text-soft">
-                              Service Fee (0.6%):
+                        <div className="mt-2 w-full space-y-1 rounded-lg bg-dark p-1">
+                           <div className="flex justify-between">
+                              <div className="text-xxxs whitespace-nowrap text-soft">
+                                 Service Fee (0.6%):
+                              </div>
+                              <div className="text-xxxs whitespace-nowrap text-white">
+                                 0.00000000
+                              </div>
                            </div>
-                           <div className="whitespace-nowrap text-xxs text-white">0.00000000</div>
-                        </div>
-                        <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                           <div className="whitespace-nowrap text-xxs text-soft">Network Fee:</div>
-                           <div className="whitespace-nowrap text-xxs text-white">0.00000000</div>
-                        </div>
-                        <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                           <div className="whitespace-nowrap text-xxs text-soft">
-                              Total received:
+                           <div className="flex justify-between">
+                              <div className="whitespace-nowrap text-xxs text-soft">
+                                 Network Fee:
+                              </div>
+                              <div className="whitespace-nowrap text-xxs text-white">
+                                 0.00000000
+                              </div>
                            </div>
-                           <div className="whitespace-nowrap text-xxs text-white">0.00000000</div>
+                           <div className="flex justify-between">
+                              <div className="whitespace-nowrap text-xxs text-soft">
+                                 Total received:
+                              </div>
+                              <div className="whitespace-nowrap text-xxs text-white">
+                                 0.00000000
+                              </div>
+                           </div>
                         </div>
                      </>
                   )}
@@ -449,7 +463,7 @@ const SwapComponent = ({
                   {loading ? 'Loading...' : 'Trade'}
                </button>
             ) : (
-               <ButtonWalletConnectV2 className="mt-10 flex w-full items-center justify-center bg-primary hover:bg-primary/75" />
+               <ButtonWalletConnectV2 className="mt-2.5 flex w-full items-center justify-center bg-primary p-3 text-xxs hover:bg-primary/75" />
             )}
 
             <ModalConfirmInstantSwap
@@ -457,8 +471,10 @@ const SwapComponent = ({
                valueReceived={total}
                closeModal={() => setOpenModalConfirm(false)}
                valueSwap={quantity}
-               totalPair={reverse ? baseUnit : quoteUnit}
-               amountPair={reverse ? quoteUnit : baseUnit}
+               // totalPair={reverse ? baseUnit : quoteUnit}
+               // amountPair={reverse ? quoteUnit : baseUnit}
+               totalPair={quoteUnit}
+               amountPair={baseUnit}
                tokenPrice={LAST.toString()}
                type={currentType === 'market' ? 'Instant' : 'Limit'}
                handleSubmit={() => {
