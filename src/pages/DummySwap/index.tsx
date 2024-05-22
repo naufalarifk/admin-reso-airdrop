@@ -206,7 +206,7 @@ export const DummySwap = () => {
                            {market?.map(e => (
                               <div
                                  key={e.base_unit}
-                                 onClick={() => navigate(`/dummyswap/${e.name.replace('/', '-')}`)}
+                                 onClick={() => navigate(`/swap/${e.name.replace('/', '-')}`)}
                                  className={`${
                                     marketId === e.name
                                        ? 'bg-[#20232e]'
