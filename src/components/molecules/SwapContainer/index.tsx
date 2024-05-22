@@ -24,7 +24,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/atoms";
 import { Currencies, Market } from "@/pages/Dummy/types";
 
-export interface TabsData {
+interface TabsData {
   label: string;
   content: ReactNode;
 }
@@ -97,7 +97,7 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
 
   return (
     <>
-      <div className="bg-dark2 relative z-20 flex border-b justify-between  border-b-primary/45">
+      <div className="bg-dark2 relative z-20 flex border-b justify-between lg:justify-start  border-b-primary/45">
         {items.map((tab, idx) => (
           <button
             key={idx}
@@ -523,17 +523,17 @@ const SwapComponent = ({
   );
 };
 
-interface HistorySwapProps {
+interface SwapContainerProps {
   unitLoading: boolean;
   getCurrentPair: Currencies;
   getCurrentMarket: Market;
 }
 
-export const HistorySwap = ({
+export const SwapContainer = ({
   unitLoading,
   getCurrentPair,
   getCurrentMarket,
-}: HistorySwapProps) => {
+}: SwapContainerProps) => {
   const { connected, token } = useWalletStore();
 
   const { orders, cancelOrderById, setOrder } = useListMarketOrder(
@@ -562,8 +562,6 @@ export const HistorySwap = ({
       setCurrentType("limit");
     }
   }, [currentIndex]);
-
-  console.log("current price", getCurrentPair);
 
   const tabs = useMemo(
     () => [

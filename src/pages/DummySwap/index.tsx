@@ -1,8 +1,7 @@
 import Marquee from "react-fast-marquee";
-import { TOKEN_RATE } from "@/constants/data";
+// import { TOKEN_RATE } from "@/constants/data";
 import { OrderBook } from "@/components/dummy/OrderBook";
-import { HistoryTrade } from "@/components";
-import { HistorySwap } from "@/components/molecules/HistorySwap";
+import { HistoryTrade, SwapContainer } from "@/components";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   usePublicMarket,
@@ -22,7 +21,7 @@ import axios, { AxiosResponse } from "axios";
 import { Currencies } from "../Dummy/types";
 import { IcCoinPairs } from "@/assets/icons";
 import { cn } from "@/utils";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition, Popover } from "@headlessui/react";
 
 export const DummySwap = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
@@ -112,19 +111,15 @@ export const DummySwap = () => {
     getData();
   }, [getData]);
 
-  console.log("ejanebkaj", currency);
-
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredData = market.filter((crypto) =>
-    crypto.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = market?.filter((crypto) =>
+    crypto?.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  console.log("handleSearch", handleSearch);
 
   return (
     <>
@@ -210,14 +205,102 @@ export const DummySwap = () => {
 
             {/* End OrderBook */}
             {/*  Trading Chart */}
-
             <div className="flex flex-1 bg-dark2 overflow-hidden rounded-2xl p-4">
               <section className="lg:block hidden w-full">
-                <div
-                  onClick={() => setShowModalMarket(!showModalMarket)}
-                  className="flex space-x-3 items-center cursor-pointer"
-                >
-                  <IcCoinPairs className="bg-dark3 text-white p-1 h-8 w-8 rounded-lg" />
+                <div className="flex space-x-3 items-center cursor-pointer">
+                  <Popover className="relative inline-block text-left">
+                    {({ close }) => (
+                      <>
+                        <div>
+                          <Popover.Button>
+                            <IcCoinPairs className="bg-dark3 text-white p-1 h-8 w-8 rounded-lg" />
+                          </Popover.Button>
+                        </div>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Popover.Panel className="absolute mt-2 w-full max-w-4xl origin-top-right rounded-md bg-dark shadow-lg ring-1 ring-black/5 focus:outline-none">
+                            <div className="transform overflow-hidden w-[450px]  relative bg-dark border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
+                              <div className="mb-5">
+                                <div className="relative flex p-2 border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft">
+                                  <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={handleSearch}
+                                    placeholder="Search for pairs, example: KLV-USDT"
+                                    className="w-full max-w-[410px] text-xs text-soft font-medium block bg-transparent placeholder:font-medium placeholder:text-soft focus:outline-none focus:border-0 placeholder:text-xs "
+                                  />
+                                  <div className="absolute inset-y-0 flex items-center pe-3 end-0">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth={1.5}
+                                      stroke="currentColor"
+                                      className="size-4 text-soft"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex text-[10px] text-soft border-b border-primary/50 pb-2 justify-between items-center">
+                                <div>Pairs</div>
+                                <div>Last Price</div>
+                                <div>Volume 24h</div>
+                              </div>
+                              <div className="space-y-2 mt-3">
+                                {filteredData?.length > 0 ? (
+                                  filteredData?.map((item) => (
+                                    <Popover.Button
+                                      key={item.id}
+                                      onClick={() => {
+                                        setShowModalMarket(false);
+                                        navigate(
+                                          `/dummyswap/${item.name?.replace(
+                                            "/",
+                                            "-"
+                                          )}`
+                                        );
+                                        close;
+                                        setSearchTerm("");
+                                      }}
+                                      className="flex w-full cursor-pointer justify-between"
+                                    >
+                                      <div className="text-soft text-xs lg:text-sm text-left w-full font-medium">
+                                        {item.name}
+                                      </div>
+                                      <div className="text-xs text-green  font-light w-full text-center">
+                                        800
+                                      </div>
+                                      <div className="text-xs text-green font-light w-full text-right">
+                                        500
+                                      </div>
+                                    </Popover.Button>
+                                  ))
+                                ) : (
+                                  <div className="text-sm font-bold text-center py-5 text-soft">
+                                    No Data
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </Popover.Panel>
+                        </Transition>
+                      </>
+                    )}
+                  </Popover>{" "}
+                  {/* Button Market */}
                   {market?.map((e) => (
                     <div
                       key={e.base_unit}
@@ -230,7 +313,7 @@ export const DummySwap = () => {
                           : "bg-transparent border border-[#20232e]"
                       } py-1 px-2 rounded-lg flex space-x-1 items-center cursor-pointer`}
                     >
-                      <div className="relative h-6 w-8 m-1">
+                      <div className="relative rounded-full overflow-hidden object-cover h-6 w-6 m-1">
                         <img
                           src={
                             market[0]?.base_unit === e?.base_unit
@@ -245,8 +328,10 @@ export const DummySwap = () => {
                       <div className="font-semibold">{e.name}</div>
                     </div>
                   ))}
+                  {/* End Button Market */}
                 </div>
-                <div className="flex  gap-7 my-2 items-center">
+
+                <div className="flex gap-7 my-2 items-center">
                   <div>
                     <div className="flex space-x-1 items-center">
                       <div className="text-xl font-semibold">69,398.54</div>
@@ -317,12 +402,12 @@ export const DummySwap = () => {
           </div>
           <div className="h-full">
             {/* Form & Table Swap */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-7">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
               <div className="bg-dark2 p-4 order-2 lg:order-1 rounded-2xl h-[452px]">
                 <HistoryTrade />
               </div>
               <div className="bg-dark2 p-4 order-1 lg:order-2 rounded-2xl h-full lg:h-[452px] overflow-hidden">
-                <HistorySwap
+                <SwapContainer
                   unitLoading={unitLoading}
                   getCurrentPair={getCurrentPair!}
                   getCurrentMarket={getCurrentMarket!}
@@ -335,10 +420,10 @@ export const DummySwap = () => {
       </div>
       <div className="border-t hidden lg:flex border-soft/30 fixed bottom-0 h-5 items-center w-full flex-row text-sm z-20 bg-dark">
         <Marquee>
-          {TOKEN_RATE.map((token) => (
+          {market?.map((token) => (
             <div className="px-2 flex text-xs space-x-5">
               <div>{token.name}</div>
-              <div className="text-green">{token.rate}</div>
+              <div className="text-green">{token.max_price}</div>
             </div>
           ))}
         </Marquee>
@@ -375,8 +460,32 @@ export const DummySwap = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full  max-w-lg transform overflow-hidden  relative bg-dark border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
-                  <div>
-                    <input type="text" />
+                  <div className="mb-5">
+                    <div className="relative flex p-2 border border-soft/20 rounded-lg bg-dark focus:outline-none placeholder:text-soft">
+                      <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                        placeholder="Search for pairs, example: KLV-USDT"
+                        className="w-full max-w-[410px] block bg-transparent placeholder:font-medium placeholder:text-soft focus:outline-none focus:border-0 placeholder:text-xs "
+                      />
+                      <div className="absolute inset-y-0 flex items-center pe-3 end-0">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-4 text-soft"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex text-xs text-soft border-b border-primary/50 pb-2 justify-between items-center">
                     <div>Pairs</div>
@@ -384,28 +493,34 @@ export const DummySwap = () => {
                     <div>Volume 24h</div>
                   </div>
                   <div className="space-y-2 mt-3">
-                    {filteredData?.map((item) => (
-                      <div
-                        key={item.id}
-                        onClick={() => {
-                          navigate(
-                            `/dummyswap/${item.name?.replace("/", "-")}`
-                          );
-                          setShowModalMarket(false);
-                        }}
-                        className="flex cursor-pointer justify-between"
-                      >
-                        <div className="text-soft text-xs w-full font-medium">
-                          {item.name}
+                    {filteredData?.length > 0 ? (
+                      filteredData?.map((item) => (
+                        <div
+                          key={item.id}
+                          onClick={() => {
+                            navigate(
+                              `/dummyswap/${item.name?.replace("/", "-")}`
+                            );
+                            setShowModalMarket(false);
+                          }}
+                          className="flex cursor-pointer justify-between"
+                        >
+                          <div className="text-soft text-xs lg:text-base w-full font-medium">
+                            {item.name}
+                          </div>
+                          <div className="text-xs text-green font-light w-full text-center">
+                            800
+                          </div>
+                          <div className="text-xs text-green font-light w-full text-right">
+                            500
+                          </div>
                         </div>
-                        <div className="text-xs text-soft font-light w-full text-center">
-                          00
-                        </div>
-                        <div className="text-xs text-soft font-light w-full text-right">
-                          00
-                        </div>
+                      ))
+                    ) : (
+                      <div className="text-sm font-bold text-center py-5 text-soft">
+                        No Data
                       </div>
-                    ))}
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

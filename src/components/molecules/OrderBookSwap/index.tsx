@@ -2,7 +2,6 @@ import { IcHandicapAll, IcHandicapBuy, IcHandicapSell } from "@/assets/icons";
 import { Text } from "@/components";
 import { MarketTicker } from "@/pages/Swap/hooks/usePublicMarkets";
 import { OrderBook } from "@/types/components";
-import { useState } from "react";
 
 const SellTab = ({ asks }: { asks: OrderBook["asks"] }) => {
   return (
@@ -65,7 +64,7 @@ export const OrderBookSwap = ({
   const change_percent = Number(ticker?.price_change_percent);
   console.log("change_percent", change_percent);
 
-  const [type, setType] = useState<"default" | "sell" | "buy">("default");
+  // const [type, setType] = useState<"default" | "sell" | "buy">("default");
 
   return (
     <section className="p-4 bg-[#181924] rounded-lg lg:w-1/5 w-full">
