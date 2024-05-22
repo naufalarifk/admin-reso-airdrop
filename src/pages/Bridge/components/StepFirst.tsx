@@ -1,7 +1,7 @@
 import { IcSwapHorizontal } from '@/assets/icons';
 import { Button, SelectToken, Text } from '@/components';
 import { cn } from '@/utils';
-import { memo, useState } from 'react';
+import { memo, startTransition, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface StepFirstProps {
@@ -44,6 +44,12 @@ function StepFirstMemo({
             />
             <button
                type="button"
+               onClick={() => {
+                  startTransition(() => {
+                     setFrom(to);
+                     setTo(from);
+                  });
+               }}
                className="mx-auto mt-11 grid size-12.5 place-items-center rounded-full border-4 border-dark bg-dark2 transition-all duration-300 hover:rotate-180 hover:bg-primary/5">
                <IcSwapHorizontal
                   height="24"
@@ -82,6 +88,7 @@ function StepFirstMemo({
                   value={currency}
                   setValue={setCurrency}
                   wrapperInputClassName={cn('rounded-l-none')}
+                  type="token"
                />
             </div>
          </div>
