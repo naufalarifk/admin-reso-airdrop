@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { ButtonGlow, ButtonWalletConnectV2 } from '@/components';
 // import { AnimatePresence, motion } from "framer-motion";
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation,useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Transition, Dialog } from '@headlessui/react';
 import { langs, Language } from '@/locales/langs';
@@ -15,6 +15,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
    const [toggle, setToggle] = useState(false);
    const [open, setOpen] = useState(false);
    const location = useLocation();
+   const navigate = useNavigate();
 
    const market = usePublicMarket(state => state.market);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
@@ -166,7 +167,9 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                               </li>
                            ))}
                      </ul>
-                     <div className="flex cursor-pointer items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-primary">
+                     <div
+                        onClick={() => navigate('/market')}
+                        className="flex cursor-pointer items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-primary">
                         Create New Market
                      </div>
                   </div>
