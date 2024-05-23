@@ -1,7 +1,6 @@
-import { ChangeEvent, Fragment } from 'react';
+import { ChangeEvent, Fragment, useState, useEffect } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
-import { IcCoinPairs } from '@/assets/icons';
 import { Market } from '@/types/components';
 
 interface SelectMarketSwap {
@@ -20,17 +19,32 @@ export const SelectMarketSwap = ({
    setShowModalMarket,
 }: SelectMarketSwap) => {
    const navigate = useNavigate();
+   const [selected, setSelected] = useState<Market | null>(null);
+   useEffect(() => {
+      if (selected === null) {
+         setSelected(filteredData[0]);
+      }
+   }, [filteredData, selected]);
 
    return (
       <div>
          <Popover className="relative inline-block text-left">
             {({ close }) => (
                <>
-                  <div>
-                     <Popover.Button>
-                        <IcCoinPairs className="h-8 w-8 rounded-lg bg-dark3 p-1 text-white" />
-                     </Popover.Button>
-                  </div>
+                  <Popover.Button className="flex items-center gap-2 rounded-md bg-dark3 px-3 py-1">
+                     {selected?.name}{' '}
+                     <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-3">
+                        <path
+                           fillRule="evenodd"
+                           d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                           clipRule="evenodd"
+                        />
+                     </svg>
+                  </Popover.Button>
                   <Transition
                      as={Fragment}
                      enter="transition ease-out duration-100"
@@ -39,7 +53,7 @@ export const SelectMarketSwap = ({
                      leave="transition ease-in duration-75"
                      leaveFrom="transform opacity-100 scale-100"
                      leaveTo="transform opacity-0 scale-95">
-                     <Popover.Panel className="absolute mt-2 w-full max-w-4xl origin-top-right rounded-md bg-dark shadow-lg ring-1 ring-black/5 focus:outline-none">
+                     <Popover.Panel className="absolute z-20 mt-2 w-full max-w-4xl origin-top-right rounded-md bg-dark shadow-lg ring-1 ring-black/5 focus:outline-none">
                         <div className="relative w-[450px] transform  overflow-hidden rounded-lg border border-soft/15 bg-dark  p-6  shadow-xl transition-all">
                            <div className="mb-5">
                               <div className="relative flex rounded-lg border border-soft/20 bg-dark p-2 placeholder:text-soft focus:outline-none">
@@ -79,13 +93,14 @@ export const SelectMarketSwap = ({
                                        key={item.id}
                                        onClick={() => {
                                           setShowModalMarket(false);
-                                          navigate(`/swap/${item.name?.replace('/', '-')}`);
+                                          navigate(`/trade/${item.name?.replace('/', '-')}`);
                                           close;
+                                          setSelected(item);
                                           setSearchTerm('');
                                        }}
                                        className="flex w-full cursor-pointer justify-between">
                                        <div className="w-full text-left text-xs font-medium text-soft lg:text-sm">
-                                          {item.name}
+                                          {item?.name}
                                        </div>
                                        <div className="w-full text-center  text-xs font-light text-green">
                                           800
