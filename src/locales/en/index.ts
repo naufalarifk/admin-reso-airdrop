@@ -1,11 +1,11 @@
 export const EN_TRANSLATION = {
    navbar: {
       menu: {
-         trade: 'Trades',
+         trade: 'Trade',
          staking: 'Staking',
          swap: 'Swap',
          bridge: 'Bridge',
-         supports: 'Supports',
+         support: 'Support',
          market: 'Market',
          docs: 'Docs',
       },

@@ -104,12 +104,146 @@ export const HistoryTrade = () => {
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Pay
+                                 Amount
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Receive
+                                 Price
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Time
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 TxID
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody className="no-scrollbar divide-y divide-darkSoft/30 overflow-y-scroll">
+                           {listTradeLoading ? (
+                              <tr>
+                                 <td
+                                    className="gap-3 space-y-2 pt-4 text-center"
+                                    colSpan={7}>
+                                    {Array.from({ length: 4 }).map(() => (
+                                       <Skeleton>
+                                          <div className="h-10 w-full  bg-dark3" />
+                                       </Skeleton>
+                                    ))}
+                                 </td>
+                              </tr>
+                           ) : RECENT_TRADES?.length <= 0 ||
+                             RECENT_TRADES === undefined ||
+                             RECENT_TRADES === null ? (
+                              <tr className="h-96">
+                                 <td
+                                    className="py-4   text-center text-gray-200"
+                                    colSpan={12}>
+                                    No Data Available
+                                 </td>
+                              </tr>
+                           ) : (
+                              RECENT_TRADES?.map((item: RecentTrades, i) => (
+                                 <tr key={i}>
+                                    <td className="text-center text-soft">{item.id}</td>
+                                    {/* <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
+                                       {shortenString(item.address, 5, 5)}
+                                    </td> */}
+                                    {/* <td className="text-nowrap px-6 py-4 uppercase text-soft">
+                                       {item.protocol}
+                                    </td> */}
+                                    <td
+                                       className={cn(
+                                          `text-nowrap px-6 py-4 text-center capitalize ${
+                                             item.type === 'buy' ? 'text-success' : 'text-primary'
+                                          }`,
+                                       )}>
+                                       {item.type}
+                                    </td>
+                                    <td className=" px-6 py-4 text-center uppercase text-soft">
+                                       {currId && currId[0].toUpperCase()}{' '}
+                                       {item.transaction.pay.amount}
+                                    </td>
+                                    <td className="px-6 py-4 text-center uppercase text-soft">
+                                       {currId && currId[1].toUpperCase()}{' '}
+                                       {item.transaction.receive.amount}
+                                    </td>
+                                    <td className="px-6 py-4 text-center uppercase text-soft">
+                                       {item.createdAt}
+                                    </td>
+                                    <td className="text-nowrap px-6 py-4 text-center text-primary">
+                                       <div
+                                          // target="_blank"
+                                          className="flex items-center gap-1"
+                                          // href={`https://solscan.io/tx/${item.txId}`}
+                                       >
+                                          {shortenString(item.txId, 5, 5)}
+                                          <svg
+                                             width={12}
+                                             height={12}
+                                             viewBox="0 0 12 12"
+                                             fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                             <path
+                                                d="M8.25 1.125h2.625V3.75m-.563-2.063L7.5 4.5M6.375 1.875H3A1.125 1.125 0 001.875 3v6A1.125 1.125 0 003 10.125h6A1.125 1.125 0 0010.125 9V5.625"
+                                                stroke="#F23F5D"
+                                                strokeWidth={1.5}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                             />
+                                          </svg>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              ))
+                           )}
+                        </tbody>
+                     </table>
+                  </div>
+               </>
+            ),
+         },
+         {
+            label: 'My Open Orders',
+            content: (
+               <>
+                  <div className="no-scrollbar relative max-h-96 overflow-x-hidden">
+                     <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xs uppercase text-soft">
+                           <tr>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 #
+                              </th>
+                              {/* <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Address
+                              </th> */}
+                              {/* <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Protocol
+                              </th> */}
+                              <th
+                                 scope="col"
+                                 className="text-nowrap px-6 py-4">
+                                 Type
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Amount
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Price
                               </th>
                               <th
                                  scope="col"

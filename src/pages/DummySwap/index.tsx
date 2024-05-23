@@ -7,7 +7,7 @@ import {
    SelectMarketSwap,
    SwapContainer,
 } from '@/components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import {
    usePublicMarket,
    usePublicMarketTicker,
@@ -35,7 +35,6 @@ import { HistoryTradeMobile } from '@/components/dummy/HistoryTradeMobile';
 
 export const DummySwap = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
-   const navigate = useNavigate();
    const [showTradingChart, setShowTradingChart] = useState(false);
    const [showModalMarket, setShowModalMarket] = useState(false);
    const [showOrderBook, setShowOrderBook] = useState(true);
@@ -268,26 +267,27 @@ export const DummySwap = () => {
 
                            {/* Button Market */}
                            {market?.map(e => (
-                              <div
+                              <NavLink
                                  key={e.base_unit}
-                                 onClick={() => navigate(`/swap/${e.name.replace('/', '-')}`)}
+                                 to={`/trade/${e.name.replace('/', '-')}`}
                                  className={`${
-                                    marketId === e.name
-                                       ? 'bg-[#20232e]'
-                                       : 'border border-[#20232e] bg-transparent'
-                                 } flex cursor-pointer items-center space-x-1 rounded-lg px-2 py-1`}>
-                                 <div className="relative m-1 h-6 w-6 overflow-hidden rounded-full object-cover">
+                                    marketId?.toLowerCase() ===
+                                    e.name.replace('/', '').toLowerCase()
+                                       ? 'border-primary/50 bg-primary/10'
+                                       : '  border-dark3 bg-dark2'
+                                 } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
+                                 <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover">
                                     <img
                                        src={
                                           market[0]?.base_unit === e?.base_unit
                                              ? `https://s2.coinmarketcap.com/static/img/coins/64x64/28301.png`
                                              : `https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png`
                                        }
-                                       alt="kokom"
+                                       alt="icon"
                                     />
                                  </div>
                                  <div className="font-semibold">{e.name}</div>
-                              </div>
+                              </NavLink>
                            ))}
                            {/* End Button Market */}
                         </div>
@@ -372,10 +372,10 @@ export const DummySwap = () => {
                <div className="hidden h-full lg:block">
                   {/* Form & Table Swap */}
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-                     <div className="order-2 h-[452px] rounded-2xl bg-dark2 p-4 lg:order-1">
+                     <div className="order-2 h-[470px] rounded-2xl bg-dark2 p-4 lg:order-1">
                         <HistoryTrade />
                      </div>
-                     <div className="order-1 h-full overflow-hidden rounded-2xl bg-dark2 p-4 lg:order-2 lg:h-[452px]">
+                     <div className="order-1 h-full overflow-hidden rounded-2xl bg-dark2 p-4 lg:order-2 lg:h-[470px]">
                         <SwapContainer
                            unitLoading={unitLoading}
                            getCurrentPair={getCurrentPair!}
