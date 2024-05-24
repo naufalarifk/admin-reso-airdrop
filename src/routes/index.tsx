@@ -5,12 +5,12 @@ import {
    Staking,
    // Trade,
    Bridge,
-   Swap,
    Terms,
    Privacy,
    Pool,
    NotFound,
    DummySwap,
+   Trade,
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
@@ -39,16 +39,16 @@ export const RootLayout = () => {
 
    return (
       <Routes>
+         {/* <Route path="/" element={<Landing />} /> */}
          <Route
             path="/"
             element={
                <Navigate
-                  to={`/swap/${market?.[0]?.name?.replace('/', '-') || `MEME-USDT`} `}
+                  to={`/trade/${market?.[0]?.name?.replace('/', '-') || `MEME-USDT`} `}
                   replace
                />
             }
          />
-         {/* <Route path="/" element={<Navigate to="/swap/btcusd" replace />} /> */}
          <Route
             path="/terms"
             element={<Terms />}
@@ -63,17 +63,20 @@ export const RootLayout = () => {
                element={<NotFound />}
             />
             <Route element={<LayoutDashboard />}>
-               {/* <Route path="/trade" element={<Trade />} /> */}
+               <Route
+                  path="/tradedummy"
+                  element={<Trade />}
+               />
                <Route
                   path="/bridge"
                   element={<Bridge />}
                />
                <Route
-                  path="/swap/:market"
+                  path="/trade/:market"
                   element={<DummySwap />}
                />
                <Route
-                  path="/pool"
+                  path="/market"
                   element={<Pool />}
                />
                <Route
@@ -82,7 +85,7 @@ export const RootLayout = () => {
                />
                <Route
                   path="/dummyswap/:market"
-                  element={<Swap />}
+                  element={<DummySwap />}
                />
             </Route>
          </Route>

@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { ButtonGlow, ButtonWalletConnectV2 } from '@/components';
 // import { AnimatePresence, motion } from "framer-motion";
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation,useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Transition, Dialog } from '@headlessui/react';
 import { langs, Language } from '@/locales/langs';
@@ -14,6 +14,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
    const { i18n, t } = useTranslation();
    const [toggle, setToggle] = useState(false);
    const [open, setOpen] = useState(false);
+   const location = useLocation();
+   const navigate = useNavigate();
 
    const market = usePublicMarket(state => state.market);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
@@ -28,11 +30,17 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
    }, [getData]);
 
    const navLink = [
+      // {
+      //   id: 0,
+      //   name: "Docs",
+      //   code: "docs",
+      //   setTo: "/",
+      // },
       {
          id: 0,
-         name: 'Docs',
-         code: 'docs',
-         setTo: '/',
+         name: 'Staking',
+         code: 'staking',
+         setTo: '/staking',
       },
       // {
       //   id: 1,
@@ -48,28 +56,28 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
       },
       {
          id: 3,
-         name: 'Swap',
-         setTo: `/swap/${market?.[0]?.name?.replace('/', '-')}`,
-         code: 'swap',
+         name: 'Trade',
+         setTo: `/trade/${market ? market?.[0]?.name?.replace('/', '-') : 'MEME-USDT'}`,
+         code: 'trade',
       },
       {
          id: 4,
-         name: 'Staking',
-         code: 'staking',
-         setTo: '/staking',
-      },
-      {
-         id: 5,
-         name: 'Pool',
-         setTo: '/pool',
-         code: 'pool',
-      },
-      {
-         id: 6,
-         name: 'Supports',
+         name: 'Support',
+         code: 'support',
          setTo: '/support',
-         code: 'supports',
       },
+      // {
+      //   id: 5,
+      //   name: "Market",
+      //   setTo: "/market",
+      //   code: "market",
+      // },
+      // {
+      //   id: 6,
+      //   name: "Supports",
+      //   setTo: "/support",
+      //   code: "supports",
+      // },
    ];
 
    // const modal = useWeb3Modal();
@@ -88,7 +96,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
       h-[70px] w-full items-center bg-dark2 shadow backdrop-blur-lg transition-all   duration-300 ease-in-out">
          <div className={` ${isLanding ? 'layout' : 'layout-dashboard'}`}>
             <div className="flex items-center justify-between">
-               <div className="flex items-center gap-3">
+               <div className="flex items-center gap-3 lg:gap-10">
                   <button
                      type="button"
                      onClick={() => setToggle(!toggle)}
@@ -118,6 +126,53 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         alt=""
                      />
                   </Link>
+                  <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
+                     <ul className="flex cursor-pointer gap-10  text-base">
+                        {navLink &&
+                           navLink.map((item, i) => (
+                              <li key={i}>
+                                 {item.code === 'docs' ? (
+                                    <a
+                                       target="_blank"
+                                       className="text-base font-medium text-white"
+                                       href="https://docs.rectover.so/">
+                                       {t(`navbar.menu.${item.code}`)}
+                                    </a>
+                                 ) : (
+                                    <NavLink
+                                       aria-current="page"
+                                       state={{
+                                          id: item.name === 'Swap' ? 'btcusd' : null,
+                                          name: item.name === 'Swap' ? 'BTC/USD' : null,
+                                       }}
+                                       to={{
+                                          pathname: item.setTo,
+                                       }}
+                                       className={({ isActive }) => {
+                                          if (item.code === 'trade') {
+                                             // Specifically check if the current path starts with `/trade`
+                                             return location.pathname.startsWith('/trade')
+                                                ? 'text-base font-medium text-primary'
+                                                : 'text-base font-medium text-white';
+                                          } else {
+                                             return isActive
+                                                ? 'text-base font-medium text-primary'
+                                                : 'text-base font-medium text-white';
+                                          }
+                                       }}
+                                       onClick={() => setToggle(false)}>
+                                       {t(`navbar.menu.${item.code}`)}
+                                    </NavLink>
+                                 )}
+                              </li>
+                           ))}
+                     </ul>
+                     <div
+                        onClick={() => navigate('/market')}
+                        className="flex cursor-pointer items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-primary">
+                        Create New Market
+                     </div>
+                  </div>
                </div>
                {/* <ButtonConnectWallet
             shortname
@@ -157,40 +212,6 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                               ))}
                         </ul>
                         <div className="layout  flex items-center justify-between gap-3 py-5">
-                           {/* <div
-                    onClick={() => modal.open({ view: "Networks" })}
-                    className="cursor-pointer border-animate-wrapper rounded-full w-full h-12 px-20 py-5 "
-                  >
-                    <div className="border-animate-content w-full gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center">
-                      {chain && (
-                        <div className="flex w-8 h-9  clip-hexa items-center justify-center overflow-hidden bg-neutral-800">
-                          <img
-                            className="w-full h-full"
-                            src={chain?.custom?.icon as string}
-                          />
-                        </div>
-                      )}
-                      {!supportNetwork && isConnected && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                      {chain
-                        ? chain.name
-                        : !supportNetwork && isConnected
-                        ? t("button.network")
-                        : t("button.selectNetwork")}
-                    </div>
-                  </div> */}
                            <ButtonGlow
                               onClick={() => setOpen(!open)}
                               className="w-12 p-0">
@@ -202,75 +223,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                </AnimatePresence>
 
                <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
-                  <ul className="flex cursor-pointer gap-10  text-base">
-                     {navLink &&
-                        navLink.map((item, i) => (
-                           <li key={i}>
-                              {item.code === 'docs' ? (
-                                 <a
-                                    target="_blank"
-                                    className="text-base font-medium text-white"
-                                    href="https://docs.rectover.so/">
-                                    {t(`navbar.menu.${item.code}`)}
-                                 </a>
-                              ) : (
-                                 <NavLink
-                                    state={{
-                                       id: item.name === 'Swap' ? 'btcusd' : null,
-                                       name: item.name === 'Swap' ? 'BTC/USD' : null,
-                                    }}
-                                    to={{
-                                       pathname: item.setTo,
-                                    }}
-                                    className={({ isActive }) =>
-                                       isActive
-                                          ? 'text-base font-medium text-primary'
-                                          : 'text-base font-medium text-white'
-                                    }
-                                    onClick={() => setToggle(false)}>
-                                    {t(`navbar.menu.${item.code}`)}
-                                 </NavLink>
-                              )}
-                           </li>
-                        ))}
-                  </ul>
-
-                  {/* <div onClick={() => setOpenTokenList(!openTokenList)}>test</div> */}
                   <div className="flex items-center gap-4">
-                     {/* <div
-                onClick={() => modal.open({ view: "Networks" })}
-                className="cursor-pointer border-animate-wrapper rounded-full w-full px-28 "
-              >
-                <div className="border-animate-content w-full gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-full flex items-center justify-center">
-                  {chain && (
-                    <div className="flex w-8 h-9  clip-hexa items-center justify-center overflow-hidden bg-neutral-800">
-                      <img
-                        className="w-full h-full"
-                        src={chain?.custom?.icon as string}
-                      />
-                    </div>
-                  )}
-                  {!supportNetwork && isConnected && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )}
-                  {chain
-                    ? chain.name
-                    : !supportNetwork && isConnected
-                      ? t("button.network")
-                      : t("button.selectNetwork")}
-                </div>
-              </div> */}
                      <ButtonWalletConnectV2 />
                      <div
                         className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark"
@@ -366,7 +319,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100 scale-100"
                         leaveTo="opacity-0 scale-95">
-                        <Dialog.Panel className="relative h-full  w-full max-w-xl transform  overflow-hidden rounded-lg border border-soft/15 bg-dark  p-2  shadow-xl transition-all">
+                        <Dialog.Panel className="relative h-full  w-full max-w-3xl transform  overflow-hidden rounded-lg border border-soft/15 bg-dark  p-2  shadow-xl transition-all">
                            <div className="py-6">
                               <div className="text-center font-bold text-white">
                                  {t('tags.language')}
