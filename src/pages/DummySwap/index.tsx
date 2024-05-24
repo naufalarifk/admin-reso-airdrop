@@ -93,7 +93,7 @@ export const DummySwap = () => {
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
    const marketById = market?.find(item => item?.id === marketId);
 
-   console.log('marketById', marketById);
+   // console.log('marketById', marketById);
 
    useEffect(() => {
       getData();
