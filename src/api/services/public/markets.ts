@@ -55,7 +55,6 @@ export async function getMarketList(payload: MarketPayload) {
       const response: AxiosResponse = await baseApi.get(
          `/trade/public/markets${buildQueryString(params)}`,
       );
-      console.log('response', response);
       return response.data;
    } catch (error) {
       console.log(error);
@@ -107,16 +106,34 @@ export async function getMarketKLine(market: string, payload: MarketKLinePayload
    }
 }
 
-export async function getMarketDepth(market: string, limit: number) {
+// export async function getMarketDepth(market: string, limit: number) {
+//    try {
+//       const response: AxiosResponse = await baseApi.get(
+//          `/trade/public/markets/${market}/depth?limit=${limit}`,
+//       );
+
+//       return response.data;
+//    } catch (error) {
+//       console.log(error);
+//    }
+// }
+
+export async function getMarketDepth(
+   market: string,
+   limit: number,
+   setLoading: (isLoading: boolean) => void,
+) {
+   setLoading(true);
    try {
       const response: AxiosResponse = await baseApi.get(
          `/trade/public/markets/${market}/depth?limit=${limit}`,
       );
-      console.log('response DEPTH', response);
-
       return response.data;
    } catch (error) {
       console.log(error);
+      return null;
+   } finally {
+      setLoading(false);
    }
 }
 

@@ -26,7 +26,7 @@ interface NewFormTradeProps {
    market: Market;
 }
 
-export const NewFormTrade = ({
+export const NewFormTradeMobile = ({
    getCurrentMarket,
    unitLoading,
    marketTradePrice,
@@ -41,7 +41,7 @@ export const NewFormTrade = ({
    const tabs = useMemo(
       () => [
          {
-            label: 'Limit Trade',
+            label: 'Limit',
             content: (
                <>
                   <div className="mt-4 space-y-1">
@@ -52,13 +52,13 @@ export const NewFormTrade = ({
                      ) : (
                         <>
                            <div className="flex items-center  justify-between">
-                              <div className="text-xs text-darkSoft">
+                              <div className="text-xxs text-darkSoft">
                                  <span className="mr-1 uppercase">
                                     {getCurrentMarket?.base_unit}
                                  </span>
                                  Balance
                               </div>
-                              <div className="text-xs">
+                              <div className="text-xxs">
                                  0
                                  <span className="ml-1 uppercase">
                                     {getCurrentMarket?.base_unit}
@@ -66,13 +66,13 @@ export const NewFormTrade = ({
                               </div>
                            </div>
                            <div className="flex items-center  justify-between">
-                              <div className="text-xs text-darkSoft">
+                              <div className="text-xxs text-darkSoft">
                                  <span className="mr-1 uppercase">
                                     {getCurrentMarket?.quote_unit}
                                  </span>
                                  Balance
                               </div>
-                              <div className="text-xs text-white">
+                              <div className="text-xxs text-white">
                                  0
                                  <span className="ml-1 uppercase">
                                     {getCurrentMarket?.quote_unit}
@@ -88,33 +88,27 @@ export const NewFormTrade = ({
                            <div className="h-14 w-full  bg-dark3" />
                         </Skeleton>
                      ) : (
-                        // <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
-                        //    <div className="text-base text-darkSoft">Market Price</div>
-                        //    <div className="text-base font-normal text-darkSoft">
-                        //       {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
-                        //    </div>
-                        // </div>
-                        <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
+                        <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
                            <button
                               type="button"
-                              className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                               <IcMinus />
                            </button>
                            <input
                               type="text"
+                              className="w-7/12 bg-transparent text-center text-xxs placeholder:text-xxs focus:outline-none lg:w-full"
+                              placeholder="0"
+                              onChange={() => ''}
                               value={Decimal.format(
                                  +tick?.last ?? 0,
                                  market?.price_precision!,
                                  ',',
                               )}
-                              disabled
-                              className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
-                              placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                            />
 
                            <button
                               type="button"
-                              className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
                               <IcPlus />
                            </button>
                         </div>
@@ -124,26 +118,35 @@ export const NewFormTrade = ({
                            <div className="h-14 w-full  bg-dark3" />
                         </Skeleton>
                      ) : (
-                        <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
+                        <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
                            <button
                               type="button"
-                              className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                               <IcMinus />
                            </button>
                            <input
                               type="text"
                               disabled
-                              className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
+                              className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
                               placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                            />
 
                            <button
                               type="button"
-                              className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                               <IcPlus />
                            </button>
                         </div>
                      )}
+
+                     {/* <div className="relative my-4 flex items-center justify-center">
+                        <div className="w-11/12">
+                           <SliderPercent
+                              range={{ min: 0, max: 100 }}
+                              start={''}
+                           />
+                        </div>
+                     </div> */}
 
                      {unitLoading ? (
                         <Skeleton>
@@ -151,7 +154,7 @@ export const NewFormTrade = ({
                         </Skeleton>
                      ) : (
                         <>
-                           <div className="mt-4 flex items-center justify-between text-xs">
+                           <div className="mt-4 flex items-center justify-between text-xxs">
                               <div className="text-darkSoft">Min Amount</div>
                               <div>
                                  0
@@ -160,26 +163,26 @@ export const NewFormTrade = ({
                                  </span>
                               </div>
                            </div>
-                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
+                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
                               <button
                                  type="button"
-                                 className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                                 className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                                  <IcMinus />
                               </button>
                               <input
                                  type="text"
                                  disabled
-                                 className="w-full bg-transparent text-center placeholder:font-semibold focus:outline-none"
+                                 className="lg:text-xss w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none"
                                  placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                               />
 
                               <button
                                  type="button"
-                                 className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                                 className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                                  <IcPlus />
                               </button>
                            </div>
-                           <div className="mt-4 flex items-center justify-between text-xs">
+                           <div className="mt-4 flex items-center justify-between text-xxs">
                               <div className="text-darkSoft">Fee transaction</div>
                               <div>
                                  0
@@ -195,13 +198,13 @@ export const NewFormTrade = ({
                      {typeAction === 'buy' ? (
                         <button
                            disabled
-                           className=" w-full rounded-full bg-success  py-3 disabled:bg-success/30">
+                           className=" w-full rounded-full bg-success py-2 disabled:bg-success/45    lg:py-3">
                            Buy
                         </button>
                      ) : (
                         <button
                            disabled
-                           className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
+                           className=" w-full rounded-full bg-primary py-2 disabled:bg-primary/30 lg:py-3">
                            Sell
                         </button>
                      )}
@@ -210,7 +213,7 @@ export const NewFormTrade = ({
             ),
          },
          {
-            label: 'Market Trade',
+            label: 'Market',
             content: (
                <>
                   <>
@@ -222,13 +225,13 @@ export const NewFormTrade = ({
                         ) : (
                            <>
                               <div className="flex items-center  justify-between">
-                                 <div className="text-xs text-darkSoft">
+                                 <div className="text-xxs text-darkSoft">
                                     <span className="mr-1 uppercase">
                                        {getCurrentMarket?.base_unit}
                                     </span>
                                     Balance
                                  </div>
-                                 <div className="text-xs">
+                                 <div className="text-xxs">
                                     0
                                     <span className="ml-1 uppercase">
                                        {getCurrentMarket?.base_unit}
@@ -236,13 +239,13 @@ export const NewFormTrade = ({
                                  </div>
                               </div>
                               <div className="flex items-center  justify-between">
-                                 <div className="text-xs text-darkSoft">
+                                 <div className="text-xxs text-darkSoft">
                                     <span className="mr-1 uppercase">
                                        {getCurrentMarket?.quote_unit}
                                     </span>
                                     Balance
                                  </div>
-                                 <div className="text-xs text-white">
+                                 <div className="text-xxs text-white">
                                     0
                                     <span className="ml-1 uppercase">
                                        {getCurrentMarket?.quote_unit}
@@ -258,9 +261,11 @@ export const NewFormTrade = ({
                               <div className="h-14 w-full  bg-dark3" />
                            </Skeleton>
                         ) : (
-                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
-                              <div className="text-xs text-darkSoft">Market Price</div>
-                              <div className="text-sm font-normal text-darkSoft">
+                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4 text-xs">
+                              <div className=" text-xxs text-darkSoft lg:text-base">
+                                 Market Price
+                              </div>
+                              <div className="text-xxs font-normal text-darkSoft lg:text-base">
                                  {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
                               </div>
                            </div>
@@ -270,22 +275,22 @@ export const NewFormTrade = ({
                               <div className="h-14 w-full  bg-dark3" />
                            </Skeleton>
                         ) : (
-                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
+                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
                               <button
                                  type="button"
-                                 className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                                 className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                                  <IcMinus />
                               </button>
                               <input
                                  type="text"
                                  disabled
-                                 className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
+                                 className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
                                  placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                               />
 
                               <button
                                  type="button"
-                                 className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                                 className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                                  <IcPlus />
                               </button>
                            </div>
@@ -297,7 +302,7 @@ export const NewFormTrade = ({
                            </Skeleton>
                         ) : (
                            <>
-                              <div className="mt-4 flex items-center justify-between text-xs">
+                              <div className="mt-4 flex items-center justify-between text-xxs">
                                  <div className="text-darkSoft">Min Amount</div>
                                  <div>
                                     0
@@ -306,26 +311,26 @@ export const NewFormTrade = ({
                                     </span>
                                  </div>
                               </div>
-                              <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
+                              <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:py-4">
                                  <button
                                     type="button"
-                                    className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                                    className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                                     <IcMinus />
                                  </button>
                                  <input
                                     type="text"
                                     disabled
-                                    className="w-full bg-transparent text-center placeholder:font-semibold focus:outline-none"
+                                    className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
                                     placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                                  />
 
                                  <button
                                     type="button"
-                                    className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                                    className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
                                     <IcPlus />
                                  </button>
                               </div>
-                              <div className="mt-4 flex items-center justify-between text-xs">
+                              <div className="mt-4 flex items-center justify-between text-xxs">
                                  <div className="text-darkSoft">Fee transaction</div>
                                  <div>
                                     0
@@ -341,13 +346,13 @@ export const NewFormTrade = ({
                         {typeAction === 'buy' ? (
                            <button
                               disabled
-                              className=" w-full rounded-full  bg-success  py-3 disabled:bg-success/30">
+                              className=" w-full rounded-full bg-success py-2 disabled:bg-success/45   lg:py-3">
                               Buy
                            </button>
                         ) : (
                            <button
                               disabled
-                              className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
+                              className=" w-full rounded-full bg-primary py-2 disabled:bg-primary/30 lg:py-3">
                               Sell
                            </button>
                         )}
@@ -368,14 +373,14 @@ export const NewFormTrade = ({
    );
 
    return (
-      <div className="h-[530px] rounded bg-dark2 p-4 lg:rounded-2xl">
-         <div className="mb-4 flex items-center justify-between gap-4">
+      <div className="h-full min-h-[552px] rounded bg-dark2 p-4 lg:rounded-2xl">
+         <div className="mb-4 flex items-center justify-between gap-2 lg:gap-4">
             <button
                onClick={() => setTypeAction('buy')}
                style={{
                   clipPath: `polygon(10% 0, 100% 0, 100% 77%, 100% 100%, 0 99%, 0 22%)`,
                }}
-               className={`h-10 w-full cursor-pointer rounded-none ${typeAction === 'buy' ? `bg-success` : `bg-dark`}`}>
+               className={`h-8 w-full cursor-pointer rounded-none text-sm uppercase lg:h-10 lg:text-base ${typeAction === 'buy' ? `bg-success` : `bg-dark`}`}>
                Buy
             </button>
             <button
@@ -383,7 +388,7 @@ export const NewFormTrade = ({
                style={{
                   clipPath: `polygon(25% 0%, 100% 0, 100% 77%, 92% 100%, 0 99%, 0 0)`,
                }}
-               className={`h-10 w-full cursor-pointer rounded-none ${typeAction === 'sell' ? `bg-primary` : `bg-dark`}`}>
+               className={`h-8 w-full cursor-pointer  rounded-none text-sm uppercase lg:h-10 lg:text-base ${typeAction === 'sell' ? `bg-primary` : `bg-dark`}`}>
                Sell
             </button>
          </div>

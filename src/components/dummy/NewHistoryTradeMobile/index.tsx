@@ -1,6 +1,8 @@
-import { cn } from '@/utils';
+import { cn, shortenString } from '@/utils';
 import { ReactNode, FC, useState, useRef, useEffect, useMemo } from 'react';
 import { Skeleton } from '@/components';
+import { RECENT_TRADES } from '@/constants/data';
+import { useParams } from 'react-router-dom';
 
 interface TabsData {
    label: string;
@@ -16,26 +18,26 @@ type TabsProps = {
    classNameButtons?: string;
 };
 
-// interface Transaction {
-//    receive: {
-//       name: string;
-//       amount: number;
-//    };
-//    pay: {
-//       name: string;
-//       amount: number;
-//    };
-// }
+interface Transaction {
+   receive: {
+      name: string;
+      amount: number;
+   };
+   pay: {
+      name: string;
+      amount: number;
+   };
+}
 
-// interface RecentTrades {
-//    id: number;
-//    address: string;
-//    protocol: string;
-//    type: string;
-//    createdAt: string; // ISO 8601 format string
-//    transaction: Transaction;
-//    txId: string;
-// }
+interface RecentTrades {
+   id: number;
+   address: string;
+   protocol: string;
+   type: string;
+   createdAt: string; // ISO 8601 format string
+   transaction: Transaction;
+   txId: string;
+}
 
 // interface Holders {
 //    id: number;
@@ -48,15 +50,122 @@ interface NewHistoryTradeProps {
    isLoading?: boolean;
 }
 
-export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
-   // const params = useParams();
+export const NewHistoryTradeMobile = ({ isLoading }: NewHistoryTradeProps) => {
+   const params = useParams();
 
-   // const currId = params?.market?.split('-');
+   const currId = params?.market?.split('-');
 
    const [, setCurrentIndex] = useState(0);
 
    const tabs = useMemo(
       () => [
+         {
+            label: 'Recent Trade',
+            content: (
+               <>
+                  <div className="no-scrollbar relative h-96 max-h-96 overflow-x-hidden">
+                     <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xs uppercase text-soft">
+                           <tr>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Time
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="text-nowrap px-6 py-4">
+                                 Amount
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 Price
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-4">
+                                 TxID
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody className="no-scrollbar divide-y divide-darkSoft/30 overflow-y-scroll">
+                           {isLoading ? (
+                              <tr>
+                                 <td
+                                    className="gap-3 space-y-2 pt-4 text-center"
+                                    colSpan={7}>
+                                    {Array.from({ length: 8 }).map(() => (
+                                       <Skeleton>
+                                          <div className="h-10 w-full  bg-dark3" />
+                                       </Skeleton>
+                                    ))}
+                                 </td>
+                              </tr>
+                           ) : RECENT_TRADES?.length <= 0 ||
+                             RECENT_TRADES === undefined ||
+                             RECENT_TRADES === null ? (
+                              <tr className="h-96">
+                                 <td
+                                    className="py-4 text-center text-gray-200"
+                                    colSpan={12}>
+                                    No Data Available
+                                 </td>
+                              </tr>
+                           ) : (
+                              RECENT_TRADES?.map((item: RecentTrades, i) => (
+                                 <tr key={i}>
+                                    <td className="text-center text-xxs text-soft">
+                                       {item.createdAt}
+                                    </td>
+                                    {/* <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
+                                  {shortenString(item.address, 5, 5)}
+                               </td> */}
+                                    {/* <td className="text-nowrap px-6 py-4 uppercase text-soft">
+                                  {item.protocol}
+                               </td> */}
+
+                                    <td className=" px-6 py-2 text-center text-xxs uppercase text-soft">
+                                       {currId && currId[0].toUpperCase()}{' '}
+                                       {item.transaction.pay.amount}
+                                    </td>
+                                    <td className="px-6 py-2 text-center text-xxs uppercase text-soft">
+                                       {currId && currId[1].toUpperCase()}{' '}
+                                       {item.transaction.receive.amount}
+                                    </td>
+
+                                    <td className="text-nowrap px-6 py-2 text-center text-xxs text-primary">
+                                       <div
+                                          // target="_blank"
+                                          className="flex items-center gap-1"
+                                          // href={`https://solscan.io/tx/${item.txId}`}
+                                       >
+                                          {shortenString(item.txId, 5, 5)}
+                                          <svg
+                                             width={12}
+                                             height={12}
+                                             viewBox="0 0 12 12"
+                                             fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                             <path
+                                                d="M8.25 1.125h2.625V3.75m-.563-2.063L7.5 4.5M6.375 1.875H3A1.125 1.125 0 001.875 3v6A1.125 1.125 0 003 10.125h6A1.125 1.125 0 0010.125 9V5.625"
+                                                stroke="#F23F5D"
+                                                strokeWidth={1.5}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                             />
+                                          </svg>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              ))
+                           )}
+                        </tbody>
+                     </table>
+                  </div>
+               </>
+            ),
+         },
          {
             label: 'My Open Orders',
             content: (
@@ -306,13 +415,13 @@ const Tabs: FC<TabsProps> = ({
 
    return (
       <>
-         <div className="relative grid place-items-center gap-5 border-b  border-b-primary/45 bg-dark2  md:flex  md:justify-between  md:gap-0">
+         <div className="relative grid place-items-center gap-3 overflow-x-scroll border-b  border-b-primary/45 bg-dark2  md:flex  md:justify-between  md:gap-0">
             <div
                className={
                   (cn(
                      `relative flex ${
                         isBetween ? 'items-center justify-between' : 'gap-4'
-                     } rounded-lg  p-1 px-1`,
+                     } px-  rounded-lg p-1`,
                   ),
                   classNameWrapper)
                }>
@@ -324,7 +433,7 @@ const Tabs: FC<TabsProps> = ({
                         ref={(el: HTMLButtonElement | null) =>
                            (tabsRef.current[idx] = el as HTMLButtonElement)
                         }
-                        className={`border-b-2 px-4 py-3 text-center text-xs font-semibold ${
+                        className={`border-b-2 px-4 py-3 text-center text-xxxs font-semibold ${
                            activeTabIndex === idx
                               ? 'border-primary text-white'
                               : 'border-transparent text-soft'

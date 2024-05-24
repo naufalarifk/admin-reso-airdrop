@@ -41,7 +41,6 @@ export const DummySwap = () => {
 
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
-   const currId = params?.market?.split('-')[0]?.toLowerCase();
 
    const market = usePublicMarket(state => state.market);
    const marketTicker = usePublicMarketTicker(state => state.market_ticker);
@@ -56,11 +55,13 @@ export const DummySwap = () => {
    const updateDepth = usePublicMarket(state => state.updateDepth);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
 
+   const [depthLoading, setDepthLoading] = useState(false);
+
    const getData = useCallback(async () => {
       const market = await getMarketList({});
       const k_line = await getMarketKLine(marketId!, {});
       const market_trade = await getMarketTrades(marketId!);
-      const depth = await getMarketDepth(marketId!, 60);
+      const depth = await getMarketDepth(marketId!, 60, setDepthLoading);
       const marketTicker = await getMarketTicker(marketId!);
 
       updateDepth(depth);
@@ -88,7 +89,6 @@ export const DummySwap = () => {
       queryFn: getCurrencies,
    });
 
-   const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
    const marketById = market?.find(item => item?.id === marketId);
@@ -186,14 +186,15 @@ export const DummySwap = () => {
                      </div>
                   </div>
                </div>
+
                {showOrderBook && (
                   <div className="grid grid-cols-2 gap-2 lg:hidden">
                      <div className="block w-full lg:hidden">
                         <OrderBookMobile
                            data={depth}
                            ticker={marketTicker}
-                           currency={currency!}
-                           usdt={usdt!}
+                           market={marketById!}
+                           loading={depthLoading}
                         />
                      </div>
                      <div className="rounded bg-dark2 p-2">
@@ -249,6 +250,7 @@ export const DummySwap = () => {
                         ticker={marketTicker}
                         usdt={usdt!}
                         market={marketById!}
+                        loading={depthLoading}
                      />
                   </div>
 
@@ -300,7 +302,9 @@ export const DummySwap = () => {
                               <div className="flex items-center space-x-1">
                                  <div className="text-xl font-semibold">
                                     {Decimal.format(
-                                       +marketTicker?.ticker?.last ?? 0,
+                                       +marketTicker?.ticker?.last
+                                          ? +marketTicker?.ticker?.last
+                                          : 0,
                                        marketById?.price_precision!,
                                        ',',
                                     )}
@@ -324,7 +328,7 @@ export const DummySwap = () => {
                            </div>
                            <div className="text-xl text-soft/15">|</div>
                            <div>
-                              <div className="text-xs">Change 24h</div>
+                              <div className="text-xs">Change 24H</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {marketTicker?.ticker?.price_change_percent
                                     ? marketTicker?.ticker?.price_change_percent
@@ -335,7 +339,7 @@ export const DummySwap = () => {
                               <div className="text-xs">24h High</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    +marketTicker?.ticker?.high ?? 0,
+                                    +marketTicker?.ticker?.high ? +marketTicker?.ticker?.high : 0,
                                     marketById?.price_precision!,
                                     ',',
                                  )}
@@ -345,7 +349,7 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Low</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    +marketTicker?.ticker?.low ?? 0,
+                                    +marketTicker?.ticker?.low ? +marketTicker?.ticker?.low : 0,
                                     marketById?.price_precision!,
                                     ',',
                                  )}
@@ -355,27 +359,26 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Volume</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    +marketTicker?.ticker?.volume ?? 0,
+                                    +marketTicker?.ticker?.volume
+                                       ? +marketTicker?.ticker?.volume
+                                       : 0,
                                     marketById?.amount_precision!,
                                     ',',
                                  )}
                               </div>
                            </div>
-
                            <div>
                               <div className="text-xs">24h Transaction</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                                 {marketTicker?.ticker?.transactions ?? '0'}
+                                 {marketTicker?.ticker?.transactions
+                                    ? marketTicker?.ticker?.transactions
+                                    : '0'}
                               </div>
                            </div>
-
                            <div>
                               <div className="text-xs">Total Liquidity</div>
-                              <div
-                                 className={getColor(
-                                    marketTicker?.ticker?.price_change_percent ?? '0%',
-                                 )}>
-                                 {getCurrentMarket?.liquidity ?? '0'}
+                              <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
+                                 {getCurrentMarket?.liquidity ? getCurrentMarket?.liquidity : '0'}
                               </div>
                            </div>
                         </div>

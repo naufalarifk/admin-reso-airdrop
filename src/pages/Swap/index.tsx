@@ -54,6 +54,7 @@ export const Swap = () => {
 
    const [openInsufficientBalance, setOpenInsufficientBalance] = useState(false);
    const [openCoinInfo, setOpenCoinInfo] = useState(false);
+   const [depthLoading, setDepthLoading] = useState(false);
 
    const getData = useCallback(async () => {
       const market = await getMarketList({});
@@ -71,7 +72,7 @@ export const Swap = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const depth = await getMarketDepth(marketId!, 60);
+            const depth = await getMarketDepth(marketId!, 60, setDepthLoading);
             const marketTicker = await getMarketTicker(marketId!);
 
             updateDepth(depth);
@@ -173,6 +174,7 @@ export const Swap = () => {
                ticker={marketTicker}
                usdt={usdt!}
                market={marketById!}
+               loading={depthLoading}
             />
             <div
                style={styles}
