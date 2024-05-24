@@ -309,18 +309,26 @@ export const DummySwap = () => {
                                     className={getColor(
                                        marketTicker?.ticker?.price_change_percent,
                                     )}>
-                                    ({marketTicker?.ticker?.price_change_percent ?? '-'})
+                                    (
+                                    {marketTicker?.ticker?.price_change_percent
+                                       ? marketTicker?.ticker?.price_change_percent
+                                       : '0%'}
+                                    )
                                  </div>
                               </div>
                               <div className="mt-1 text-[#90A3BF]">
-                                 {dayjs(marketTicker?.at * 1000).format('MMM DD, YYYY, hh:mm A')}
+                                 {dayjs(
+                                    marketTicker?.at ? marketTicker?.at * 1000 : Date.now(),
+                                 ).format('MMM DD, YYYY, hh:mm A')}
                               </div>
                            </div>
                            <div className="text-xl text-soft/15">|</div>
                            <div>
-                              <div className="text-xs">Change 24H</div>
+                              <div className="text-xs">Change 24h</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                                 {marketTicker?.ticker?.price_change_percent ?? '0%'}
+                                 {marketTicker?.ticker?.price_change_percent
+                                    ? marketTicker?.ticker?.price_change_percent
+                                    : '0%'}
                               </div>
                            </div>
                            <div>
@@ -351,6 +359,13 @@ export const DummySwap = () => {
                                     marketById?.amount_precision!,
                                     ',',
                                  )}
+                              </div>
+                           </div>
+
+                           <div>
+                              <div className="text-xs">24h Transaction</div>
+                              <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
+                                 {marketTicker?.ticker?.transactions ?? '0'}
                               </div>
                            </div>
 
