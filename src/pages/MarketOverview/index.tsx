@@ -112,7 +112,7 @@ export const MarketOverview = () => {
                                 <div className="grid grid-cols-5 bg-[#0E0F19]">
                                     <Text>{item?.name}</Text>
                                     <Text>{item?.ticker?.avg_price.substring(0, 6)}</Text>
-                                    <Text>{item?.ticker?.price_change_percent}</Text>
+                                    <Text className="">{item?.ticker?.price_change_percent}</Text>
                                     <Text>{item?.ticker?.high.substring(0, 6)}/{item?.ticker?.low.substring(0, 6)}</Text>
                                     <Text>{item?.ticker?.volume}</Text>
                                 </div>)
