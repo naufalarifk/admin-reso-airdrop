@@ -148,7 +148,7 @@ export const OrderBook = ({
                <div className="text-base font-normal text-primary">
                   {Decimal.format(+tick?.last ? +tick?.last : 0, market?.price_precision!, ',')}
                </div>
-               <div className="text-xs font-normal text-soft">
+               <div className="text-right text-xs font-normal text-soft">
                   ≈
                   {Decimal.format(
                      +tick?.last ? +tick?.last : 0 / +usdtPrice ? +usdtPrice : 0,
