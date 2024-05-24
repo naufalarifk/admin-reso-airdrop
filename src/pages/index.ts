@@ -10,3 +10,4 @@ export * from "./Privacy";
 export * from "./Pool";
 export * from "./NotFound";
 export * from "./DummySwap";
+export * from "./MarketOverview";

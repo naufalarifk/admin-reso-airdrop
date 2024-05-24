@@ -11,6 +11,7 @@ import {
   Pool,
   NotFound,
   DummySwap,
+  MarketOverview
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
@@ -50,6 +51,7 @@ export const RootLayout = () => {
           <Route path="/bridge" element={<Bridge />} />
           <Route path="/swap/:market" element={<Swap />} />
           <Route path="/market" element={<Pool />} />
+          <Route path="/market-overview" element={<MarketOverview />} />
           <Route path="/dummy/:market" element={<Dummy />} />
           <Route path="/dummyswap/:market" element={<DummySwap />} />
         </Route>

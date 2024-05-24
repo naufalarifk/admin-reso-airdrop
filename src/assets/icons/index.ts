@@ -40,3 +40,6 @@ export * from './IcGas';
 export * from './IcCoinPairs';
 export * from './IcPending';
 export * from './IcTwitter';
+export * from './IcNewListing';
+export * from './IcTopGainers';
+export * from './IcTopMoving';
