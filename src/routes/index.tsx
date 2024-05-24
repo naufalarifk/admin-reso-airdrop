@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import {
   CreateStakingPage,
   // Landing,
@@ -42,7 +42,7 @@ export const RootLayout = () => {
   return (
     <Routes>
       {/* <Route path="/" element={<Landing />} /> */}
-      <Route
+      {/* <Route
         path="/"
         element={
           <Navigate
@@ -50,7 +50,7 @@ export const RootLayout = () => {
             replace
           />
         }
-      />
+      /> */}
       <Route
         path="/terms"
         element={<Terms />}
