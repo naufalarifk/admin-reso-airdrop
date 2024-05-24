@@ -170,7 +170,7 @@ function StepFirstMemo({
             </div>
          </div>
          <div className="grid grid-cols-2">
-            <button
+            {/* <button
                type="button"
                className={cn(
                   'flex h-14 items-center justify-center gap-2 border-b-[3px] bg-[linear-gradient(236deg,_rgba(93,_99,_111,_0.10)_1.26%,_rgba(25,_30,_40,_0.35)_100%)] transition-all duration-300',
@@ -186,7 +186,7 @@ function StepFirstMemo({
                   variant="heading3">
                   0x430Fe34EED7d
                </Text>
-            </button>
+            </button> */}
             <button
                type="button"
                className={cn(
