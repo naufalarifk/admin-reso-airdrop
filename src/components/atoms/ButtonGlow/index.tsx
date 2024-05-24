@@ -18,7 +18,7 @@ export const ButtonGlow = ({
       <div
         onClick={onClick}
         className={cn(
-          `cursor-pointer border-animate-wrapper rounded-full w-[150px]    min-h-[48px]`,
+          `cursor-pointer border-animate-wrapper rounded-full w-[150px] min-h-[48px]`,
           classNameButton
         )}
       >
