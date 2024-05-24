@@ -1,13 +1,7 @@
 import Marquee from 'react-fast-marquee';
 // import { TOKEN_RATE } from "@/constants/data";
 import { OrderBook } from '@/components/dummy/OrderBook';
-import {
-   HistoryTrade,
-   ModalMobileChangeMarket,
-   SelectMarketSwap,
-   Skeleton,
-   SwapContainer,
-} from '@/components';
+import { SelectMarketSwap } from '@/components';
 import { NavLink, useParams } from 'react-router-dom';
 import {
    usePublicMarket,
@@ -25,23 +19,18 @@ import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { Currencies } from '../Dummy/types';
-import { IcCoinPairs } from '@/assets/icons';
-import { cn } from '@/utils';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
 import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
-import { SwapMobileContainer } from '@/components/dummy/SwapMobileContainer';
-import { OrderBookMobile } from '@/components/dummy/OrderBookMobile';
-import { HistoryTradeMobile } from '@/components/dummy/HistoryTradeMobile';
 import { NewFormTrade } from '@/components/dummy/NewFormTrade';
 import { RecentTrades } from '@/components/dummy/RecentTrade';
 import { NewHistoryTrade } from '@/components/dummy/NewHistoryTrade';
 
 export const NewTrade = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
-   const [showTradingChart, setShowTradingChart] = useState(false);
-   const [showModalMarket, setShowModalMarket] = useState(false);
-   const [showOrderBook, setShowOrderBook] = useState(true);
+   // const [showTradingChart, setShowTradingChart] = useState(false);
+   const [, setShowModalMarket] = useState(false);
+   // const [showOrderBook, setShowOrderBook] = useState(true);
 
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
@@ -94,7 +83,8 @@ export const NewTrade = () => {
 
    const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
-   const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
+   // const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
+   const marketById = market?.find(item => item?.id === marketId);
 
    useEffect(() => {
       getData();
@@ -244,8 +234,8 @@ export const NewTrade = () => {
                   <OrderBook
                      data={depth}
                      ticker={marketTicker}
-                     currency={currency!}
                      usdt={usdt!}
+                     market={marketById!}
                   />
                   <NewFormTrade
                      unitLoading={unitLoading}
