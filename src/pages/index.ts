@@ -11,3 +11,4 @@ export * from './Pool';
 export * from './NotFound';
 export * from './DummySwap';
 export * from './NewTrade';
+export * from "./MarketOverview";

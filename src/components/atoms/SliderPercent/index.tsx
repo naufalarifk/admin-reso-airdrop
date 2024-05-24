@@ -14,7 +14,7 @@ export const SliderPercent: FC<NouisliderProps & { length?: number }> = ({
    length,
    ...props
 }) => (
-   <div className="relative z-2 h-6">
+   <div className="relative z-2 h-6  ">
       <Nouislider
          range={range}
          start={start}
@@ -22,14 +22,14 @@ export const SliderPercent: FC<NouisliderProps & { length?: number }> = ({
          tooltips={tooltips}
          connect={connect}
          format={format}
-         className="absolute inset-x-0 top-2.5 h-0.5 cursor-pointer bg-white"
+         className="absolute inset-x-0 top-2.5 h-0.5 cursor-pointer bg-dark3"
          {...props}
       />
-      <div className="pointer-events-none absolute -inset-x-2.5 flex justify-between">
+      <div className="pointer-events-none absolute -inset-x-2.5  flex justify-between">
          {Array.from({ length: length! }).map((_, i) => (
             <span
                key={i}
-               className="size-5 rounded-full bg-darkSoft"
+               className="size-5 rounded-full bg-white/40"
             />
          ))}
       </div>

@@ -3,13 +3,16 @@
    height: 2px;
 }
 
+.noUi-base {
+   position: relative;
+   z-index: 1;
+   background-color: #20212b;
+}
+
 .noUi-target {
    border: none;
    background: #20212b;
    box-shadow: none;
-}
-[data-mode='dark'] .noUi-target {
-   background: #353945;
 }
 
 .noUi-connect {
