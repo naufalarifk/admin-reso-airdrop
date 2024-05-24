@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
    MarketTicker,
@@ -24,6 +24,8 @@ const WebsocketService = () => {
    const reconnectAttemptsRef = useRef(0);
    const wsRef = useRef<WebSocket | null>(null);
    const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+   const [depthLoading, setDepthLoading] = useState(false);
+   console.log('load', depthLoading);
 
    const handleWebSocketMessage = useCallback(
       async (message: any) => {
@@ -82,7 +84,7 @@ const WebsocketService = () => {
                      // Jika previousSequence sama dengan currentSequence atau null, atau previousSequence + 1 sama dengan currentSequence
 
                      // Ambil data depth yang ada
-                     const currentDepth = await getMarketDepth(marketId, 60);
+                     const currentDepth = await getMarketDepth(marketId, 60, setDepthLoading);
 
                      // Jika ada perubahan pada asks
                      if (depthData.asks.length > 0) {
@@ -120,7 +122,7 @@ const WebsocketService = () => {
 
       const streams: string[] = ['global.tickers'];
 
-      if (location.pathname.includes('/swap/')) {
+      if (location.pathname.includes('/trade/')) {
          streams.push(`${marketId}.kline-1m`, `${marketId}.depth`, `${marketId}.trades`);
       }
 

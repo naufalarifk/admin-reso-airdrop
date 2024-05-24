@@ -63,7 +63,7 @@
 
    .layout-main {
       max-width: 99.75rem;
-      @apply mx-auto w-[94.99%]   lg:w-11/12;
+      @apply mx-auto w-[96.99%]  lg:w-[98.99%]   2xl:w-11/12;
    }
 
    .border-animate-wrapper {

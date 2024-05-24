@@ -5,17 +5,20 @@ import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { accumulateVolume, calcMaxVolume } from '@/utils';
 import { Currencies, Market } from '@/pages/Dummy/types';
 import { Decimal } from '@/components/molecules/Decimal';
+import { Skeleton } from '@/components';
 
 export const OrderBook = ({
    data,
    ticker,
    usdt,
    market,
+   loading,
 }: {
    data: { asks: string[][]; bids: [][]; timestamp: number };
    ticker: MarketTicker;
    usdt: Currencies;
    market: Market;
+   loading: boolean;
 }) => {
    const [type, setType] = useState<'default' | 'sell' | 'buy'>('default');
    const [asks, setAsks] = useState<string[][]>([]);
@@ -56,7 +59,7 @@ export const OrderBook = ({
    return (
       <div className="rounded bg-dark2 p-4 lg:rounded-2xl">
          <div className="flex items-center justify-between">
-            <div className="text-lg font-semibold">Order Book</div>
+            <div className="text-xxs font-semibold lg:text-lg">Order Book</div>
             <div className="flex space-x-3">
                <div
                   className={cn(
@@ -77,9 +80,11 @@ export const OrderBook = ({
                </div>
             </div>
          </div>
-         <div className="mb-2 flex justify-between text-xs text-soft">
+         <div className="my-2 flex justify-between text-xxs text-soft lg:mb-2">
             <div className="flex-1">Pice {market?.quote_unit?.toUpperCase()}</div>
-            <div className="flex-1 text-right">Qty {market?.base_unit?.toUpperCase()}</div>
+            <div className="hidden flex-1 text-right lg:block">
+               Qty {market?.base_unit?.toUpperCase()}
+            </div>
             <div className="flex-1 text-right">Total {market?.quote_unit?.toUpperCase()}</div>
          </div>
 
@@ -94,44 +99,61 @@ export const OrderBook = ({
                        ? 'h-[calc(100%-54px)] overflow-scroll'
                        : 'h-0',
                )}>
-               {asks?.map((order, i) => (
-                  <div
-                     key={i}
-                     className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
-                     <div className="flex-1 text-primary">
-                        {Decimal.format(+order?.[0] ?? 0, market?.price_precision!, ',')}
-                     </div>
-                     <div className="flex-1 text-right text-soft">
-                        {Decimal.format(+order?.[1] ?? 0, market?.amount_precision!, ',')}
-                     </div>
-                     <div className="flex-1 text-right text-soft">
-                        {generateTotal(+order?.[0] ?? 0, +order?.[1] ?? 0)}
-                     </div>
+               {loading
+                  ? Array.from({ length: 5 }).map((_, index) => (
+                       <Skeleton key={index}>
+                          <div className="h-[18px] w-full  bg-dark3" />
+                       </Skeleton>
+                    ))
+                  : asks?.map((order, i) => (
+                       <div
+                          key={i}
+                          className="relative flex h-[18px] justify-between pr-1 text-[8px]">
+                          <div className="flex-1 text-primary">
+                             {Decimal.format(
+                                +order?.[0] ? +order?.[0] : 0,
+                                market?.price_precision!,
+                                ',',
+                             )}
+                          </div>
+                          <div className="hidden flex-1 text-right text-soft lg:block">
+                             {Decimal.format(
+                                +order?.[1] ? +order?.[1] : 0,
+                                market?.amount_precision!,
+                                ',',
+                             )}
+                          </div>
+                          <div className="flex-1 text-right text-soft">
+                             {generateTotal(
+                                +order?.[0] ? +order?.[0] : 0,
+                                +order?.[1] ? +order?.[1] : 0,
+                             )}
+                          </div>
 
-                     <div
-                        className="animate-backgroundWidth absolute right-0 h-full bg-primary/15 transition-[width] duration-200 ease-in-out"
-                        style={{
-                           width: `${bgWidthAsks[i]}%`,
-                        }}
-                     />
-                  </div>
-               ))}
+                          <div
+                             className="animate-backgroundWidth absolute right-0 h-full bg-primary/15 transition-[width] duration-200 ease-in-out"
+                             style={{
+                                width: `${bgWidthAsks[i]}%`,
+                             }}
+                          />
+                       </div>
+                    ))}
             </div>
             {/* End Sell */}
 
             {/* Ticker */}
             <div
                className={cn(
-                  'hidden-scroll my-3 flex h-[42px] items-center justify-between rounded-lg bg-dark px-2',
+                  'hidden-scroll my-3 flex h-[42px] items-center justify-center rounded-lg bg-dark px-2 lg:justify-between',
                   type === 'sell' ? 'mb-0' : type === 'buy' ? 'mt-0' : '',
                )}>
-               <div className="text-base font-normal text-primary">
-                  {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
+               <div className="text-xs font-normal text-primary">
+                  {Decimal.format(+tick?.last ? +tick?.last : 0, market?.price_precision!, ',')}
                </div>
-               <div className="text-xs font-normal text-soft">
+               <div className="hidden text-right text-xxxs font-normal text-soft lg:block">
                   ≈
                   {Decimal.format(
-                     +tick?.last ?? 0 / +usdtPrice ?? 0,
+                     +tick?.last ? +tick?.last : 0 / +usdtPrice ? +usdtPrice : 0,
                      market?.price_precision!,
                      ',',
                   )}{' '}
@@ -150,27 +172,44 @@ export const OrderBook = ({
                        ? 'h-[calc(100%-54px)] overflow-scroll'
                        : 'h-0',
                )}>
-               {bids?.map((order, i) => (
-                  <div
-                     key={i}
-                     className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
-                     <div className="flex-1 text-success">
-                        {Decimal.format(+order?.[0] ?? 0, market?.price_precision!, ',')}
-                     </div>
-                     <div className="flex-1 text-right text-soft">
-                        {Decimal.format(+order?.[1] ?? 0, market?.amount_precision!, ',')}
-                     </div>
-                     <div className="flex-1 text-right text-soft">
-                        {generateTotal(+order?.[0] ?? 0, +order?.[1])}
-                     </div>
-                     <div
-                        className="animate-backgroundWidth absolute right-0 h-full bg-success/15 transition-[width] duration-200 ease-in-out"
-                        style={{
-                           width: `${bgWidthBids[i]}%`,
-                        }}
-                     />
-                  </div>
-               ))}
+               {loading
+                  ? Array.from({ length: 5 }).map((_, index) => (
+                       <Skeleton key={index}>
+                          <div className="h-[18px] w-full  bg-dark3" />
+                       </Skeleton>
+                    ))
+                  : bids?.map((order, i) => (
+                       <div
+                          key={i}
+                          className="relative flex h-[18px] justify-between pr-1 text-[8px]">
+                          <div className="flex-1 text-success">
+                             {Decimal.format(
+                                +order?.[0] ? +order?.[0] : 0,
+                                market?.price_precision!,
+                                ',',
+                             )}
+                          </div>
+                          <div className="hidden flex-1 text-right text-soft lg:block">
+                             {Decimal.format(
+                                +order?.[1] ? +order?.[1] : 0,
+                                market?.amount_precision!,
+                                ',',
+                             )}
+                          </div>
+                          <div className="flex-1 text-right text-soft">
+                             {generateTotal(
+                                +order?.[0] ? +order?.[0] : 0,
+                                +order?.[1] ? +order?.[1] : 0,
+                             )}
+                          </div>
+                          <div
+                             className="animate-backgroundWidth absolute right-0 h-full bg-success/15 transition-[width] duration-200 ease-in-out"
+                             style={{
+                                width: `${bgWidthBids[i]}%`,
+                             }}
+                          />
+                       </div>
+                    ))}
             </div>
             {/* End Buy */}
          </div>

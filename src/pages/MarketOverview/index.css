@@ -1,0 +1,10 @@
+/* CSS */
+.overflow-x-scroll::-webkit-scrollbar {
+   width: 0; /* for horizontal scroll bar */
+   height: 0; /* for vertical scroll bar */
+}
+
+/* Optionally, you can also hide scrollbar in Firefox */
+.overflow-x-scroll {
+   scrollbar-width: none; /* for Firefox */
+}
