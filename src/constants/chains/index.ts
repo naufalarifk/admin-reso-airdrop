@@ -1,8 +1,9 @@
 import { bsc } from './bsc';
 import { eth } from './eth';
 import { matic } from './polygon';
+import { sol } from './sol';
 
-const chainMap = { eth, bsc, matic };
+const chainMap = { eth, bsc, matic, sol };
 
 export const chains = Object.values(chainMap);
 

@@ -20,6 +20,7 @@ type SelectTokenProps = {
    value: string;
    setValue: (value: string) => void;
    wrapperInputClassName?: string;
+   isDisabled?: boolean;
 };
 
 const variants = {
@@ -49,6 +50,7 @@ export function SelectToken({
    value,
    setValue,
    wrapperInputClassName,
+   isDisabled,
 }: SelectTokenProps) {
    const [show, setShow] = useState(false);
 
@@ -71,10 +73,13 @@ export function SelectToken({
             )}
             <div
                className={cn(
-                  'flex h-16 cursor-pointer items-center justify-between gap-4 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark px-4',
+                  'flex h-16 cursor-pointer items-center justify-between gap-4 rounded-2xl px-4',
+                  isDisabled
+                     ? 'cursor-not-allowed bg-primary/10'
+                     : 'border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark',
                   wrapperInputClassName,
                )}
-               onClick={() => setShow(true)}>
+               onClick={() => !isDisabled && setShow(true)}>
                <div className="flex items-center gap-2">
                   {(selectedToken || selectedChain) && (
                      <div className="size-6 overflow-hidden rounded-full">
