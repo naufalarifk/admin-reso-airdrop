@@ -327,7 +327,7 @@ export const DummySwap = () => {
                            </div>
                            <div className="text-xl text-soft/15">|</div>
                            <div>
-                              <div className="text-xs">Change 24h</div>
+                              <div className="text-xs">Change 24H</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {marketTicker?.ticker?.price_change_percent
                                     ? marketTicker?.ticker?.price_change_percent
