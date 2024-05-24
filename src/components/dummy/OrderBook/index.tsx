@@ -3,25 +3,24 @@ import { cn } from '@/utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { accumulateVolume, calcMaxVolume } from '@/utils';
-import { Currencies } from '@/pages/Dummy/types';
+import { Currencies, Market } from '@/pages/Dummy/types';
 import { Decimal } from '@/components/molecules/Decimal';
 
 export const OrderBook = ({
    data,
    ticker,
-   currency,
    usdt,
+   market,
 }: {
    data: { asks: string[][]; bids: [][]; timestamp: number };
    ticker: MarketTicker;
-   currency: Currencies;
    usdt: Currencies;
+   market: Market;
 }) => {
    const [type, setType] = useState<'default' | 'sell' | 'buy'>('default');
    const [asks, setAsks] = useState<string[][]>([]);
    const [bids, setBids] = useState<string[][]>([]);
    const tick = ticker?.ticker;
-   const precision = currency?.precision;
    const usdtPrice = usdt?.price;
 
    useEffect(() => {
@@ -30,7 +29,7 @@ export const OrderBook = ({
    }, [data]);
 
    const generateTotal = (price: number, volume: number) => {
-      return Decimal.format(price * volume, precision, ',');
+      return Decimal.format(price * volume, market?.total_precision!, ',');
    };
 
    const mapValues = useCallback(
@@ -79,9 +78,9 @@ export const OrderBook = ({
             </div>
          </div>
          <div className="mb-2 flex justify-between text-xs text-soft">
-            <div className="flex-1">Pice USDT</div>
-            <div className="flex-1 text-right">Qty USDT</div>
-            <div className="flex-1 text-right">Total USDT</div>
+            <div className="flex-1">Pice {market?.quote_unit?.toUpperCase()}</div>
+            <div className="flex-1 text-right">Qty {market?.base_unit?.toUpperCase()}</div>
+            <div className="flex-1 text-right">Total {market?.quote_unit?.toUpperCase()}</div>
          </div>
 
          <div className="flex h-[442px]  flex-col overflow-hidden">
@@ -100,10 +99,10 @@ export const OrderBook = ({
                      key={i}
                      className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
                      <div className="flex-1 text-primary">
-                        {Decimal.format(order?.[0] ?? 0, precision, ',')}
+                        {Decimal.format(+order?.[0] ?? 0, market?.price_precision!, ',')}
                      </div>
                      <div className="flex-1 text-right text-soft">
-                        {Decimal.format(order?.[1] ?? 0, precision, ',')}
+                        {Decimal.format(+order?.[1] ?? 0, market?.amount_precision!, ',')}
                      </div>
                      <div className="flex-1 text-right text-soft">
                         {generateTotal(+order?.[0] ?? 0, +order?.[1])}
@@ -127,10 +126,11 @@ export const OrderBook = ({
                   type === 'sell' ? 'mb-0' : type === 'buy' ? 'mt-0' : '',
                )}>
                <div className="text-base font-normal text-primary">
-                  {Decimal.format(tick?.last ?? 0, precision, ',')}
+                  {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
                </div>
                <div className="text-xs font-normal text-soft">
-                  ≈{Decimal.format(tick?.last / +usdtPrice ?? 0, precision, ',')}USDT
+                  ≈{Decimal.format(+tick?.last / +usdtPrice ?? 0, market?.price_precision!, ',')}{' '}
+                  {market?.quote_unit?.toUpperCase()}
                </div>
             </div>
             {/* End Ticker */}
@@ -150,10 +150,10 @@ export const OrderBook = ({
                      key={i}
                      className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
                      <div className="flex-1 text-success">
-                        {Decimal.format(order?.[0] ?? 0, precision, ',')}
+                        {Decimal.format(+order?.[0] ?? 0, market?.price_precision!, ',')}
                      </div>
                      <div className="flex-1 text-right text-soft">
-                        {Decimal.format(order?.[1] ?? 0, precision, ',')}
+                        {Decimal.format(+order?.[1] ?? 0, market?.amount_precision!, ',')}
                      </div>
                      <div className="flex-1 text-right text-soft">
                         {generateTotal(+order?.[0] ?? 0, +order?.[1])}
