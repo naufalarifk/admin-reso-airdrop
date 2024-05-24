@@ -105,7 +105,7 @@ export const OrderBook = ({
                         {Decimal.format(+order?.[1] ?? 0, market?.amount_precision!, ',')}
                      </div>
                      <div className="flex-1 text-right text-soft">
-                        {generateTotal(+order?.[0] ?? 0, +order?.[1])}
+                        {generateTotal(+order?.[0] ?? 0, +order?.[1] ?? 0)}
                      </div>
 
                      <div
