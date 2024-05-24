@@ -39,6 +39,7 @@ export const NewTrade = () => {
    const [showOrderBook, setShowOrderBook] = useState(true);
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
+   const currId = params?.market?.split('-')[0]?.toLowerCase();
 
    const market = usePublicMarket(state => state.market);
    const marketTicker = usePublicMarketTicker(state => state.market_ticker);
@@ -87,7 +88,9 @@ export const NewTrade = () => {
       queryFn: getCurrencies,
    });
 
+   const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
+   // const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
    const marketById = market?.find(item => item?.id === marketId);
 
    useEffect(() => {
@@ -227,7 +230,7 @@ export const NewTrade = () => {
                               <div className="text-xl font-semibold">
                                  {Decimal.format(
                                     +marketTicker?.ticker?.last ? +marketTicker?.ticker?.last : 0,
-                                    marketById?.price_precision!,
+                                    currency?.precision!,
                                     ',',
                                  )}
                               </div>
@@ -337,7 +340,7 @@ export const NewTrade = () => {
                         loading={depthLoading}
                      />
                      <div>
-                        <div className="hidden lg:block">
+                        <div className="hidden h-[530px] lg:block">
                            <NewFormTrade
                               market={marketById!}
                               marketTradePrice={marketTicker}
