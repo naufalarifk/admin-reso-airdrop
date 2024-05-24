@@ -363,7 +363,7 @@ export const NewFormTrade = ({
    );
 
    return (
-      <div className="rounded bg-dark2 p-4 lg:rounded-2xl">
+      <div className="h-[530px] rounded bg-dark2 p-4 lg:rounded-2xl">
          <div className="mb-4 flex items-center justify-between gap-4">
             <button
                onClick={() => setTypeAction('buy')}
