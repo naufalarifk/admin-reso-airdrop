@@ -1,0 +1,111 @@
+/* noUiSlider */
+.noUi-horizontal {
+   height: 2px;
+}
+
+.noUi-target {
+   border: none;
+   background: #20212b;
+   box-shadow: none;
+}
+[data-mode='dark'] .noUi-target {
+   background: #353945;
+}
+
+.noUi-connect {
+   background: #f23f5d;
+}
+[data-mode='dark'] .noUi-connect {
+   background: #00c076;
+}
+
+.noUi-handle {
+   border: none;
+   box-shadow: none;
+   background: #58bd7d;
+   border-radius: 50%;
+   cursor: grab;
+}
+[data-mode='dark'] .noUi-handle {
+   background: #00c076;
+}
+.noUi-handle:before,
+.noUi-handle:after {
+   display: none;
+}
+
+.noUi-horizontal .noUi-handle {
+   right: 13.999px;
+   top: -10px;
+   width: 20px;
+   height: 20px;
+   border: 4px solid #f23f5d;
+   background: #f4f5f6;
+   box-shadow: 0px 8px 16px -8px rgba(15, 15, 15, 0.2);
+}
+
+.noUi-tooltip {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-width: 40px;
+   padding: 3px 10px;
+   background: #23262f;
+   border-radius: 8px;
+   border: none;
+   font-size: 14px;
+   font-weight: 600;
+   color: #fcfcfd;
+   visibility: hidden;
+   opacity: 0;
+   transition: all 0.2s;
+}
+.noUi-tooltip:before {
+   content: '';
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 0px;
+   height: 0px;
+   border-style: solid;
+   border-width: 4px 4px 0 4px;
+   border-color: #141416 transparent transparent transparent;
+}
+[data-mode='dark'] .noUi-tooltip {
+   background: #353945;
+}
+[data-mode='dark'] .noUi-tooltip:before {
+   width: 0px;
+   height: 0px;
+   border-style: solid;
+   border-width: 4px 4px 0 4px;
+   border-color: #353945 transparent transparent transparent;
+}
+
+.noUi-handle:hover .noUi-tooltip {
+   visibility: visible;
+   opacity: 1;
+}
+
+.noUi-horizontal .noUi-tooltip {
+   bottom: 24px;
+}
+
+.range_time .noUi-horizontal {
+   height: 2px;
+}
+
+.range_time .noUi-handle {
+   top: -11px;
+}
+
+html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
+   right: -12px;
+   outline: none;
+}
+
+.noUi-touch-area {
+   outline: 2px solid transparent !important;
+   outline-offset: 2px !important;
+}
