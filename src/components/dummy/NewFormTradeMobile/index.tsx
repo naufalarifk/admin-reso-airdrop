@@ -91,8 +91,8 @@ export const NewFormTradeMobile = ({
                         <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
                            <button
                               type="button"
-                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                              <IcPlus />
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
+                              <IcMinus />
                            </button>
                            <input
                               type="text"
@@ -105,10 +105,11 @@ export const NewFormTradeMobile = ({
                                  ',',
                               )}
                            />
+
                            <button
                               type="button"
-                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                              <IcMinus />
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
+                              <IcPlus />
                            </button>
                         </div>
                      )}
@@ -121,7 +122,7 @@ export const NewFormTradeMobile = ({
                            <button
                               type="button"
                               className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                              <IcPlus />
+                              <IcMinus />
                            </button>
                            <input
                               type="text"
@@ -129,10 +130,11 @@ export const NewFormTradeMobile = ({
                               className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
                               placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                            />
+
                            <button
                               type="button"
                               className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                              <IcMinus />
+                              <IcPlus />
                            </button>
                         </div>
                      )}
@@ -165,7 +167,7 @@ export const NewFormTradeMobile = ({
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                 <IcPlus />
+                                 <IcMinus />
                               </button>
                               <input
                                  type="text"
@@ -173,10 +175,11 @@ export const NewFormTradeMobile = ({
                                  className="lg:text-xss w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none"
                                  placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                               />
+
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                 <IcMinus />
+                                 <IcPlus />
                               </button>
                            </div>
                            <div className="mt-4 flex items-center justify-between text-xxs">
@@ -276,7 +279,7 @@ export const NewFormTradeMobile = ({
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                 <IcPlus />
+                                 <IcMinus />
                               </button>
                               <input
                                  type="text"
@@ -284,10 +287,11 @@ export const NewFormTradeMobile = ({
                                  className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
                                  placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                               />
+
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                 <IcMinus />
+                                 <IcPlus />
                               </button>
                            </div>
                         )}
@@ -311,7 +315,7 @@ export const NewFormTradeMobile = ({
                                  <button
                                     type="button"
                                     className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                    <IcPlus />
+                                    <IcMinus />
                                  </button>
                                  <input
                                     type="text"
@@ -319,10 +323,11 @@ export const NewFormTradeMobile = ({
                                     className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
                                     placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                                  />
+
                                  <button
                                     type="button"
                                     className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                    <IcMinus />
+                                    <IcPlus />
                                  </button>
                               </div>
                               <div className="mt-4 flex items-center justify-between text-xxs">

@@ -98,7 +98,7 @@ export const NewFormTrade = ({
                            <button
                               type="button"
                               className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                              <IcPlus />
+                              <IcMinus />
                            </button>
                            <input
                               type="text"
@@ -111,10 +111,11 @@ export const NewFormTrade = ({
                               className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
                               placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                            />
+
                            <button
                               type="button"
                               className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                              <IcMinus />
+                              <IcPlus />
                            </button>
                         </div>
                      )}
@@ -127,7 +128,7 @@ export const NewFormTrade = ({
                            <button
                               type="button"
                               className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                              <IcPlus />
+                              <IcMinus />
                            </button>
                            <input
                               type="text"
@@ -135,10 +136,11 @@ export const NewFormTrade = ({
                               className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
                               placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                            />
+
                            <button
                               type="button"
                               className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                              <IcMinus />
+                              <IcPlus />
                            </button>
                         </div>
                      )}
@@ -162,7 +164,7 @@ export const NewFormTrade = ({
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                                 <IcPlus />
+                                 <IcMinus />
                               </button>
                               <input
                                  type="text"
@@ -170,10 +172,11 @@ export const NewFormTrade = ({
                                  className="w-full bg-transparent text-center placeholder:font-semibold focus:outline-none"
                                  placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                               />
+
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                                 <IcMinus />
+                                 <IcPlus />
                               </button>
                            </div>
                            <div className="mt-4 flex items-center justify-between text-xs">
@@ -271,7 +274,7 @@ export const NewFormTrade = ({
                               <button
                                  type="button"
                                  className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                                 <IcPlus />
+                                 <IcMinus />
                               </button>
                               <input
                                  type="text"
@@ -279,10 +282,11 @@ export const NewFormTrade = ({
                                  className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
                                  placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                               />
+
                               <button
                                  type="button"
                                  className="  flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                                 <IcMinus />
+                                 <IcPlus />
                               </button>
                            </div>
                         )}
@@ -306,7 +310,7 @@ export const NewFormTrade = ({
                                  <button
                                     type="button"
                                     className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                                    <IcPlus />
+                                    <IcMinus />
                                  </button>
                                  <input
                                     type="text"
@@ -314,10 +318,11 @@ export const NewFormTrade = ({
                                     className="w-full bg-transparent text-center placeholder:font-semibold focus:outline-none"
                                     placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                                  />
+
                                  <button
                                     type="button"
                                     className="relative flex size-3 cursor-pointer items-center justify-center text-soft  hover:text-primary">
-                                    <IcMinus />
+                                    <IcPlus />
                                  </button>
                               </div>
                               <div className="mt-4 flex items-center justify-between text-xs">
