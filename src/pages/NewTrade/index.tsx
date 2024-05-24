@@ -130,7 +130,7 @@ export const NewTrade = () => {
                         {market?.map(e => (
                            <NavLink
                               key={e.base_unit}
-                              to={`/new/trade/${e.name.replace('/', '-')}`}
+                              to={`/trade/${e.name.replace('/', '-')}`}
                               className={`${
                                  marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
                                     ? 'border-primary/50 bg-primary/10'
@@ -238,6 +238,8 @@ export const NewTrade = () => {
                      market={marketById!}
                   />
                   <NewFormTrade
+                     market={marketById!}
+                     marketTradePrice={marketTicker}
                      unitLoading={unitLoading}
                      getCurrentMarket={getCurrentMarket!}
                   />

@@ -1,5 +1,7 @@
 import { IcMinus, IcPlus } from '@/assets/icons';
-import { Skeleton, SliderPercent } from '@/components';
+import { Skeleton } from '@/components';
+import { Decimal } from '@/components/molecules/Decimal';
+import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { Market } from '@/types/components';
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -20,10 +22,19 @@ type TabsProps = {
 interface NewFormTradeProps {
    unitLoading: boolean;
    getCurrentMarket: Market;
+   marketTradePrice: MarketTicker;
+   market: Market;
 }
 
-export const NewFormTrade = ({ getCurrentMarket, unitLoading }: NewFormTradeProps) => {
+export const NewFormTrade = ({
+   getCurrentMarket,
+   unitLoading,
+   marketTradePrice,
+   market,
+}: NewFormTradeProps) => {
    const [, setCurrentIndex] = useState(0);
+
+   const tick = marketTradePrice?.ticker;
 
    const [typeAction, setTypeAction] = useState<'buy' | 'sell'>('buy');
 
@@ -119,10 +130,14 @@ export const NewFormTrade = ({ getCurrentMarket, unitLoading }: NewFormTradeProp
                         </div>
                      )}
 
-                     <SliderPercent
-                        range={{ min: 0, max: 100 }}
-                        start={''}
-                     />
+                     {/* <div className="relative my-4 flex items-center justify-center">
+                        <div className="w-11/12">
+                           <SliderPercent
+                              range={{ min: 0, max: 100 }}
+                              start={''}
+                           />
+                        </div>
+                     </div> */}
 
                      {unitLoading ? (
                         <Skeleton>
@@ -233,6 +248,9 @@ export const NewFormTrade = ({ getCurrentMarket, unitLoading }: NewFormTradeProp
                         ) : (
                            <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
                               <div className="text-base text-darkSoft">Market Price</div>
+                              <div className="text-base font-normal text-darkSoft">
+                                 {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
+                              </div>
                            </div>
                         )}
                         {unitLoading ? (
@@ -319,7 +337,14 @@ export const NewFormTrade = ({ getCurrentMarket, unitLoading }: NewFormTradeProp
             ),
          },
       ],
-      [getCurrentMarket?.base_unit, getCurrentMarket?.quote_unit, typeAction, unitLoading],
+      [
+         getCurrentMarket?.base_unit,
+         getCurrentMarket?.quote_unit,
+         market?.price_precision,
+         tick?.last,
+         typeAction,
+         unitLoading,
+      ],
    );
 
    return (
