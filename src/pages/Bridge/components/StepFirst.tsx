@@ -1,7 +1,7 @@
 import { IcSwapHorizontal } from '@/assets/icons';
 import { Button, SelectToken, Text } from '@/components';
 import { cn } from '@/utils';
-import { memo, startTransition, useCallback, useState } from 'react';
+import { memo, startTransition, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface StepFirstProps {
@@ -34,19 +34,49 @@ function StepFirstMemo({
    const { t } = useTranslation();
    const [isViaConnectAddress, setIsViaConnectAddress] = useState(true);
 
+   useEffect(() => {
+      if (!!from && !to && from !== 'SOL') {
+         setTo('SOL');
+      }
+   }, [from, setTo, to]);
+
    const handleSwitch = useCallback(() => {
+      if (!to || !from) return;
+
       startTransition(() => {
          setFrom(to);
          setTo(from);
       });
    }, [from, setFrom, setTo, to]);
 
+   const handleSetTokenFrom = useCallback(
+      (value: string) => {
+         if (to === value) {
+            handleSwitch();
+         } else {
+            setFrom(value);
+         }
+      },
+      [handleSwitch, setFrom, to],
+   );
+
+   const handleSetTokenTo = useCallback(
+      (value: string) => {
+         if (from === value) {
+            handleSwitch();
+         } else {
+            setTo(value);
+         }
+      },
+      [from, handleSwitch, setTo],
+   );
+
    return (
       <div className="space-y-6.5">
          <div>
             <SelectToken
                value={from}
-               setValue={setFrom}
+               setValue={handleSetTokenFrom}
                label="From"
             />
             <button
@@ -60,7 +90,7 @@ function StepFirstMemo({
             </button>
             <SelectToken
                value={to}
-               setValue={setTo}
+               setValue={handleSetTokenTo}
                label="To"
             />
          </div>

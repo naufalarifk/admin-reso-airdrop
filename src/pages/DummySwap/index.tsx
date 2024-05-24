@@ -91,6 +91,9 @@ export const DummySwap = () => {
    const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
+   const marketById = market?.find(item => item?.id === marketId);
+
+   // console.log('marketById', marketById);
 
    useEffect(() => {
       getData();
@@ -244,8 +247,8 @@ export const DummySwap = () => {
                      <OrderBook
                         data={depth}
                         ticker={marketTicker}
-                        currency={currency!}
                         usdt={usdt!}
+                        market={marketById!}
                      />
                   </div>
 
@@ -297,8 +300,8 @@ export const DummySwap = () => {
                               <div className="flex items-center space-x-1">
                                  <div className="text-xl font-semibold">
                                     {Decimal.format(
-                                       marketTicker?.ticker?.last ?? 0,
-                                       currency?.precision!,
+                                       +marketTicker?.ticker?.last ?? 0,
+                                       marketById?.price_precision!,
                                        ',',
                                     )}
                                  </div>
@@ -306,26 +309,34 @@ export const DummySwap = () => {
                                     className={getColor(
                                        marketTicker?.ticker?.price_change_percent,
                                     )}>
-                                    ({marketTicker?.ticker?.price_change_percent ?? '-'})
+                                    (
+                                    {marketTicker?.ticker?.price_change_percent
+                                       ? marketTicker?.ticker?.price_change_percent
+                                       : '0%'}
+                                    )
                                  </div>
                               </div>
                               <div className="mt-1 text-[#90A3BF]">
-                                 {dayjs(marketTicker?.at * 1000).format('MMM DD, YYYY, hh:mm A')}
+                                 {dayjs(
+                                    marketTicker?.at ? marketTicker?.at * 1000 : Date.now(),
+                                 ).format('MMM DD, YYYY, hh:mm A')}
                               </div>
                            </div>
                            <div className="text-xl text-soft/15">|</div>
                            <div>
-                              <div className="text-xs">Change 24H</div>
+                              <div className="text-xs">Change 24h</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                                 {marketTicker?.ticker?.price_change_percent ?? '0%'}
+                                 {marketTicker?.ticker?.price_change_percent
+                                    ? marketTicker?.ticker?.price_change_percent
+                                    : '0%'}
                               </div>
                            </div>
                            <div>
                               <div className="text-xs">24h High</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.high ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.high ?? 0,
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -334,8 +345,8 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Low</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.low ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.low ?? 0,
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -344,10 +355,17 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Volume</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.volume ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.volume ?? 0,
+                                    marketById?.amount_precision!,
                                     ',',
                                  )}
+                              </div>
+                           </div>
+
+                           <div>
+                              <div className="text-xs">24h Transaction</div>
+                              <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
+                                 {marketTicker?.ticker?.transactions ?? '0'}
                               </div>
                            </div>
 

@@ -14,7 +14,7 @@ const TradingViewV2 = () => {
    const marketId = params?.market?.replace('-', '');
    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone as any;
 
-   console.log('TIMEZONE', timezone);
+   // console.log('TIMEZONE', timezone);
 
    // useEffect(() => {
    //     const convertedData = data?.map((item: any) => {
