@@ -5,9 +5,11 @@ export const EN_TRANSLATION = {
          staking: 'Staking',
          swap: 'Swap',
          bridge: 'Bridge',
-         support: 'Support',
+         support: 'Community',
          market: 'Market',
          docs: 'Docs',
+         marketoverview: 'Market',
+         createnewmarket: 'Create New Market',
       },
    },
    landing: {

@@ -66,6 +66,18 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
       code: 'support',
       setTo: '/support',
     },
+    {
+      id: 5,
+      name: 'Market Overview',
+      code: 'marketoverview',
+      setTo: '/',
+    },
+    {
+      id: 5,
+      name: 'Create New Market',
+      code: 'createnewmarket',
+      setTo: '/market',
+    },
     // {
     //   id: 5,
     //   name: "Market",
@@ -124,7 +136,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
               />
             </Link>
             <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
-              <ul className="flex cursor-pointer gap-10  text-base">
+              <ul className="flex cursor-pointer gap-10  text-base items-center">
                 {navLink &&
                   navLink.map((item, i) => (
                     <li key={i}>
@@ -135,40 +147,49 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           href="https://docs.rectover.so/">
                           {t(`navbar.menu.${item.code}`)}
                         </a>
-                      ) : (
-                        <NavLink
-                          aria-current="page"
-                          state={{
-                            id: item.name === 'Swap' ? 'btcusd' : null,
-                            name: item.name === 'Swap' ? 'BTC/USD' : null,
-                          }}
-                          to={{
-                            pathname: item.setTo,
-                          }}
-                          className={({ isActive }) => {
-                            if (item.code === 'trade') {
-                              // Specifically check if the current path starts with `/trade`
-                              return location.pathname.startsWith('/trade')
-                                ? 'text-base font-medium text-primary'
-                                : 'text-base font-medium text-white';
-                            } else {
-                              return isActive
-                                ? 'text-base font-medium text-primary'
-                                : 'text-base font-medium text-white';
-                            }
-                          }}
-                          onClick={() => setToggle(false)}>
+                      ) : item.code === 'support' ? (
+                        <a
+                          target="_blank"
+                          className="text-base font-medium text-white"
+                          href="https://t.me/rectoverso_chat">
                           {t(`navbar.menu.${item.code}`)}
-                        </NavLink>
-                      )}
+                        </a>
+                      ) : item.code === 'createnewmarket' ? (
+                        <div
+                          onClick={() => navigate('/market')}
+                          className="flex cursor-pointer items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-primary">
+                          Create New Market
+                        </div>
+                      ) :
+                        (
+                          <NavLink
+                            aria-current="page"
+                            state={{
+                              id: item.name === 'Swap' ? 'btcusd' : null,
+                              name: item.name === 'Swap' ? 'BTC/USD' : null,
+                            }}
+                            to={{
+                              pathname: item.setTo,
+                            }}
+                            className={({ isActive }) => {
+                              if (item.code === 'trade') {
+                                // Specifically check if the current path starts with `/trade`
+                                return location.pathname.startsWith('/trade')
+                                  ? 'text-base font-medium text-primary'
+                                  : 'text-base font-medium text-white';
+                              } else {
+                                return isActive
+                                  ? 'text-base font-medium text-primary'
+                                  : 'text-base font-medium text-white';
+                              }
+                            }}
+                            onClick={() => setToggle(false)}>
+                            {t(`navbar.menu.${item.code}`)}
+                          </NavLink>
+                        )}
                     </li>
                   ))}
               </ul>
-              <div
-                onClick={() => navigate('/market')}
-                className="flex cursor-pointer items-center gap-3 rounded-full bg-primary/10 px-4 py-2 text-primary">
-                Create New Market
-              </div>
             </div>
           </div>
           {/* <ButtonConnectWallet
@@ -327,8 +348,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           <button
                             onClick={() => i18n.changeLanguage(lang.abbr)}
                             className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${i18n.language === lang.abbr
-                                ? 'border-primary'
-                                : 'border-soft/45'
+                              ? 'border-primary'
+                              : 'border-soft/45'
                               }`}>
                             <div>
                               <img
@@ -339,8 +360,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                             </div>
                             <div
                               className={`${i18n.language === lang.abbr
-                                  ? '  text-primary'
-                                  : ' text-white'
+                                ? '  text-primary'
+                                : ' text-white'
                                 } text-sm `}>
                               {lang.nativeName}
                             </div>
