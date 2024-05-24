@@ -129,7 +129,12 @@ export const OrderBook = ({
                   {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
                </div>
                <div className="text-xs font-normal text-soft">
-                  ≈{Decimal.format(+tick?.last / +usdtPrice ?? 0, market?.price_precision!, ',')}{' '}
+                  ≈
+                  {Decimal.format(
+                     +tick?.last ?? 0 / +usdtPrice ?? 0,
+                     market?.price_precision!,
+                     ',',
+                  )}{' '}
                   {market?.quote_unit?.toUpperCase()}
                </div>
             </div>
