@@ -13,3 +13,4 @@ export * from './Slider';
 export * from './NumberInput';
 export * from './Avatar';
 export * from './Skeleton';
+export * from './SliderPercent';

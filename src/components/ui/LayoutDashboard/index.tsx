@@ -7,7 +7,7 @@ export const LayoutDashboard = () => {
       <>
          {/* <HeaderDashboard /> */}
          <Header />
-         <div className="mt-16 flex h-auto overflow-hidden pt-3.5 lg:mt-20 lg:pt-4">
+         <div className="lg:mt-18 mt-16 flex h-auto overflow-hidden pt-3.5">
             {/* <SidebarDashboard /> */}
             <section className="no-scrollbar relative h-full w-full">
                <Outlet />

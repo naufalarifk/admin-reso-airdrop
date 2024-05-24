@@ -120,7 +120,7 @@ const WebsocketService = () => {
 
       const streams: string[] = ['global.tickers'];
 
-      if (location.pathname.includes('/swap/')) {
+      if (location.pathname.includes('/trade/')) {
          streams.push(`${marketId}.kline-1m`, `${marketId}.depth`, `${marketId}.trades`);
       }
 

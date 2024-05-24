@@ -11,6 +11,7 @@ import {
    NotFound,
    DummySwap,
    Trade,
+   NewTrade,
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
@@ -74,6 +75,10 @@ export const RootLayout = () => {
                <Route
                   path="/trade/:market"
                   element={<DummySwap />}
+               />
+               <Route
+                  path="/new/trade/:market"
+                  element={<NewTrade />}
                />
                <Route
                   path="/market"
