@@ -31,7 +31,7 @@ const WebsocketService = () => {
             const data = JSON.parse(message);
 
             if (Object.prototype.hasOwnProperty.call(data, `${marketId}.kline-1m`)) {
-               const klineData = data[`${marketId}.kline-3m`];
+               const klineData = data[`${marketId}.kline-1m`];
                const kLine = await getMarketKLine(marketId, {});
 
                const updates = [...kLine, klineData];
@@ -120,7 +120,7 @@ const WebsocketService = () => {
 
       const streams: string[] = ['global.tickers'];
 
-      if (location.pathname.includes('/swap/')) {
+      if (location.pathname.includes('/trade/')) {
          streams.push(`${marketId}.kline-1m`, `${marketId}.depth`, `${marketId}.trades`);
       }
 

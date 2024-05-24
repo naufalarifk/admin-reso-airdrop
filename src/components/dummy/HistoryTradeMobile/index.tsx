@@ -1,11 +1,14 @@
 import { cn, shortenString } from '@/utils';
 import { ReactNode, FC, useState, useRef, useEffect, useMemo } from 'react';
-import { getMyTradeAction, Trade, useListTrade } from './hooks/useHistoryTrade';
-import { useWalletStore } from '../ButtonConnectWalletV2';
 import { useQuery } from '@tanstack/react-query';
-import { Skeleton } from '@/components';
+import { Skeleton, useWalletStore } from '@/components';
 import { HOLDERS, RECENT_TRADES } from '@/constants/data';
 import { useParams } from 'react-router-dom';
+import {
+   getMyTradeAction,
+   Trade,
+   useListTrade,
+} from '@/components/molecules/HistoryTrade/hooks/useHistoryTrade';
 
 interface TabsData {
    label: string;
@@ -49,7 +52,7 @@ interface Holders {
    quantity: number;
 }
 
-export const HistoryTrade = () => {
+export const HistoryTradeMobile = () => {
    const { connected, token } = useWalletStore();
    const { setListMyTrade, trades } = useListTrade();
 
@@ -79,7 +82,7 @@ export const HistoryTrade = () => {
                <>
                   <div className="no-scrollbar relative max-h-96 overflow-x-hidden">
                      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xs uppercase text-soft">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xxs uppercase text-soft">
                            <tr>
                               <th
                                  scope="col"
@@ -104,12 +107,12 @@ export const HistoryTrade = () => {
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Amount
+                                 Pay
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Price
+                                 Receive
                               </th>
                               <th
                                  scope="col"
@@ -149,7 +152,7 @@ export const HistoryTrade = () => {
                            ) : (
                               RECENT_TRADES?.map((item: RecentTrades, i) => (
                                  <tr key={i}>
-                                    <td className="text-center text-soft">{item.id}</td>
+                                    <td className="text-center text-xxs text-soft">{item.id}</td>
                                     {/* <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
                                        {shortenString(item.address, 5, 5)}
                                     </td> */}
@@ -158,158 +161,25 @@ export const HistoryTrade = () => {
                                     </td> */}
                                     <td
                                        className={cn(
-                                          `text-nowrap px-6 py-4 text-center capitalize ${
-                                             item.type === 'buy' ? 'text-success' : 'text-primary'
-                                          }`,
+                                          `text-nowrap px-6 py-2 text-center text-xxs capitalize`,
+                                          item.type === 'buy'
+                                             ? 'text-xxs text-success'
+                                             : 'text-xxs text-primary',
                                        )}>
                                        {item.type}
                                     </td>
-                                    <td className=" px-6 py-4 text-center uppercase text-soft">
+                                    <td className=" px-6 py-2 text-center text-xxs uppercase text-soft">
                                        {currId && currId[0].toUpperCase()}{' '}
                                        {item.transaction.pay.amount}
                                     </td>
-                                    <td className="px-6 py-4 text-center uppercase text-soft">
+                                    <td className="px-6 py-2 text-center text-xxs uppercase text-soft">
                                        {currId && currId[1].toUpperCase()}{' '}
                                        {item.transaction.receive.amount}
                                     </td>
-                                    <td className="px-6 py-4 text-center uppercase text-soft">
+                                    <td className="px-6 py-2 text-center text-xxs uppercase text-soft">
                                        {item.createdAt}
                                     </td>
-                                    <td className="text-nowrap px-6 py-4 text-center text-primary">
-                                       <div
-                                          // target="_blank"
-                                          className="flex items-center gap-1"
-                                          // href={`https://solscan.io/tx/${item.txId}`}
-                                       >
-                                          {shortenString(item.txId, 5, 5)}
-                                          <svg
-                                             width={12}
-                                             height={12}
-                                             viewBox="0 0 12 12"
-                                             fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                             <path
-                                                d="M8.25 1.125h2.625V3.75m-.563-2.063L7.5 4.5M6.375 1.875H3A1.125 1.125 0 001.875 3v6A1.125 1.125 0 003 10.125h6A1.125 1.125 0 0010.125 9V5.625"
-                                                stroke="#F23F5D"
-                                                strokeWidth={1.5}
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                             />
-                                          </svg>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              ))
-                           )}
-                        </tbody>
-                     </table>
-                  </div>
-               </>
-            ),
-         },
-         {
-            label: 'My Open Orders',
-            content: (
-               <>
-                  <div className="no-scrollbar relative max-h-96 overflow-x-hidden">
-                     <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xs uppercase text-soft">
-                           <tr>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 #
-                              </th>
-                              {/* <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 Address
-                              </th> */}
-                              {/* <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 Protocol
-                              </th> */}
-                              <th
-                                 scope="col"
-                                 className="text-nowrap px-6 py-4">
-                                 Type
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 Amount
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 Price
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 Time
-                              </th>
-                              <th
-                                 scope="col"
-                                 className="px-6 py-4">
-                                 TxID
-                              </th>
-                           </tr>
-                        </thead>
-                        <tbody className="no-scrollbar divide-y divide-darkSoft/30 overflow-y-scroll">
-                           {listTradeLoading ? (
-                              <tr>
-                                 <td
-                                    className="gap-3 space-y-2 pt-4 text-center"
-                                    colSpan={7}>
-                                    {Array.from({ length: 4 }).map(() => (
-                                       <Skeleton>
-                                          <div className="h-10 w-full  bg-dark3" />
-                                       </Skeleton>
-                                    ))}
-                                 </td>
-                              </tr>
-                           ) : RECENT_TRADES?.length <= 0 ||
-                             RECENT_TRADES === undefined ||
-                             RECENT_TRADES === null ? (
-                              <tr className="h-96">
-                                 <td
-                                    className="py-4   text-center text-gray-200"
-                                    colSpan={12}>
-                                    No Data Available
-                                 </td>
-                              </tr>
-                           ) : (
-                              RECENT_TRADES?.map((item: RecentTrades, i) => (
-                                 <tr key={i}>
-                                    <td className="text-center text-soft">{item.id}</td>
-                                    {/* <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
-                                       {shortenString(item.address, 5, 5)}
-                                    </td> */}
-                                    {/* <td className="text-nowrap px-6 py-4 uppercase text-soft">
-                                       {item.protocol}
-                                    </td> */}
-                                    <td
-                                       className={cn(
-                                          `text-nowrap px-6 py-4 text-center capitalize ${
-                                             item.type === 'buy' ? 'text-success' : 'text-primary'
-                                          }`,
-                                       )}>
-                                       {item.type}
-                                    </td>
-                                    <td className=" px-6 py-4 text-center uppercase text-soft">
-                                       {currId && currId[0].toUpperCase()}{' '}
-                                       {item.transaction.pay.amount}
-                                    </td>
-                                    <td className="px-6 py-4 text-center uppercase text-soft">
-                                       {currId && currId[1].toUpperCase()}{' '}
-                                       {item.transaction.receive.amount}
-                                    </td>
-                                    <td className="px-6 py-4 text-center uppercase text-soft">
-                                       {item.createdAt}
-                                    </td>
-                                    <td className="text-nowrap px-6 py-4 text-center text-primary">
+                                    <td className="text-nowrap px-6 py-2 text-center text-xxs text-primary">
                                        <div
                                           // target="_blank"
                                           className="flex items-center gap-1"
@@ -347,7 +217,7 @@ export const HistoryTrade = () => {
                <>
                   <div className="no-scrollbar relative max-h-80 overflow-x-scroll">
                      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                        <thead className="sticky-top-0 bg-dark2 text-xs uppercase text-soft">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xxs uppercase text-soft">
                            <tr>
                               <th
                                  scope="col"
@@ -390,13 +260,15 @@ export const HistoryTrade = () => {
                            ) : (
                               HOLDERS?.map((item: Holders) => (
                                  <tr key={item.id}>
-                                    <td className="whitespace-nowrap px-6 py-4  text-soft">
+                                    <td className="whitespace-nowrap px-6 py-3 text-xxs text-soft">
                                        {item.rank}
                                     </td>
-                                    <td className="px-6 py-4 text-soft">
+                                    <td className="px-6 py-3 text-xxs text-soft">
                                        {shortenString(item.address, 10, 10)}
                                     </td>
-                                    <td className="px-6 py-4 text-soft">{item.quantity}</td>
+                                    <td className="px-6 py-3 text-xxs text-soft">
+                                       {item.quantity}
+                                    </td>
                                  </tr>
                               ))
                            )}
@@ -412,7 +284,100 @@ export const HistoryTrade = () => {
                <>
                   <div className="no-scrollbar relative max-h-80 overflow-x-scroll">
                      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-                        <thead className="sticky top-0 bg-dark2 text-xs uppercase text-soft">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xxs uppercase text-soft">
+                           <tr>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-3">
+                                 Date
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-3">
+                                 Assets
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="text-nowrap px-6 py-3">
+                                 Order ID
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-3">
+                                 Price
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-3">
+                                 Amount
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-3">
+                                 Type
+                              </th>
+                              <th
+                                 scope="col"
+                                 className="px-6 py-3">
+                                 Total
+                              </th>
+                           </tr>
+                        </thead>
+                        <tbody className="no-scrollbar divide-y divide-darkSoft/30">
+                           {listTradeLoading ? (
+                              <tr>
+                                 <td
+                                    className="gap-3 space-y-2 pt-4 text-center"
+                                    colSpan={7}>
+                                    {Array.from({ length: 4 }).map(() => (
+                                       <Skeleton>
+                                          <div className="h-10 w-full bg-dark3" />
+                                       </Skeleton>
+                                    ))}
+                                 </td>
+                              </tr>
+                           ) : trades?.length <= 0 || trades === undefined || trades === null ? (
+                              <tr>
+                                 <td
+                                    className="py-4 pt-28 text-center text-gray-200"
+                                    colSpan={12}>
+                                    No Data Available
+                                 </td>
+                              </tr>
+                           ) : (
+                              trades?.map((item: Trade) => (
+                                 <tr key={item.id}>
+                                    <td className="whitespace-nowrap px-6 py-4 text-xxs">
+                                       {item.created_at}
+                                    </td>
+                                    <td className="px-6 py-4 text-xxs uppercase">{item.market}</td>
+                                    <td className="px-6 py-4 text-center text-xxs">
+                                       {item.order_id}
+                                    </td>
+                                    <td className="px-6 py-4 text-center text-xxs">{item.price}</td>
+                                    <td className="px-6 py-4 text-center text-xxs">
+                                       {item.amount}
+                                    </td>
+                                    <td className="px-6 py-4 text-center text-xxs">
+                                       {item.market_type ?? '-'}
+                                    </td>
+                                    <td className="px-6 py-4 text-right text-xxs">{item.total}</td>
+                                 </tr>
+                              ))
+                           )}
+                        </tbody>
+                     </table>
+                  </div>
+               </>
+            ),
+         },
+         {
+            label: 'Open Order',
+            content: (
+               <>
+                  <div className="no-scrollbar relative max-h-80 overflow-x-scroll">
+                     <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+                        <thead className="sticky top-0 border-b border-soft/20 bg-dark2 text-xxs uppercase text-soft">
                            <tr>
                               <th
                                  scope="col"
@@ -544,7 +509,7 @@ const Tabs: FC<TabsProps> = ({
 
    return (
       <>
-         <div className="relative grid place-items-center gap-5 border-b  border-b-primary/45 bg-dark2  md:flex  md:justify-between  md:gap-0">
+         <div className="relative grid place-items-start gap-5 border-b  border-b-primary/45 bg-dark2  md:flex  md:justify-between  md:gap-0">
             <div
                className={
                   (cn(
@@ -561,7 +526,7 @@ const Tabs: FC<TabsProps> = ({
                      ref={(el: HTMLButtonElement | null) =>
                         (tabsRef.current[idx] = el as HTMLButtonElement)
                      }
-                     className={`border-b-2 px-4 py-3 text-center text-xs font-semibold ${
+                     className={`border-b-2 px-3 py-3 text-center text-xxs font-semibold ${
                         activeTabIndex === idx
                            ? 'border-primary text-white'
                            : 'border-transparent text-soft'

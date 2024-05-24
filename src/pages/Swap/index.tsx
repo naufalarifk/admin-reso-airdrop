@@ -19,7 +19,7 @@ import {
    getMarketTicker,
    getMarketTrades,
 } from '@/api/services/public/markets';
-import { usePublicCurrency } from './hooks/usePublicCurrencies';
+// import { usePublicCurrency } from './hooks/usePublicCurrencies';
 import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
 import { useParams } from 'react-router-dom';
 import { Dummy } from '../Dummy';
@@ -31,27 +31,20 @@ export const Swap = () => {
    const { t } = useTranslation();
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
-   const currId = params?.market?.split('-')[0]?.toLowerCase();
+   // const currId = params?.market?.split('-')[0]?.toLowerCase();
 
    const market = usePublicMarket(state => state.market);
    const marketTicker = usePublicMarketTicker(state => state.market_ticker);
-   const trades = usePublicMarketTrade(state => state.market_trade);
-   const currencies = usePublicCurrency(state => state.currency);
-   const marketKLine = usePublicMarket(state => state.k_line);
-   const marketTrade = usePublicMarketTrade(state => state.market_trade);
+   // const trades = usePublicMarketTrade(state => state.market_trade);
+   // const currencies = usePublicCurrency(state => state.currency);
+   // const marketKLine = usePublicMarket(state => state.k_line);
+   // const marketTrade = usePublicMarketTrade(state => state.market_trade);
    const depth = usePublicMarket(state => state.depth);
    const updateMarketTicker = usePublicMarketTicker(state => state.updateMarketTickerState);
    const updateTradeMarket = usePublicMarketTrade(state => state.updateMarketTradeState);
    const updateKLine = usePublicMarket(state => state.updateKLine);
    const updateDepth = usePublicMarket(state => state.updateDepth);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
-   console.log('currencies', currencies);
-   console.log('market', market);
-   console.log('marketKLine', marketKLine);
-   console.log('trades', trades);
-   console.log('marketTicker', marketTicker);
-   console.log('marketTrade', marketTrade);
-   console.log('depth', depth);
    const styles = {
       borderRadius: `4px`,
       border: `0.5px solid rgba(255, 255, 255, 0.10)`,
@@ -112,9 +105,10 @@ export const Swap = () => {
       queryFn: getCurrencies,
    });
 
-   const currency = listCurrencies?.find(item => item.id === currId);
+   // const currency = listCurrencies?.find(item => item.id === currId);
 
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
+   const marketById = market?.find(item => item?.id === marketId);
 
    const token_rate = [
       {
@@ -177,8 +171,8 @@ export const Swap = () => {
             <OrderBook
                data={depth}
                ticker={marketTicker}
-               currency={currency!}
                usdt={usdt!}
+               market={marketById!}
             />
             <div
                style={styles}

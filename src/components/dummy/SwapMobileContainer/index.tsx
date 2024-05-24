@@ -4,20 +4,24 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode, FC } from 'react';
 
 // import { cn } from "@/utils";
-import { useWalletStore } from '../ButtonConnectWalletV2';
 
-import { getOrder, useListMarketOrder } from './hooks/useMarketOder';
-import { ModalConfirmInstantSwap } from '../ModalConfirmInstantSwap';
 import { baseApi } from '@/api/config';
 import toast from 'react-hot-toast';
-import { ModalGasFee } from '../ModalGasFee';
-import { Gas, useGasServiceState } from '../ModalGasFee/hooks/useGasStore';
-// import { BalanceButtons } from '../ButtonBalancePercentage';
 import { useQuery } from '@tanstack/react-query';
 import { Skeleton } from '@/components/atoms';
 import { Currencies, Market } from '@/pages/Dummy/types';
-import { cn } from '@/utils';
-import { BalanceButtons } from '@/components';
+import { Gas, useGasServiceState } from '@/components/molecules/ModalGasFee/hooks/useGasStore';
+import {
+   ButtonWalletConnectV2,
+   ModalConfirmInstantSwap,
+   ModalGasFee,
+   useWalletStore,
+} from '@/components/molecules';
+import {
+   getOrder,
+   // MarketOrder,
+   useListMarketOrder,
+} from '@/components/molecules/SwapContainer/hooks/useMarketOder';
 
 interface TabsData {
    label: string;
@@ -44,7 +48,6 @@ interface SwapComponentProps {
    connected: boolean;
    pair?: Pair;
    unitLoading: boolean;
-   type: 'buy' | 'sell';
 }
 
 interface SwapSelectTokenProps {
@@ -54,7 +57,6 @@ interface SwapSelectTokenProps {
    unit: string;
    name: string;
    disable?: boolean;
-   isAmount?: boolean;
 }
 
 type Pair = {
@@ -99,7 +101,7 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
                   ref={(el: HTMLButtonElement | null) =>
                      (tabsRef.current[idx] = el as HTMLButtonElement)
                   }
-                  className={`border-b-2 px-3 py-3 text-center  text-xs font-semibold ${
+                  className={`border-b-2 px-3 py-3 text-center  text-[10px] font-semibold ${
                      activeTabIndex === idx
                         ? 'border-primary text-white'
                         : 'border-transparent text-soft'
@@ -121,21 +123,17 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
 };
 
 const SwapSelectToken = ({
-   maxButton,
+   // maxButton,
    handleInput,
    value,
    unit,
    disable,
    name,
-   isAmount = false,
 }: SwapSelectTokenProps) => {
    return (
       <>
          <div className="bg-dark2">
-            <div className="relative w-full rounded-lg bg-dark p-4">
-               <div className="pointer-events-none absolute inset-y-0 top-5 flex h-10 items-center rounded-md bg-neutral-800 px-3 uppercase ">
-                  {unit}
-               </div>
+            <div className="relative w-full rounded-lg bg-dark p-2">
                <input
                   type="string"
                   onChange={e => handleInput(e.target.value)}
@@ -146,19 +144,12 @@ const SwapSelectToken = ({
                   autoCorrect="off"
                   value={value}
                   id="default-search"
-                  className={cn(
-                     `block  rounded-lg bg-transparent p-4 ps-20 text-sm  font-semibold text-white outline-none placeholder:text-soft  md:w-9/12 ${isAmount ? 'w-10/12' : 'w-full'}`,
-                  )}
+                  className="block w-6/12 rounded-lg bg-transparent  text-sm  font-semibold text-white outline-none placeholder:text-soft"
                   placeholder="0.00"
                />
-               {isAmount && (
-                  <button
-                     type="button"
-                     onClick={maxButton}
-                     className="absolute bottom-6 end-5 rounded-lg border border-primary/30  bg-primary/10 p-2 text-xs font-medium text-primary focus:outline-none md:bottom-6 md:end-6 md:text-xs">
-                     MAX
-                  </button>
-               )}
+               <div className="pointer-events-none absolute inset-y-3 right-2 items-center  text-[10px] uppercase  text-soft ">
+                  {unit}
+               </div>
             </div>
          </div>
       </>
@@ -175,7 +166,6 @@ const SwapComponent = ({
    balance,
    unitLoading,
    price,
-   type = 'buy',
 }: SwapComponentProps) => {
    // const location = useLocation();
    // const { token } = useWalletStore();
@@ -185,9 +175,9 @@ const SwapComponent = ({
    // const [reverse, setReverse] = useState(false);
    const [loading, setLoading] = useState(false);
    const [modalGas, setModalGas] = useState(false);
-   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-   const [, setBalance] = useState('');
-   const [buttons] = useState(['0%', '25%', '50%', '75%', 'MAX']);
+   //    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+   //    const [, setBalance] = useState('');
+   //    const [buttons] = useState(['0%', '25%', '50%', '75%', 'MAX']);
 
    const [gasValue, setGasValue] = useState<Gas | null>(null);
 
@@ -200,17 +190,17 @@ const SwapComponent = ({
 
    // const pairName = location.state?.name.split("/");
 
-   const handleClickButtonPercentage = (index: number) => {
-      setActiveIndex(index);
-      const value = buttons[index];
-      let percent = parseInt(value);
-      if (value === 'Max') {
-         percent = 100;
-      }
+   //    const handleClickButtonPercentage = (index: number) => {
+   //       setActiveIndex(index);
+   //       const value = buttons[index];
+   //       let percent = parseInt(value);
+   //       if (value === 'Max') {
+   //          percent = 100;
+   //       }
 
-      const newBalance = (percent / 100) * 1;
-      setBalance(newBalance.toString());
-   };
+   //       const newBalance = (percent / 100) * 1;
+   //       setBalance(newBalance.toString());
+   //    };
 
    const handleQuantityChange = (event: string) => {
       setQuantity(event);
@@ -275,9 +265,9 @@ const SwapComponent = ({
 
    return (
       <div className="relative max-w-5xl">
-         <div className="relative grid grid-cols-1 gap-4 md:grid-cols-2">
+         <div className="relative grid grid-cols-1 md:grid-cols-2">
             <div className="z-10 mt-5">
-               <div className="mb-4 text-sm">Order Price</div>
+               <div className="mb-2 text-[10px]">Token to Trade</div>
                <div>
                   {unitLoading ? (
                      <Skeleton>
@@ -288,9 +278,8 @@ const SwapComponent = ({
                         // name={reverse ? quoteUnit : baseUnit}
                         // unit={calculateUnit()}
                         name={baseUnit}
-                        unit={baseUnit}
+                        unit={''}
                         maxButton={() => ''}
-                        isAmount
                         disable={!connected}
                         handleInput={handleQuantityChange}
                         value={quantity.toString()}
@@ -301,14 +290,11 @@ const SwapComponent = ({
                         <div className="h-4 w-full  bg-dark3" />
                      </Skeleton>
                   ) : (
-                     <div className="mt-2 flex items-center justify-between text-xs text-soft">
-                        <span>Available balance: </span>
-                        <span className="uppercase">
-                           {balance} {baseUnit}
-                        </span>
+                     <div className="text-xxxs my-1 text-soft">
+                        <span className="capitalize">{baseUnit}</span> balance: {balance}
                      </div>
                   )}
-                  <div className="mt-4 flex items-center justify-between gap-3">
+                  {/* <div className="mt-2 flex items-center justify-between gap-3">
                      {buttons.map((button, index) => (
                         <BalanceButtons
                            key={index}
@@ -317,32 +303,30 @@ const SwapComponent = ({
                            isActive={index <= activeIndex!}
                         />
                      ))}
-                  </div>
+                  </div> */}
                </div>
-               {/* {currentType === 'market' && (
-                  <div className="mt-5 flex justify-between gap-4">
-                     {unitLoading ? (
-                        <Skeleton>
-                           <div className="h-[5.6rem] w-full  bg-dark3" />
-                        </Skeleton>
-                     ) : (
-                        <div className="w-full space-y-4 rounded-xl bg-[#5D636F1A] p-4 ">
-                           <div className="flex items-center justify-between">
-                              <div className="text-xs text-soft">
-                                 {currentType === 'market' ? 'Estimated Price' : 'Price'}
-                              </div>
-                              {currentType === 'limit' && (
-                                 <div className="text-xs text-primary">Use Market</div>
-                              )}
+               <div className="mt-0">
+                  {unitLoading ? (
+                     <Skeleton>
+                        <div className="h-[5.6rem] w-full  bg-dark3" />
+                     </Skeleton>
+                  ) : (
+                     <div className="w-full rounded bg-[#5D636F1A] p-2">
+                        <div className="flex items-center justify-between">
+                           <div className="text-[8px] text-soft">
+                              {currentType === 'market' ? 'Estimated Price' : 'Price'}
                            </div>
-                           <div className="flex items-center justify-between">
-                              <div className="text-sm">{price}</div>
-                              <div className="text-xs uppercase text-soft">{quoteUnit}</div>
+                           {currentType === 'limit' && (
+                              <div className="text-xs text-primary">Use Market</div>
+                           )}
+                           <div className="flex items-center justify-between gap-2">
+                              <div className="text-[8px]">{price}</div>
+                              <div className="text-[8px] uppercase text-soft">{quoteUnit}</div>
                            </div>
                         </div>
-                     )}
-                  </div>
-               )} */}
+                     </div>
+                  )}
+               </div>
             </div>
             {/* <div className="absolute -inset-y-5 inset-x-10 -mt-24 flex items-center justify-center lg:inset-x-20 lg:inset-y-20 lg:-mt-0">
                <div
@@ -376,8 +360,8 @@ const SwapComponent = ({
                </div>
             </div> */}
 
-            <div className="mt-5">
-               <div className="mb-4 text-sm">Quantity</div>
+            <div className="mt-2">
+               <div className="mb-2 text-xxs">Token to Receive</div>
                <div>
                   {unitLoading ? (
                      <Skeleton>
@@ -388,7 +372,7 @@ const SwapComponent = ({
                         // name={reverse ? baseUnit : quoteUnit}
                         // unit={displayUnit()}
                         name={quoteUnit}
-                        unit={quoteUnit}
+                        unit={''}
                         maxButton={() => ''}
                         disable={!connected}
                         handleInput={handleTotalChange}
@@ -399,18 +383,12 @@ const SwapComponent = ({
                      <Skeleton className="mt-2">
                         <div className="h-4 w-full  bg-dark3" />
                      </Skeleton>
-                  ) : (
-                     <div className="mt-2 flex items-center justify-between text-xs text-soft">
-                        <span>Available balance: </span>
-                        <span className="uppercase">
-                           {balance} {quoteUnit}
-                        </span>
-                     </div>
-                  )}
+                  ) : // <div className="my-2 text-xxs text-soft">Available balance: {balance}</div>
+                  null}
                </div>
 
-               {/* <div className="mt-5 flex items-center justify-between">
-                  <div className="w-full text-xs text-soft">Gas fee (Network)</div>
+               <div className="mt-2 flex items-center justify-between">
+                  <div className="w-full text-xxs text-soft">Gas fee (Network)</div>
                   {unitLoading ? (
                      <Skeleton className="mt-2 items-end">
                         <div className="h-4 w-full  bg-dark3" />
@@ -418,12 +396,11 @@ const SwapComponent = ({
                   ) : (
                      <div
                         onClick={() => setModalGas(!modalGas)}
-                        className="flex cursor-pointer items-center gap-2 text-xs text-white">
+                        className="flex cursor-pointer items-center gap-2 text-xxs text-white">
                         <span>Medium</span>
                         <button className="rounded bg-dark p-1">
                            <svg
-                              width={16}
-                              height={17}
+                              className="size-3"
                               viewBox="0 0 16 17"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -435,8 +412,8 @@ const SwapComponent = ({
                         </button>
                      </div>
                   )}
-               </div> */}
-               <div className="mt-4 flex flex-wrap gap-1 lg:flex-row lg:flex-nowrap">
+               </div>
+               <div className="mt-1 flex flex-wrap gap-1 lg:flex-row lg:flex-nowrap">
                   {unitLoading ? (
                      Array.from({ length: 3 }).map(() => (
                         <Skeleton>
@@ -445,74 +422,40 @@ const SwapComponent = ({
                      ))
                   ) : (
                      <>
-                        {currentType === 'limit' ? (
-                           <>
-                              <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                                 <div className="whitespace-nowrap text-xxs text-soft">
-                                    Service Fee (0.6%):
-                                 </div>
-                                 <div className="whitespace-nowrap text-xxs uppercase text-white">
-                                    0.00000000 {baseUnit}
-                                 </div>
+                        <div className="mt-2 w-full space-y-1 rounded-lg bg-dark p-1">
+                           <div className="flex justify-between">
+                              <div className="text-xxxs whitespace-nowrap text-soft">
+                                 Service Fee (0.6%):
                               </div>
-                              <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                                 <div className="whitespace-nowrap text-xxs text-soft">
-                                    Price Impact:
-                                 </div>
-                                 <div className="whitespace-nowrap text-xxs text-white">5 %</div>
+                              <div className="text-xxxs whitespace-nowrap text-white">
+                                 0.00000000
                               </div>
-                              <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                                 <div className="whitespace-nowrap text-xxs text-soft">
-                                    Estimated received:
-                                 </div>
-                                 <div className="whitespace-nowrap text-xxs uppercase text-white">
-                                    0.00000000 {quoteUnit}
-                                 </div>
+                           </div>
+                           <div className="flex justify-between">
+                              <div className="whitespace-nowrap text-xxs text-soft">
+                                 Network Fee:
                               </div>
-                           </>
-                        ) : (
-                           <>
-                              <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                                 <div className="whitespace-nowrap text-xxs text-soft">
-                                    Spent Amount:
-                                 </div>
-                                 <div className="whitespace-nowrap text-xxs uppercase text-white">
-                                    0.00000000 {baseUnit}
-                                 </div>
+                              <div className="whitespace-nowrap text-xxs text-white">
+                                 0.00000000
                               </div>
-                              <div className="w-full space-y-2 rounded-lg bg-dark p-1 text-center">
-                                 <div className="whitespace-nowrap text-xxs text-soft">
-                                    Estimated received:
-                                 </div>
-                                 <div className="whitespace-nowrap text-xxs uppercase text-white">
-                                    0.00000000 {quoteUnit}
-                                 </div>
+                           </div>
+                           <div className="flex justify-between">
+                              <div className="whitespace-nowrap text-xxs text-soft">
+                                 Total received:
                               </div>
-                           </>
-                        )}
+                              <div className="whitespace-nowrap text-xxs text-white">
+                                 0.00000000
+                              </div>
+                           </div>
+                        </div>
                      </>
                   )}
                </div>
             </div>
          </div>
 
-         <div className="mt-4">
-            {type === 'buy' ? (
-               <button
-                  disabled={+quantity <= 0 || loading}
-                  onClick={() => setOpenModalConfirm(!openModalConfirm)}
-                  className=" w-full rounded-full bg-success  py-3 disabled:bg-success/30">
-                  {loading ? 'Loading...' : 'Buy'}
-               </button>
-            ) : (
-               <button
-                  disabled={+quantity <= 0 || loading}
-                  onClick={() => setOpenModalConfirm(!openModalConfirm)}
-                  className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
-                  {loading ? 'Loading...' : 'Sell'}
-               </button>
-            )}
-            {/* {connected ? (
+         <div>
+            {connected ? (
                <button
                   disabled={+quantity <= 0 || loading}
                   onClick={() => setOpenModalConfirm(!openModalConfirm)}
@@ -520,18 +463,18 @@ const SwapComponent = ({
                   {loading ? 'Loading...' : 'Trade'}
                </button>
             ) : (
-               <ButtonWalletConnectV2 className="mt-6 flex w-full items-center justify-center bg-primary hover:bg-primary/75" />
-            )} */}
+               <ButtonWalletConnectV2 className="mt-2.5 flex w-full items-center justify-center bg-primary p-3 text-xxs hover:bg-primary/75" />
+            )}
 
             <ModalConfirmInstantSwap
                isOpen={openModalConfirm}
                valueReceived={total}
                closeModal={() => setOpenModalConfirm(false)}
                valueSwap={quantity}
-               totalPair={quoteUnit}
-               amountPair={baseUnit}
                // totalPair={reverse ? baseUnit : quoteUnit}
                // amountPair={reverse ? quoteUnit : baseUnit}
+               totalPair={quoteUnit}
+               amountPair={baseUnit}
                tokenPrice={LAST.toString()}
                type={currentType === 'market' ? 'Instant' : 'Limit'}
                handleSubmit={() => {
@@ -560,7 +503,7 @@ interface SwapContainerProps {
    getCurrentMarket: Market;
 }
 
-export const SwapContainer = ({
+export const SwapMobileContainer = ({
    unitLoading,
    getCurrentPair,
    getCurrentMarket,
@@ -568,7 +511,6 @@ export const SwapContainer = ({
    const { connected, token } = useWalletStore();
 
    const { setOrder } = useListMarketOrder(state => state);
-   const [typeAction, setTypeAction] = useState<'buy' | 'sell'>('buy');
 
    const [currentIndex, setCurrentIndex] = useState(0);
    const [currentType, setCurrentType] = useState<'market' | 'limit'>('market');
@@ -596,12 +538,11 @@ export const SwapContainer = ({
    const tabs = useMemo(
       () => [
          {
-            label: 'Market Trade',
+            label: 'Instant',
             content: (
                <SwapComponent
                   unitLoading={unitLoading}
                   balance="0"
-                  type={typeAction}
                   currentPrice={getCurrentPair?.price}
                   baseUnit={getCurrentMarket?.base_unit!}
                   quoteUnit={getCurrentMarket?.quote_unit!}
@@ -612,12 +553,11 @@ export const SwapContainer = ({
             ),
          },
          {
-            label: 'Instant Trade',
+            label: 'Limit',
             content: (
                <SwapComponent
                   unitLoading={unitLoading}
                   balance="0"
-                  type={typeAction}
                   connected={connected}
                   currentType={currentType}
                   baseUnit={getCurrentMarket?.base_unit!}
@@ -633,31 +573,12 @@ export const SwapContainer = ({
          getCurrentMarket?.base_unit,
          getCurrentMarket?.quote_unit,
          getCurrentPair?.price,
-         typeAction,
          unitLoading,
       ],
    );
 
    return (
       <div>
-         <div className="flex items-center justify-between gap-4">
-            <button
-               onClick={() => setTypeAction('buy')}
-               style={{
-                  clipPath: `polygon(10% 0, 100% 0, 100% 77%, 100% 100%, 0 99%, 0 22%)`,
-               }}
-               className={`h-14 w-full rounded-none ${typeAction === 'buy' ? `bg-success` : `bg-dark`}`}>
-               Buy
-            </button>
-            <button
-               onClick={() => setTypeAction('sell')}
-               style={{
-                  clipPath: `polygon(25% 0%, 100% 0, 100% 77%, 92% 100%, 0 99%, 0 0)`,
-               }}
-               className={`h-14 w-full rounded-none ${typeAction === 'sell' ? `bg-primary` : `bg-dark`}`}>
-               Sell
-            </button>
-         </div>
          <Tabs
             items={tabs}
             getCurrentIndex={currIdx => setCurrentIndex(currIdx)}

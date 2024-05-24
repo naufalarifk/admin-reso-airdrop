@@ -7,7 +7,7 @@ import {
    SelectMarketSwap,
    SwapContainer,
 } from '@/components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import {
    usePublicMarket,
    usePublicMarketTicker,
@@ -29,12 +29,15 @@ import { cn } from '@/utils';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
 import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
+import { SwapMobileContainer } from '@/components/dummy/SwapMobileContainer';
+import { OrderBookMobile } from '@/components/dummy/OrderBookMobile';
+import { HistoryTradeMobile } from '@/components/dummy/HistoryTradeMobile';
 
 export const DummySwap = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
-   const navigate = useNavigate();
    const [showTradingChart, setShowTradingChart] = useState(false);
    const [showModalMarket, setShowModalMarket] = useState(false);
+   const [showOrderBook, setShowOrderBook] = useState(true);
 
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
@@ -88,6 +91,9 @@ export const DummySwap = () => {
    const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
+   const marketById = market?.find(item => item?.id === marketId);
+
+   // console.log('marketById', marketById);
 
    useEffect(() => {
       getData();
@@ -114,8 +120,9 @@ export const DummySwap = () => {
    return (
       <>
          <div className="layout-main mb-14">
-            <div className="grid h-full grid-cols-1 gap-4">
-               <div className="flex h-[64px] items-center justify-between gap-2 rounded-lg bg-dark2 p-4 px-3 lg:hidden">
+            <div className="grid h-full grid-cols-1 gap-2 lg:gap-4">
+               {/* Mobile view design */}
+               <div className="flex h-[64px] items-center justify-between gap-2 rounded bg-dark2 p-4 px-3 lg:hidden">
                   <div
                      onClick={() => setShowModalMarket(!showModalMarket)}
                      className="flex gap-2">
@@ -123,7 +130,34 @@ export const DummySwap = () => {
                      <div className="text-base font-bold uppercase">{getCurrentMarket?.name}</div>
                   </div>
                   <div className="flex gap-1">
-                     <div onClick={() => setShowTradingChart(!showTradingChart)}>
+                     <div
+                        onClick={() => {
+                           setShowOrderBook(!showOrderBook);
+                           setShowTradingChart(!showTradingChart);
+                        }}>
+                        <svg
+                           className={cn(`size-6 ${showOrderBook ? 'text-primary' : 'text-soft'}`)}
+                           viewBox="0 0 24 24"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg">
+                           <path
+                              d="M17 4H7a2 2 0 00-2 2v13a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2z"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                           />
+                           <path
+                              d="M9 9h6m-6 4h6m-6 4h4"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                           />
+                        </svg>
+                     </div>
+                     <div
+                        onClick={() => {
+                           setShowTradingChart(!showTradingChart);
+                           setShowOrderBook(!showOrderBook);
+                        }}>
                         <svg
                            className={cn(
                               `size-6 ${showTradingChart ? 'text-primary' : 'text-soft'}`,
@@ -152,7 +186,38 @@ export const DummySwap = () => {
                      </div>
                   </div>
                </div>
-               <div className="flex h-[52px] items-center gap-2 rounded-lg bg-yellow/10 px-3 lg:hidden">
+               {showOrderBook && (
+                  <div className="grid grid-cols-2 gap-2 lg:hidden">
+                     <div className="block w-full lg:hidden">
+                        <OrderBookMobile
+                           data={depth}
+                           ticker={marketTicker}
+                           currency={currency!}
+                           usdt={usdt!}
+                        />
+                     </div>
+                     <div className="rounded bg-dark2 p-2">
+                        <SwapMobileContainer
+                           unitLoading={unitLoading}
+                           getCurrentPair={getCurrentPair!}
+                           getCurrentMarket={getCurrentMarket!}
+                        />
+                     </div>
+                  </div>
+               )}
+
+               {showTradingChart && (
+                  <div className="h-96 overflow-hidden rounded bg-dark2 p-2 lg:hidden">
+                     <TradingViewV2 />
+                  </div>
+               )}
+
+               <div className="rounded bg-dark2 p-2 lg:hidden">
+                  <HistoryTradeMobile />
+               </div>
+
+               {/* End Mobile view design */}
+               {/* <div className="flex h-[52px] items-center gap-2 rounded-lg bg-yellow/10 px-3 lg:hidden">
                   <div>
                      <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -174,16 +239,16 @@ export const DummySwap = () => {
                      <div className="font-normal">Info</div>
                      <div className="font-semibold">This pair had low liquidity</div>
                   </div>
-               </div>
-               <div className="flex h-full flex-col gap-4 lg:flex-row ">
+               </div> */}
+               <div className="hidden h-full flex-col gap-4 lg:flex lg:flex-row ">
                   {/* OrderBook */}
 
-                  <div className="w-full lg:w-[350px]">
+                  <div className="w-full lg:block lg:w-[350px]">
                      <OrderBook
                         data={depth}
                         ticker={marketTicker}
-                        currency={currency!}
                         usdt={usdt!}
+                        market={marketById!}
                      />
                   </div>
 
@@ -205,26 +270,27 @@ export const DummySwap = () => {
 
                            {/* Button Market */}
                            {market?.map(e => (
-                              <div
+                              <NavLink
                                  key={e.base_unit}
-                                 onClick={() => navigate(`/swap/${e.name.replace('/', '-')}`)}
+                                 to={`/trade/${e.name.replace('/', '-')}`}
                                  className={`${
-                                    marketId === e.name
-                                       ? 'bg-[#20232e]'
-                                       : 'border border-[#20232e] bg-transparent'
-                                 } flex cursor-pointer items-center space-x-1 rounded-lg px-2 py-1`}>
-                                 <div className="relative m-1 h-6 w-6 overflow-hidden rounded-full object-cover">
+                                    marketId?.toLowerCase() ===
+                                    e.name.replace('/', '').toLowerCase()
+                                       ? 'border-primary/50 bg-primary/10'
+                                       : '  border-dark3 bg-dark2'
+                                 } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
+                                 <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover">
                                     <img
                                        src={
                                           market[0]?.base_unit === e?.base_unit
                                              ? `https://s2.coinmarketcap.com/static/img/coins/64x64/28301.png`
                                              : `https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png`
                                        }
-                                       alt="kokom"
+                                       alt="icon"
                                     />
                                  </div>
                                  <div className="font-semibold">{e.name}</div>
-                              </div>
+                              </NavLink>
                            ))}
                            {/* End Button Market */}
                         </div>
@@ -234,8 +300,8 @@ export const DummySwap = () => {
                               <div className="flex items-center space-x-1">
                                  <div className="text-xl font-semibold">
                                     {Decimal.format(
-                                       marketTicker?.ticker?.last ?? 0,
-                                       currency?.precision!,
+                                       +marketTicker?.ticker?.last ?? 0,
+                                       marketById?.price_precision!,
                                        ',',
                                     )}
                                  </div>
@@ -243,26 +309,34 @@ export const DummySwap = () => {
                                     className={getColor(
                                        marketTicker?.ticker?.price_change_percent,
                                     )}>
-                                    ({marketTicker?.ticker?.price_change_percent ?? '-'})
+                                    (
+                                    {marketTicker?.ticker?.price_change_percent
+                                       ? marketTicker?.ticker?.price_change_percent
+                                       : '0%'}
+                                    )
                                  </div>
                               </div>
                               <div className="mt-1 text-[#90A3BF]">
-                                 {dayjs(marketTicker?.at * 1000).format('MMM DD, YYYY, hh:mm A')}
+                                 {dayjs(
+                                    marketTicker?.at ? marketTicker?.at * 1000 : Date.now(),
+                                 ).format('MMM DD, YYYY, hh:mm A')}
                               </div>
                            </div>
                            <div className="text-xl text-soft/15">|</div>
                            <div>
-                              <div className="text-xs">Change 24H</div>
+                              <div className="text-xs">Change 24h</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                                 {marketTicker?.ticker?.price_change_percent ?? '0%'}
+                                 {marketTicker?.ticker?.price_change_percent
+                                    ? marketTicker?.ticker?.price_change_percent
+                                    : '0%'}
                               </div>
                            </div>
                            <div>
                               <div className="text-xs">24h High</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.high ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.high ?? 0,
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -271,8 +345,8 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Low</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.low ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.low ?? 0,
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -281,10 +355,17 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Volume</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.volume ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.volume ?? 0,
+                                    marketById?.amount_precision!,
                                     ',',
                                  )}
+                              </div>
+                           </div>
+
+                           <div>
+                              <div className="text-xs">24h Transaction</div>
+                              <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
+                                 {marketTicker?.ticker?.transactions ?? '0'}
                               </div>
                            </div>
 
@@ -306,13 +387,13 @@ export const DummySwap = () => {
 
                   {/* End Trading Chart */}
                </div>
-               <div className="h-full">
+               <div className="hidden h-full lg:block">
                   {/* Form & Table Swap */}
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-                     <div className="order-2 h-[452px] rounded-2xl bg-dark2 p-4 lg:order-1">
+                     <div className="order-2 h-[470px] rounded-2xl bg-dark2 p-4 lg:order-1">
                         <HistoryTrade />
                      </div>
-                     <div className="order-1 h-full overflow-hidden rounded-2xl bg-dark2 p-4 lg:order-2 lg:h-[452px]">
+                     <div className="order-1 h-full overflow-hidden rounded-2xl bg-dark2 p-4 lg:order-2 lg:h-[470px]">
                         <SwapContainer
                            unitLoading={unitLoading}
                            getCurrentPair={getCurrentPair!}

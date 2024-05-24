@@ -43,3 +43,5 @@ export * from './IcTwitter';
 export * from './IcNewListing';
 export * from './IcTopGainers';
 export * from './IcTopMoving';
+export * from './IcPlus';
+export * from './IcMinus';
