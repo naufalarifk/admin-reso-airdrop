@@ -67,13 +67,14 @@ export function SelectToken({
                <Text
                   weight="medium"
                   variant="heading2"
-                  textColor="lighGray">
+                  textColor="lighGray"
+                  className="max-lg:text-sm">
                   {label}
                </Text>
             )}
             <div
                className={cn(
-                  'flex h-16 cursor-pointer items-center justify-between gap-4 rounded-2xl px-4',
+                  'flex h-12 cursor-pointer items-center justify-between gap-4 rounded-2xl px-4 lg:h-16',
                   isDisabled
                      ? 'cursor-not-allowed bg-primary/10'
                      : 'border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark',
@@ -99,6 +100,7 @@ export function SelectToken({
                   <Text
                      weight="medium"
                      variant="heading3"
+                     className="max-lg:text-xs"
                      textColor={selectedToken || selectedChain ? 'default' : 'lighGray'}>
                      {selectedToken || selectedChain
                         ? `${type === 'token' ? selectedToken?.name : selectedChain?.name} (${type === 'token' ? selectedToken?.symbol : selectedChain?.nativeCurrency.symbol})`
@@ -110,6 +112,8 @@ export function SelectToken({
                </button>
             </div>
          </div>
+
+         {/* Mpdal list */}
          <AnimatePresence>
             {show && (
                <Transition
@@ -144,7 +148,7 @@ export function SelectToken({
                                  <div className="flex items-center justify-between gap-2">
                                     <DialogTitle
                                        as="h3"
-                                       className="text-2xl font-semibold text-white">
+                                       className="text-base font-semibold text-white lg:text-2xl">
                                        Select {type}
                                     </DialogTitle>
                                     <CloseButton className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
@@ -155,7 +159,7 @@ export function SelectToken({
                                     variant="heading2"
                                     weight="medium"
                                     textColor="lighGray"
-                                    className="mt-2">
+                                    className="mt-2 max-lg:text-sm">
                                     Select Token to process your bridge
                                  </Text>
                                  <div className="mt-6.5">
@@ -181,7 +185,7 @@ export function SelectToken({
                                                         className="size-full object-cover"
                                                      />
                                                   </div>
-                                                  <span>
+                                                  <span className="font-medium max-lg:text-sm">
                                                      {e.name} ({e.symbol})
                                                   </span>
                                                </div>
@@ -207,7 +211,7 @@ export function SelectToken({
                                                         className="size-full object-cover"
                                                      />
                                                   </div>
-                                                  <span>
+                                                  <span className="font-medium max-lg:text-sm">
                                                      {e.name} ({e.nativeCurrency.symbol})
                                                   </span>
                                                </div>
@@ -222,6 +226,7 @@ export function SelectToken({
                </Transition>
             )}
          </AnimatePresence>
+         {/* End Mpdal list */}
       </>
    );
 }
