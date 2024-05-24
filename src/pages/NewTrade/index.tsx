@@ -110,11 +110,11 @@ export const NewTrade = () => {
 
    return (
       <section className="layout-main mb-8">
-         <div className="flex justify-between gap-4">
-            <div className="flex h-full flex-grow flex-col gap-4">
+         <div className="flex flex-col justify-between gap-4 lg:flex-row">
+            <div className="order-2 flex h-full flex-grow flex-col gap-4">
                {/*  Trading Chart */}
-               <div className="h-[525px] w-full overflow-hidden rounded-2xl bg-dark2 p-4">
-                  <section className="hidden h-full w-full lg:block">
+               <div className="hidden  h-[525px] w-full  overflow-hidden rounded-2xl bg-dark2 p-4 lg:block">
+                  <section className="  h-full w-full">
                      <div className="flex cursor-pointer items-center space-x-3">
                         {/* Pop up change market */}
                         <SelectMarketSwap
@@ -224,11 +224,12 @@ export const NewTrade = () => {
                   </section>
                </div>
                {/* End Trading Chart */}
+
                <div className="h-full rounded-2xl bg-dark2 p-4">
                   <NewHistoryTrade isLoading={unitLoading} />
                </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="order-1 flex flex-col gap-4">
                {/* OrderBook */}
                <div className="grid grid-cols-2 gap-4">
                   <OrderBook
@@ -244,7 +245,7 @@ export const NewTrade = () => {
                      getCurrentMarket={getCurrentMarket!}
                   />
                </div>
-               <div className="rounded-2xl bg-dark2  p-4">
+               <div className="hidden rounded-2xl bg-dark2 p-4  lg:block">
                   <RecentTrades loading={unitLoading} />
                </div>
             </div>

@@ -98,6 +98,12 @@ export const NewFormTrade = ({
                               type="text"
                               className=" placeholder: bg-transparent text-center focus:outline-none"
                               placeholder="0"
+                              onChange={() => ''}
+                              value={Decimal.format(
+                                 +tick?.last ?? 0,
+                                 market?.price_precision!,
+                                 ',',
+                              )}
                            />
                            <button
                               type="button"
@@ -119,6 +125,7 @@ export const NewFormTrade = ({
                            </button>
                            <input
                               type="text"
+                              disabled
                               className=" bg-transparent text-center placeholder:font-semibold focus:outline-none"
                               placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                            />
@@ -162,6 +169,7 @@ export const NewFormTrade = ({
                               </button>
                               <input
                                  type="text"
+                                 disabled
                                  className=" bg-transparent text-center placeholder:font-semibold focus:outline-none"
                                  placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                               />
@@ -185,11 +193,15 @@ export const NewFormTrade = ({
                   </div>
                   <div className="mt-4">
                      {typeAction === 'buy' ? (
-                        <button className=" w-full rounded-full bg-success  py-3 disabled:bg-success/30">
+                        <button
+                           disabled
+                           className=" w-full rounded-full bg-success py-3    disabled:bg-success/45">
                            Buy
                         </button>
                      ) : (
-                        <button className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
+                        <button
+                           disabled
+                           className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
                            Sell
                         </button>
                      )}
@@ -266,6 +278,7 @@ export const NewFormTrade = ({
                               </button>
                               <input
                                  type="text"
+                                 disabled
                                  className=" bg-transparent text-center placeholder:font-semibold focus:outline-none"
                                  placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
                               />
@@ -300,6 +313,7 @@ export const NewFormTrade = ({
                                  </button>
                                  <input
                                     type="text"
+                                    disabled
                                     className=" bg-transparent text-center placeholder:font-semibold focus:outline-none"
                                     placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                                  />
@@ -323,11 +337,15 @@ export const NewFormTrade = ({
                      </div>
                      <div className="mt-4">
                         {typeAction === 'buy' ? (
-                           <button className=" w-full rounded-full bg-success  py-3 disabled:bg-success/30">
+                           <button
+                              disabled
+                              className=" w-full rounded-full bg-success py-3    disabled:bg-success/45">
                               Buy
                            </button>
                         ) : (
-                           <button className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
+                           <button
+                              disabled
+                              className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
                               Sell
                            </button>
                         )}

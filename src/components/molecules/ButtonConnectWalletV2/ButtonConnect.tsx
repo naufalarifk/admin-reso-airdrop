@@ -119,7 +119,7 @@ export const ButtonWalletConnectV2 = ({
                      `inline-flex items-center gap-x-2 rounded-full border border-transparent bg-black px-4 py-3 text-sm font-semibold text-white hover:bg-black/80 disabled:pointer-events-none disabled:opacity-50`,
                      className,
                   )}>
-                  {isConnecting ? 'Connecting ...' : 'Launch Dapp'}
+                  {isConnecting ? 'Connecting ...' : 'Connect Wallet'}
                </button>
                <WalletSelectModal
                   loading={isConnecting}

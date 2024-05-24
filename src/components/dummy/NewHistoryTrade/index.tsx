@@ -310,27 +310,29 @@ const Tabs: FC<TabsProps> = ({
             <div
                className={
                   (cn(
-                     `flex ${
+                     `relative flex ${
                         isBetween ? 'items-center justify-between' : 'gap-4'
                      } rounded-lg  p-1 px-1`,
                   ),
                   classNameWrapper)
                }>
                {items.map((tab, idx) => (
-                  <button
-                     key={idx}
-                     type="button"
-                     ref={(el: HTMLButtonElement | null) =>
-                        (tabsRef.current[idx] = el as HTMLButtonElement)
-                     }
-                     className={`border-b-2 px-4 py-3 text-center text-xs font-semibold ${
-                        activeTabIndex === idx
-                           ? 'border-primary text-white'
-                           : 'border-transparent text-soft'
-                     }`}
-                     onClick={() => handleTabClick(idx)}>
-                     {tab.label}
-                  </button>
+                  <>
+                     <button
+                        key={idx}
+                        type="button"
+                        ref={(el: HTMLButtonElement | null) =>
+                           (tabsRef.current[idx] = el as HTMLButtonElement)
+                        }
+                        className={`border-b-2 px-4 py-3 text-center text-xs font-semibold ${
+                           activeTabIndex === idx
+                              ? 'border-primary text-white'
+                              : 'border-transparent text-soft'
+                        }`}
+                        onClick={() => handleTabClick(idx)}>
+                        {tab.label}
+                     </button>
+                  </>
                ))}
             </div>
             <span

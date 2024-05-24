@@ -56,7 +56,7 @@ export const OrderBook = ({
    return (
       <div className="rounded bg-dark2 p-4 lg:rounded-2xl">
          <div className="flex items-center justify-between">
-            <div className="text-lg font-semibold">Order Book</div>
+            <div className="text-xxs font-semibold lg:text-lg">Order Book</div>
             <div className="flex space-x-3">
                <div
                   className={cn(
@@ -77,10 +77,16 @@ export const OrderBook = ({
                </div>
             </div>
          </div>
-         <div className="mb-2 flex justify-between text-xs text-soft">
-            <div className="flex-1">Pice {market?.quote_unit?.toUpperCase()}</div>
-            <div className="flex-1 text-right">Qty {market?.base_unit?.toUpperCase()}</div>
-            <div className="flex-1 text-right">Total {market?.quote_unit?.toUpperCase()}</div>
+         <div className="mb-2 mt-2 flex justify-between text-xs text-soft">
+            <div className="flex-1 text-xxxs lg:text-base">
+               Pice {market?.quote_unit?.toUpperCase()}
+            </div>
+            <div className="hidden flex-1 text-right lg:block">
+               Qty {market?.base_unit?.toUpperCase()}
+            </div>
+            <div className="flex-1 text-right text-xxxs lg:text-base">
+               Total {market?.quote_unit?.toUpperCase()}
+            </div>
          </div>
 
          <div className="flex h-[442px]  flex-col overflow-hidden">
@@ -97,7 +103,7 @@ export const OrderBook = ({
                {asks?.map((order, i) => (
                   <div
                      key={i}
-                     className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
+                     className="relative flex h-[18px] justify-between pr-1 text-xxs lg:text-xs">
                      <div className="flex-1 text-primary">
                         {Decimal.format(+order?.[0] ?? 0, market?.price_precision!, ',')}
                      </div>
@@ -122,13 +128,13 @@ export const OrderBook = ({
             {/* Ticker */}
             <div
                className={cn(
-                  'hidden-scroll my-3 flex h-[42px] items-center justify-between rounded-lg bg-dark px-2',
+                  'hidden-scroll my-3 flex h-[42px] items-center justify-center rounded-lg bg-dark px-2 lg:justify-between',
                   type === 'sell' ? 'mb-0' : type === 'buy' ? 'mt-0' : '',
                )}>
-               <div className="text-base font-normal text-primary">
+               <div className="text-center text-xs font-normal text-primary lg:text-left lg:text-base">
                   {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
                </div>
-               <div className="text-xs font-normal text-soft">
+               <div className="hidden text-xs font-normal text-soft lg:block">
                   ≈
                   {Decimal.format(
                      +tick?.last ?? 0 / +usdtPrice ?? 0,
@@ -153,7 +159,7 @@ export const OrderBook = ({
                {bids?.map((order, i) => (
                   <div
                      key={i}
-                     className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
+                     className="relative flex h-[18px] justify-between pr-1 text-xxs lg:text-xs">
                      <div className="flex-1 text-success">
                         {Decimal.format(+order?.[0] ?? 0, market?.price_precision!, ',')}
                      </div>
