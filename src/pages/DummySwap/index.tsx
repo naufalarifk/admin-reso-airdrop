@@ -91,6 +91,9 @@ export const DummySwap = () => {
    const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
    const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
+   const marketById = market?.find(item => item?.id === marketId);
+
+   // console.log('marketById', marketById);
 
    useEffect(() => {
       getData();
@@ -244,8 +247,8 @@ export const DummySwap = () => {
                      <OrderBook
                         data={depth}
                         ticker={marketTicker}
-                        currency={currency!}
                         usdt={usdt!}
+                        market={marketById!}
                      />
                   </div>
 
@@ -297,8 +300,8 @@ export const DummySwap = () => {
                               <div className="flex items-center space-x-1">
                                  <div className="text-xl font-semibold">
                                     {Decimal.format(
-                                       marketTicker?.ticker?.last ?? 0,
-                                       currency?.precision!,
+                                       +marketTicker?.ticker?.last ?? 0,
+                                       marketById?.price_precision!,
                                        ',',
                                     )}
                                  </div>
@@ -324,8 +327,8 @@ export const DummySwap = () => {
                               <div className="text-xs">24h High</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.high ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.high ?? 0,
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -334,8 +337,8 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Low</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.low ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.low ?? 0,
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -344,8 +347,8 @@ export const DummySwap = () => {
                               <div className="text-xs">24h Volume</div>
                               <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                                  {Decimal.format(
-                                    marketTicker?.ticker?.volume ?? 0,
-                                    currency?.precision!,
+                                    +marketTicker?.ticker?.volume ?? 0,
+                                    marketById?.amount_precision!,
                                     ',',
                                  )}
                               </div>
