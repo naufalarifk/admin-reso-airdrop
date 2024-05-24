@@ -80,16 +80,12 @@ export const OrderBook = ({
                </div>
             </div>
          </div>
-         <div className="mb-2 mt-2 flex justify-between text-xs text-soft">
-            <div className="flex-1 text-xxxs lg:text-base">
-               Pice {market?.quote_unit?.toUpperCase()}
-            </div>
+         <div className="my-2 flex justify-between text-xxs text-soft lg:mb-2">
+            <div className="flex-1">Pice {market?.quote_unit?.toUpperCase()}</div>
             <div className="hidden flex-1 text-right lg:block">
                Qty {market?.base_unit?.toUpperCase()}
             </div>
-            <div className="flex-1 text-right text-xxxs lg:text-base">
-               Total {market?.quote_unit?.toUpperCase()}
-            </div>
+            <div className="flex-1 text-right">Total {market?.quote_unit?.toUpperCase()}</div>
          </div>
 
          <div className="flex h-[442px]  flex-col overflow-hidden">
@@ -112,7 +108,7 @@ export const OrderBook = ({
                   : asks?.map((order, i) => (
                        <div
                           key={i}
-                          className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
+                          className="relative flex h-[18px] justify-between pr-1 text-[8px]">
                           <div className="flex-1 text-primary">
                              {Decimal.format(
                                 +order?.[0] ? +order?.[0] : 0,
@@ -120,7 +116,7 @@ export const OrderBook = ({
                                 ',',
                              )}
                           </div>
-                          <div className="flex-1 text-right text-soft">
+                          <div className="hidden flex-1 text-right text-soft lg:block">
                              {Decimal.format(
                                 +order?.[1] ? +order?.[1] : 0,
                                 market?.amount_precision!,
@@ -151,10 +147,10 @@ export const OrderBook = ({
                   'hidden-scroll my-3 flex h-[42px] items-center justify-center rounded-lg bg-dark px-2 lg:justify-between',
                   type === 'sell' ? 'mb-0' : type === 'buy' ? 'mt-0' : '',
                )}>
-               <div className="text-base font-normal text-primary">
+               <div className="text-xs font-normal text-primary">
                   {Decimal.format(+tick?.last ? +tick?.last : 0, market?.price_precision!, ',')}
                </div>
-               <div className="text-right text-xs font-normal text-soft">
+               <div className="hidden text-right text-xxxs font-normal text-soft lg:block">
                   ≈
                   {Decimal.format(
                      +tick?.last ? +tick?.last : 0 / +usdtPrice ? +usdtPrice : 0,
@@ -185,7 +181,7 @@ export const OrderBook = ({
                   : bids?.map((order, i) => (
                        <div
                           key={i}
-                          className="relative flex h-[18px] justify-between pr-1 text-[11.63px]">
+                          className="relative flex h-[18px] justify-between pr-1 text-[8px]">
                           <div className="flex-1 text-success">
                              {Decimal.format(
                                 +order?.[0] ? +order?.[0] : 0,
@@ -193,7 +189,7 @@ export const OrderBook = ({
                                 ',',
                              )}
                           </div>
-                          <div className="flex-1 text-right text-soft">
+                          <div className="hidden flex-1 text-right text-soft lg:block">
                              {Decimal.format(
                                 +order?.[1] ? +order?.[1] : 0,
                                 market?.amount_precision!,

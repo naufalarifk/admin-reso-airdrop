@@ -186,6 +186,7 @@ export const DummySwap = () => {
                      </div>
                   </div>
                </div>
+
                {showOrderBook && (
                   <div className="grid grid-cols-2 gap-2 lg:hidden">
                      <div className="block w-full lg:hidden">
