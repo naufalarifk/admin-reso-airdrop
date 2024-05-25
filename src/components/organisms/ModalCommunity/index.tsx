@@ -78,7 +78,7 @@ export function ModalCommunity() {
                                  initial="hidden"
                                  animate="visible"
                                  exit="exit"
-                                 className="w-full max-w-2xl space-y-4 rounded-2xl border-white/10 bg-dark px-4 py-6">
+                                 className="w-full max-w-2xl space-y-4 rounded-2xl border border-white/10 bg-dark px-4 py-6">
                                  <div className="flex items-center justify-between gap-2">
                                     <DialogTitle
                                        as="h3"

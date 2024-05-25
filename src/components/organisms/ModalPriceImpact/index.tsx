@@ -70,7 +70,7 @@ export function ModalPriceImpact({
                               initial="hidden"
                               animate="visible"
                               exit="exit"
-                              className="w-full max-w-xl space-y-4 rounded-2xl border-white/10 bg-dark px-4 py-6 lg:space-y-6">
+                              className="w-full max-w-xl space-y-4 rounded-2xl border border-white/10 bg-dark2 px-4 py-6 lg:space-y-6">
                               <DialogTitle
                                  as="h3"
                                  className="text-center text-base font-semibold text-white lg:text-2xl">
@@ -104,7 +104,7 @@ export function ModalPriceImpact({
                                        })}
                                        value={_priceImpact}
                                        onChange={e => _setPriceImpact(e.target.value)}
-                                       className="flex h-11 w-full items-center rounded-r-2xl bg-dark2 pl-2 pr-7 text-right outline-none transition-all duration-300 focus:ring-1 focus:ring-primary max-lg:rounded-l-2xl"
+                                       className="flex h-11 w-full items-center rounded-r-2xl bg-dark pl-2 pr-7 text-right outline-none transition-all duration-300 focus:ring-1 focus:ring-primary max-lg:rounded-l-2xl"
                                     />
                                     <div className="absolute right-2 top-1/2 -translate-y-1/2">
                                        %
