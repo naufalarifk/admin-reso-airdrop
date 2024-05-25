@@ -26,22 +26,22 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
    const official_links = [
       {
          name: 'Official Website',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://bome.com',
          icon: <IcWeb color="#F23F5D" />,
       },
       {
          name: 'Official X',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://twitter.com/bome',
          icon: <IcX />,
       },
       {
          name: 'Official Telegram',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://telegram.com/bome',
          icon: <IcTelegram color="#F23F5D" />,
       },
       {
          name: 'Official Discord',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://discord.com/bome',
          icon: (
             <IcDiscord
                className="h-6 w-6"
@@ -51,7 +51,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
       },
       {
          name: 'Official Medium',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://medium.com/bome',
          icon: <IcMedium fill='#F23F5D' />,
       },
    ];
@@ -132,7 +132,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.blockExplorer')}</Text>
-                                 <Text>https://solana.com</Text>
+                                 <Text>https://solana.com/...</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.marketCap')}</Text>
@@ -319,22 +319,22 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
    const official_links = [
       {
          name: 'Official Website',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://bome.com',
          icon: <IcWeb color="#F23F5D" />,
       },
       {
          name: 'Official X',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://twitter.com/bome',
          icon: <IcX />,
       },
       {
          name: 'Official Telegram',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://telegram.com/bome',
          icon: <IcTelegram color="#F23F5D" />,
       },
       {
          name: 'Official Discord',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://discord.com/bome',
          icon: (
             <IcDiscord
                className="h-6 w-6"
@@ -344,7 +344,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
       },
       {
          name: 'Official Medium',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://medium.com/bome',
          icon: <IcMedium fill='#F23F5D' />,
       },
    ];
@@ -392,7 +392,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.blockExplorer')}</Text>
-                     <Text>https://solana.com</Text>
+                     <Text>https://solana.com/...</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
@@ -548,22 +548,22 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
    const official_links = [
       {
          name: 'Official Website',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://bome.com',
          icon: <IcWeb color="#F23F5D" />,
       },
       {
          name: 'Official X',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://twitter.com/bome',
          icon: <IcX />,
       },
       {
          name: 'Official Telegram',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://telegram.com/bome',
          icon: <IcTelegram color="#F23F5D" />,
       },
       {
          name: 'Official Discord',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://discord.com/bome',
          icon: (
             <IcDiscord
                className="h-6 w-6"
@@ -573,7 +573,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
       },
       {
          name: 'Official Medium',
-         link: 'https://bitcoin.org/en/',
+         link: 'https://medium.com/bome',
          icon: <IcMedium fill='#F23F5D' />,
       },
    ];
@@ -639,7 +639,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.blockExplorer')}</Text>
-                     <Text>https://solana.com</Text>
+                     <Text>https://solana.com/...</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
