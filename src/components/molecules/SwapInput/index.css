@@ -1,0 +1,11 @@
+.bridge-input::placeholder {
+  color: #9f9f9f;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.bridge-input {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}

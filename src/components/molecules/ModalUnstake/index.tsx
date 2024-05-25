@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Button } from "@/components";
 import { Dialog, Transition } from "@headlessui/react";
+import { useTranslation } from "react-i18next";
 
 interface ModalUnstakedProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ModalUnstakedProps {
 }
 
 export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
+  const { t } = useTranslation();
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative" onClose={closeModal}>
@@ -20,10 +22,10 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0   bg-black/50 " />
+          <div className="fixed inset-0 z-[99]  bg-black/20 " />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
+        <div className="fixed z-[999] backdrop-blur-sm inset-0 overflow-y-auto">
           <div className="flex min-h-full   items-center justify-center p-4">
             <Transition.Child
               as={Fragment}
@@ -34,16 +36,16 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden  relative bg-[#2a2627ef] border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
+              <Dialog.Panel className="w-full   max-w-md transform overflow-hidden  relative bg-dark border-soft/15 rounded-lg border  p-6  shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-semibold leading-6 text-center text-white"
                 >
-                  Unstake Assets
+                  {t("staking.modal.unstake.title")}
                 </Dialog.Title>
                 <div className="mt-6">
                   <form autoComplete="off">
-                    <div className="relative bg-[#5D636F1A] p-4 rounded-lg">
+                    <div className="relative bg-dark2 p-4 rounded-lg">
                       <div className="absolute inset-y-0 start-5 flex items-center  pointer-events-none">
                         <svg
                           width={30}
@@ -83,11 +85,11 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
                         type="button"
                         className="text-primary absolute end-5 bottom-5 bg-primary/10 focus:outline-none font-medium rounded-lg text-base p-2"
                       >
-                        MAX
+                        {t("global.max")}
                       </button>
                     </div>
                     <div className="text-base mt-2 text-left font-semibold text-soft">
-                      You Staked : 0.00 BTC
+                      {t("staking.create.yourStaked")}: 0.00 BTC
                     </div>
                     <div className="mt-6">
                       <Button
@@ -95,7 +97,7 @@ export const ModalUnstake = ({ isOpen, closeModal }: ModalUnstakedProps) => {
                         type="button"
                         className="w-full bg-primary"
                       >
-                        Submit
+                        {t("button.submit")}
                       </Button>
                     </div>
                   </form>

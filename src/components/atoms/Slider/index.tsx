@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
-import './index.css'; // Import the CSS file with custom styles
+"use client"
 
-interface SliderProps {
-    min: number;
-    max: number;
-    step?: number;
-    value?: number;
-    onChange: (value: number) => void;
-}
+import * as React from "react"
+import * as SliderPrimitive from "@radix-ui/react-slider"
 
-export const Slider: React.FC<SliderProps> = ({ min, max, step = 1, value = min, onChange }) => {
-    const [sliderValue, setSliderValue] = useState(value);
+import { cn } from "@/utils"
 
-    const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = parseFloat(event.target.value);
-        setSliderValue(newValue);
-        onChange(newValue);
-    };
-
-    return (
-        <input
-            type="range"
-            min={min}
-            max={max}
-            step={step}
-            value={sliderValue}
-            onChange={handleSliderChange}
-            className="appearance-none w-full h-2 rounded-md bg-[#322d29] outline-none slider" // Apply the custom thumb class here
-        />
-    );
-};
+const Slider = React.forwardRef<
+    React.ElementRef<typeof SliderPrimitive.Root>,
+    React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
+>(({ className, ...props }, ref) => (
+    <SliderPrimitive.Root
+        ref={ref}
+        className={cn(
+            "relative flex w-full touch-none select-none items-center",
+            className
+        )}
+        {...props}
+    >
+        <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-[#171923]">
+            <SliderPrimitive.Range className="absolute h-full bg-[#F23F5D]" />
+        </SliderPrimitive.Track>
+        <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full bg-[#F23F5D] ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+    </SliderPrimitive.Root>
+))
+Slider.displayName = SliderPrimitive.Root.displayName
+export { Slider }
