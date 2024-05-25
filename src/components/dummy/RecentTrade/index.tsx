@@ -3,6 +3,7 @@ import { RECENT_TRADES } from '@/constants/data';
 import { cn, shortenString } from '@/utils';
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 interface TabsData {
    label: string;
@@ -62,22 +63,22 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
                            <tr>
                               <th
                                  scope="col"
-                                 className="px-6 py-4">
+                                 className="w-[30%] p-4 text-left">
                                  Time
                               </th>
                               <th
                                  scope="col"
-                                 className="text-nowrap px-6 py-4">
+                                 className="w-[25%] text-nowrap p-4">
                                  Amount
                               </th>
                               <th
                                  scope="col"
-                                 className="px-6 py-4">
+                                 className="w-[25%] p-4">
                                  Price
                               </th>
                               <th
                                  scope="col"
-                                 className="px-6 py-4">
+                                 className="w-[20%] p-4">
                                  TxID
                               </th>
                            </tr>
@@ -108,8 +109,8 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
                            ) : (
                               RECENT_TRADES?.map((item: RecentTrades, i) => (
                                  <tr key={i}>
-                                    <td className="text-center text-xxs text-soft">
-                                       {item.createdAt}
+                                    <td className="w-[30%] px-4 text-left text-xxs text-soft">
+                                       {dayjs(item.createdAt).format('DD MMM YYYY, hh:mm:ss')}
                                     </td>
                                     {/* <td className="whitespace-nowrap text-nowrap px-6  py-4 text-soft">
                                       {shortenString(item.address, 5, 5)}
@@ -118,16 +119,16 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
                                       {item.protocol}
                                    </td> */}
 
-                                    <td className=" px-6 py-2 text-center text-xxs uppercase text-soft">
+                                    <td className=" w-[25%] px-4 py-2 text-left text-xxs uppercase text-soft">
                                        {currId && currId[0].toUpperCase()}{' '}
                                        {item.transaction.pay.amount}
                                     </td>
-                                    <td className="px-6 py-2 text-center text-xxs uppercase text-soft">
+                                    <td className="w-[25%] px-4 py-2 text-left text-xxs uppercase text-soft">
                                        {currId && currId[1].toUpperCase()}{' '}
                                        {item.transaction.receive.amount}
                                     </td>
 
-                                    <td className="text-nowrap px-6 py-2 text-center text-xxs text-primary">
+                                    <td className="w-[20%] text-nowrap px-4 py-2 text-left text-xxs text-primary">
                                        <div
                                           // target="_blank"
                                           className="flex items-center gap-1"
@@ -160,7 +161,7 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
             ),
          },
       ],
-      [loading],
+      [currId, loading],
    );
 
    return (

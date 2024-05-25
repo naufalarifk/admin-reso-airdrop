@@ -54,7 +54,7 @@ export const Swap = () => {
 
    const [openInsufficientBalance, setOpenInsufficientBalance] = useState(false);
    const [openCoinInfo, setOpenCoinInfo] = useState(false);
-   const [depthLoading, setDepthLoading] = useState(false);
+   const [depthLoading, setDepthLoading] = useState(true);
 
    const getData = useCallback(async () => {
       const market = await getMarketList({});

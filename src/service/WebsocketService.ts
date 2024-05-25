@@ -1,40 +1,44 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
    MarketTicker,
    usePublicMarket,
    usePublicMarketTicker,
 } from '@/pages/Swap/hooks/usePublicMarkets';
-import { getMarketDepth, getMarketKLine } from '@/api/services/public/markets';
 
 const WS_URL = import.meta.env.VITE_API_WS_URL;
-
-const RECONNECT_INTERVAL = 5000; // Interval waktu (dalam milidetik) sebelum mencoba kembali koneksi
-const MAX_RECONNECT_ATTEMPTS = 5; // Maksimal jumlah percobaan koneksi ulang
+const RECONNECT_INTERVAL = 5000; // Interval time (in milliseconds) before attempting to reconnect
+const MAX_RECONNECT_ATTEMPTS = 5; // Maximum number of reconnection attempts
 
 const WebsocketService = () => {
    const location = useLocation();
    const marketPathname = location?.pathname
-      ?.toLowerCase()
+      .toLowerCase()
       .replace(/[^a-z/]/g, '')
-      ?.split('/');
+      .split('/');
    const marketId = marketPathname[marketPathname.length - 1];
 
    const reconnectAttemptsRef = useRef(0);
    const wsRef = useRef<WebSocket | null>(null);
    const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-   const [depthLoading, setDepthLoading] = useState(false);
-   console.log('load', depthLoading);
+
+   const closeWebSocket = useCallback(() => {
+      if (wsRef.current) {
+         wsRef.current.close();
+      }
+      if (reconnectTimeoutRef.current) {
+         clearTimeout(reconnectTimeoutRef.current);
+      }
+   }, []);
 
    const handleWebSocketMessage = useCallback(
-      async (message: any) => {
+      async (message: unknown) => {
          try {
-            const data = JSON.parse(message);
+            const data = JSON.parse(message as string);
 
             if (Object.prototype.hasOwnProperty.call(data, `${marketId}.kline-1m`)) {
                const klineData = data[`${marketId}.kline-1m`];
-               const kLine = await getMarketKLine(marketId, {});
+               const kLine = { ...usePublicMarket.getState().k_line };
 
                const updates = [...kLine, klineData];
                usePublicMarket.getState().updateKLine(updates);
@@ -84,7 +88,7 @@ const WebsocketService = () => {
                      // Jika previousSequence sama dengan currentSequence atau null, atau previousSequence + 1 sama dengan currentSequence
 
                      // Ambil data depth yang ada
-                     const currentDepth = await getMarketDepth(marketId, 60, setDepthLoading);
+                     const currentDepth = { ...usePublicMarket.getState().depth };
 
                      // Jika ada perubahan pada asks
                      if (depthData.asks.length > 0) {
@@ -105,17 +109,8 @@ const WebsocketService = () => {
             console.error('Error parsing message:', error);
          }
       },
-      [marketId],
+      [closeWebSocket, marketId],
    );
-
-   const closeWebSocket = () => {
-      if (wsRef.current) {
-         wsRef.current.close();
-      }
-      if (reconnectTimeoutRef.current) {
-         clearTimeout(reconnectTimeoutRef.current);
-      }
-   };
 
    const connectWebSocket = useCallback(() => {
       const baseUrl = `${WS_URL}/public`;
@@ -162,22 +157,42 @@ const WebsocketService = () => {
       connectWebSocket();
 
       return () => {
-         if (wsRef.current) {
-            wsRef.current.close();
-         }
-         if (reconnectTimeoutRef.current) {
-            clearTimeout(reconnectTimeoutRef.current);
+         closeWebSocket();
+      };
+   }, [closeWebSocket, connectWebSocket]);
+
+   useEffect(() => {
+      const ws = wsRef.current;
+
+      if (ws) {
+         ws.onclose = event => {
+            console.log('WebSocket connection closed:', event);
+            if (reconnectTimeoutRef.current) {
+               clearTimeout(reconnectTimeoutRef.current);
+            }
+            if (reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS) {
+               reconnectTimeoutRef.current = setTimeout(() => {
+                  reconnectAttemptsRef.current += 1;
+                  connectWebSocket();
+               }, RECONNECT_INTERVAL);
+            } else {
+               console.error('Max reconnect attempts reached. Will not reconnect.');
+            }
+         };
+      }
+
+      return () => {
+         if (ws) {
+            ws.onclose = null;
          }
       };
-   }, [connectWebSocket]);
+   }, [closeWebSocket, connectWebSocket]);
 
    return null;
 };
 
 const generateSocketURI = (baseUrl: string, streams: string[]) =>
    `${baseUrl}?stream=${streams.sort().join('&stream=')}`;
-
-export default WebsocketService;
 
 const saveSequenceToLocalStorage = (sequence: number) => {
    localStorage.setItem('orderBookSequence', sequence.toString());
@@ -187,3 +202,4 @@ const getSequenceFromLocalStorage = () => {
    const sequence = localStorage.getItem('orderBookSequence');
    return sequence ? parseInt(sequence, 10) : null;
 };
+export default WebsocketService;

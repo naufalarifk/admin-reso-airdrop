@@ -3,6 +3,7 @@ import { Skeleton } from '@/components';
 import { Decimal } from '@/components/molecules/Decimal';
 import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { Market } from '@/types/components';
+import { validateNumber } from '@/utils';
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 interface TabsData {
@@ -96,14 +97,14 @@ export const NewFormTradeMobile = ({
                            </button>
                            <input
                               type="text"
-                              className="w-7/12 bg-transparent text-center text-xxs placeholder:text-xxs focus:outline-none lg:w-full"
-                              placeholder="0"
-                              onChange={() => ''}
-                              value={Decimal.format(
-                                 +tick?.last ?? 0,
+                              disabled
+                              className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
+                              placeholder={Decimal.format(
+                                 validateNumber(tick?.last),
                                  market?.price_precision!,
                                  ',',
                               )}
+                              onChange={() => ''}
                            />
 
                            <button
@@ -266,7 +267,11 @@ export const NewFormTradeMobile = ({
                                  Market Price
                               </div>
                               <div className="text-xxs font-normal text-darkSoft lg:text-base">
-                                 {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
+                                 {Decimal.format(
+                                    validateNumber(tick?.last),
+                                    market?.price_precision!,
+                                    ',',
+                                 )}
                               </div>
                            </div>
                         )}
