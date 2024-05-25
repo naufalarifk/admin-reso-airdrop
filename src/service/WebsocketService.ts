@@ -6,7 +6,6 @@ import {
    usePublicMarket,
    usePublicMarketTicker,
 } from '@/pages/Swap/hooks/usePublicMarkets';
-import { getMarketDepth, getMarketKLine } from '@/api/services/public/markets';
 
 const WS_URL = import.meta.env.VITE_API_WS_URL;
 
@@ -32,7 +31,7 @@ const WebsocketService = () => {
 
             if (Object.prototype.hasOwnProperty.call(data, `${marketId}.kline-1m`)) {
                const klineData = data[`${marketId}.kline-1m`];
-               const kLine = await getMarketKLine(marketId, {});
+               const kLine = { ...usePublicMarket.getState().k_line };
 
                const updates = [...kLine, klineData];
                usePublicMarket.getState().updateKLine(updates);
@@ -82,7 +81,7 @@ const WebsocketService = () => {
                      // Jika previousSequence sama dengan currentSequence atau null, atau previousSequence + 1 sama dengan currentSequence
 
                      // Ambil data depth yang ada
-                     const currentDepth = await getMarketDepth(marketId, 60);
+                     const currentDepth = { ...usePublicMarket.getState().depth };
 
                      // Jika ada perubahan pada asks
                      if (depthData.asks.length > 0) {
