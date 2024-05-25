@@ -90,7 +90,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                <div className="mt-6 space-y-2">
                   <div className="flex space-x-1">
                      <Text className="text-white">{t('pool.firstStep.unifiedAsset')}</Text>
-                     <IcQuestionMark />
+                     {/* <IcQuestionMark /> */}
                   </div>
                   <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                      <Input
@@ -122,10 +122,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               </Text>
                            </div>
                            <Text className="my-1 text-[#90A3BF]">
-                              Bitcoin is a digital asset and a payment system invented by Satoshi
-                              Nakamoto who published a related paper in 2008 and released it as
-                              open-source software in 2009. The system featured as peer-to-peer;
-                              users can transact directly without an intermediary.
+                              Solana is a highly functional open source project that banks on blockchain technology’s permissionless nature to provide decentralized finance (DeFi) solutions. While the idea and initial work on the project began in 2017, Solana was officially launched in March 2020 by the Solana Foundation.
                            </Text>
                            <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                               <div>
@@ -220,6 +217,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                            className="bg-transparent placeholder:text-white"
                         />
                         <Button
+                           disabled
                            onClick={() => setShowToken(!showToken)}
                            className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
                            Upload
@@ -352,8 +350,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Solana is a blockchain platform which uses a proof-of-stake mechanism to provide
-                  smart contract functionality. Its native cryptocurrency is SOL.
+                  Solana is a highly functional open source project that banks on blockchain technology’s permissionless nature to provide decentralized finance (DeFi) solutions. While the idea and initial work on the project began in 2017, Solana was officially launched in March 2020 by the Solana Foundation.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
