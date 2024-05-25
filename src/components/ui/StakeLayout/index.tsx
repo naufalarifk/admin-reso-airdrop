@@ -29,7 +29,7 @@ export const StakeLayout = () => {
                            {t('staking.layout.desc')}
                         </Text>
                         <ButtonGlow
-                           classNameButton={cn('w-56')}
+                           classNameButton={cn('w-56 max-lg:mb-6')}
                            onClick={() => {
                               searchParams.set('newStake', 'true');
                               setSearchParams(searchParams);
