@@ -52,15 +52,15 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://bitcoin.org/en/',
-         icon: <IcMedium />,
+         icon: <IcMedium fill='#F23F5D' />,
       },
    ];
 
    const handleNextStep = () => {
-      if (step === 4) {
+      if (step === 3) {
          setStep(1);
       } else {
-         setStep(3);
+         setStep(step + 1);
       }
    };
 
@@ -113,49 +113,52 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                         <div className="rounded-lg bg-[#0E0F19] p-4">
                            <div className="flex items-center space-x-2">
                               <img
-                                 src="/images/sol.png"
+                                 src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                                  height={32}
                                  width={32}
+                                 className='rounded-full'
                               />
                               <Text>
-                                 SOL <span className="text-[#90A3BF]">Solana</span>
+                                 BOME <span className="text-[#90A3BF]">Book of Meme</span>
                               </Text>
                            </div>
                            <Text className="my-1 text-[#90A3BF]">
-                              Solana is a highly functional open source project that banks on blockchain technology’s permissionless nature to provide decentralized finance (DeFi) solutions. While the idea and initial work on the project began in 2017, Solana was officially launched in March 2020 by the Solana Foundation.
+                              Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
                            </Text>
                            <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                               <div>
                                  <Text>{t('pool.firstStep.ranking')}</Text>
-                                 <Text>#1</Text>
+                                 <Text>--</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.blockExplorer')}</Text>
-                                 <Text>https://blockchair.com/bit</Text>
+                                 <Text>https://solana.com</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.marketCap')}</Text>
-                                 <Text>329.479.24 USD</Text>
+                                 <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.liquidity')}</Text>
-                                 <Text>1,324</Text>
+                                 <Text>874,173,797</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.maxSupply')}</Text>
-                                 <Text>21,000,000</Text>
+                                 <Text>68,966,327,627 BOME</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.circulationSupply')}</Text>
-                                 <Text>19,670,743</Text>
+                                 <Text>68,966,327,627 BOME</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                                 <Text>73,750.074 USD</Text>
+                                 <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
+                                 <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalLow')}</Text>
-                                 <Text>0.049 USD</Text>
+                                 <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
+                                 <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
                               </div>
                            </div>
                         </div>
@@ -192,6 +195,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                   <Input
                      placeholder="HSC"
                      className="bg-transparent placeholder:text-white"
+                     disabled
                   />
                   <Button
                      onClick={() => setShowToken(!showToken)}
@@ -204,8 +208,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      <Text className="text-sm font-semibold text-[#90A3BF]">Token Name</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="Input token name"
+                           placeholder="Heliosync"
                            className="bg-transparent placeholder:text-white"
+                           disabled
                         />
                      </div>
                   </div>
@@ -213,8 +218,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      <Text className="text-sm font-semibold text-[#90A3BF]">Token Icon</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="Input picture"
+                           placeholder="logo_helio.png"
                            className="bg-transparent placeholder:text-white"
+                           disabled
                         />
                         <Button
                            disabled
@@ -228,8 +234,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                <Text className="text-sm font-semibold text-[#90A3BF]">Block Explorer</Text>
                <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                   <Input
-                     placeholder="Input block explorer"
+                     placeholder="https://heliosync-explorer.com"
                      className="bg-transparent placeholder:text-white"
+                     disabled
                   />
                </div>
                <div className="flex items-center justify-between">
@@ -237,8 +244,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      <Text className="text-sm font-semibold text-[#90A3BF]">Max Supply</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="Input max supply"
+                           placeholder="300000000"
                            className="bg-transparent placeholder:text-white"
+                           disabled
                         />
                      </div>
                   </div>
@@ -248,8 +256,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      </Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="Input circulation supply"
+                           placeholder="1000000"
                            className="bg-transparent placeholder:text-white"
+                           disabled
                         />
                      </div>
                   </div>
@@ -257,24 +266,47 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                <Text className="text-sm font-semibold text-[#90A3BF]">Precision</Text>
                <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                   <Input
-                     placeholder="Input precision"
+                     placeholder="8"
                      className="bg-transparent placeholder:text-white"
+                     disabled
                   />
                </div>
-               <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
+               {/* <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
                <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                   <Input
                      placeholder="Input contact address"
                      className="bg-transparent placeholder:text-white"
                   />
-               </div>
+               </div> */}
                <Text className="text-sm font-semibold text-[#90A3BF]">Description</Text>
                <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                   <Input
-                     placeholder="Input description"
+                     placeholder="This token is legit, it will go to the moon in no time"
                      className="bg-transparent placeholder:text-white"
+                     disabled
                   />
                </div>
+               <div className="mt-6 space-y-2">
+                  <div className="flex items-center justify-between">
+                     <Text>{t('pool.firstStep.officialLinks')}</Text>
+                     <IcRoundAdd />
+                  </div>
+                  {official_links.map(item => (
+                     <div className="flex items-center justify-between rounded-xl  bg-[#0E0F19] p-2">
+                        <div className="flex items-center space-x-2">
+                           <>{item.icon}</>
+                           <Text>{item.name}</Text>
+                           <IcDropdown />
+                        </div>
+                        <Text>{item.link}</Text>
+                     </div>
+                  ))}
+               </div>
+               <Button
+                  onClick={handleNextStep}
+                  className="w-full bg-[#F23F5D]">
+                  {t('pool.firstStep.continue')}
+               </Button>
             </div>
          )}
       </section>
@@ -313,34 +345,35 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://bitcoin.org/en/',
-         icon: <IcMedium />,
+         icon: <IcMedium fill='#F23F5D' />,
       },
    ];
 
    const handleNextStep = () => {
-      if (step === 4) {
+      if (step === 3) {
          setStep(1);
       } else {
          setStep(step + 1);
       }
    };
 
+   console.log('step', step)
    return (
       <section className="min-w-sm mx-auto w-full space-y-4 rounded-xl border-[0.5px] border-[#FFFFFF1A] bg-[#181924] p-6 lg:w-3/4">
          <Text className="text-lg font-semibold"></Text>
          <Text className="text-[#9F9F9F]"></Text>
          <div className="mt-6 space-y-2">
             <div className="rounded-lg bg-[#0E0F19] p-4">
-               <div className="block items-center lg:flex lg:justify-between">
+               <div className='block items-center lg:flex lg:justify-between'>
                   <div className="flex items-center space-x-2">
-                     {/* <IcBitcoin /> */}
                      <img
-                        src="/images/sol.png"
+                        src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                         height={32}
                         width={32}
+                        className='rounded-full'
                      />
                      <Text>
-                        SOL <span className="text-[#90A3BF]">Solana</span>
+                        BOME <span className="text-[#90A3BF]">Book of Meme</span>
                      </Text>
                   </div>
                   <div className="mt-2 flex space-x-2 lg:mt-0">
@@ -350,40 +383,42 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Solana is a highly functional open source project that banks on blockchain technology’s permissionless nature to provide decentralized finance (DeFi) solutions. While the idea and initial work on the project began in 2017, Solana was officially launched in March 2020 by the Solana Foundation.
+                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
-                     <Text>{t('pool.thirdStep.ranking')}</Text>
-                     <Text>#1</Text>
+                     <Text>{t('pool.firstStep.ranking')}</Text>
+                     <Text>--</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.blockExplorer')}</Text>
-                     <Text>https://blockchair.com/sol</Text>
+                     <Text>{t('pool.firstStep.blockExplorer')}</Text>
+                     <Text>https://solana.com</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.marketCap')}</Text>
-                     <Text>329.479.24 USD</Text>
+                     <Text>{t('pool.firstStep.marketCap')}</Text>
+                     <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.liquidity')}</Text>
-                     <Text>1,324</Text>
+                     <Text>{t('pool.firstStep.liquidity')}</Text>
+                     <Text>874,173,797</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.maxSupply')}</Text>
-                     <Text>21,000,000</Text>
+                     <Text>{t('pool.firstStep.maxSupply')}</Text>
+                     <Text>68,966,327,627 BOME</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.circulationSupply')}</Text>
-                     <Text>19,670,743</Text>
+                     <Text>{t('pool.firstStep.circulationSupply')}</Text>
+                     <Text>68,966,327,627 BOME</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.historicalHigh')}</Text>
-                     <Text>73,750.074 USD</Text>
+                     <Text>{t('pool.firstStep.historicalHigh')}</Text>
+                     <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.historicalLow')}</Text>
-                     <Text>0.049 USD</Text>
+                     <Text>{t('pool.firstStep.historicalLow')}</Text>
+                     <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
                   </div>
                </div>
             </div>
@@ -539,12 +574,12 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://bitcoin.org/en/',
-         icon: <IcMedium />,
+         icon: <IcMedium fill='#F23F5D' />,
       },
    ];
 
    const handleNextStep = () => {
-      if (step === 4) {
+      if (step === 3) {
          setStep(1);
       } else {
          setStep(step + 1);
@@ -576,16 +611,16 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
          </div>
          <div className="mt-6 space-y-2">
             <div className="rounded-lg bg-[#0E0F19] p-4">
-               <div className="block items-center lg:flex lg:justify-between">
+               <div className='block items-center lg:flex lg:justify-between'>
                   <div className="flex items-center space-x-2">
-                     {/* <IcBitcoin /> */}
                      <img
-                        src="/images/sol.png"
+                        src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                         height={32}
                         width={32}
+                        className='rounded-full'
                      />
                      <Text>
-                        SOL <span className="text-[#90A3BF]">Solana</span>
+                        BOME <span className="text-[#90A3BF]">Book of Meme</span>
                      </Text>
                   </div>
                   <div className="mt-2 flex space-x-2 lg:mt-0">
@@ -595,45 +630,42 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Solana is a blockchain platform which uses a proof-of-stake mechanism to provide
-                  smart contract functionality. Its native cryptocurrency is SOL.
+                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
-                     <Text>{t('pool.thirdStep.ranking')}</Text>
-                     <Text>#1</Text>
+                     <Text>{t('pool.firstStep.ranking')}</Text>
+                     <Text>--</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.blockExplorer')}</Text>
-                     <Text>https://blockchair.com/sol</Text>
+                     <Text>{t('pool.firstStep.blockExplorer')}</Text>
+                     <Text>https://solana.com</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.marketCap')}</Text>
-                     <Text>329.479.24 USD</Text>
+                     <Text>{t('pool.firstStep.marketCap')}</Text>
+                     <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.liquidity')}</Text>
-                     <Text>1,324</Text>
+                     <Text>{t('pool.firstStep.liquidity')}</Text>
+                     <Text>874,173,797</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.maxSupply')}</Text>
-                     <Text>21,000,000</Text>
+                     <Text>{t('pool.firstStep.maxSupply')}</Text>
+                     <Text>68,966,327,627 BOME</Text>
                   </div>
                   <div>
-                     <Text>Margin Order</Text>
-                     <Text>5%</Text>
+                     <Text>{t('pool.firstStep.circulationSupply')}</Text>
+                     <Text>68,966,327,627 BOME</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.circulationSupply')}</Text>
-                     <Text>19,670,743</Text>
+                     <Text>{t('pool.firstStep.historicalHigh')}</Text>
+                     <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
                   </div>
                   <div>
-                     <Text>{t('pool.thirdStep.historicalHigh')}</Text>
-                     <Text>73,750.074 USD</Text>
-                  </div>
-                  <div>
-                     <Text>{t('pool.thirdStep.historicalLow')}</Text>
-                     <Text>0.049 USD</Text>
+                     <Text>{t('pool.firstStep.historicalLow')}</Text>
+                     <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
                   </div>
                </div>
             </div>
