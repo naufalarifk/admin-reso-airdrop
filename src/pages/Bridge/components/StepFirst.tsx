@@ -21,8 +21,8 @@ interface StepFirstProps {
 function StepFirstMemo({
    amount,
    setAmount,
-   receive,
-   setReceive,
+   // receive,
+   // setReceive,
    to,
    setTo,
    from,
