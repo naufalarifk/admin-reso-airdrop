@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { NouisliderProps } from 'nouislider-react';
 import Nouislider from 'nouislider-react';
-import 'nouislider/distribute/nouislider.css';
+import '@/styles/nouislider.min.css';
 import '@/styles/nouislider.css';
 
 export const SliderPercent: FC<NouisliderProps & { length?: number }> = ({
