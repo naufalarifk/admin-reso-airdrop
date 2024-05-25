@@ -161,6 +161,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                           Create New Market
                         </div>
                       ) :
+
                         (
                           <NavLink
                             aria-current="page"
