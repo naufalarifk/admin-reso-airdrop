@@ -3,6 +3,7 @@ import { Skeleton } from '@/components';
 import { Decimal } from '@/components/molecules/Decimal';
 import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { Market } from '@/types/components';
+import { validateNumber } from '@/utils';
 import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 interface TabsData {
@@ -102,14 +103,9 @@ export const NewFormTrade = ({
                            </button>
                            <input
                               type="text"
-                              value={Decimal.format(
-                                 +tick?.last ?? 0,
-                                 market?.price_precision!,
-                                 ',',
-                              )}
                               disabled
                               className=" w-11/12 bg-transparent text-center placeholder:font-semibold focus:outline-none"
-                              placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
+                              placeholder={`${Decimal.format(validateNumber(tick?.last), market?.price_precision!, ',')}`}
                            />
 
                            <button
@@ -261,7 +257,11 @@ export const NewFormTrade = ({
                            <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4">
                               <div className="text-xs text-darkSoft">Market Price</div>
                               <div className="text-sm font-normal text-darkSoft">
-                                 {Decimal.format(+tick?.last ?? 0, market?.price_precision!, ',')}
+                                 {Decimal.format(
+                                    validateNumber(tick?.last),
+                                    market?.price_precision!,
+                                    ',',
+                                 )}
                               </div>
                            </div>
                         )}
