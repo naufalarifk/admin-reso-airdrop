@@ -28,7 +28,7 @@ function StepSecondMemo({
    return (
       <>
          <div className="flex gap-4 max-lg:flex-col">
-            <div className="size-64 shrink-0 rounded-lg bg-dark p-4">
+            <div className="size-64 shrink-0 rounded-lg bg-dark p-4 max-lg:mx-auto">
                <div className="rounded-[20px] bg-dark2 p-4">
                   <img src="/images/qr-code.png" />
                </div>
@@ -55,9 +55,16 @@ function StepSecondMemo({
                               weight="medium"
                               variant="heading3"
                               textColor={selectedFrom ? 'default' : 'lighGray'}>
-                              {selectedFrom
-                                 ? `${selectedFrom?.name} (${selectedFrom?.nativeCurrency.symbol})`
-                                 : 'Select chain'}
+                              {selectedFrom ? (
+                                 <>
+                                    <span className="max-lg:hidden">
+                                       {selectedFrom?.name}&nbsp;
+                                    </span>
+                                    ({selectedFrom?.nativeCurrency.symbol})
+                                 </>
+                              ) : (
+                                 'Select chain'
+                              )}
                            </Text>
                         </div>
                         <span>-</span>
@@ -73,9 +80,14 @@ function StepSecondMemo({
                               weight="medium"
                               variant="heading3"
                               textColor={selectedTo ? 'default' : 'lighGray'}>
-                              {selectedTo
-                                 ? `${selectedTo?.name} (${selectedTo?.nativeCurrency.symbol})`
-                                 : 'Select token'}
+                              {selectedTo ? (
+                                 <>
+                                    <span className="max-lg:hidden">{selectedTo?.name}&nbsp;</span>(
+                                    {selectedTo?.nativeCurrency.symbol})
+                                 </>
+                              ) : (
+                                 'Select token'
+                              )}
                            </Text>
                         </div>
                      </div>
@@ -187,4 +199,6 @@ function StepSecondMemo({
    );
 }
 
-export const StepSecond = memo(StepSecondMemo);
+const StepSecond = memo(StepSecondMemo);
+
+export default StepSecond;

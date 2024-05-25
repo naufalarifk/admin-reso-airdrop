@@ -1,7 +1,6 @@
 export * from './Navbar';
 export * from './CardStaking';
 export * from './ModalUnstake';
-export * from './BridgeSteps';
 export * from './BridgeInput';
 export * from './TokenList';
 export * from './Footer';
@@ -24,5 +23,5 @@ export * from './ModalConfirmInstantSwap';
 export * from './SwapInput';
 export * from './ModalGasFee';
 export * from './ButtonBalancePercentage';
-export * from './SwapContainer'
+export * from './SwapContainer';
 export * from './TopMarkets';

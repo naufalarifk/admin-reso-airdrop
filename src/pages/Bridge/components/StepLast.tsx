@@ -24,7 +24,7 @@ function StepLastMemo({
 
    return (
       <>
-         <div className="space-y-6.5 rounded-lg bg-dark px-4 py-6">
+         <div className="space-y-4 rounded-lg bg-dark px-4 py-6 lg:space-y-6.5">
             <div className="grid grid-cols-3">
                <div className="flex items-center gap-2">
                   <div className="size-6 overflow-hidden rounded-full">
@@ -78,7 +78,8 @@ function StepLastMemo({
                </Text>
                <Text
                   weight="medium"
-                  variant="heading">
+                  variant="heading"
+                  className="max-lg:text-xl">
                   {amount}
                </Text>
             </div>
@@ -92,7 +93,8 @@ function StepLastMemo({
                </Text>
                <Text
                   weight="medium"
-                  variant="heading">
+                  variant="heading"
+                  className="max-lg:text-xl">
                   {receive}
                </Text>
             </div>
@@ -161,4 +163,6 @@ function StepLastMemo({
    );
 }
 
-export const StepLast = memo(StepLastMemo);
+const StepLast = memo(StepLastMemo);
+
+export default StepLast;
