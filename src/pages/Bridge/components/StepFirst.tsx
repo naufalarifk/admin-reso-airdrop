@@ -191,8 +191,8 @@ function StepFirstMemo({
             <input
                type="text"
                placeholder={t('bridge.firstStep.placeholder')}
-               value={receive}
-               onChange={e => setReceive(e.target.value)}
+               // value={receive}
+               // onChange={e => setReceive(e.target.value)}
                className="flex h-12 w-full items-center rounded-2xl bg-dark px-4 text-base font-medium outline-none placeholder:text-gray3 lg:h-16"
             />
          </div>
