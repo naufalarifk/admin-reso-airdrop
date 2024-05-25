@@ -13,12 +13,12 @@ export const Footer = () => {
               <img src="/images/footer_brand.webp" className="w-max h-14 mx-auto" alt="" />
               <div className="col-span-full  lg:col-span-1   lg:block">
               </div>
-              <div className="text-soft mt-7 text-sm w-1/2 mx-auto text-center">{t("footer.desc")}</div>
+              <div className="text-soft mt-7 text-sm lg:w-1/2 w-full mx-auto text-center">{t("footer.desc")}</div>
               <ul className="text-soft font-medium flex space-x-3 justify-center mt-4">
                 <li>
                   <a
                     href="#"
-                    className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
+                    className="hover:underline hover:text-primary ease-in-out transition-colors text-xs lg:text-sm font-light"
                   >
                     {t("footer.about")}
                   </a>
@@ -26,7 +26,7 @@ export const Footer = () => {
                 <li>
                   <a
                     href="#"
-                    className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
+                    className="hover:underline hover:text-primary ease-in-out transition-colors text-xs lg:text-sm font-light"
                   >
                     {t("footer.blog")}
                   </a>
@@ -34,7 +34,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/terms"
-                    className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
+                    className="hover:underline hover:text-primary ease-in-out transition-colors text-xs lg:text-sm font-light"
                   >
                     {t("footer.terms")}
                   </Link>
@@ -42,7 +42,7 @@ export const Footer = () => {
                 <li>
                   <Link
                     to="/privacy"
-                    className="hover:underline hover:text-primary ease-in-out transition-colors text-sm font-light"
+                    className="hover:underline hover:text-primary ease-in-out transition-colors text-xs lg:text-sm font-light"
                   >
                     {t("footer.privacy")}
                   </Link>
