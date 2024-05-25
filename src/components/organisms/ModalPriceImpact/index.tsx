@@ -80,7 +80,7 @@ export function ModalPriceImpact({
                                  <div className="grid grid-cols-2 rounded-lg border border-primary">
                                     <button
                                        className={cn(
-                                          'grid place-items-center rounded-lg px-2 transition-all duration-300',
+                                          'grid h-11 place-items-center rounded-lg px-2 transition-all duration-300',
                                           type === 'auto' && 'bg-primary/10 text-primary',
                                        )}
                                        onClick={() => setType('auto')}>
@@ -88,7 +88,7 @@ export function ModalPriceImpact({
                                     </button>
                                     <button
                                        className={cn(
-                                          'grid place-items-center rounded-lg px-2 transition-all duration-300',
+                                          'grid h-11 place-items-center rounded-lg px-2 transition-all duration-300',
                                           type === 'custom' && 'bg-primary/10 text-primary',
                                        )}
                                        onClick={() => setType('custom')}>
@@ -104,7 +104,7 @@ export function ModalPriceImpact({
                                        })}
                                        value={_priceImpact}
                                        onChange={e => _setPriceImpact(e.target.value)}
-                                       className="flex h-11 w-full items-center rounded-r-2xl bg-dark2 pl-2 pr-7 text-right outline-none transition-all duration-300 focus:ring-1 focus:ring-primary"
+                                       className="flex h-11 w-full items-center rounded-r-2xl bg-dark2 pl-2 pr-7 text-right outline-none transition-all duration-300 focus:ring-1 focus:ring-primary max-lg:rounded-l-2xl"
                                     />
                                     <div className="absolute right-2 top-1/2 -translate-y-1/2">
                                        %
