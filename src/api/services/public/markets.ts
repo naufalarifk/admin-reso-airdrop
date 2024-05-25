@@ -121,19 +121,19 @@ export async function getMarketKLine(market: string, payload: MarketKLinePayload
 export async function getMarketDepth(
    market: string,
    limit: number,
-   setLoading: (isLoading: boolean) => void,
+   setLoading?: (isLoading: boolean) => void,
 ) {
-   setLoading(true);
+   if (setLoading) setLoading(true);
    try {
       const response: AxiosResponse = await baseApi.get(
          `/trade/public/markets/${market}/depth?limit=${limit}`,
       );
       return response.data;
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return null;
    } finally {
-      setLoading(false);
+      if (setLoading) setLoading(false);
    }
 }
 

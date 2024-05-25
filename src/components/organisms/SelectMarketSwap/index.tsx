@@ -2,6 +2,9 @@ import { ChangeEvent, Fragment, useState, useEffect } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import { Market } from '@/types/components';
+import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
+import { Decimal } from '@/components/molecules/Decimal';
+import { validateNumber } from '@/utils';
 
 interface SelectMarketSwap {
    searchTerm: string;
@@ -9,6 +12,7 @@ interface SelectMarketSwap {
    filteredData: Market[];
    setSearchTerm: (value: string) => void;
    setShowModalMarket: (value: boolean) => void;
+   ticker: MarketTicker;
 }
 
 export const SelectMarketSwap = ({
@@ -17,11 +21,13 @@ export const SelectMarketSwap = ({
    searchTerm,
    setSearchTerm,
    setShowModalMarket,
+   ticker,
 }: SelectMarketSwap) => {
    const navigate = useNavigate();
    const [selected, setSelected] = useState<Market | null>(null);
+
    useEffect(() => {
-      if (selected === null) {
+      if (selected === null && filteredData.length > 0) {
          setSelected(filteredData[0]);
       }
    }, [filteredData, selected]);
@@ -102,11 +108,19 @@ export const SelectMarketSwap = ({
                                        <div className="w-full text-left text-xs font-medium text-soft lg:text-sm">
                                           {item?.name}
                                        </div>
-                                       <div className="w-full text-center  text-xs font-light text-green">
-                                          800
+                                       <div className="w-full text-left text-xs font-light text-green">
+                                          {Decimal.format(
+                                             validateNumber(ticker?.ticker?.last),
+                                             item?.price_precision!,
+                                             ',',
+                                          )}
                                        </div>
                                        <div className="w-full text-right text-xs font-light text-green">
-                                          500
+                                          {Decimal.format(
+                                             validateNumber(ticker?.ticker?.volume),
+                                             item?.amount_precision!,
+                                             ',',
+                                          )}
                                        </div>
                                     </Popover.Button>
                                  ))
