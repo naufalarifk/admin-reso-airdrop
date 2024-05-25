@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardStaking, ModalAddStaking, Tabs, useWalletStore } from '@/components';
-import { COIN, STAKE_MEME_TOKEN } from '@/constants';
+import { STAKE_MEME_TOKEN } from '@/constants';
 import { Coin } from '@/types/components';
 
 interface NewStakingDataPayload {
@@ -63,14 +63,14 @@ export const Staking = () => {
       startStake: '',
    });
 
-   const handleSelectedOptionsChange = (selected: Coin[]) => {
-      setSelectedOptions(selected);
-      setNewStakingData({
-         ...newStakingData,
-         coinOne: selected[0],
-         coinTwo: selected[1],
-      });
-   };
+   // const handleSelectedOptionsChange = (selected: Coin[]) => {
+   //    setSelectedOptions(selected);
+   //    setNewStakingData({
+   //       ...newStakingData,
+   //       coinOne: selected[0],
+   //       coinTwo: selected[1],
+   //    });
+   // };
 
    const setToken0 = (coin: Coin) => {
       setNewStakingData({

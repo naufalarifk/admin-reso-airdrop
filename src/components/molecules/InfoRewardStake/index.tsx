@@ -8,9 +8,9 @@ interface InfoRewardStakeProps {
 }
 
 export const InfoRewardStake = ({
-   estimatedAPY,
+   // estimatedAPY,
    estimatedTotalReward,
-   totalValueLocked,
+   // totalValueLocked,
 }: InfoRewardStakeProps) => {
    const { t } = useTranslation();
    return (
