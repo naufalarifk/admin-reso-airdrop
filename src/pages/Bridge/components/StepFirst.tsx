@@ -102,7 +102,7 @@ function StepFirstMemo({
                   variant="heading2"
                   textColor="lighGray"
                   className="max-lg:text-sm">
-                  Amount Sent
+                  Amount
                </Text>
                <Text
                   weight="medium"

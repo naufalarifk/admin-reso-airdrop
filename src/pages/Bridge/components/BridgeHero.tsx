@@ -15,7 +15,9 @@ export default function BridgeHero() {
          <Text
             className="mb-12 mt-4 text-center text-sm lg:text-2xl"
             textColor="lighGray">
-            {t('bridge.subtitle.supertitle')} <br /> {t('bridge.subtitle.subtitle')}
+            Our bridge feature lets you easily move assets between different blockchains, providing
+            greater flexibility and access to more opportunities.
+            {/* {t('bridge.subtitle.supertitle')} <br /> {t('bridge.subtitle.subtitle')} */}
          </Text>
       </>
    );
