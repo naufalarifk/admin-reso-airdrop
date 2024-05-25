@@ -44,13 +44,13 @@ export const TopMarkets = ({
                 <div className='space-y-2'>
                     {
                         data.map(item =>
-                            <div className='flex items-center justify-between'>
+                            <div className='grid grid-cols-3 gap-3'>
                                 <div className='flex space-x-1 items-center'>
                                     <img className='rounded-full' alt='' src={item.icon} height={20} width={20} />
                                     <Text>{item.symbol}</Text>
                                 </div>
-                                <Text>{item.price}</Text>
-                                <Text className={`${item.changes.includes('-') ? `text-[#EF454A]` : `text-[#33D49D]`}`}>{item.changes}</Text>
+                                <div><Text className='text-right'>{item.price}</Text></div>
+                                <Text className={`${item.changes.includes('-') ? `text-[#EF454A]` : `text-[#33D49D]`} text-right`}>{item.changes}</Text>
                             </div>)
                     }
                 </div>

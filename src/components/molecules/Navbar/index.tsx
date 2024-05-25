@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import { ButtonGlow, ButtonWalletConnectV2 } from '@/components';
+import { ButtonGlow, ButtonWalletConnectV2, Text } from '@/components';
 // import { AnimatePresence, motion } from "framer-motion";
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -241,6 +241,18 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
           </AnimatePresence>
 
           <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
+            <div style={{
+              background: 'rgba(254, 159, 0, 0.10)'
+            }} className='rounded-full flex space-x-2 py-2 px-4 items-center'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path opacity="0.2" d="M25.1201 14.6147L14.6201 25.1147C14.5394 25.1955 14.4436 25.2597 14.3381 25.3034C14.2327 25.3472 14.1196 25.3697 14.0054 25.3697C13.8912 25.3697 13.7781 25.3472 13.6727 25.3034C13.5672 25.2597 13.4714 25.1955 13.3907 25.1147L2.89071 14.6147C2.80989 14.5341 2.74576 14.4382 2.70201 14.3328C2.65826 14.2273 2.63574 14.1142 2.63574 14C2.63574 13.8858 2.65826 13.7728 2.70201 13.6673C2.74576 13.5618 2.80989 13.466 2.89071 13.3853L13.3962 2.88534C13.4768 2.80452 13.5727 2.74039 13.6781 2.69664C13.7836 2.65289 13.8967 2.63037 14.0109 2.63037C14.1251 2.63037 14.2381 2.65289 14.3436 2.69664C14.4491 2.74039 14.5449 2.80452 14.6256 2.88534L25.1256 13.3908C25.2864 13.5542 25.3761 13.7746 25.3751 14.0039C25.374 14.2332 25.2824 14.4528 25.1201 14.6147Z" fill="#FE9F00" />
+                <path d="M14 7.87493C14.232 7.87493 14.4546 7.96712 14.6187 8.13121C14.7828 8.29531 14.875 8.51787 14.875 8.74993V14.8749C14.875 15.107 14.7828 15.3296 14.6187 15.4937C14.4546 15.6577 14.232 15.7499 14 15.7499C13.7679 15.7499 13.5453 15.6577 13.3812 15.4937C13.2171 15.3296 13.125 15.107 13.125 14.8749V8.74993C13.125 8.51787 13.2171 8.29531 13.3812 8.13121C13.5453 7.96712 13.7679 7.87493 14 7.87493ZM12.6875 18.8124C12.6875 19.072 12.7644 19.3258 12.9087 19.5416C13.0529 19.7575 13.2579 19.9257 13.4977 20.025C13.7375 20.1244 14.0014 20.1504 14.256 20.0997C14.5106 20.0491 14.7445 19.9241 14.928 19.7405C15.1116 19.557 15.2366 19.3231 15.2872 19.0685C15.3379 18.8139 15.3119 18.55 15.2126 18.3102C15.1132 18.0703 14.945 17.8653 14.7291 17.7211C14.5133 17.5769 14.2596 17.4999 14 17.4999C13.6519 17.4999 13.318 17.6382 13.0719 17.8844C12.8257 18.1305 12.6875 18.4643 12.6875 18.8124ZM26.25 13.9999C26.2506 14.2291 26.2058 14.4562 26.1181 14.668C26.0304 14.8797 25.9016 15.072 25.7392 15.2337L15.2337 25.7402C14.9058 26.0662 14.4623 26.2491 14 26.2491C13.5376 26.2491 13.0941 26.0662 12.7662 25.7402L2.26621 15.2337C1.94027 14.9058 1.75732 14.4623 1.75732 13.9999C1.75732 13.5376 1.94027 13.0941 2.26621 12.7662L12.7717 2.25962C13.0996 1.93368 13.5431 1.75073 14.0054 1.75073C14.4678 1.75073 14.9113 1.93368 15.2392 2.25962L25.7446 12.7662C25.9061 12.9283 26.0339 13.1208 26.1206 13.3325C26.2074 13.5443 26.2513 13.7711 26.25 13.9999ZM24.5 13.9999L14 3.49993L3.49996 13.9999L14 24.4999L24.5 13.9999Z" fill="#FE9F00" />
+              </svg>
+              <div>
+                <Text className='text-[#FE9F00]'>Info</Text>
+                <Text className='text-[#FE9F00] font-semibold'>Demo Only</Text>
+              </div>
+            </div>
             <div className="flex items-center gap-4">
               <ButtonWalletConnectV2 />
               <div
@@ -346,6 +358,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                       {langs.map((lang: Language) => (
                         <div key={lang.abbr}>
                           <button
+                            disabled={lang.abbr !== 'en'}
                             onClick={() => i18n.changeLanguage(lang.abbr)}
                             className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${i18n.language === lang.abbr
                               ? 'border-primary'
@@ -360,9 +373,9 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                             </div>
                             <div
                               className={`${i18n.language === lang.abbr
-                                ? '  text-primary'
-                                : ' text-white'
-                                } text-sm `}>
+                                ? '  text-primary' : lang.abbr !== 'en' ? 'text-gray-600'
+                                  : ' text-white'
+                                } text-sm`}>
                               {lang.nativeName}
                             </div>
                           </button>
