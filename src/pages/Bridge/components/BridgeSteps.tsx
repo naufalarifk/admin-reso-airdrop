@@ -10,6 +10,7 @@ import { cn } from '@/utils';
 import StepFirst from './StepFirst';
 import StepSecond from './StepSecond';
 import StepLast from './StepLast';
+import { COIN } from '@/constants/coin';
 
 const variants = {
    hidden: { opacity: 0, x: -24, y: 0 },
@@ -56,6 +57,8 @@ export default function BridgeSteps() {
       [],
    );
 
+   const selectedToken = useMemo(() => COIN.find(e => e.symbol === currency), [currency]);
+
    const renderStep = useMemo<Record<number, ReactNode>>(() => {
       const commonProps = {
          amount,
@@ -64,6 +67,7 @@ export default function BridgeSteps() {
          addressTo,
          selectedFrom: selectedChain(from)!,
          selectedTo: selectedChain(to)!,
+         selectedToken: selectedToken!,
          setStep,
       };
 
@@ -93,7 +97,7 @@ export default function BridgeSteps() {
          ),
          2: <StepLast {...commonProps} />,
       };
-   }, [addressFrom, addressTo, amount, currency, from, receive, selectedChain, to]);
+   }, [addressFrom, addressTo, amount, currency, from, receive, selectedChain, selectedToken, to]);
 
    return (
       <>
@@ -150,6 +154,11 @@ export default function BridgeSteps() {
                      </Text>
                   </div>
                   {step === 2 && <IcCheck />}
+                  {/* {step === 2 && (
+                     <span className="max-lg:hidden">
+                        <IcCheck />
+                     </span>
+                  )} */}
                </div>
                <AnimatePresence mode="wait">
                   <motion.div

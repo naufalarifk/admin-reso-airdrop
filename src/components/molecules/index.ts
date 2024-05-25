@@ -25,3 +25,4 @@ export * from './ModalGasFee';
 export * from './ButtonBalancePercentage';
 export * from './SwapContainer';
 export * from './TopMarkets';
+export * from './SelectCoin';
