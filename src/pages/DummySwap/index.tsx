@@ -55,7 +55,7 @@ export const DummySwap = () => {
    const updateDepth = usePublicMarket(state => state.updateDepth);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
 
-   const [depthLoading, setDepthLoading] = useState(false);
+   const [depthLoading, setDepthLoading] = useState(true);
 
    const getData = useCallback(async () => {
       const market = await getMarketList({});
@@ -267,6 +267,7 @@ export const DummySwap = () => {
                               filteredData={filteredData}
                               setSearchTerm={setSearchTerm}
                               setShowModalMarket={setShowModalMarket}
+                              ticker={marketTicker}
                            />
                            {/* End Pop up change market */}
 

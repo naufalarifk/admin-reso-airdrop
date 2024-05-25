@@ -2,7 +2,7 @@ import { IcHandicapAll, IcHandicapBuy, IcHandicapSell } from '@/assets/icons';
 import { cn } from '@/utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
-import { accumulateVolume, calcMaxVolume } from '@/utils';
+import { accumulateVolume, calcMaxVolume, validateNumber } from '@/utils';
 import { Currencies, Market } from '@/pages/Dummy/types';
 import { Decimal } from '@/components/molecules/Decimal';
 import { Skeleton } from '@/components';
@@ -99,45 +99,46 @@ export const OrderBook = ({
                        ? 'h-[calc(100%-54px)] overflow-scroll'
                        : 'h-0',
                )}>
-               {loading
-                  ? Array.from({ length: 5 }).map((_, index) => (
-                       <Skeleton key={index}>
-                          <div className="h-[18px] w-full  bg-dark3" />
-                       </Skeleton>
-                    ))
-                  : asks?.map((order, i) => (
-                       <div
-                          key={i}
-                          className="relative flex h-[18px] justify-between pr-1 text-[8px]">
-                          <div className="flex-1 text-primary">
-                             {Decimal.format(
-                                +order?.[0] ? +order?.[0] : 0,
-                                market?.price_precision!,
-                                ',',
-                             )}
-                          </div>
-                          <div className="hidden flex-1 text-right text-soft lg:block">
-                             {Decimal.format(
-                                +order?.[1] ? +order?.[1] : 0,
-                                market?.amount_precision!,
-                                ',',
-                             )}
-                          </div>
-                          <div className="flex-1 text-right text-soft">
-                             {generateTotal(
-                                +order?.[0] ? +order?.[0] : 0,
-                                +order?.[1] ? +order?.[1] : 0,
-                             )}
-                          </div>
+               {loading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                     <Skeleton key={index}>
+                        <div className="h-[18px] w-full  bg-dark3" />
+                     </Skeleton>
+                  ))
+               ) : asks?.length > 0 ? (
+                  asks?.map((order, i) => (
+                     <div
+                        key={i}
+                        className="relative flex h-[18px] justify-between pr-1 text-xxs">
+                        <div className="flex-1 text-primary">
+                           {Decimal.format(
+                              validateNumber(order?.[0]),
+                              market?.price_precision!,
+                              ',',
+                           )}
+                        </div>
+                        <div className="hidden flex-1 text-right text-soft lg:block">
+                           {Decimal.format(
+                              validateNumber(order?.[1]),
+                              market?.amount_precision!,
+                              ',',
+                           )}
+                        </div>
+                        <div className="flex-1 text-right text-soft">
+                           {generateTotal(validateNumber(order?.[0]), validateNumber(order?.[1]))}
+                        </div>
 
-                          <div
-                             className="animate-backgroundWidth absolute right-0 h-full bg-primary/15 transition-[width] duration-200 ease-in-out"
-                             style={{
-                                width: `${bgWidthAsks[i]}%`,
-                             }}
-                          />
-                       </div>
-                    ))}
+                        <div
+                           className="animate-backgroundWidth absolute right-0 h-full bg-primary/15 transition-[width] duration-200 ease-in-out"
+                           style={{
+                              width: `${bgWidthAsks[i]}%`,
+                           }}
+                        />
+                     </div>
+                  ))
+               ) : (
+                  <div className="py-5 text-center text-sm font-bold text-soft">No Data</div>
+               )}
             </div>
             {/* End Sell */}
 
@@ -148,12 +149,12 @@ export const OrderBook = ({
                   type === 'sell' ? 'mb-0' : type === 'buy' ? 'mt-0' : '',
                )}>
                <div className="text-xs font-normal text-primary">
-                  {Decimal.format(+tick?.last ? +tick?.last : 0, market?.price_precision!, ',')}
+                  {Decimal.format(validateNumber(tick?.last), market?.price_precision!, ',')}
                </div>
-               <div className="hidden text-right text-xxxs font-normal text-soft lg:block">
+               <div className="hidden text-right text-xxs font-normal text-soft lg:block">
                   ≈
                   {Decimal.format(
-                     +tick?.last ? +tick?.last : 0 / +usdtPrice ? +usdtPrice : 0,
+                     validateNumber(tick?.last) / validateNumber(usdtPrice),
                      market?.price_precision!,
                      ',',
                   )}{' '}
@@ -172,44 +173,45 @@ export const OrderBook = ({
                        ? 'h-[calc(100%-54px)] overflow-scroll'
                        : 'h-0',
                )}>
-               {loading
-                  ? Array.from({ length: 5 }).map((_, index) => (
-                       <Skeleton key={index}>
-                          <div className="h-[18px] w-full  bg-dark3" />
-                       </Skeleton>
-                    ))
-                  : bids?.map((order, i) => (
-                       <div
-                          key={i}
-                          className="relative flex h-[18px] justify-between pr-1 text-[8px]">
-                          <div className="flex-1 text-success">
-                             {Decimal.format(
-                                +order?.[0] ? +order?.[0] : 0,
-                                market?.price_precision!,
-                                ',',
-                             )}
-                          </div>
-                          <div className="hidden flex-1 text-right text-soft lg:block">
-                             {Decimal.format(
-                                +order?.[1] ? +order?.[1] : 0,
-                                market?.amount_precision!,
-                                ',',
-                             )}
-                          </div>
-                          <div className="flex-1 text-right text-soft">
-                             {generateTotal(
-                                +order?.[0] ? +order?.[0] : 0,
-                                +order?.[1] ? +order?.[1] : 0,
-                             )}
-                          </div>
-                          <div
-                             className="animate-backgroundWidth absolute right-0 h-full bg-success/15 transition-[width] duration-200 ease-in-out"
-                             style={{
-                                width: `${bgWidthBids[i]}%`,
-                             }}
-                          />
-                       </div>
-                    ))}
+               {loading ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                     <Skeleton key={index}>
+                        <div className="h-[18px] w-full  bg-dark3" />
+                     </Skeleton>
+                  ))
+               ) : bids?.length > 0 ? (
+                  bids?.map((order, i) => (
+                     <div
+                        key={i}
+                        className="relative flex h-[18px] justify-between pr-1 text-xxs">
+                        <div className="flex-1 text-success">
+                           {Decimal.format(
+                              validateNumber(order?.[0]),
+                              market?.price_precision!,
+                              ',',
+                           )}
+                        </div>
+                        <div className="hidden flex-1 text-right text-soft lg:block">
+                           {Decimal.format(
+                              validateNumber(order?.[1]),
+                              market?.amount_precision!,
+                              ',',
+                           )}
+                        </div>
+                        <div className="flex-1 text-right text-soft">
+                           {generateTotal(validateNumber(order?.[0]), validateNumber(order?.[1]))}
+                        </div>
+                        <div
+                           className="animate-backgroundWidth absolute right-0 h-full bg-success/15 transition-[width] duration-200 ease-in-out"
+                           style={{
+                              width: `${bgWidthBids[i]}%`,
+                           }}
+                        />
+                     </div>
+                  ))
+               ) : (
+                  <div className="py-5 text-center text-sm font-bold text-soft">No Data</div>
+               )}
             </div>
             {/* End Buy */}
          </div>

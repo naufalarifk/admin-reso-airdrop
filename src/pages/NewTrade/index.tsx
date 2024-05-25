@@ -27,7 +27,7 @@ import { RecentTrades } from '@/components/dummy/RecentTrade';
 import { NewHistoryTrade } from '@/components/dummy/NewHistoryTrade';
 import { NewFormTradeMobile } from '@/components/dummy/NewFormTradeMobile';
 import { NewHistoryTradeMobile } from '@/components/dummy/NewHistoryTradeMobile';
-import { cn } from '@/utils';
+import { cn, validateNumber } from '@/utils';
 import { IcCoinPairs } from '@/assets/icons';
 
 export const NewTrade = () => {
@@ -39,7 +39,6 @@ export const NewTrade = () => {
    const [showOrderBook, setShowOrderBook] = useState(true);
    const params = useParams();
    const marketId = params?.market?.replace('-', '')?.toLowerCase();
-   const currId = params?.market?.split('-')[0]?.toLowerCase();
 
    const market = usePublicMarket(state => state.market);
    const marketTicker = usePublicMarketTicker(state => state.market_ticker);
@@ -54,7 +53,7 @@ export const NewTrade = () => {
    const updateDepth = usePublicMarket(state => state.updateDepth);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
 
-   const [depthLoading, setDepthLoading] = useState(false);
+   const [depthLoading, setDepthLoading] = useState(true);
 
    const getData = useCallback(async () => {
       const market = await getMarketList({});
@@ -88,7 +87,6 @@ export const NewTrade = () => {
       queryFn: getCurrencies,
    });
 
-   const currency = listCurrencies?.find(item => item.id === currId);
    const usdt = listCurrencies?.find(item => item.id === 'usdt');
    // const getCurrentPair = listCurrencies?.find(item => item.id === getCurrentMarket?.quote_unit);
    const marketById = market?.find(item => item?.id === marketId);
@@ -190,6 +188,7 @@ export const NewTrade = () => {
                      <div className="flex cursor-pointer items-center space-x-3">
                         {/* Pop up change market */}
                         <SelectMarketSwap
+                           ticker={marketTicker}
                            searchTerm={searchTerm}
                            handleSearch={handleSearch}
                            filteredData={filteredData}
@@ -229,8 +228,8 @@ export const NewTrade = () => {
                            <div className="flex items-center space-x-1">
                               <div className="text-xl font-semibold">
                                  {Decimal.format(
-                                    +marketTicker?.ticker?.last ? +marketTicker?.ticker?.last : 0,
-                                    currency?.precision!,
+                                    validateNumber(marketTicker?.ticker?.last),
+                                    marketById?.price_precision!,
                                     ',',
                                  )}
                               </div>
@@ -259,7 +258,7 @@ export const NewTrade = () => {
                            <div className="text-xs">24h High</div>
                            <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                               {Decimal.format(
-                                 +marketTicker?.ticker?.high ? +marketTicker?.ticker?.high : 0,
+                                 validateNumber(marketTicker?.ticker?.high),
                                  marketById?.price_precision!,
                                  ',',
                               )}
@@ -269,7 +268,7 @@ export const NewTrade = () => {
                            <div className="text-xs">24h Low</div>
                            <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                               {Decimal.format(
-                                 +marketTicker?.ticker?.low ? +marketTicker?.ticker?.low : 0,
+                                 validateNumber(marketTicker?.ticker?.low),
                                  marketById?.price_precision!,
                                  ',',
                               )}
@@ -279,7 +278,7 @@ export const NewTrade = () => {
                            <div className="text-xs">24h Volume</div>
                            <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
                               {Decimal.format(
-                                 +marketTicker?.ticker?.volume ? +marketTicker?.ticker?.volume : 0,
+                                 validateNumber(marketTicker?.ticker?.volume),
                                  marketById?.amount_precision!,
                                  ',',
                               )}
@@ -369,8 +368,8 @@ export const NewTrade = () => {
             <Marquee>
                {market?.map(token => (
                   <div className="flex space-x-5 px-2 text-xs">
-                     <div>{token.name}</div>
-                     <div className="text-green">{token.max_price}</div>
+                     <div>{token?.name}</div>
+                     <div className="text-green">{token?.max_price}</div>
                   </div>
                ))}
             </Marquee>
