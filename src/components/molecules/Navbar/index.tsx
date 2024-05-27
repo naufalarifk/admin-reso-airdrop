@@ -113,23 +113,21 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                      onClick={() => setToggle(!toggle)}
                      className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden">
                      <span
-                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
-                           toggle ? 'translate-y-0 rotate-45' : '-translate-y-2'
-                        }`}
+                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? 'translate-y-0 rotate-45' : '-translate-y-2'
+                           }`}
                      />
                      <span
-                        className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${
-                           toggle ? 'translate-x-3 opacity-0' : 'opacity-100'
-                        }`}
+                        className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${toggle ? 'translate-x-3 opacity-0' : 'opacity-100'
+                           }`}
                      />
                      <span
-                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
-                           toggle ? 'translate-y-0 -rotate-45' : 'translate-y-2'
-                        }`}
+                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? 'translate-y-0 -rotate-45' : 'translate-y-2'
+                           }`}
                      />
                   </button>
                   <Link
-                     to={`/trade/${market?.[0]?.name?.replace('/', '-')}`}
+                     // to={`/trade/${market?.[0]?.name?.replace('/', '-')}`}
+                     to='/'
                      className=" ">
                      <img
                         src="/images/brand.png"
@@ -374,11 +372,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                        <button
                                           disabled={lang.abbr !== 'en'}
                                           onClick={() => i18n.changeLanguage(lang.abbr)}
-                                          className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${
-                                             i18n.language === lang.abbr
+                                          className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${i18n.language === lang.abbr
                                                 ? 'border-primary'
                                                 : 'border-soft/45'
-                                          }`}>
+                                             }`}>
                                           <div>
                                              <img
                                                 src={lang.icon}
@@ -387,13 +384,12 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                              />
                                           </div>
                                           <div
-                                             className={`${
-                                                i18n.language === lang.abbr
+                                             className={`${i18n.language === lang.abbr
                                                    ? '  text-primary'
                                                    : lang.abbr !== 'en'
-                                                     ? 'text-gray-600'
-                                                     : ' text-white'
-                                             } text-sm`}>
+                                                      ? 'text-gray-600'
+                                                      : ' text-white'
+                                                } text-sm`}>
                                              {lang.nativeName}
                                           </div>
                                        </button>
