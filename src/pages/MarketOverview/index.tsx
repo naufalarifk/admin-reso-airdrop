@@ -243,11 +243,11 @@ export const MarketOverview = () => {
                     </div>
 
                     <div className="lg:grid grid-cols-5 text-left mt-4 mb-2 hidden">
-                        <Text>Pair</Text>
-                        <Text>Price</Text>
-                        <Text>24h Change (%)</Text>
-                        <Text>24h High/Low</Text>
-                        <Text>Volume</Text>
+                        <Text className="p-2">Pair</Text>
+                        <Text className="p-2">Price</Text>
+                        <Text className="p-2">24h Change (%)</Text>
+                        <Text className="p-2">24h High/Low</Text>
+                        <Text className="p-2">Volume</Text>
                     </div>
                     <div className="space-y-2 my-8">
                         {
@@ -255,27 +255,37 @@ export const MarketOverview = () => {
                                 <>
                                     {
                                         item.name.includes('SOL') || item.name.includes('MEME') ?
-                                            <div className="flex space-x-2 items-center bg-[#0E0F19] p-2 rounded-lg">
-                                                <svg onClick={() => handleRemoveFavorites(item.id)} className={`${favorites.find(favorite => favorite.name === item.name) ? `` : `hidden`} ml-2`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path d="M5.38954 4.82396L7.12154 1.33596C7.17196 1.23502 7.2495 1.15012 7.34547 1.09077C7.44144 1.03143 7.55204 1 7.66487 1C7.77771 1 7.88831 1.03143 7.98428 1.09077C8.08025 1.15012 8.15779 1.23502 8.20821 1.33596L9.94021 4.82396L13.8122 5.38663C13.9239 5.40211 14.029 5.44869 14.1155 5.52104C14.2019 5.59338 14.2663 5.68859 14.3013 5.79578C14.3363 5.90297 14.3404 6.01784 14.3132 6.12726C14.286 6.23669 14.2286 6.33627 14.1475 6.41463L11.3462 9.12796L12.0075 12.9613C12.0922 13.4533 11.5722 13.828 11.1275 13.596L7.66487 11.7853L4.20154 13.596C3.75754 13.8286 3.23754 13.4533 3.32221 12.9606L3.98354 9.1273L1.18221 6.41396C1.10153 6.33555 1.04447 6.23607 1.01751 6.12684C0.990559 6.01761 0.994787 5.90301 1.02972 5.79606C1.06465 5.68911 1.12888 5.59411 1.21512 5.52185C1.30135 5.44959 1.40613 5.40297 1.51754 5.3873L5.38954 4.82396Z" fill="#E68D07" stroke="#E68D07" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                <svg className={`${favorites.find(favorite => favorite.id === item.id) ? `hidden` : ``}`} onClick={() => handleAddFavorites(item.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path d="M5.38954 5.48998L7.12154 2.00198C7.17196 1.90103 7.2495 1.81613 7.34547 1.75679C7.44144 1.69745 7.55204 1.66602 7.66487 1.66602C7.77771 1.66602 7.88831 1.69745 7.98428 1.75679C8.08025 1.81613 8.15779 1.90103 8.20821 2.00198L9.94021 5.48998L13.8122 6.05264C13.9239 6.06813 14.029 6.1147 14.1155 6.18705C14.2019 6.2594 14.2663 6.3546 14.3013 6.46179C14.3363 6.56899 14.3404 6.68385 14.3132 6.79328C14.286 6.9027 14.2286 7.00228 14.1475 7.08064L11.3462 9.79398L12.0075 13.6273C12.0922 14.1193 11.5722 14.494 11.1275 14.262L7.66487 12.4513L4.20154 14.262C3.75754 14.4946 3.23754 14.1193 3.32221 13.6266L3.98354 9.79331L1.18221 7.07998C1.10153 7.00156 1.04447 6.90208 1.01751 6.79285C0.990559 6.68362 0.994787 6.56902 1.02972 6.46207C1.06465 6.35513 1.12888 6.26012 1.21512 6.18787C1.30135 6.11561 1.40613 6.06899 1.51754 6.05331L5.38954 5.48998Z" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                <Link to={`/trade/${item.name.replace('/', '-')}`} className="flex justify-between lg:grid lg:grid-cols-5 text-left items-center w-full">
-                                                    <div className="flex space-x-2 items-center justify-start">
-                                                        <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover"><img src={item.icon} alt="" /></div>
-                                                        <Text>{item.name}</Text>
-                                                    </div>
+                                            <div className="flex lg:grid grid-cols-5 space-x-2 items-center bg-[#0E0F19] p-2 rounded-lg">
+                                                <div className="flex items-center space-x-1">
+                                                    <svg onClick={() => handleRemoveFavorites(item.id)} className={`${favorites.find(favorite => favorite.name === item.name) ? `` : `hidden`} ml-2`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                        <path d="M5.38954 4.82396L7.12154 1.33596C7.17196 1.23502 7.2495 1.15012 7.34547 1.09077C7.44144 1.03143 7.55204 1 7.66487 1C7.77771 1 7.88831 1.03143 7.98428 1.09077C8.08025 1.15012 8.15779 1.23502 8.20821 1.33596L9.94021 4.82396L13.8122 5.38663C13.9239 5.40211 14.029 5.44869 14.1155 5.52104C14.2019 5.59338 14.2663 5.68859 14.3013 5.79578C14.3363 5.90297 14.3404 6.01784 14.3132 6.12726C14.286 6.23669 14.2286 6.33627 14.1475 6.41463L11.3462 9.12796L12.0075 12.9613C12.0922 13.4533 11.5722 13.828 11.1275 13.596L7.66487 11.7853L4.20154 13.596C3.75754 13.8286 3.23754 13.4533 3.32221 12.9606L3.98354 9.1273L1.18221 6.41396C1.10153 6.33555 1.04447 6.23607 1.01751 6.12684C0.990559 6.01761 0.994787 5.90301 1.02972 5.79606C1.06465 5.68911 1.12888 5.59411 1.21512 5.52185C1.30135 5.44959 1.40613 5.40297 1.51754 5.3873L5.38954 4.82396Z" fill="#E68D07" stroke="#E68D07" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                    <svg className={`${favorites.find(favorite => favorite.id === item.id) ? `hidden` : ``}`} onClick={() => handleAddFavorites(item.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                        <path d="M5.38954 5.48998L7.12154 2.00198C7.17196 1.90103 7.2495 1.81613 7.34547 1.75679C7.44144 1.69745 7.55204 1.66602 7.66487 1.66602C7.77771 1.66602 7.88831 1.69745 7.98428 1.75679C8.08025 1.81613 8.15779 1.90103 8.20821 2.00198L9.94021 5.48998L13.8122 6.05264C13.9239 6.06813 14.029 6.1147 14.1155 6.18705C14.2019 6.2594 14.2663 6.3546 14.3013 6.46179C14.3363 6.56899 14.3404 6.68385 14.3132 6.79328C14.286 6.9027 14.2286 7.00228 14.1475 7.08064L11.3462 9.79398L12.0075 13.6273C12.0922 14.1193 11.5722 14.494 11.1275 14.262L7.66487 12.4513L4.20154 14.262C3.75754 14.4946 3.23754 14.1193 3.32221 13.6266L3.98354 9.79331L1.18221 7.07998C1.10153 7.00156 1.04447 6.90208 1.01751 6.79285C0.990559 6.68362 0.994787 6.56902 1.02972 6.46207C1.06465 6.35513 1.12888 6.26012 1.21512 6.18787C1.30135 6.11561 1.40613 6.06899 1.51754 6.05331L5.38954 5.48998Z" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                    <Link to={`/trade/${item.name.replace('/', '-')}`} className="flex justify-between text-left items-center w-full">
+                                                        <div className="flex space-x-2 items-center justify-start">
+                                                            <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover"><img src={item.icon} alt="" /></div>
+                                                            <Text>{item.name}</Text>
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                     <Text>{item.avg_price}</Text>
+                                                </Link>
+                                                <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                     <Text className={`${item.price_change.includes('+') ? 'text-[#33D49D]' : 'text-[#EF454A]'} `}>{item.price_change}</Text>
+                                                </Link>
+                                                <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                     <Text className="lg:block hidden">{item.highLow}</Text>
+                                                </Link>
+                                                <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                     <Text className="lg:block hidden">{item.volume}</Text>
                                                 </Link>
                                             </div>
                                             :
-                                            <div className="flex justify-between lg:grid lg:grid-cols-5 bg-[#0E0F19] bg-opacity-60 p-2 rounded-lg text-left items-center">
-                                                <div className="flex space-x-2 items-center justify-start">
+                                            <div className="flex justify-between lg:grid lg:grid-cols-5 bg-[#0E0F19] bg-opacity-60 rounded-lg text-left items-center">
+                                                <div className="flex space-x-2 items-center justify-start p-2">
                                                     <svg onClick={() => handleRemoveFavorites(item.id)} className={`${favorites.find(favorite => favorite.name === item.name) ? `` : `hidden`} ml-2`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                         <path d="M5.38954 4.82396L7.12154 1.33596C7.17196 1.23502 7.2495 1.15012 7.34547 1.09077C7.44144 1.03143 7.55204 1 7.66487 1C7.77771 1 7.88831 1.03143 7.98428 1.09077C8.08025 1.15012 8.15779 1.23502 8.20821 1.33596L9.94021 4.82396L13.8122 5.38663C13.9239 5.40211 14.029 5.44869 14.1155 5.52104C14.2019 5.59338 14.2663 5.68859 14.3013 5.79578C14.3363 5.90297 14.3404 6.01784 14.3132 6.12726C14.286 6.23669 14.2286 6.33627 14.1475 6.41463L11.3462 9.12796L12.0075 12.9613C12.0922 13.4533 11.5722 13.828 11.1275 13.596L7.66487 11.7853L4.20154 13.596C3.75754 13.8286 3.23754 13.4533 3.32221 12.9606L3.98354 9.1273L1.18221 6.41396C1.10153 6.33555 1.04447 6.23607 1.01751 6.12684C0.990559 6.01761 0.994787 5.90301 1.02972 5.79606C1.06465 5.68911 1.12888 5.59411 1.21512 5.52185C1.30135 5.44959 1.40613 5.40297 1.51754 5.3873L5.38954 4.82396Z" fill="#E68D07" stroke="#E68D07" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
@@ -292,10 +302,10 @@ export const MarketOverview = () => {
                                                     <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover"><img src={item.icon} alt="" /></div>
                                                     <Text>{item.name}</Text>
                                                 </div>
-                                                <Text>{item.avg_price}</Text>
-                                                <Text className={`${item.price_change.includes('+') ? 'text-[#33D49D]' : 'text-[#EF454A]'} `}>{item.price_change}</Text>
-                                                <Text className="lg:block hidden">{item.highLow}</Text>
-                                                <Text className="lg:block hidden">{item.volume}</Text>
+                                                <Text className="p-2">{item.avg_price}</Text>
+                                                <Text className={`${item.price_change.includes('+') ? 'text-[#33D49D]' : 'text-[#EF454A]'} p-2`}>{item.price_change}</Text>
+                                                <Text className="lg:block hidden p-2">{item.highLow}</Text>
+                                                <Text className="lg:block hidden p-2">{item.volume}</Text>
                                             </div>
                                     }
                                 </>
@@ -305,27 +315,37 @@ export const MarketOverview = () => {
                                     <>
                                         {
                                             item.name.includes('SOL') || item.name.includes('MEME') ?
-                                                <div className="flex space-x-2 items-center bg-[#0E0F19] p-2 rounded-lg">
-                                                    <svg onClick={() => handleRemoveFavorites(item.id)} className={`${favorites.find(favorite => favorite.name === item.name) ? `` : `hidden`} ml-2`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                        <path d="M5.38954 4.82396L7.12154 1.33596C7.17196 1.23502 7.2495 1.15012 7.34547 1.09077C7.44144 1.03143 7.55204 1 7.66487 1C7.77771 1 7.88831 1.03143 7.98428 1.09077C8.08025 1.15012 8.15779 1.23502 8.20821 1.33596L9.94021 4.82396L13.8122 5.38663C13.9239 5.40211 14.029 5.44869 14.1155 5.52104C14.2019 5.59338 14.2663 5.68859 14.3013 5.79578C14.3363 5.90297 14.3404 6.01784 14.3132 6.12726C14.286 6.23669 14.2286 6.33627 14.1475 6.41463L11.3462 9.12796L12.0075 12.9613C12.0922 13.4533 11.5722 13.828 11.1275 13.596L7.66487 11.7853L4.20154 13.596C3.75754 13.8286 3.23754 13.4533 3.32221 12.9606L3.98354 9.1273L1.18221 6.41396C1.10153 6.33555 1.04447 6.23607 1.01751 6.12684C0.990559 6.01761 0.994787 5.90301 1.02972 5.79606C1.06465 5.68911 1.12888 5.59411 1.21512 5.52185C1.30135 5.44959 1.40613 5.40297 1.51754 5.3873L5.38954 4.82396Z" fill="#E68D07" stroke="#E68D07" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                    <svg className={`${favorites.find(favorite => favorite.id === item.id) ? `hidden` : ``}`} onClick={() => handleAddFavorites(item.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                        <path d="M5.38954 5.48998L7.12154 2.00198C7.17196 1.90103 7.2495 1.81613 7.34547 1.75679C7.44144 1.69745 7.55204 1.66602 7.66487 1.66602C7.77771 1.66602 7.88831 1.69745 7.98428 1.75679C8.08025 1.81613 8.15779 1.90103 8.20821 2.00198L9.94021 5.48998L13.8122 6.05264C13.9239 6.06813 14.029 6.1147 14.1155 6.18705C14.2019 6.2594 14.2663 6.3546 14.3013 6.46179C14.3363 6.56899 14.3404 6.68385 14.3132 6.79328C14.286 6.9027 14.2286 7.00228 14.1475 7.08064L11.3462 9.79398L12.0075 13.6273C12.0922 14.1193 11.5722 14.494 11.1275 14.262L7.66487 12.4513L4.20154 14.262C3.75754 14.4946 3.23754 14.1193 3.32221 13.6266L3.98354 9.79331L1.18221 7.07998C1.10153 7.00156 1.04447 6.90208 1.01751 6.79285C0.990559 6.68362 0.994787 6.56902 1.02972 6.46207C1.06465 6.35513 1.12888 6.26012 1.21512 6.18787C1.30135 6.11561 1.40613 6.06899 1.51754 6.05331L5.38954 5.48998Z" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                    <Link to={`/trade/${item.name.replace('/', '-')}`} className="flex justify-between lg:grid lg:grid-cols-5 text-left items-center w-full">
-                                                        <div className="flex space-x-2 items-center justify-start">
-                                                            <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover"><img src={item.icon} alt="" /></div>
-                                                            <Text>{item.name}</Text>
-                                                        </div>
+                                                <div className="flex lg:grid grid-cols-5 space-x-2 items-center bg-[#0E0F19] p-2 rounded-lg">
+                                                    <div className="flex items-center space-x-1">
+                                                        <svg onClick={() => handleRemoveFavorites(item.id)} className={`${favorites.find(favorite => favorite.name === item.name) ? `` : `hidden`} ml-2`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                            <path d="M5.38954 4.82396L7.12154 1.33596C7.17196 1.23502 7.2495 1.15012 7.34547 1.09077C7.44144 1.03143 7.55204 1 7.66487 1C7.77771 1 7.88831 1.03143 7.98428 1.09077C8.08025 1.15012 8.15779 1.23502 8.20821 1.33596L9.94021 4.82396L13.8122 5.38663C13.9239 5.40211 14.029 5.44869 14.1155 5.52104C14.2019 5.59338 14.2663 5.68859 14.3013 5.79578C14.3363 5.90297 14.3404 6.01784 14.3132 6.12726C14.286 6.23669 14.2286 6.33627 14.1475 6.41463L11.3462 9.12796L12.0075 12.9613C12.0922 13.4533 11.5722 13.828 11.1275 13.596L7.66487 11.7853L4.20154 13.596C3.75754 13.8286 3.23754 13.4533 3.32221 12.9606L3.98354 9.1273L1.18221 6.41396C1.10153 6.33555 1.04447 6.23607 1.01751 6.12684C0.990559 6.01761 0.994787 5.90301 1.02972 5.79606C1.06465 5.68911 1.12888 5.59411 1.21512 5.52185C1.30135 5.44959 1.40613 5.40297 1.51754 5.3873L5.38954 4.82396Z" fill="#E68D07" stroke="#E68D07" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                        <svg className={`${favorites.find(favorite => favorite.id === item.id) ? `hidden` : ``}`} onClick={() => handleAddFavorites(item.id)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                            <path d="M5.38954 5.48998L7.12154 2.00198C7.17196 1.90103 7.2495 1.81613 7.34547 1.75679C7.44144 1.69745 7.55204 1.66602 7.66487 1.66602C7.77771 1.66602 7.88831 1.69745 7.98428 1.75679C8.08025 1.81613 8.15779 1.90103 8.20821 2.00198L9.94021 5.48998L13.8122 6.05264C13.9239 6.06813 14.029 6.1147 14.1155 6.18705C14.2019 6.2594 14.2663 6.3546 14.3013 6.46179C14.3363 6.56899 14.3404 6.68385 14.3132 6.79328C14.286 6.9027 14.2286 7.00228 14.1475 7.08064L11.3462 9.79398L12.0075 13.6273C12.0922 14.1193 11.5722 14.494 11.1275 14.262L7.66487 12.4513L4.20154 14.262C3.75754 14.4946 3.23754 14.1193 3.32221 13.6266L3.98354 9.79331L1.18221 7.07998C1.10153 7.00156 1.04447 6.90208 1.01751 6.79285C0.990559 6.68362 0.994787 6.56902 1.02972 6.46207C1.06465 6.35513 1.12888 6.26012 1.21512 6.18787C1.30135 6.11561 1.40613 6.06899 1.51754 6.05331L5.38954 5.48998Z" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                        <Link to={`/trade/${item.name.replace('/', '-')}`} className="flex justify-between text-left items-center w-full">
+                                                            <div className="flex space-x-2 items-center justify-start">
+                                                                <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover"><img src={item.icon} alt="" /></div>
+                                                                <Text>{item.name}</Text>
+                                                            </div>
+                                                        </Link>
+                                                    </div>
+                                                    <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                         <Text>{item.avg_price}</Text>
+                                                    </Link>
+                                                    <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                         <Text className={`${item.price_change.includes('+') ? 'text-[#33D49D]' : 'text-[#EF454A]'} `}>{item.price_change}</Text>
+                                                    </Link>
+                                                    <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                         <Text className="lg:block hidden">{item.highLow}</Text>
+                                                    </Link>
+                                                    <Link to={`/trade/${item.name.replace('/', '-')}`}>
                                                         <Text className="lg:block hidden">{item.volume}</Text>
                                                     </Link>
                                                 </div>
                                                 :
-                                                <div className="flex justify-between lg:grid lg:grid-cols-5 bg-[#0E0F19] bg-opacity-60 p-2 rounded-lg text-left items-center">
-                                                    <div className="flex space-x-2 items-center justify-start">
+                                                <div className="flex justify-between lg:grid lg:grid-cols-5 bg-[#0E0F19] bg-opacity-60 rounded-lg text-left items-center">
+                                                    <div className="flex space-x-2 items-center justify-start p-2">
                                                         <svg onClick={() => handleRemoveFavorites(item.id)} className={`${favorites.find(favorite => favorite.name === item.name) ? `` : `hidden`} ml-2`} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                             <path d="M5.38954 4.82396L7.12154 1.33596C7.17196 1.23502 7.2495 1.15012 7.34547 1.09077C7.44144 1.03143 7.55204 1 7.66487 1C7.77771 1 7.88831 1.03143 7.98428 1.09077C8.08025 1.15012 8.15779 1.23502 8.20821 1.33596L9.94021 4.82396L13.8122 5.38663C13.9239 5.40211 14.029 5.44869 14.1155 5.52104C14.2019 5.59338 14.2663 5.68859 14.3013 5.79578C14.3363 5.90297 14.3404 6.01784 14.3132 6.12726C14.286 6.23669 14.2286 6.33627 14.1475 6.41463L11.3462 9.12796L12.0075 12.9613C12.0922 13.4533 11.5722 13.828 11.1275 13.596L7.66487 11.7853L4.20154 13.596C3.75754 13.8286 3.23754 13.4533 3.32221 12.9606L3.98354 9.1273L1.18221 6.41396C1.10153 6.33555 1.04447 6.23607 1.01751 6.12684C0.990559 6.01761 0.994787 5.90301 1.02972 5.79606C1.06465 5.68911 1.12888 5.59411 1.21512 5.52185C1.30135 5.44959 1.40613 5.40297 1.51754 5.3873L5.38954 4.82396Z" fill="#E68D07" stroke="#E68D07" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                         </svg>
@@ -333,12 +353,12 @@ export const MarketOverview = () => {
                                                             <path d="M5.38954 5.48998L7.12154 2.00198C7.17196 1.90103 7.2495 1.81613 7.34547 1.75679C7.44144 1.69745 7.55204 1.66602 7.66487 1.66602C7.77771 1.66602 7.88831 1.69745 7.98428 1.75679C8.08025 1.81613 8.15779 1.90103 8.20821 2.00198L9.94021 5.48998L13.8122 6.05264C13.9239 6.06813 14.029 6.1147 14.1155 6.18705C14.2019 6.2594 14.2663 6.3546 14.3013 6.46179C14.3363 6.56899 14.3404 6.68385 14.3132 6.79328C14.286 6.9027 14.2286 7.00228 14.1475 7.08064L11.3462 9.79398L12.0075 13.6273C12.0922 14.1193 11.5722 14.494 11.1275 14.262L7.66487 12.4513L4.20154 14.262C3.75754 14.4946 3.23754 14.1193 3.32221 13.6266L3.98354 9.79331L1.18221 7.07998C1.10153 7.00156 1.04447 6.90208 1.01751 6.79285C0.990559 6.68362 0.994787 6.56902 1.02972 6.46207C1.06465 6.35513 1.12888 6.26012 1.21512 6.18787C1.30135 6.11561 1.40613 6.06899 1.51754 6.05331L5.38954 5.48998Z" stroke="#9F9F9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                         </svg>
                                                         <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover"><img src={item.icon} alt="" /></div>
-                                                        <Text>{item.name}</Text>
+                                                        <Text className="">{item.name}</Text>
                                                     </div>
-                                                    <Text>{item.avg_price}</Text>
-                                                    <Text className={`${item.price_change.includes('+') ? 'text-[#33D49D]' : 'text-[#EF454A]'} `}>{item.price_change}</Text>
-                                                    <Text className="lg:block hidden">{item.highLow}</Text>
-                                                    <Text className="lg:block hidden">{item.volume}</Text>
+                                                    <Text className="p-2">{item.avg_price}</Text>
+                                                    <Text className={`${item.price_change.includes('+') ? 'text-[#33D49D]' : 'text-[#EF454A]'} p-2`}>{item.price_change}</Text>
+                                                    <Text className="lg:block hidden p-2">{item.highLow}</Text>
+                                                    <Text className="lg:block hidden p-2">{item.volume}</Text>
                                                 </div>
                                         }
 
