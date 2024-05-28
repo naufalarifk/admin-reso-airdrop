@@ -25,7 +25,6 @@ import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
 import { NewFormTrade } from '@/components/dummy/NewFormTrade';
 import { RecentTrades } from '@/components/dummy/RecentTrade';
 import { NewHistoryTrade } from '@/components/dummy/NewHistoryTrade';
-import { NewFormTradeMobile } from '@/components/dummy/NewFormTradeMobile';
 import { NewHistoryTradeMobile } from '@/components/dummy/NewHistoryTradeMobile';
 import { cn, validateNumber } from '@/utils';
 import { IcCoinPairs } from '@/assets/icons';
@@ -102,7 +101,7 @@ export const NewTrade = () => {
    };
 
    const filteredData = market?.filter(crypto =>
-      crypto.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      crypto.name?.toLowerCase().includes(searchTerm.toLowerCase()),
    );
 
    const getColor = (changePrice: string) => {
@@ -115,7 +114,7 @@ export const NewTrade = () => {
 
    return (
       <section className="layout-main mb-8">
-         <div className="flex flex-col justify-between gap-2 lg:flex-row lg:gap-4">
+         <div className="flex flex-col justify-between gap-2 lg:flex-row  lg:justify-start lg:gap-4">
             {/* Header mobile */}
             <div className=" flex h-[64px] items-center justify-between gap-2 rounded bg-dark2 p-4 px-3 lg:hidden">
                <div
@@ -181,132 +180,154 @@ export const NewTrade = () => {
             </div>
             {/* End header mobile */}
 
-            <div className="order-2  flex h-full flex-grow flex-col gap-4 lg:order-1">
+            <div className="order-2  flex h-full flex-col gap-4  lg:order-1  lg:w-[60%]">
                {/*  Trading Chart */}
-               <div className="hidden w-full overflow-hidden  rounded-2xl bg-dark2 p-2 lg:block lg:h-[525px] lg:p-4">
-                  <section className="h-full w-full">
-                     <div className="flex cursor-pointer items-center space-x-3">
-                        {/* Pop up change market */}
-                        <SelectMarketSwap
-                           ticker={marketTicker}
-                           searchTerm={searchTerm}
-                           handleSearch={handleSearch}
-                           filteredData={filteredData}
-                           setSearchTerm={setSearchTerm}
-                           setShowModalMarket={setShowModalMarket}
-                        />
-                        {/* End Pop up change market */}
+               <div className="hidden w-full overflow-hidden  rounded-2xl bg-dark2 p-2 lg:block lg:h-[600px] lg:p-4">
+                  <div className="flex cursor-pointer items-center space-x-3">
+                     {/* Pop up change market */}
+                     <SelectMarketSwap
+                        ticker={marketTicker}
+                        searchTerm={searchTerm}
+                        handleSearch={handleSearch}
+                        filteredData={filteredData}
+                        setSearchTerm={setSearchTerm}
+                        setShowModalMarket={setShowModalMarket}
+                     />
+                     {/* End Pop up change market */}
 
-                        {/* Button Market */}
-                        {market?.map(e => (
-                           <NavLink
-                              key={e.base_unit}
-                              to={`/trade/${e.name.replace('/', '-')}`}
-                              className={`${
-                                 marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
-                                    ? 'border-primary/50 bg-primary/10'
-                                    : '  border-dark3 bg-dark2'
-                              } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
-                              <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover">
-                                 <img
-                                    src={
-                                       market[0]?.base_unit === e?.base_unit
-                                          ? `https://s2.coinmarketcap.com/static/img/coins/64x64/28301.png`
-                                          : `https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png`
-                                    }
-                                    alt="icon"
-                                 />
-                              </div>
-                              <div className="font-semibold">{e.name}</div>
-                           </NavLink>
-                        ))}
-                        {/* End Button Market */}
-                     </div>
+                     {/* Button Market */}
+                     {market?.map(e => (
+                        <NavLink
+                           key={e.base_unit}
+                           to={`/trade/${e.name.replace('/', '-')}`}
+                           className={`${
+                              marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
+                                 ? 'border-primary/50 bg-primary/10'
+                                 : '  border-dark3 bg-dark2'
+                           } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
+                           <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover">
+                              <img
+                                 src={
+                                    market[0]?.base_unit === e?.base_unit
+                                       ? `https://s2.coinmarketcap.com/static/img/coins/64x64/28301.png`
+                                       : `https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png`
+                                 }
+                                 alt="icon"
+                              />
+                           </div>
+                           <div className="font-semibold">{e.name}</div>
+                        </NavLink>
+                     ))}
+                     {/* End Button Market */}
+                  </div>
 
-                     <div className="my-2 flex items-center gap-7">
-                        <div>
-                           <div className="flex items-center space-x-1">
-                              <div className="text-xl font-semibold">
-                                 {Decimal.format(
-                                    validateNumber(marketTicker?.ticker?.last),
-                                    marketById?.price_precision!,
-                                    ',',
-                                 )}
-                              </div>
-                              <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                                 (
-                                 {marketTicker?.ticker?.price_change_percent
-                                    ? marketTicker?.ticker?.price_change_percent
-                                    : '0%'}
-                                 )
-                              </div>
+                  <div className="my-2 flex items-center gap-5">
+                     <div>
+                        <div className="flex items-center space-x-1">
+                           <div className="text-xl font-semibold">
+                              {Decimal.format(
+                                 validateNumber(marketTicker?.ticker?.last),
+                                 marketById?.price_precision!,
+                                 ',',
+                              )}
                            </div>
-                           <div className="mt-1 text-[#90A3BF]">
-                              {dayjs(marketTicker?.at * 1000).format('MMM DD, YYYY, hh:mm A')}
-                           </div>
-                        </div>
-                        <div className="text-xl text-soft/15">|</div>
-                        <div>
-                           <div className="text-xs">Change 24H</div>
                            <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
+                              (
                               {marketTicker?.ticker?.price_change_percent
                                  ? marketTicker?.ticker?.price_change_percent
                                  : '0%'}
+                              )
                            </div>
                         </div>
-                        <div>
-                           <div className="text-xs">24h High</div>
-                           <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                              {Decimal.format(
-                                 validateNumber(marketTicker?.ticker?.high),
-                                 marketById?.price_precision!,
-                                 ',',
-                              )}
-                           </div>
-                        </div>
-                        <div>
-                           <div className="text-xs">24h Low</div>
-                           <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                              {Decimal.format(
-                                 validateNumber(marketTicker?.ticker?.low),
-                                 marketById?.price_precision!,
-                                 ',',
-                              )}
-                           </div>
-                        </div>
-                        <div>
-                           <div className="text-xs">24h Volume</div>
-                           <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                              {Decimal.format(
-                                 validateNumber(marketTicker?.ticker?.volume),
-                                 marketById?.amount_precision!,
-                                 ',',
-                              )}
-                           </div>
-                        </div>
-                        <div>
-                           <div className="text-xs">24h Transaction</div>
-                           <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                              {marketTicker?.ticker?.transactions
-                                 ? marketTicker?.ticker?.transactions
-                                 : '0'}
-                           </div>
-                        </div>
-                        <div>
-                           <div className="text-xs">Total Liquidity</div>
-                           <div className={getColor(marketTicker?.ticker?.price_change_percent)}>
-                              {getCurrentMarket?.liquidity ? getCurrentMarket?.liquidity : '0'}
-                           </div>
+                        <div className="mt-1 text-[#90A3BF]">
+                           {dayjs(marketTicker?.at * 1000).format('MMM DD, YYYY, hh:mm A')}
                         </div>
                      </div>
-                     <div className="h-full max-h-[360px] w-full">
-                        <TradingViewV2 />
+                     <div className="text-xl text-soft/15">|</div>
+                     <div>
+                        <div className="text-nowrap text-xxs">Change 24H</div>
+                        <div
+                           className={cn(
+                              'text-xs',
+                              getColor(marketTicker?.ticker?.price_change_percent),
+                           )}>
+                           {marketTicker?.ticker?.price_change_percent
+                              ? marketTicker?.ticker?.price_change_percent
+                              : '0%'}
+                        </div>
                      </div>
-                  </section>
+                     <div>
+                        <div className="text-xs">24h High</div>
+                        <div
+                           className={cn(
+                              'text-xs',
+                              getColor(marketTicker?.ticker?.price_change_percent),
+                           )}>
+                           {Decimal.format(
+                              validateNumber(marketTicker?.ticker?.high),
+                              marketById?.price_precision!,
+                              ',',
+                           )}
+                        </div>
+                     </div>
+                     <div>
+                        <div className="text-xs">24h Low</div>
+                        <div
+                           className={cn(
+                              'text-xs',
+                              getColor(marketTicker?.ticker?.price_change_percent),
+                           )}>
+                           {Decimal.format(
+                              validateNumber(marketTicker?.ticker?.low),
+                              marketById?.price_precision!,
+                              ',',
+                           )}
+                        </div>
+                     </div>
+                     <div>
+                        <div className="text-xs">24h Volume</div>
+                        <div
+                           className={cn(
+                              'text-xs',
+                              getColor(marketTicker?.ticker?.price_change_percent),
+                           )}>
+                           {Decimal.format(
+                              validateNumber(marketTicker?.ticker?.volume),
+                              marketById?.amount_precision!,
+                              ',',
+                           )}
+                        </div>
+                     </div>
+                     <div>
+                        <div className="text-xs">24h Transaction</div>
+                        <div
+                           className={cn(
+                              'text-xs',
+                              getColor(marketTicker?.ticker?.price_change_percent),
+                           )}>
+                           {marketTicker?.ticker?.transactions
+                              ? marketTicker?.ticker?.transactions
+                              : '0'}
+                        </div>
+                     </div>
+                     <div>
+                        <div className="text-xs">Total Liquidity</div>
+                        <div
+                           className={cn(
+                              'text-xs',
+                              getColor(marketTicker?.ticker?.price_change_percent),
+                           )}>
+                           {getCurrentMarket?.liquidity ? getCurrentMarket?.liquidity : '0'}
+                        </div>
+                     </div>
+                  </div>
+                  <div className="h-full max-h-[450px] w-full">
+                     <TradingViewV2 />
+                  </div>
                </div>
                {/* End Trading Chart */}
 
-               <div className="relative h-full rounded-2xl bg-dark2 p-2 lg:p-4">
+               <div className="relative h-full w-full rounded-2xl bg-dark2 p-2 lg:p-4">
                   <div className="hidden lg:block">
                      <NewHistoryTrade isLoading={unitLoading} />
                   </div>
@@ -314,21 +335,21 @@ export const NewTrade = () => {
                      <NewHistoryTradeMobile isLoading={unitLoading} />
                   </div>
                   <div className="absolute left-0 top-0  h-full w-full rounded-2xl bg-black/15 backdrop-blur-sm"></div>
-                  <div className="absolute inset-y-1/3 ml-20 lg:inset-y-1/2  lg:left-1/3 lg:ml-16">
+                  <div className="absolute-center flex flex-col items-center justify-center">
                      <div className="text-nowrap">Please connect wallet first</div>
-                     <div className="relative z-20 ml-3.5 mt-3  rounded-full bg-black p-3 text-center">
+                     <button className="relative z-20  mt-3  rounded-full bg-black p-3 text-center">
                         Connect Wallet
-                     </div>
+                     </button>
                   </div>
                </div>
             </div>
 
             {showTradingChart ? (
-               <div className="h-96 overflow-hidden rounded bg-dark2 p-2 lg:hidden">
+               <div className="h-[600px] overflow-hidden rounded bg-dark2 p-2 lg:hidden">
                   <TradingViewV2 />
                </div>
             ) : (
-               <div className="order-1 flex flex-col gap-4 lg:order-2">
+               <div className="order-1 flex flex-col gap-4 lg:order-2 lg:w-5/12">
                   {/* OrderBook */}
                   <div className="grid grid-cols-2 gap-2 lg:gap-4">
                      <OrderBook
@@ -339,19 +360,11 @@ export const NewTrade = () => {
                         loading={depthLoading}
                      />
                      <div>
-                        <div className="hidden h-[530px] lg:block">
+                        <div className=" h-full rounded-lg bg-dark2 p-2 lg:block lg:rounded-2xl lg:p-4">
                            <NewFormTrade
                               market={marketById!}
                               marketTradePrice={marketTicker}
                               unitLoading={unitLoading}
-                              getCurrentMarket={getCurrentMarket!}
-                           />
-                        </div>
-                        <div className="block  lg:hidden">
-                           <NewFormTradeMobile
-                              market={marketById!}
-                              marketTradePrice={marketTicker}
-                              unitLoading={false}
                               getCurrentMarket={getCurrentMarket!}
                            />
                         </div>

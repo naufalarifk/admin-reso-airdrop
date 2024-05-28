@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -27,6 +29,10 @@
 @layer base {
    body {
       @apply bg-[#0E0F19];
+   }
+
+   .font-ibm {
+      font-family: 'IBM Plex Sans', sans-serif;
    }
 
    /* Chrome, Safari, Edge, Opera */
@@ -97,6 +103,13 @@
 
    #tsparticlessnowSecond {
       height: 600px;
+   }
+
+   .absolute-center {
+      left: 50%;
+      top: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
    }
 
    .gradient_border {

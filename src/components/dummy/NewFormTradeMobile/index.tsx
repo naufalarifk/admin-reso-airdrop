@@ -1,10 +1,11 @@
 import { IcMinus, IcPlus } from '@/assets/icons';
 import { ModalPriceImpact, Skeleton } from '@/components';
 import { Decimal } from '@/components/molecules/Decimal';
-import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
-import { Market } from '@/types/components';
+import type { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
+import type { Market } from '@/types/components';
 import { validateNumber } from '@/utils';
-import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface TabsData {
    label: string;
@@ -608,3 +609,4 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
 //       </div>
 //    );
 // };
+
