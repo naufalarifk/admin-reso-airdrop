@@ -109,6 +109,11 @@ export type GetPrivatePoolCurrencies = InitialState & {
    data: PoolCurrencies[];
 };
 
+export type GetPoolMarket = InitialState & {
+   data: [];
+};
+
 export type PrivatePoolState = {
-   getPollCurrencies: GetPrivatePoolCurrencies;
+   getPoolCurrencies: GetPrivatePoolCurrencies;
+   getPoolMarket: GetPoolMarket;
 };
