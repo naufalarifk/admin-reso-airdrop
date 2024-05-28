@@ -45,3 +45,6 @@ export * from './IcTopGainers';
 export * from './IcTopMoving';
 export * from './IcPlus';
 export * from './IcMinus';
+export * from './IcDivider';
+export * from './IcGift';
+export * from './IcWallet';
