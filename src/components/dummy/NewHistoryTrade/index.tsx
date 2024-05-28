@@ -1,20 +1,5 @@
-import { cn } from '@/utils';
-import { ReactNode, FC, useState, useRef, useEffect, useMemo } from 'react';
-import { Skeleton } from '@/components';
-
-interface TabsData {
-   label: string;
-   content: ReactNode;
-}
-
-type TabsProps = {
-   items: TabsData[];
-   getCurrentIndex?: (index: number) => void;
-   isBetween?: boolean;
-   classNameWrapper?: string;
-   rightContent?: ReactNode;
-   classNameButtons?: string;
-};
+import { useState, useMemo } from 'react';
+import { Skeleton, TabSlider } from '@/components';
 
 // interface Transaction {
 //    receive: {
@@ -262,86 +247,87 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
    );
 
    return (
-      <div>
-         <Tabs
+      <>
+         <TabSlider
+            isMaxWidth
             items={tabs}
             getCurrentIndex={currIdx => setCurrentIndex(currIdx)}
          />
-      </div>
-   );
-};
-
-const Tabs: FC<TabsProps> = ({
-   items,
-   getCurrentIndex,
-   isBetween = false,
-   classNameWrapper,
-   rightContent,
-}) => {
-   const [activeTabIndex, setActiveTabIndex] = useState(0);
-   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
-   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
-
-   const tabsRef = useRef<Array<HTMLButtonElement>>([]);
-
-   useEffect(() => {
-      const setTabPosition = () => {
-         const currentTab = tabsRef.current[activeTabIndex];
-         setTabUnderlineLeft(currentTab?.offsetLeft ?? 0);
-         setTabUnderlineWidth(currentTab?.clientWidth ?? 0);
-      };
-
-      setTabPosition();
-      window.addEventListener('resize', setTabPosition);
-
-      return () => window.removeEventListener('resize', setTabPosition);
-   }, [activeTabIndex]);
-
-   const contents = useMemo(() => items[activeTabIndex].content, [activeTabIndex, items]);
-
-   const handleTabClick = (index: number) => {
-      setActiveTabIndex(index);
-      getCurrentIndex && getCurrentIndex(index);
-   };
-
-   return (
-      <>
-         <div className="relative grid place-items-center gap-5 border-b  border-b-primary/45 bg-dark2  md:flex  md:justify-between  md:gap-0">
-            <div
-               className={
-                  (cn(
-                     `relative flex ${
-                        isBetween ? 'items-center justify-between' : 'gap-4'
-                     } rounded-lg  p-1 px-1`,
-                  ),
-                  classNameWrapper)
-               }>
-               {items.map((tab, idx) => (
-                  <>
-                     <button
-                        key={idx}
-                        type="button"
-                        ref={(el: HTMLButtonElement | null) =>
-                           (tabsRef.current[idx] = el as HTMLButtonElement)
-                        }
-                        className={`border-b-2 px-4 py-3 text-center text-xs font-semibold ${
-                           activeTabIndex === idx
-                              ? 'border-primary text-white'
-                              : 'border-transparent text-soft'
-                        }`}
-                        onClick={() => handleTabClick(idx)}>
-                        {tab.label}
-                     </button>
-                  </>
-               ))}
-            </div>
-            <span
-               className="bg-primary-1 absolute bottom-3 block h-1 rounded-lg transition-all duration-300"
-               style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
-            />
-            {rightContent}
-         </div>
-         {typeof contents === 'string' ? <div className="mt-4">{contents}</div> : contents}
       </>
    );
 };
+
+// const Tabs: FC<TabsProps> = ({
+//    items,
+//    getCurrentIndex,
+//    isBetween = false,
+//    classNameWrapper,
+//    rightContent,
+// }) => {
+//    const [activeTabIndex, setActiveTabIndex] = useState(0);
+//    const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
+//    const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
+
+//    const tabsRef = useRef<Array<HTMLButtonElement>>([]);
+
+//    useEffect(() => {
+//       const setTabPosition = () => {
+//          const currentTab = tabsRef.current[activeTabIndex];
+//          setTabUnderlineLeft(currentTab?.offsetLeft ?? 0);
+//          setTabUnderlineWidth(currentTab?.clientWidth ?? 0);
+//       };
+
+//       setTabPosition();
+//       window.addEventListener('resize', setTabPosition);
+
+//       return () => window.removeEventListener('resize', setTabPosition);
+//    }, [activeTabIndex]);
+
+//    const contents = useMemo(() => items[activeTabIndex].content, [activeTabIndex, items]);
+
+//    const handleTabClick = (index: number) => {
+//       setActiveTabIndex(index);
+//       getCurrentIndex && getCurrentIndex(index);
+//    };
+
+//    return (
+//       <>
+//          <div className="relative grid place-items-center gap-5 border-b  border-b-primary/45 bg-dark2  md:flex  md:justify-between  md:gap-0">
+//             <div
+//                className={
+//                   (cn(
+//                      `relative flex ${
+//                         isBetween ? 'items-center justify-between' : 'gap-4'
+//                      } rounded-lg  p-1 px-1`,
+//                   ),
+//                   classNameWrapper)
+//                }>
+//                {items.map((tab, idx) => (
+//                   <>
+//                      <button
+//                         key={idx}
+//                         type="button"
+//                         ref={(el: HTMLButtonElement | null) =>
+//                            (tabsRef.current[idx] = el as HTMLButtonElement)
+//                         }
+//                         className={`border-b-2 px-4 py-3 text-center text-xs font-semibold ${
+//                            activeTabIndex === idx
+//                               ? 'border-primary text-white'
+//                               : 'border-transparent text-soft'
+//                         }`}
+//                         onClick={() => handleTabClick(idx)}>
+//                         {tab.label}
+//                      </button>
+//                   </>
+//                ))}
+//             </div>
+//             <span
+//                className="bg-primary-1 absolute bottom-3 block h-1 rounded-lg transition-all duration-300"
+//                style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
+//             />
+//             {rightContent}
+//          </div>
+//          {typeof contents === 'string' ? <div className="mt-4">{contents}</div> : contents}
+//       </>
+//    );
+// };
