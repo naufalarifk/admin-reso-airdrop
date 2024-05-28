@@ -13,6 +13,7 @@ import {
    MarketOverview,
    Trade,
    NewTrade,
+   Airdrop
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
@@ -75,6 +76,10 @@ export const RootLayout = () => {
                <Route
                   path="/trade/:market"
                   element={<NewTrade />}
+               />
+               <Route
+                  path='/airdrop'
+                  element={<Airdrop />}
                />
                <Route
                   path="/market"
