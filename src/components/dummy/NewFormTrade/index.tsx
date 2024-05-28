@@ -181,7 +181,7 @@ export const NewFormTrade = ({
                            <div className="mt-4 space-y-2">
                               <div className="flex items-center justify-between gap-2 text-xs">
                                  <div className="text-darkSoft">Fee transaction</div>
-                                 <div>0 {getCurrentMarket?.base_unit}</div>
+                                 <div>0 {getCurrentMarket?.base_unit} (0.2%)</div>
                               </div>
                               <div className="flex items-center justify-between gap-2 text-xs">
                                  <div className="text-darkSoft">Price impact</div>
@@ -355,6 +355,7 @@ export const NewFormTrade = ({
                                     <span className="ml-1 uppercase">
                                        {getCurrentMarket?.base_unit}
                                     </span>
+                                    {' '}(0.2%)
                                  </div>
                               </div>
                            </>
@@ -465,11 +466,10 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
                   ref={(el: HTMLButtonElement | null) =>
                      (tabsRef.current[idx] = el as HTMLButtonElement)
                   }
-                  className={`w-full border-b-2 px-3 py-3 text-center  text-xs font-semibold ${
-                     activeTabIndex === idx
-                        ? 'border-primary text-white'
-                        : 'border-transparent text-soft'
-                  }`}
+                  className={`w-full border-b-2 px-3 py-3 text-center  text-xs font-semibold ${activeTabIndex === idx
+                     ? 'border-primary text-white'
+                     : 'border-transparent text-soft'
+                     }`}
                   onClick={() => handleTabClick(idx)}>
                   {tab.label}
                </button>
