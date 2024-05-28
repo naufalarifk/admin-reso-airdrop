@@ -10,9 +10,9 @@ const initialState: GetPublicPoolState = {
 
 export const getPublicPoolAction = createAsyncThunk(
    'public/getPublicPool',
-   async (_, { rejectWithValue }) => {
+   async ({ tokenCode }: { tokenCode: string }, { rejectWithValue }) => {
       try {
-         const response = await baseApi.get(``);
+         const response = await baseApi.get(`/trade/public/inscribe/${tokenCode}`);
          return response;
       } catch (error) {
          return rejectWithValue(error);
