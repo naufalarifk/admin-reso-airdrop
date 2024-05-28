@@ -25,7 +25,6 @@ import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
 import { NewFormTrade } from '@/components/dummy/NewFormTrade';
 import { RecentTrades } from '@/components/dummy/RecentTrade';
 import { NewHistoryTrade } from '@/components/dummy/NewHistoryTrade';
-import { NewFormTradeMobile } from '@/components/dummy/NewFormTradeMobile';
 import { NewHistoryTradeMobile } from '@/components/dummy/NewHistoryTradeMobile';
 import { cn, validateNumber } from '@/utils';
 import { IcCoinPairs } from '@/assets/icons';
@@ -346,7 +345,7 @@ export const NewTrade = () => {
             </div>
 
             {showTradingChart ? (
-               <div className="h-96 overflow-hidden rounded bg-dark2 p-2 lg:hidden">
+               <div className="h-[600px] overflow-hidden rounded bg-dark2 p-2 lg:hidden">
                   <TradingViewV2 />
                </div>
             ) : (
@@ -361,19 +360,11 @@ export const NewTrade = () => {
                         loading={depthLoading}
                      />
                      <div>
-                        <div className="hidden h-full rounded-2xl bg-dark2 lg:block">
+                        <div className=" h-full rounded-lg bg-dark2 p-2 lg:block lg:rounded-2xl lg:p-4">
                            <NewFormTrade
                               market={marketById!}
                               marketTradePrice={marketTicker}
                               unitLoading={unitLoading}
-                              getCurrentMarket={getCurrentMarket!}
-                           />
-                        </div>
-                        <div className="block h-full  bg-dark2  lg:hidden">
-                           <NewFormTradeMobile
-                              market={marketById!}
-                              marketTradePrice={marketTicker}
-                              unitLoading={false}
                               getCurrentMarket={getCurrentMarket!}
                            />
                         </div>
