@@ -47,7 +47,7 @@ export const NewFormTrade = ({
          {
             label: 'Limit Trade',
             content: (
-               <>
+               <div className="relative h-full">
                   <div className="mt-4 space-y-1">
                      {unitLoading ? (
                         <Skeleton>
@@ -210,7 +210,7 @@ export const NewFormTrade = ({
                         </>
                      )}
                   </div>
-                  <div className="mt-4">
+                  <div className="absolute bottom-28  w-full">
                      {typeAction === 'buy' ? (
                         <button
                            disabled
@@ -225,14 +225,14 @@ export const NewFormTrade = ({
                         </button>
                      )}
                   </div>
-               </>
+               </div>
             ),
          },
          {
             label: 'Market Trade',
             content: (
                <>
-                  <>
+                  <div className="relative h-full">
                      <div className="mt-4 space-y-1">
                         {unitLoading ? (
                            <Skeleton>
@@ -361,7 +361,7 @@ export const NewFormTrade = ({
                            </>
                         )}
                      </div>
-                     <div className="mt-4">
+                     <div className="absolute bottom-28  w-full">
                         {typeAction === 'buy' ? (
                            <button
                               disabled
@@ -376,7 +376,7 @@ export const NewFormTrade = ({
                            </button>
                         )}
                      </div>
-                  </>
+                  </div>
                </>
             ),
          },
@@ -394,7 +394,7 @@ export const NewFormTrade = ({
 
    return (
       <>
-         <div className="h-[530px] rounded bg-dark2 p-4 lg:rounded-2xl">
+         <div className=" h-full rounded p-4 lg:rounded-2xl">
             <div className="mb-4 flex items-center justify-between gap-4">
                <button
                   onClick={() => setTypeAction('buy')}
@@ -481,7 +481,7 @@ const Tabs: FC<TabsProps> = ({ items, getCurrentIndex, rightContent }) => {
          />
          {rightContent}
 
-         {typeof contents === 'string' ? <div className="mt-4">{contents}</div> : contents}
+         {typeof contents === 'string' ? <div className="mt-4 h-full">{contents}</div> : contents}
       </>
    );
 };

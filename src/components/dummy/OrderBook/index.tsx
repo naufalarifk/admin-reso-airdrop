@@ -88,7 +88,7 @@ export const OrderBook = ({
             <div className="flex-1 text-right">Total {market?.quote_unit?.toUpperCase()}</div>
          </div>
 
-         <div className="flex h-[442px]  flex-col overflow-hidden">
+         <div className="flex h-[510px]  flex-col overflow-hidden">
             {/* Sell */}
             <div
                className={cn(
@@ -109,7 +109,7 @@ export const OrderBook = ({
                   asks?.map((order, i) => (
                      <div
                         key={i}
-                        className="relative flex h-[18px] justify-between pr-1 text-xxs">
+                        className="font-ibm relative flex h-[18px] justify-between pr-1 text-xxs">
                         <div className="flex-1 text-primary">
                            {Decimal.format(
                               validateNumber(order?.[0]),
@@ -145,7 +145,7 @@ export const OrderBook = ({
             {/* Ticker */}
             <div
                className={cn(
-                  'hidden-scroll my-3 flex h-[42px] items-center justify-center rounded-lg bg-dark px-2 lg:justify-between',
+                  'hidden-scroll font-ibm my-3 flex h-[42px] items-center justify-center rounded-lg bg-dark px-2 lg:justify-between',
                   type === 'sell' ? 'mb-0' : type === 'buy' ? 'mt-0' : '',
                )}>
                <div className="text-xs font-normal text-primary">
@@ -166,7 +166,7 @@ export const OrderBook = ({
             {/* Buy */}
             <div
                className={cn(
-                  `no-scrollbar flex flex-col space-y-0.5 transition-[height] duration-500 ease-in-out`,
+                  `no-scrollbar font-ibm flex flex-col space-y-0.5 transition-[height] duration-500 ease-in-out`,
                   type === 'default'
                      ? 'h-[calc(50%-33px)]'
                      : type === 'buy'

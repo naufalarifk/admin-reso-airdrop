@@ -47,7 +47,7 @@ export const NewFormTradeMobile = ({
          {
             label: 'Limit',
             content: (
-               <>
+               <div className="relative h-full">
                   <div className="mt-4 space-y-1">
                      {unitLoading ? (
                         <Skeleton>
@@ -218,7 +218,7 @@ export const NewFormTradeMobile = ({
                         </>
                      )}
                   </div>
-                  <div className="mt-4">
+                  <div className="absolute bottom-28 w-full">
                      {typeAction === 'buy' ? (
                         <button
                            disabled
@@ -233,77 +233,110 @@ export const NewFormTradeMobile = ({
                         </button>
                      )}
                   </div>
-               </>
+               </div>
             ),
          },
          {
             label: 'Market',
             content: (
-               <>
-                  <>
-                     <div className="mt-4 space-y-1">
-                        {unitLoading ? (
-                           <Skeleton>
-                              <div className="h-14 w-full  bg-dark3" />
-                           </Skeleton>
-                        ) : (
-                           <>
-                              <div className="flex items-center  justify-between">
-                                 <div className="text-xxs text-darkSoft">
-                                    <span className="mr-1 uppercase">
-                                       {getCurrentMarket?.base_unit}
-                                    </span>
-                                    Balance
-                                 </div>
-                                 <div className="text-xxs">
-                                    0
-                                    <span className="ml-1 uppercase">
-                                       {getCurrentMarket?.base_unit}
-                                    </span>
-                                 </div>
+               <div className="relative h-full">
+                  <div className="mt-4 space-y-1">
+                     {unitLoading ? (
+                        <Skeleton>
+                           <div className="h-14 w-full  bg-dark3" />
+                        </Skeleton>
+                     ) : (
+                        <>
+                           <div className="flex items-center  justify-between">
+                              <div className="text-xxs text-darkSoft">
+                                 <span className="mr-1 uppercase">
+                                    {getCurrentMarket?.base_unit}
+                                 </span>
+                                 Balance
                               </div>
-                              <div className="flex items-center  justify-between">
-                                 <div className="text-xxs text-darkSoft">
-                                    <span className="mr-1 uppercase">
-                                       {getCurrentMarket?.quote_unit}
-                                    </span>
-                                    Balance
-                                 </div>
-                                 <div className="text-xxs text-white">
-                                    0
-                                    <span className="ml-1 uppercase">
-                                       {getCurrentMarket?.quote_unit}
-                                    </span>
-                                 </div>
-                              </div>
-                           </>
-                        )}
-                     </div>
-                     <div className="mt-4 space-y-2">
-                        {unitLoading ? (
-                           <Skeleton>
-                              <div className="h-14 w-full  bg-dark3" />
-                           </Skeleton>
-                        ) : (
-                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4 text-xs">
-                              <div className=" text-xxs text-darkSoft lg:text-base">
-                                 Market Price
-                              </div>
-                              <div className="text-xxs font-normal text-darkSoft lg:text-base">
-                                 {Decimal.format(
-                                    validateNumber(tick?.last),
-                                    market?.price_precision!,
-                                    ',',
-                                 )}
+                              <div className="text-xxs">
+                                 0
+                                 <span className="ml-1 uppercase">
+                                    {getCurrentMarket?.base_unit}
+                                 </span>
                               </div>
                            </div>
-                        )}
-                        {unitLoading ? (
-                           <Skeleton>
-                              <div className="h-14 w-full  bg-dark3" />
-                           </Skeleton>
-                        ) : (
-                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
+                           <div className="flex items-center  justify-between">
+                              <div className="text-xxs text-darkSoft">
+                                 <span className="mr-1 uppercase">
+                                    {getCurrentMarket?.quote_unit}
+                                 </span>
+                                 Balance
+                              </div>
+                              <div className="text-xxs text-white">
+                                 0
+                                 <span className="ml-1 uppercase">
+                                    {getCurrentMarket?.quote_unit}
+                                 </span>
+                              </div>
+                           </div>
+                        </>
+                     )}
+                  </div>
+                  <div className="mt-4 space-y-2">
+                     {unitLoading ? (
+                        <Skeleton>
+                           <div className="h-14 w-full  bg-dark3" />
+                        </Skeleton>
+                     ) : (
+                        <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-4 text-xs">
+                           <div className=" text-xxs text-darkSoft lg:text-base">Market Price</div>
+                           <div className="text-xxs font-normal text-darkSoft lg:text-base">
+                              {Decimal.format(
+                                 validateNumber(tick?.last),
+                                 market?.price_precision!,
+                                 ',',
+                              )}
+                           </div>
+                        </div>
+                     )}
+                     {unitLoading ? (
+                        <Skeleton>
+                           <div className="h-14 w-full  bg-dark3" />
+                        </Skeleton>
+                     ) : (
+                        <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:px-3 lg:py-4">
+                           <button
+                              type="button"
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
+                              <IcMinus />
+                           </button>
+                           <input
+                              type="text"
+                              disabled
+                              className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
+                              placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
+                           />
+
+                           <button
+                              type="button"
+                              className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
+                              <IcPlus />
+                           </button>
+                        </div>
+                     )}
+
+                     {unitLoading ? (
+                        <Skeleton>
+                           <div className="h-24 w-full  bg-dark3" />
+                        </Skeleton>
+                     ) : (
+                        <>
+                           <div className="mt-4 flex items-center justify-between text-xxs">
+                              <div className="text-darkSoft">Min Amount</div>
+                              <div>
+                                 0
+                                 <span className="ml-1 uppercase">
+                                    {getCurrentMarket?.base_unit}
+                                 </span>
+                              </div>
+                           </div>
+                           <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:py-4">
                               <button
                                  type="button"
                                  className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
@@ -312,8 +345,8 @@ export const NewFormTradeMobile = ({
                               <input
                                  type="text"
                                  disabled
-                                 className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
-                                 placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
+                                 className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
+                                 placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
                               />
 
                               <button
@@ -322,71 +355,34 @@ export const NewFormTradeMobile = ({
                                  <IcPlus />
                               </button>
                            </div>
-                        )}
-
-                        {unitLoading ? (
-                           <Skeleton>
-                              <div className="h-24 w-full  bg-dark3" />
-                           </Skeleton>
-                        ) : (
-                           <>
-                              <div className="mt-4 flex items-center justify-between text-xxs">
-                                 <div className="text-darkSoft">Min Amount</div>
-                                 <div>
-                                    0
-                                    <span className="ml-1 uppercase">
-                                       {getCurrentMarket?.base_unit}
-                                    </span>
-                                 </div>
+                           <div className="mt-4 flex items-center justify-between text-xxs">
+                              <div className="text-darkSoft">Fee transaction</div>
+                              <div>
+                                 0
+                                 <span className="ml-1 uppercase">
+                                    {getCurrentMarket?.base_unit}
+                                 </span>
                               </div>
-                              <div className="relative flex items-center justify-between rounded-lg bg-dark px-3 py-2 lg:py-4">
-                                 <button
-                                    type="button"
-                                    className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                    <IcMinus />
-                                 </button>
-                                 <input
-                                    type="text"
-                                    disabled
-                                    className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full"
-                                    placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
-                                 />
-
-                                 <button
-                                    type="button"
-                                    className="relative flex size-3 cursor-pointer items-center justify-center text-soft hover:text-primary  lg:size-4">
-                                    <IcPlus />
-                                 </button>
-                              </div>
-                              <div className="mt-4 flex items-center justify-between text-xxs">
-                                 <div className="text-darkSoft">Fee transaction</div>
-                                 <div>
-                                    0
-                                    <span className="ml-1 uppercase">
-                                       {getCurrentMarket?.base_unit}
-                                    </span>
-                                 </div>
-                              </div>
-                           </>
-                        )}
-                     </div>
-                     <div className="mt-4">
-                        {typeAction === 'buy' ? (
-                           <button
-                              disabled
-                              className=" w-full rounded-full bg-success py-2 disabled:bg-success/45   lg:py-3">
-                              Buy
-                           </button>
-                        ) : (
-                           <button
-                              disabled
-                              className=" w-full rounded-full bg-primary py-2 disabled:bg-primary/30 lg:py-3">
-                              Sell
-                           </button>
-                        )}
-                     </div>
-                  </>
-               </>
+                           </div>
+                        </>
+                     )}
+                  </div>
+                  <div className="absolute bottom-28 w-full">
+                     {typeAction === 'buy' ? (
+                        <button
+                           disabled
+                           className=" w-full rounded-full bg-success py-2 disabled:bg-success/45   lg:py-3">
+                           Buy
+                        </button>
+                     ) : (
+                        <button
+                           disabled
+                           className=" w-full rounded-full bg-primary py-2 disabled:bg-primary/30 lg:py-3">
+                           Sell
+                        </button>
+                     )}
+                  </div>
+               </div>
             ),
          },
       ],
@@ -403,7 +399,7 @@ export const NewFormTradeMobile = ({
 
    return (
       <>
-         <div className="h-full min-h-[552px] rounded bg-dark2 p-4 lg:rounded-2xl">
+         <div className="h-full  p-4 lg:rounded-2xl">
             <div className="mb-4 flex items-center justify-between gap-2 lg:gap-4">
                <button
                   onClick={() => setTypeAction('buy')}
