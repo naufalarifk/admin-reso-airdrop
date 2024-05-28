@@ -1,11 +1,10 @@
 // import { useEffect, useRef, useState } from "react";
 
-import { ButtonConnectWallet, ButtonGlow } from '@/components';
+// import { ButtonConnectWallet } from '@/components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import { TokenList } from '@/components';
-import { IcThreeDots, IcWeb } from '@/assets/icons';
-import { useAccount } from 'wagmi';
+
 import { useState } from 'react';
 
 const navLink = [
@@ -35,7 +34,6 @@ export const HeaderDashboard = () => {
    // const lastScrollTop = useRef(0);
 
    const [toggle, setToggle] = useState(false);
-   const { isConnected } = useAccount();
    const [openTokenList, setOpenTokenList] = useState(false);
 
    // const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -112,7 +110,7 @@ export const HeaderDashboard = () => {
                      />
                   </NavLink>
                </div>
-               <ButtonConnectWallet className="lg:hidden" />
+               {/* <ButtonConnectWallet className="lg:hidden" /> */}
                <div className="hidden gap-9 md:flex md:items-center md:justify-center">
                   <ul className="flex gap-5 text-base text-white">
                      {navLink &&
@@ -127,22 +125,10 @@ export const HeaderDashboard = () => {
                            </li>
                         ))}
                   </ul>
-                  {isConnected ? (
-                     <div className="flex justify-between space-x-3">
-                        <ButtonConnectWallet />
-                        <ButtonGlow className="w-[80px] px-0">
-                           <IcThreeDots />
-                        </ButtonGlow>
-                        <ButtonGlow className="w-[80px] px-0">
-                           <IcWeb />
-                        </ButtonGlow>
-                     </div>
-                  ) : (
-                     <>
-                        <div onClick={() => setOpenTokenList(!openTokenList)}>Token List</div>
-                        <ButtonConnectWallet />
-                     </>
-                  )}
+
+                  <>
+                     <div onClick={() => setOpenTokenList(!openTokenList)}>Token List</div>
+                  </>
                </div>
             </div>
          </div>

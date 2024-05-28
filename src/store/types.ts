@@ -61,6 +61,54 @@ export interface Urls {
    announcement: string[];
 }
 
+export interface PoolCurrencies {
+   uid: string;
+   currency_id: string;
+   pair_currency_id: string;
+   listing_amount: string;
+   pair_listing_amount: string;
+   markets: Markets;
+   state: string;
+   listing_fee: string;
+   txid: string;
+   errored: string;
+   pool_market_payments: PoolMarketPayments;
+   created_at: string;
+}
+
+export interface Markets {
+   symbol: string;
+   name: string;
+   type: string;
+   base_unit: string;
+   quote_unit: string;
+   min_price: number;
+   max_price: number;
+   min_amount: number;
+   amount_precision: number;
+   price_precision: number;
+   total_precision: number;
+   liquidity: number;
+   low_liquidity: string;
+   state: string;
+}
+
+export interface PoolMarketPayments {
+   txid: string;
+   amount: string;
+   state: string;
+   kind: string;
+   created_at: string;
+}
+
 export type GetPublicPoolState = InitialState & {
    item: PublicPoolsData | null;
+};
+
+export type GetPrivatePoolCurrencies = InitialState & {
+   data: PoolCurrencies[];
+};
+
+export type PrivatePoolState = {
+   getPollCurrencies: GetPrivatePoolCurrencies;
 };
