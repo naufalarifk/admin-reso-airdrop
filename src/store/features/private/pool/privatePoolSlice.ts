@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from '@/api/config';
 import type { PrivatePoolState } from '@/store/types';
 import { buildQueryString } from '@/utils';
@@ -27,6 +28,22 @@ interface PayloadCreatePaymentPool {
    amount: string;
 }
 
+interface PayloadNewPoolMarket {
+   amount_precision?: number;
+   price_precision?: number;
+   total_precision?: number;
+   max_price?: number;
+   data?: any;
+   state?: 'enabled' | 'disabled' | 'hidden' | 'locked' | 'sale' | 'presale';
+   base_currency: string;
+   quote_currency: string;
+   min_price: number;
+   min_amount: number;
+   type?: string;
+   engine_name?: string;
+   engine_id?: string;
+}
+
 const initialState: PrivatePoolState = {
    getPoolCurrencies: {
       isLoading: false,
@@ -39,6 +56,10 @@ const initialState: PrivatePoolState = {
       data: [],
    },
    createPaymentPoolMarket: {
+      isLoading: false,
+      isSuccess: false,
+   },
+   createNewPoolMarket: {
       isLoading: false,
       isSuccess: false,
    },
@@ -76,6 +97,18 @@ export const postPaymentPoolMarket = createAsyncThunk(
    ) => {
       try {
          const response = await baseApi.post(`/trade/pool/market/${uid}/payment`, payload);
+         return response;
+      } catch (error) {
+         return rejectWithValue(error);
+      }
+   },
+);
+
+export const createPostPoolMarketNew = createAsyncThunk(
+   'private/postPoolMarketNew',
+   async (payload: PayloadNewPoolMarket, { rejectWithValue }) => {
+      try {
+         const response = await baseApi.post(`/trade/pool/market/`, payload);
          return response;
       } catch (error) {
          return rejectWithValue(error);
@@ -129,6 +162,19 @@ const privatePoolSlice = createSlice({
             state.createPaymentPoolMarket.isSuccess = false;
             state.createPaymentPoolMarket.isLoading = false;
             state.createPaymentPoolMarket.error = action.payload;
+         })
+         .addCase(createPostPoolMarketNew.pending, state => {
+            state.createNewPoolMarket.isLoading = true;
+            state.createNewPoolMarket.isSuccess = false;
+         })
+         .addCase(createPostPoolMarketNew.fulfilled, state => {
+            state.createNewPoolMarket.isLoading = false;
+            state.createPaymentPoolMarket.isSuccess = true;
+         })
+         .addCase(createPostPoolMarketNew.rejected, (state, action) => {
+            state.createNewPoolMarket.isLoading = false;
+            state.createNewPoolMarket.isSuccess = false;
+            state.createNewPoolMarket.error = action.payload;
          });
    },
 });

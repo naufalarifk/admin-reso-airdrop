@@ -24,6 +24,8 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
    const [showToken, setShowToken] = useState(false);
    const [currentType, setCurrentType] = useState('cmc');
 
+   const [valueCMC, setValueCMC] = useState('');
+
    const official_links = [
       {
          name: 'Official Website',
@@ -96,14 +98,24 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                   <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                      <Input
                         placeholder="Input your token UCID from CMC"
-                        className="bg-transparent"
+                        className="rounded-2xl bg-transparent text-white"
+                        value={valueCMC}
+                        onChange={e => setValueCMC(e.target.value)}
                      />
-                     <Button
-                        onClick={() => setShowToken(!showToken)}
-                        className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
+                     <Button className="h-auto border-[0.5px] border-primary/30 bg-primary/10 px-4 py-2 text-[#F23F5D]">
                         {t('pool.firstStep.search')}
                      </Button>
                   </div>
+                  {!showToken && (
+                     <div>
+                        <Button
+                           disabled={!valueCMC}
+                           onClick={() => setShowToken(!showToken)}
+                           className="mt-4 w-full rounded-full bg-primary">
+                           {t('pool.firstStep.continue')}
+                        </Button>
+                     </div>
+                  )}
                </div>
                {showToken && (
                   <>
@@ -197,7 +209,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      </div>
                      <Button
                         onClick={handleNextStep}
-                        className="w-full bg-[#F23F5D]">
+                        className="w-full rounded-full bg-primary">
                         {t('pool.firstStep.continue')}
                      </Button>
                   </>

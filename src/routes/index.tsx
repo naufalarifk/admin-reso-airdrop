@@ -20,6 +20,7 @@ import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
 import { useScrollTop } from '@/hooks';
 import { Dummy } from '@/pages/Dummy';
+import { DummyPool } from '@/pages/DummyPool';
 
 export const RootLayout = () => {
    useScrollTop();
@@ -56,6 +57,7 @@ export const RootLayout = () => {
             path="/test"
             element={<Home />}
          />
+
          <Route
             path="/privacy"
             element={<Privacy />}
@@ -66,6 +68,10 @@ export const RootLayout = () => {
                element={<NotFound />}
             />
             <Route element={<LayoutDashboard />}>
+               <Route
+                  path="/dummypool"
+                  element={<DummyPool />}
+               />
                <Route
                   path="/tradedummy"
                   element={<Trade />}

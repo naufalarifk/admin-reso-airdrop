@@ -15,3 +15,7 @@ export const selectGetPrivatePoolCurrencyLoading = (state: RootState) =>
 // Post Private Pool Payment Market
 export const selectPostPrivatePoolMarketLoading = (state: RootState) =>
    state.private.pool.createPaymentPoolMarket.isLoading;
+
+// Post Create Pool Market New
+export const selectCreatePoolMarketNewLoading = (state: RootState) =>
+   state.private.pool.createNewPoolMarket.isLoading;
