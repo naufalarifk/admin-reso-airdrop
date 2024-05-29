@@ -10,7 +10,8 @@ import {
    IcX,
 } from '@/assets/icons';
 import { Button, Input, PoolSteps, Text } from '@/components';
-import { Dispatch, useState } from 'react';
+import type { Dispatch } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface ChildrenProps {
@@ -52,7 +53,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://medium.com/bome',
-         icon: <IcMedium fill='#F23F5D' />,
+         icon: <IcMedium fill="#F23F5D" />,
       },
    ];
 
@@ -116,14 +117,23 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                                  src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                                  height={32}
                                  width={32}
-                                 className='rounded-full'
+                                 className="rounded-full"
                               />
                               <Text>
                                  BOME <span className="text-[#90A3BF]">Book of Meme</span>
                               </Text>
                            </div>
                            <Text className="my-1 text-[#90A3BF]">
-                              Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
+                              Introducing the BOOK OF MEME: an experimental project poised to
+                              redefine web3 culture by amalgamating memes, decentralized storage
+                              solutions, and degen shitcoin trading and gambling. This experiment
+                              endeavors to encapsulate the ever-evolving meme culture within a
+                              digital compendium, the BOOK OF MEME, ensuring each piece is
+                              immortalized on the blockchain. The $BOME memecoin on Solana, and
+                              Arweave, IPFS as the primary storage of Book Of Meme and future
+                              expansions to Bitcoin inscriptions as immutable forever storage, this
+                              initiative aims to foster a new dimension of decentralized social
+                              media, and make memes unstoppable.
                            </Text>
                            <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                               <div>
@@ -136,7 +146,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.marketCap')}</Text>
-                                 <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
+                                 <Text>
+                                    876,493,708 <span className="text-[#90A3BF]">USD</span>
+                                 </Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.liquidity')}</Text>
@@ -152,13 +164,17 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                                 <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
-                                 <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
+                                 <Text>
+                                    0.02805 <span className="text-[#90A3BF]">USD</span>
+                                 </Text>
+                                 <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalLow')}</Text>
-                                 <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
-                                 <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
+                                 <Text>
+                                    0.000858 <span className="text-[#90A3BF]">USD</span>
+                                 </Text>
+                                 <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
                               </div>
                            </div>
                         </div>
@@ -345,7 +361,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://medium.com/bome',
-         icon: <IcMedium fill='#F23F5D' />,
+         icon: <IcMedium fill="#F23F5D" />,
       },
    ];
 
@@ -357,20 +373,19 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
       }
    };
 
-   console.log('step', step)
    return (
       <section className="min-w-sm mx-auto w-full space-y-4 rounded-xl border-[0.5px] border-[#FFFFFF1A] bg-[#181924] p-6 lg:w-3/4">
          <Text className="text-lg font-semibold"></Text>
          <Text className="text-[#9F9F9F]"></Text>
          <div className="mt-6 space-y-2">
             <div className="rounded-lg bg-[#0E0F19] p-4">
-               <div className='block items-center lg:flex lg:justify-between'>
+               <div className="block items-center lg:flex lg:justify-between">
                   <div className="flex items-center space-x-2">
                      <img
                         src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                         height={32}
                         width={32}
-                        className='rounded-full'
+                        className="rounded-full"
                      />
                      <Text>
                         BOME <span className="text-[#90A3BF]">Book of Meme</span>
@@ -383,7 +398,14 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
+                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3
+                  culture by amalgamating memes, decentralized storage solutions, and degen shitcoin
+                  trading and gambling. This experiment endeavors to encapsulate the ever-evolving
+                  meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is
+                  immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as
+                  the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions
+                  as immutable forever storage, this initiative aims to foster a new dimension of
+                  decentralized social media, and make memes unstoppable.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
@@ -396,7 +418,9 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
-                     <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text>
+                        876,493,708 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.liquidity')}</Text>
@@ -412,13 +436,17 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                     <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
+                     <Text>
+                        0.02805 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalLow')}</Text>
-                     <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
+                     <Text>
+                        0.000858 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
                   </div>
                </div>
             </div>
@@ -515,7 +543,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   placeholder="Input sell order"
                />
                <div className="flex items-center space-x-3">
-                  <Text className="font-semibold text-[#90A3BF]">BTC</Text>
+                  <Text className="font-semibold text-[#90A3BF]"></Text>
                   <Button className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
                      Add
                   </Button>
@@ -523,7 +551,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
             </div>
             <div className="mt-2 flex items-center justify-between">
                <Text className="text-[#9F9F9F]">Available Balance</Text>
-               <Text>50 BTC</Text>
+               <Text>50 </Text>
             </div>
          </div>
          <div className="flex space-x-1">
@@ -574,7 +602,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://medium.com/bome',
-         icon: <IcMedium fill='#F23F5D' />,
+         icon: <IcMedium fill="#F23F5D" />,
       },
    ];
 
@@ -611,13 +639,13 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
          </div>
          <div className="mt-6 space-y-2">
             <div className="rounded-lg bg-[#0E0F19] p-4">
-               <div className='block items-center lg:flex lg:justify-between'>
+               <div className="block items-center lg:flex lg:justify-between">
                   <div className="flex items-center space-x-2">
                      <img
                         src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                         height={32}
                         width={32}
-                        className='rounded-full'
+                        className="rounded-full"
                      />
                      <Text>
                         BOME <span className="text-[#90A3BF]">Book of Meme</span>
@@ -630,7 +658,14 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
+                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3
+                  culture by amalgamating memes, decentralized storage solutions, and degen shitcoin
+                  trading and gambling. This experiment endeavors to encapsulate the ever-evolving
+                  meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is
+                  immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as
+                  the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions
+                  as immutable forever storage, this initiative aims to foster a new dimension of
+                  decentralized social media, and make memes unstoppable.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
@@ -643,7 +678,9 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
-                     <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text>
+                        876,493,708 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.liquidity')}</Text>
@@ -659,13 +696,17 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                     <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
+                     <Text>
+                        0.02805 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalLow')}</Text>
-                     <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
+                     <Text>
+                        0.000858 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
                   </div>
                </div>
             </div>

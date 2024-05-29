@@ -116,4 +116,5 @@ export type GetPoolMarket = InitialState & {
 export type PrivatePoolState = {
    getPoolCurrencies: GetPrivatePoolCurrencies;
    getPoolMarket: GetPoolMarket;
+   createPaymentPoolMarket: InitialState;
 };
