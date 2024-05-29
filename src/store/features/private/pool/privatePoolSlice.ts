@@ -63,6 +63,10 @@ const initialState: PrivatePoolState = {
       isLoading: false,
       isSuccess: false,
    },
+   createNewPoolCurrencies: {
+      isLoading: false,
+      isSuccess: false,
+   },
 };
 
 export const getPrivatePoolCurrencies = createAsyncThunk(
@@ -109,6 +113,18 @@ export const createPostPoolMarketNew = createAsyncThunk(
    async (payload: PayloadNewPoolMarket, { rejectWithValue }) => {
       try {
          const response = await baseApi.post(`/trade/pool/market/`, payload);
+         return response;
+      } catch (error) {
+         return rejectWithValue(error);
+      }
+   },
+);
+
+export const createNewPoolCurrencies = createAsyncThunk(
+   'private/createNewPoolCurrencies',
+   async (_, { rejectWithValue }) => {
+      try {
+         const response = await baseApi.post(`/trade/pool/currencies/new`);
          return response;
       } catch (error) {
          return rejectWithValue(error);
@@ -175,6 +191,19 @@ const privatePoolSlice = createSlice({
             state.createNewPoolMarket.isLoading = false;
             state.createNewPoolMarket.isSuccess = false;
             state.createNewPoolMarket.error = action.payload;
+         })
+         .addCase(createNewPoolCurrencies.pending, state => {
+            state.createNewPoolCurrencies.isLoading = true;
+            state.createNewPoolCurrencies.isSuccess = false;
+         })
+         .addCase(createNewPoolCurrencies.fulfilled, state => {
+            state.createNewPoolCurrencies.isLoading = false;
+            state.createNewPoolCurrencies.isSuccess = true;
+         })
+         .addCase(createNewPoolCurrencies.rejected, (state, action) => {
+            state.createNewPoolCurrencies.isLoading = false;
+            state.createNewPoolCurrencies.isSuccess = false;
+            state.createNewPoolCurrencies.error = action.payload;
          });
    },
 });

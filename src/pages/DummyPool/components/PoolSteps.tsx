@@ -15,9 +15,9 @@ const renderName: Record<number, string> = {
 };
 
 export const PoolSteps = () => {
-   const [step, setStep] = useState(0);
-   const [from, setFrom] = useState('');
-   const [to, setTo] = useState('');
+   const [step] = useState(0);
+   // const [from, setFrom] = useState('');
+   // const [to, setTo] = useState('');
    return (
       <div className="space-y-8">
          <Card className="flex h-[102px] items-center px-4 py-0 lg:h-32 lg:px-8">

@@ -118,4 +118,5 @@ export type PrivatePoolState = {
    getPoolMarket: GetPoolMarket;
    createPaymentPoolMarket: InitialState;
    createNewPoolMarket: InitialState;
+   createNewPoolCurrencies: InitialState;
 };
