@@ -25,6 +25,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
    const [currentType, setCurrentType] = useState('cmc');
 
    const [valueCMC, setValueCMC] = useState('');
+   const [tickerName, setTickerName] = useState('');
+   const [showContractAddress, setShowContractAddress] = useState(false);
+   const [cotractAddress, setCotractAddress] = useState('');
 
    const official_links = [
       {
@@ -217,125 +220,183 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
             </>
          )}
          {currentType === 'custom' && (
-            <div className="space-y-3">
-               <Text className="text-sm font-semibold text-[#90A3BF]">Ticker Name</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="HSC"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-                  <Button
-                     onClick={() => setShowToken(!showToken)}
-                     className="h-auto border border-[#33D49D] bg-[#111f25] px-4 py-2 text-[#33D49D]">
-                     Available
-                  </Button>
-               </div>
-               <div className="flex items-center justify-between">
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Token Name</Text>
-                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                        <Input
-                           placeholder="Heliosync"
-                           className="bg-transparent placeholder:text-white"
-                           disabled
-                        />
+            <>
+               {!showContractAddress && (
+                  <div className="mt-6 space-y-2">
+                     <div className="flex space-x-1">
+                        <Text className="text-white">Ticker Name</Text>
+                        {/* <IcQuestionMark /> */}
                      </div>
-                  </div>
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Token Icon</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="logo_helio.png"
-                           className="bg-transparent placeholder:text-white"
-                           disabled
+                           placeholder="Input ticker name (Eg. BTC)"
+                           className="rounded-2xl bg-transparent text-white"
+                           value={tickerName}
+                           onChange={e => setTickerName(e.target.value)}
                         />
+                        <Button className="h-auto border-[0.5px] border-primary/30 bg-primary/10 px-4 py-2 text-[#F23F5D]">
+                           {t('pool.firstStep.search')}
+                        </Button>
+                     </div>
+
+                     <div>
                         <Button
-                           disabled
-                           onClick={() => setShowToken(!showToken)}
-                           className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
-                           Upload
+                           disabled={!tickerName}
+                           onClick={() => setShowContractAddress(!showContractAddress)}
+                           className="mt-4 w-full rounded-full bg-primary">
+                           {t('pool.firstStep.continue')}
                         </Button>
                      </div>
                   </div>
-               </div>
-               <Text className="text-sm font-semibold text-[#90A3BF]">Block Explorer</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="https://heliosync-explorer.com"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-               </div>
-               <div className="flex items-center justify-between">
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Max Supply</Text>
+               )}
+               {showContractAddress && (
+                  <div className="mt-6 space-y-2">
+                     <div className="flex space-x-1">
+                        <Text className="text-white">Contract Address</Text>
+                        {/* <IcQuestionMark /> */}
+                     </div>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="300000000"
+                           placeholder="Input your token contract address"
+                           className="rounded-2xl bg-transparent text-white"
+                           value={cotractAddress}
+                           onChange={e => setCotractAddress(e.target.value)}
+                        />
+                        <Button className="h-auto border-[0.5px] border-primary/30 bg-primary/10 px-4 py-2 text-[#F23F5D]">
+                           {t('pool.firstStep.search')}
+                        </Button>
+                     </div>
+                     {!showToken && (
+                        <div>
+                           <Button
+                              disabled={!cotractAddress}
+                              onClick={() => setShowToken(!showToken)}
+                              className="mt-4 w-full rounded-full bg-primary">
+                              {t('pool.firstStep.continue')}
+                           </Button>
+                        </div>
+                     )}
+                  </div>
+               )}
+
+               {showToken && (
+                  <div className="space-y-3">
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Ticker Name</Text>
+                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                        <Input
+                           placeholder="Ticker Name"
+                           value={tickerName}
                            className="bg-transparent placeholder:text-white"
                            disabled
                         />
                      </div>
-                  </div>
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">
-                        Circulation Supply
-                     </Text>
+                     <div className="flex items-center justify-between">
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">Token Name</Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="Heliosync"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                           </div>
+                        </div>
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">Token Icon</Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="logo_helio.png"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                              <Button
+                                 disabled
+                                 onClick={() => setShowToken(!showToken)}
+                                 className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
+                                 Upload
+                              </Button>
+                           </div>
+                        </div>
+                     </div>
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Block Explorer</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="1000000"
+                           placeholder="https://heliosync-explorer.com"
                            className="bg-transparent placeholder:text-white"
                            disabled
                         />
                      </div>
-                  </div>
-               </div>
-               <Text className="text-sm font-semibold text-[#90A3BF]">Precision</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="8"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-               </div>
-               {/* <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
+                     <div className="flex items-center justify-between">
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">Max Supply</Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="300000000"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                           </div>
+                        </div>
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">
+                              Circulation Supply
+                           </Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="1000000"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                           </div>
+                        </div>
+                     </div>
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Precision</Text>
+                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                        <Input
+                           placeholder="8"
+                           className="bg-transparent placeholder:text-white"
+                           disabled
+                        />
+                     </div>
+                     {/* <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
                <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                   <Input
                      placeholder="Input contact address"
                      className="bg-transparent placeholder:text-white"
                   />
                </div> */}
-               <Text className="text-sm font-semibold text-[#90A3BF]">Description</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="This token is legit, it will go to the moon in no time"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-               </div>
-               <div className="mt-6 space-y-2">
-                  <div className="flex items-center justify-between">
-                     <Text>{t('pool.firstStep.officialLinks')}</Text>
-                     <IcRoundAdd />
-                  </div>
-                  {official_links.map(item => (
-                     <div className="flex items-center justify-between rounded-xl  bg-[#0E0F19] p-2">
-                        <div className="flex items-center space-x-2">
-                           <>{item.icon}</>
-                           <Text>{item.name}</Text>
-                           <IcDropdown />
-                        </div>
-                        <Text>{item.link}</Text>
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Description</Text>
+                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                        <Input
+                           placeholder="This token is legit, it will go to the moon in no time"
+                           className="bg-transparent placeholder:text-white"
+                           disabled
+                        />
                      </div>
-                  ))}
-               </div>
-               <Button
-                  onClick={handleNextStep}
-                  className="w-full bg-[#F23F5D]">
-                  {t('pool.firstStep.continue')}
-               </Button>
-            </div>
+                     <div className="mt-6 space-y-2">
+                        <div className="flex items-center justify-between">
+                           <Text>{t('pool.firstStep.officialLinks')}</Text>
+                           <IcRoundAdd />
+                        </div>
+                        {official_links.map(item => (
+                           <div className="flex items-center justify-between rounded-xl  bg-[#0E0F19] p-2">
+                              <div className="flex items-center space-x-2">
+                                 <>{item.icon}</>
+                                 <Text>{item.name}</Text>
+                                 <IcDropdown />
+                              </div>
+                              <Text>{item.link}</Text>
+                           </div>
+                        ))}
+                     </div>
+                     <Button
+                        onClick={handleNextStep}
+                        className="w-full rounded-full bg-primary">
+                        {t('pool.firstStep.continue')}
+                     </Button>
+                  </div>
+               )}
+            </>
          )}
       </section>
    );
