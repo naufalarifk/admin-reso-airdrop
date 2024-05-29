@@ -10,7 +10,8 @@ import {
    IcX,
 } from '@/assets/icons';
 import { Button, Input, PoolSteps, Text } from '@/components';
-import { Dispatch, useState } from 'react';
+import type { Dispatch } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface ChildrenProps {
@@ -22,6 +23,11 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
    const { t } = useTranslation();
    const [showToken, setShowToken] = useState(false);
    const [currentType, setCurrentType] = useState('cmc');
+
+   const [valueCMC, setValueCMC] = useState('');
+   const [tickerName, setTickerName] = useState('');
+   const [showContractAddress, setShowContractAddress] = useState(false);
+   const [cotractAddress, setCotractAddress] = useState('');
 
    const official_links = [
       {
@@ -52,7 +58,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://medium.com/bome',
-         icon: <IcMedium fill='#F23F5D' />,
+         icon: <IcMedium fill="#F23F5D" />,
       },
    ];
 
@@ -95,14 +101,24 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                   <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                      <Input
                         placeholder="Input your token UCID from CMC"
-                        className="bg-transparent"
+                        className="rounded-2xl bg-transparent text-white"
+                        value={valueCMC}
+                        onChange={e => setValueCMC(e.target.value)}
                      />
-                     <Button
-                        onClick={() => setShowToken(!showToken)}
-                        className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
+                     <Button className="h-auto border-[0.5px] border-primary/30 bg-primary/10 px-4 py-2 text-[#F23F5D]">
                         {t('pool.firstStep.search')}
                      </Button>
                   </div>
+                  {!showToken && (
+                     <div>
+                        <Button
+                           disabled={!valueCMC}
+                           onClick={() => setShowToken(!showToken)}
+                           className="mt-4 w-full rounded-full bg-primary">
+                           {t('pool.firstStep.continue')}
+                        </Button>
+                     </div>
+                  )}
                </div>
                {showToken && (
                   <>
@@ -116,14 +132,23 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                                  src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                                  height={32}
                                  width={32}
-                                 className='rounded-full'
+                                 className="rounded-full"
                               />
                               <Text>
                                  BOME <span className="text-[#90A3BF]">Book of Meme</span>
                               </Text>
                            </div>
                            <Text className="my-1 text-[#90A3BF]">
-                              Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
+                              Introducing the BOOK OF MEME: an experimental project poised to
+                              redefine web3 culture by amalgamating memes, decentralized storage
+                              solutions, and degen shitcoin trading and gambling. This experiment
+                              endeavors to encapsulate the ever-evolving meme culture within a
+                              digital compendium, the BOOK OF MEME, ensuring each piece is
+                              immortalized on the blockchain. The $BOME memecoin on Solana, and
+                              Arweave, IPFS as the primary storage of Book Of Meme and future
+                              expansions to Bitcoin inscriptions as immutable forever storage, this
+                              initiative aims to foster a new dimension of decentralized social
+                              media, and make memes unstoppable.
                            </Text>
                            <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                               <div>
@@ -136,7 +161,9 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.marketCap')}</Text>
-                                 <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
+                                 <Text>
+                                    876,493,708 <span className="text-[#90A3BF]">USD</span>
+                                 </Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.liquidity')}</Text>
@@ -152,13 +179,17 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                                 <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
-                                 <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
+                                 <Text>
+                                    0.02805 <span className="text-[#90A3BF]">USD</span>
+                                 </Text>
+                                 <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalLow')}</Text>
-                                 <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
-                                 <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
+                                 <Text>
+                                    0.000858 <span className="text-[#90A3BF]">USD</span>
+                                 </Text>
+                                 <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
                               </div>
                            </div>
                         </div>
@@ -181,7 +212,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      </div>
                      <Button
                         onClick={handleNextStep}
-                        className="w-full bg-[#F23F5D]">
+                        className="w-full rounded-full bg-primary">
                         {t('pool.firstStep.continue')}
                      </Button>
                   </>
@@ -189,125 +220,183 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
             </>
          )}
          {currentType === 'custom' && (
-            <div className="space-y-3">
-               <Text className="text-sm font-semibold text-[#90A3BF]">Ticker Name</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="HSC"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-                  <Button
-                     onClick={() => setShowToken(!showToken)}
-                     className="h-auto border border-[#33D49D] bg-[#111f25] px-4 py-2 text-[#33D49D]">
-                     Available
-                  </Button>
-               </div>
-               <div className="flex items-center justify-between">
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Token Name</Text>
-                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                        <Input
-                           placeholder="Heliosync"
-                           className="bg-transparent placeholder:text-white"
-                           disabled
-                        />
+            <>
+               {!showContractAddress && (
+                  <div className="mt-6 space-y-2">
+                     <div className="flex space-x-1">
+                        <Text className="text-white">Ticker Name</Text>
+                        {/* <IcQuestionMark /> */}
                      </div>
-                  </div>
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Token Icon</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="logo_helio.png"
-                           className="bg-transparent placeholder:text-white"
-                           disabled
+                           placeholder="Input ticker name (Eg. BTC)"
+                           className="rounded-2xl bg-transparent text-white"
+                           value={tickerName}
+                           onChange={e => setTickerName(e.target.value)}
                         />
+                        <Button className="h-auto border-[0.5px] border-primary/30 bg-primary/10 px-4 py-2 text-[#F23F5D]">
+                           {t('pool.firstStep.search')}
+                        </Button>
+                     </div>
+
+                     <div>
                         <Button
-                           disabled
-                           onClick={() => setShowToken(!showToken)}
-                           className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
-                           Upload
+                           disabled={!tickerName}
+                           onClick={() => setShowContractAddress(!showContractAddress)}
+                           className="mt-4 w-full rounded-full bg-primary">
+                           {t('pool.firstStep.continue')}
                         </Button>
                      </div>
                   </div>
-               </div>
-               <Text className="text-sm font-semibold text-[#90A3BF]">Block Explorer</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="https://heliosync-explorer.com"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-               </div>
-               <div className="flex items-center justify-between">
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Max Supply</Text>
+               )}
+               {showContractAddress && (
+                  <div className="mt-6 space-y-2">
+                     <div className="flex space-x-1">
+                        <Text className="text-white">Contract Address</Text>
+                        {/* <IcQuestionMark /> */}
+                     </div>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="300000000"
+                           placeholder="Input your token contract address"
+                           className="rounded-2xl bg-transparent text-white"
+                           value={cotractAddress}
+                           onChange={e => setCotractAddress(e.target.value)}
+                        />
+                        <Button className="h-auto border-[0.5px] border-primary/30 bg-primary/10 px-4 py-2 text-[#F23F5D]">
+                           {t('pool.firstStep.search')}
+                        </Button>
+                     </div>
+                     {!showToken && (
+                        <div>
+                           <Button
+                              disabled={!cotractAddress}
+                              onClick={() => setShowToken(!showToken)}
+                              className="mt-4 w-full rounded-full bg-primary">
+                              {t('pool.firstStep.continue')}
+                           </Button>
+                        </div>
+                     )}
+                  </div>
+               )}
+
+               {showToken && (
+                  <div className="space-y-3">
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Ticker Name</Text>
+                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                        <Input
+                           placeholder="Ticker Name"
+                           value={tickerName}
                            className="bg-transparent placeholder:text-white"
                            disabled
                         />
                      </div>
-                  </div>
-                  <div className="w-[45%]">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">
-                        Circulation Supply
-                     </Text>
+                     <div className="flex items-center justify-between">
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">Token Name</Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="Heliosync"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                           </div>
+                        </div>
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">Token Icon</Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="logo_helio.png"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                              <Button
+                                 disabled
+                                 onClick={() => setShowToken(!showToken)}
+                                 className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
+                                 Upload
+                              </Button>
+                           </div>
+                        </div>
+                     </div>
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Block Explorer</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
-                           placeholder="1000000"
+                           placeholder="https://heliosync-explorer.com"
                            className="bg-transparent placeholder:text-white"
                            disabled
                         />
                      </div>
-                  </div>
-               </div>
-               <Text className="text-sm font-semibold text-[#90A3BF]">Precision</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="8"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-               </div>
-               {/* <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
+                     <div className="flex items-center justify-between">
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">Max Supply</Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="300000000"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                           </div>
+                        </div>
+                        <div className="w-[45%]">
+                           <Text className="text-sm font-semibold text-[#90A3BF]">
+                              Circulation Supply
+                           </Text>
+                           <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                              <Input
+                                 placeholder="1000000"
+                                 className="bg-transparent placeholder:text-white"
+                                 disabled
+                              />
+                           </div>
+                        </div>
+                     </div>
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Precision</Text>
+                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                        <Input
+                           placeholder="8"
+                           className="bg-transparent placeholder:text-white"
+                           disabled
+                        />
+                     </div>
+                     {/* <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
                <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                   <Input
                      placeholder="Input contact address"
                      className="bg-transparent placeholder:text-white"
                   />
                </div> */}
-               <Text className="text-sm font-semibold text-[#90A3BF]">Description</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="This token is legit, it will go to the moon in no time"
-                     className="bg-transparent placeholder:text-white"
-                     disabled
-                  />
-               </div>
-               <div className="mt-6 space-y-2">
-                  <div className="flex items-center justify-between">
-                     <Text>{t('pool.firstStep.officialLinks')}</Text>
-                     <IcRoundAdd />
-                  </div>
-                  {official_links.map(item => (
-                     <div className="flex items-center justify-between rounded-xl  bg-[#0E0F19] p-2">
-                        <div className="flex items-center space-x-2">
-                           <>{item.icon}</>
-                           <Text>{item.name}</Text>
-                           <IcDropdown />
-                        </div>
-                        <Text>{item.link}</Text>
+                     <Text className="text-sm font-semibold text-[#90A3BF]">Description</Text>
+                     <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
+                        <Input
+                           placeholder="This token is legit, it will go to the moon in no time"
+                           className="bg-transparent placeholder:text-white"
+                           disabled
+                        />
                      </div>
-                  ))}
-               </div>
-               <Button
-                  onClick={handleNextStep}
-                  className="w-full bg-[#F23F5D]">
-                  {t('pool.firstStep.continue')}
-               </Button>
-            </div>
+                     <div className="mt-6 space-y-2">
+                        <div className="flex items-center justify-between">
+                           <Text>{t('pool.firstStep.officialLinks')}</Text>
+                           <IcRoundAdd />
+                        </div>
+                        {official_links.map(item => (
+                           <div className="flex items-center justify-between rounded-xl  bg-[#0E0F19] p-2">
+                              <div className="flex items-center space-x-2">
+                                 <>{item.icon}</>
+                                 <Text>{item.name}</Text>
+                                 <IcDropdown />
+                              </div>
+                              <Text>{item.link}</Text>
+                           </div>
+                        ))}
+                     </div>
+                     <Button
+                        onClick={handleNextStep}
+                        className="w-full rounded-full bg-primary">
+                        {t('pool.firstStep.continue')}
+                     </Button>
+                  </div>
+               )}
+            </>
          )}
       </section>
    );
@@ -345,7 +434,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://medium.com/bome',
-         icon: <IcMedium fill='#F23F5D' />,
+         icon: <IcMedium fill="#F23F5D" />,
       },
    ];
 
@@ -357,20 +446,19 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
       }
    };
 
-   console.log('step', step)
    return (
       <section className="min-w-sm mx-auto w-full space-y-4 rounded-xl border-[0.5px] border-[#FFFFFF1A] bg-[#181924] p-6 lg:w-3/4">
          <Text className="text-lg font-semibold"></Text>
          <Text className="text-[#9F9F9F]"></Text>
          <div className="mt-6 space-y-2">
             <div className="rounded-lg bg-[#0E0F19] p-4">
-               <div className='block items-center lg:flex lg:justify-between'>
+               <div className="block items-center lg:flex lg:justify-between">
                   <div className="flex items-center space-x-2">
                      <img
                         src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                         height={32}
                         width={32}
-                        className='rounded-full'
+                        className="rounded-full"
                      />
                      <Text>
                         BOME <span className="text-[#90A3BF]">Book of Meme</span>
@@ -383,7 +471,14 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
+                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3
+                  culture by amalgamating memes, decentralized storage solutions, and degen shitcoin
+                  trading and gambling. This experiment endeavors to encapsulate the ever-evolving
+                  meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is
+                  immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as
+                  the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions
+                  as immutable forever storage, this initiative aims to foster a new dimension of
+                  decentralized social media, and make memes unstoppable.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
@@ -396,7 +491,9 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
-                     <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text>
+                        876,493,708 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.liquidity')}</Text>
@@ -412,13 +509,17 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                     <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
+                     <Text>
+                        0.02805 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalLow')}</Text>
-                     <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
+                     <Text>
+                        0.000858 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
                   </div>
                </div>
             </div>
@@ -515,7 +616,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   placeholder="Input sell order"
                />
                <div className="flex items-center space-x-3">
-                  <Text className="font-semibold text-[#90A3BF]">BTC</Text>
+                  <Text className="font-semibold text-[#90A3BF]"></Text>
                   <Button className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
                      Add
                   </Button>
@@ -523,7 +624,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
             </div>
             <div className="mt-2 flex items-center justify-between">
                <Text className="text-[#9F9F9F]">Available Balance</Text>
-               <Text>50 BTC</Text>
+               <Text>50 </Text>
             </div>
          </div>
          <div className="flex space-x-1">
@@ -574,7 +675,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
       {
          name: 'Official Medium',
          link: 'https://medium.com/bome',
-         icon: <IcMedium fill='#F23F5D' />,
+         icon: <IcMedium fill="#F23F5D" />,
       },
    ];
 
@@ -611,13 +712,13 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
          </div>
          <div className="mt-6 space-y-2">
             <div className="rounded-lg bg-[#0E0F19] p-4">
-               <div className='block items-center lg:flex lg:justify-between'>
+               <div className="block items-center lg:flex lg:justify-between">
                   <div className="flex items-center space-x-2">
                      <img
                         src="https://s2.coinmarketcap.com/static/img/coins/64x64/29870.png"
                         height={32}
                         width={32}
-                        className='rounded-full'
+                        className="rounded-full"
                      />
                      <Text>
                         BOME <span className="text-[#90A3BF]">Book of Meme</span>
@@ -630,7 +731,14 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                </div>
                <Text className="my-1 text-[#90A3BF]">
-                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3 culture by amalgamating memes, decentralized storage solutions, and degen shitcoin trading and gambling. This experiment endeavors to encapsulate the ever-evolving meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions as immutable forever storage, this initiative aims to foster a new dimension of decentralized social media, and make memes unstoppable.
+                  Introducing the BOOK OF MEME: an experimental project poised to redefine web3
+                  culture by amalgamating memes, decentralized storage solutions, and degen shitcoin
+                  trading and gambling. This experiment endeavors to encapsulate the ever-evolving
+                  meme culture within a digital compendium, the BOOK OF MEME, ensuring each piece is
+                  immortalized on the blockchain. The $BOME memecoin on Solana, and Arweave, IPFS as
+                  the primary storage of Book Of Meme and future expansions to Bitcoin inscriptions
+                  as immutable forever storage, this initiative aims to foster a new dimension of
+                  decentralized social media, and make memes unstoppable.
                </Text>
                <div className="mt-2 flex flex-col gap-4 rounded-lg bg-[#181924] p-4 lg:grid lg:grid-cols-3">
                   <div>
@@ -643,7 +751,9 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
-                     <Text>876,493,708 <span className='text-[#90A3BF]'>USD</span></Text>
+                     <Text>
+                        876,493,708 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.liquidity')}</Text>
@@ -659,13 +769,17 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalHigh')}</Text>
-                     <Text>0.02805 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>14 Mar 2024</Text>
+                     <Text>
+                        0.02805 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalLow')}</Text>
-                     <Text>0.000858 <span className='text-[#90A3BF]'>USD</span></Text>
-                     <Text className='text-[#90A3BF] text-xs'>15 Jul 2010</Text>
+                     <Text>
+                        0.000858 <span className="text-[#90A3BF]">USD</span>
+                     </Text>
+                     <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
                   </div>
                </div>
             </div>

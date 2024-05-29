@@ -13,12 +13,14 @@ import {
    MarketOverview,
    Trade,
    NewTrade,
-   Airdrop
+   Airdrop,
+   Home,
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
 import { useScrollTop } from '@/hooks';
 import { Dummy } from '@/pages/Dummy';
+import { DummyPool } from '@/pages/DummyPool';
 
 export const RootLayout = () => {
    useScrollTop();
@@ -52,6 +54,11 @@ export const RootLayout = () => {
             element={<Terms />}
          />
          <Route
+            path="/test"
+            element={<Home />}
+         />
+
+         <Route
             path="/privacy"
             element={<Privacy />}
          />
@@ -61,6 +68,10 @@ export const RootLayout = () => {
                element={<NotFound />}
             />
             <Route element={<LayoutDashboard />}>
+               <Route
+                  path="/dummypool"
+                  element={<DummyPool />}
+               />
                <Route
                   path="/tradedummy"
                   element={<Trade />}
@@ -78,7 +89,7 @@ export const RootLayout = () => {
                   element={<NewTrade />}
                />
                <Route
-                  path='/airdrop'
+                  path="/airdrop"
                   element={<Airdrop />}
                />
                <Route
