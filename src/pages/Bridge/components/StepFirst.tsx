@@ -146,41 +146,54 @@ function StepFirstMemo({
                className="max-lg:text-sm">
                You Receive
             </Text>
-            <div className="flex cursor-pointer flex-col gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
-               <div className="flex items-start justify-between gap-4">
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     textColor="lighGray">
-                     {t('bridge.firstStep.minimumReceived')} :{' '}
-                  </Text>
-                  <Text
-                     weight="medium"
-                     variant="heading"
-                     className="max-lg:text-xl">
-                     8.247583 USDT
-                  </Text>
+            <div className="flex cursor-pointer flex-row gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
+               <div>
+                  <div className="flex items-start justify-between gap-4">
+                     <Text
+                        weight="medium"
+                        variant="heading3"
+                        textColor="lighGray">
+                        {t('bridge.firstStep.minimumReceived')} :{' '}
+                     </Text>
+                     <Text
+                        weight="medium"
+                        variant="heading"
+                        className="max-lg:text-xl">
+                        8.247583 USDT
+                     </Text>
+                  </div>
+                  <div className="bg-rose-400">
+                     <div className="flex items-center justify-between gap-4">
+                        <Text
+                           weight="medium"
+                           variant="heading3"
+                           textColor="lighGray">
+                           {t('bridge.firstStep.networkFees')} :{' '}
+                        </Text>
+                        <Text
+                           weight="medium"
+                           variant="heading3"
+                           textColor="lighGray">
+                           In less than 1 munute Total fee :{' '}
+                           <span className="text-white">$1.75</span>
+                        </Text>
+                     </div>
+                  </div>
                </div>
-               <div className="flex items-center justify-between gap-4">
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     textColor="lighGray">
-                     {t('bridge.firstStep.networkFees')} :{' '}
-                  </Text>
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     textColor="lighGray">
-                     In less than 1 munute Total fee : <span className="text-white">$1.75</span>
-                  </Text>
+               <div>
+                  <SelectToken
+                     value={currency}
+                     setValue={setCurrency}
+                     wrapperInputClassName={cn('rounded-l-none')}
+                     type="token"
+                  />
                </div>
             </div>
          </div>
          {/* End Calculate */}
 
          {/* Address */}
-         <div className="space-y-3">
+         {/* <div className="space-y-3">
             <Text
                weight="medium"
                variant="heading2"
@@ -219,7 +232,7 @@ function StepFirstMemo({
                   />
                </svg>
             </div>
-         </div>
+         </div> */}
          {/* End Address */}
 
          <Button

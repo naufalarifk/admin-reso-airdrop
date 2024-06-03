@@ -1,4 +1,4 @@
-import { IcClose } from '@/assets/icons';
+import { IcClose, IcExternalLink } from '@/assets/icons';
 import { ButtonGlow } from '@/components/atoms';
 import { cn } from '@/utils';
 import {
@@ -44,8 +44,8 @@ export function ModalCommunity() {
       <>
          <button
             onClick={() => setIsOpen(true)}
-            className="text-base font-medium text-white">
-            {t(`navbar.menu.support`)}
+            className="text-left text-base font-medium text-white hover:text-primary">
+            {t(`navbar.menu.supports`)}
          </button>
 
          <AnimatePresence>
@@ -83,7 +83,7 @@ export function ModalCommunity() {
                                     <DialogTitle
                                        as="h3"
                                        className="text-base font-semibold text-white lg:text-2xl">
-                                       {t(`navbar.menu.support`)}
+                                       {t(`navbar.menu.supports`)}
                                     </DialogTitle>
                                     <CloseButton className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
                                        <IcClose />
@@ -112,11 +112,14 @@ export function ModalCommunity() {
                                        </div>
                                        <div className="text-lg">Twitter</div>
                                        <ButtonGlow
-                                          classNameButton={cn('w-auto')}
+                                          className={cn(
+                                             'flex w-auto items-center gap-2 rounded-full px-10 py-2',
+                                          )}
                                           onClick={() =>
                                              window.open('https://x.com/rectoverso_dex', '_blank')
                                           }>
-                                          Connect
+                                          Follow
+                                          <IcExternalLink className="size-4 text-white" />
                                        </ButtonGlow>
                                     </div>
                                     <div className="space-y-4 rounded-2xl bg-dark2 p-4 text-center">
@@ -137,11 +140,14 @@ export function ModalCommunity() {
                                        </div>
                                        <div className="text-lg">Telegram</div>
                                        <ButtonGlow
-                                          classNameButton={cn('w-auto')}
+                                          className={cn(
+                                             'flex w-auto items-center gap-2 rounded-full px-10 py-2',
+                                          )}
                                           onClick={() =>
                                              window.open('https://t.me/rectoverso_chat', '_blank')
                                           }>
-                                          Connect
+                                          Join
+                                          <IcExternalLink className="size-4 text-white" />
                                        </ButtonGlow>
                                     </div>
                                     <div className="space-y-4 rounded-2xl bg-dark2 p-4 text-center">
@@ -160,11 +166,14 @@ export function ModalCommunity() {
                                        </div>
                                        <div className="text-lg">Medium</div>
                                        <ButtonGlow
-                                          classNameButton={cn('w-auto')}
+                                          className={cn(
+                                             'flex w-auto items-center gap-2 rounded-full px-10 py-2',
+                                          )}
                                           onClick={() =>
                                              window.open('https://rectoverso.medium.com/', '_blank')
                                           }>
-                                          Connect
+                                          Read
+                                          <IcExternalLink className="size-4 text-white" />
                                        </ButtonGlow>
                                     </div>
                                  </div>
