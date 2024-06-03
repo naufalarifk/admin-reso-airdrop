@@ -29,6 +29,7 @@ import { NewHistoryTrade } from '@/components/dummy/NewHistoryTrade';
 import { NewHistoryTradeMobile } from '@/components/dummy/NewHistoryTradeMobile';
 import { cn, validateNumber } from '@/utils';
 import { IcCoinPairs } from '@/assets/icons';
+import { AirdropPopUp } from '@/components/atoms/AirdropPopUp';
 
 export const NewTrade = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
@@ -109,12 +110,13 @@ export const NewTrade = () => {
       return changePrice?.includes('+')
          ? 'text-green'
          : changePrice?.includes('-')
-           ? 'text-primary'
-           : 'text-soft';
+            ? 'text-primary'
+            : 'text-soft';
    };
 
    return (
       <section className="layout-main mb-8">
+         <AirdropPopUp />
          <div className="flex flex-col justify-between gap-2 lg:flex-row  lg:justify-start lg:gap-4">
             {/* Header mobile */}
             <div className=" flex h-[64px] items-center justify-between gap-2 rounded bg-dark2 p-4 px-3 lg:hidden">
@@ -201,11 +203,10 @@ export const NewTrade = () => {
                         <NavLink
                            key={e.base_unit}
                            to={`/trade/${e.name.replace('/', '-')}`}
-                           className={`${
-                              marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
-                                 ? 'border-primary/50 bg-primary/10'
-                                 : '  border-dark3 bg-dark2'
-                           } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
+                           className={`${marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
+                              ? 'border-primary/50 bg-primary/10'
+                              : '  border-dark3 bg-dark2'
+                              } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
                            <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover">
                               <img
                                  src={

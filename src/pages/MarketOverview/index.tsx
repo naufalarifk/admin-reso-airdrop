@@ -3,10 +3,13 @@ import { IcNewListing, IcTopGainers, IcTopMoving } from '@/assets/icons';
 import { Button, ButtonGlow, Footer, Input, Text, TopMarkets } from '@/components';
 // import { getAllMarketTicker } from "@/api/services/public/markets";
 // import { useEffect } from "react";
-import { Link } from 'react-router-dom';
-import './index.css';
-import { useCallback, useMemo, useState } from 'react';
-import { debounce } from 'lodash';
+import { Link } from "react-router-dom";
+import './index.css'
+import { useCallback, useMemo, useState } from "react";
+import { debounce } from "lodash";
+import { AirdropPopUp } from "@/components/atoms/AirdropPopUp";
+
+ 
 
 export const MarketOverview = () => {
    const dummy = useMemo(
@@ -206,11 +209,13 @@ export const MarketOverview = () => {
 
    return (
       <>
-         <main className="mx-auto w-4/5 max-w-7xl">
-            <Text className="mt-10 text-center text-lg font-semibold lg:text-3xl">
-               Rectoverso <span className="text-[#F23F5D]">Markets Overview</span>
-            </Text>
+         <AirdropPopUp />
+            <main className="w-4/5 mx-auto max-w-7xl">
+                <Text className="text-center lg:text-3xl text-lg font-semibold mt-10">
+                    Rectoverso <span className="text-[#F23F5D]">Markets Overview</span>
+                </Text>
 
+ 
             <div className="overflow-x-scroll">
                <div className="mt-10 grid w-[200vw] grid-cols-3 gap-6 lg:w-full">
                   <TopMarkets
@@ -283,7 +288,6 @@ export const MarketOverview = () => {
                      </svg>
                   </div>
                </div>
-
                <div className="mb-2 mt-4 hidden grid-cols-5 text-left lg:grid">
                   <Text className="p-2">Pair</Text>
                   <Text className="p-2">Price</Text>
