@@ -30,6 +30,18 @@ const initialState: PrivatePoolState = {
       isSuccess: false,
       data: [],
    },
+   createNewPoolCurrencies: {
+      isLoading: false,
+      isSuccess: false,
+   },
+   createNewPoolMarket: {
+      isLoading: false,
+      isSuccess: false,
+   },
+   createPaymentPoolMarket: {
+      isLoading: false,
+      isSuccess: false,
+   }
 };
 
 export const getPrivatePoolCurrencies = createAsyncThunk(
