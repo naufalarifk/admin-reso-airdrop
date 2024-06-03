@@ -73,7 +73,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
    return (
       <section className="min-w-sm mx-auto w-full space-y-4 rounded-xl border-[0.5px] border-[#FFFFFF1A] bg-[#181924] p-6 lg:w-3/4">
          <Text className="text-lg font-semibold">{t('pool.firstStep.title')}</Text>
-         <Text className="text-[#90A3BF]">{t('pool.firstStep.subtitle')}</Text>
+         <Text className="text-soft">{t('pool.firstStep.subtitle')}</Text>
          <div className="flex justify-between">
             <div className="flex w-2/3 space-x-2">
                <Button
@@ -87,7 +87,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                   Custom
                </Button>
             </div>
-            <Button className="h-8 w-1/3 rounded-[4px] bg-[#0E0F19] px-4 py-[6px] text-[#90A3BF]">
+            <Button className="h-8 w-1/3 rounded-[4px] bg-[#0E0F19] px-4 py-[6px] text-soft">
                My Listing
             </Button>
          </div>
@@ -135,10 +135,10 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                                  className="rounded-full"
                               />
                               <Text>
-                                 BOME <span className="text-[#90A3BF]">Book of Meme</span>
+                                 BOME <span className="text-soft">Book of Meme</span>
                               </Text>
                            </div>
-                           <Text className="my-1 text-[#90A3BF]">
+                           <Text className="my-1 text-soft">
                               Introducing the BOOK OF MEME: an experimental project poised to
                               redefine web3 culture by amalgamating memes, decentralized storage
                               solutions, and degen shitcoin trading and gambling. This experiment
@@ -162,7 +162,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               <div>
                                  <Text>{t('pool.firstStep.marketCap')}</Text>
                                  <Text>
-                                    876,493,708 <span className="text-[#90A3BF]">USD</span>
+                                    876,493,708 <span className="text-soft">USD</span>
                                  </Text>
                               </div>
                               <div>
@@ -180,16 +180,16 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                               <div>
                                  <Text>{t('pool.firstStep.historicalHigh')}</Text>
                                  <Text>
-                                    0.02805 <span className="text-[#90A3BF]">USD</span>
+                                    0.02805 <span className="text-soft">USD</span>
                                  </Text>
-                                 <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
+                                 <Text className="text-xs text-soft">14 Mar 2024</Text>
                               </div>
                               <div>
                                  <Text>{t('pool.firstStep.historicalLow')}</Text>
                                  <Text>
-                                    0.000858 <span className="text-[#90A3BF]">USD</span>
+                                    0.000858 <span className="text-soft">USD</span>
                                  </Text>
-                                 <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
+                                 <Text className="text-xs text-soft">15 Jul 2010</Text>
                               </div>
                            </div>
                         </div>
@@ -281,7 +281,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
 
                {showToken && (
                   <div className="space-y-3">
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Ticker Name</Text>
+                     <Text className="text-sm font-semibold text-soft">Ticker Name</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
                            placeholder="Ticker Name"
@@ -292,7 +292,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      </div>
                      <div className="flex items-center justify-between">
                         <div className="w-[45%]">
-                           <Text className="text-sm font-semibold text-[#90A3BF]">Token Name</Text>
+                           <Text className="text-sm font-semibold text-soft">Token Name</Text>
                            <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                               <Input
                                  placeholder="Heliosync"
@@ -302,7 +302,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                            </div>
                         </div>
                         <div className="w-[45%]">
-                           <Text className="text-sm font-semibold text-[#90A3BF]">Token Icon</Text>
+                           <Text className="text-sm font-semibold text-soft">Token Icon</Text>
                            <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                               <Input
                                  placeholder="logo_helio.png"
@@ -318,7 +318,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                            </div>
                         </div>
                      </div>
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Block Explorer</Text>
+                     <Text className="text-sm font-semibold text-soft">Block Explorer</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
                            placeholder="https://heliosync-explorer.com"
@@ -328,7 +328,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                      </div>
                      <div className="flex items-center justify-between">
                         <div className="w-[45%]">
-                           <Text className="text-sm font-semibold text-[#90A3BF]">Max Supply</Text>
+                           <Text className="text-sm font-semibold text-soft">Max Supply</Text>
                            <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                               <Input
                                  placeholder="300000000"
@@ -338,7 +338,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                            </div>
                         </div>
                         <div className="w-[45%]">
-                           <Text className="text-sm font-semibold text-[#90A3BF]">
+                           <Text className="text-sm font-semibold text-soft">
                               Circulation Supply
                            </Text>
                            <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
@@ -350,7 +350,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                            </div>
                         </div>
                      </div>
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Precision</Text>
+                     <Text className="text-sm font-semibold text-soft">Precision</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
                            placeholder="8"
@@ -358,14 +358,7 @@ const FirstStep = ({ setStep, step }: ChildrenProps) => {
                            disabled
                         />
                      </div>
-                     {/* <Text className="text-sm font-semibold text-[#90A3BF]">Contract Address</Text>
-               <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
-                  <Input
-                     placeholder="Input contact address"
-                     className="bg-transparent placeholder:text-white"
-                  />
-               </div> */}
-                     <Text className="text-sm font-semibold text-[#90A3BF]">Description</Text>
+                     <Text className="text-sm font-semibold text-soft">Description</Text>
                      <div className="flex items-center space-x-2 rounded-lg bg-[#0E0F19] p-2">
                         <Input
                            placeholder="This token is legit, it will go to the moon in no time"
@@ -461,7 +454,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                         className="rounded-full"
                      />
                      <Text>
-                        BOME <span className="text-[#90A3BF]">Book of Meme</span>
+                        BOME <span className="text-soft">Book of Meme</span>
                      </Text>
                   </div>
                   <div className="mt-2 flex space-x-2 lg:mt-0">
@@ -470,7 +463,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                      ))}
                   </div>
                </div>
-               <Text className="my-1 text-[#90A3BF]">
+               <Text className="my-1 text-soft">
                   Introducing the BOOK OF MEME: an experimental project poised to redefine web3
                   culture by amalgamating memes, decentralized storage solutions, and degen shitcoin
                   trading and gambling. This experiment endeavors to encapsulate the ever-evolving
@@ -492,7 +485,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
                      <Text>
-                        876,493,708 <span className="text-[#90A3BF]">USD</span>
+                        876,493,708 <span className="text-soft">USD</span>
                      </Text>
                   </div>
                   <div>
@@ -510,23 +503,23 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   <div>
                      <Text>{t('pool.firstStep.historicalHigh')}</Text>
                      <Text>
-                        0.02805 <span className="text-[#90A3BF]">USD</span>
+                        0.02805 <span className="text-soft">USD</span>
                      </Text>
-                     <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
+                     <Text className="text-xs text-soft">14 Mar 2024</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalLow')}</Text>
                      <Text>
-                        0.000858 <span className="text-[#90A3BF]">USD</span>
+                        0.000858 <span className="text-soft">USD</span>
                      </Text>
-                     <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
+                     <Text className="text-xs text-soft">15 Jul 2010</Text>
                   </div>
                </div>
             </div>
          </div>
          <div>
             <div className="flex items-center space-x-1">
-               <Text className="text-sm font-semibold text-[#90A3BF]">Token Price</Text>
+               <Text className="text-sm font-semibold text-soft">Token Price</Text>
                <IcQuestionMark />
             </div>
             <div className="mt-2 flex items-center space-x-2 rounded-2xl bg-[#0E0F19] p-3">
@@ -543,7 +536,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   className="bg-transparent"
                   placeholder="Input token price"
                />
-               <Text className="text-[#90A3BF]">RESO</Text>
+               <Text className="text-soft">RESO</Text>
             </div>
             <div className="mt-2 flex items-center justify-between">
                <Text className="text-[#9F9F9F]">Available Balance</Text>
@@ -553,7 +546,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
          <div>
             <div className="flex items-center justify-between">
                <div className="flex items-center space-x-1">
-                  <Text className="text-sm font-semibold text-[#90A3BF]">Listing Fee</Text>
+                  <Text className="text-sm font-semibold text-soft">Listing Fee</Text>
                   <IcQuestionMark />
                </div>
                <div className="flex items-center space-x-1">
@@ -564,7 +557,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
             <div className="mt-2 flex items-center justify-between space-x-2 rounded-2xl bg-[#0E0F19] p-3">
                <Text>1000</Text>
                <div className="flex items-center space-x-3">
-                  <Text className="font-semibold text-[#90A3BF]">RESO</Text>
+                  <Text className="font-semibold text-soft">RESO</Text>
                   <Button className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
                      Pay
                   </Button>
@@ -574,7 +567,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
          <div>
             <div className="flex items-center justify-between">
                <div className="flex items-center space-x-1">
-                  <Text className="text-sm font-semibold text-[#90A3BF]">Buy order</Text>
+                  <Text className="text-sm font-semibold text-soft">Buy order</Text>
                   <IcQuestionMark />
                </div>
                <div className="flex items-center space-x-1">
@@ -588,7 +581,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   placeholder="Input buy order"
                />
                <div className="flex items-center space-x-3">
-                  <Text className="font-semibold text-[#90A3BF]">RESO</Text>
+                  <Text className="font-semibold text-soft">RESO</Text>
                   <Button className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
                      Add
                   </Button>
@@ -602,7 +595,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
          <div>
             <div className="flex items-center justify-between">
                <div className="flex items-center space-x-1">
-                  <Text className="text-sm font-semibold text-[#90A3BF]">Sell Order</Text>
+                  <Text className="text-sm font-semibold text-soft">Sell Order</Text>
                   <IcQuestionMark />
                </div>
                <div className="flex items-center space-x-1">
@@ -616,7 +609,7 @@ const FinalStep = ({ setStep, step }: ChildrenProps) => {
                   placeholder="Input sell order"
                />
                <div className="flex items-center space-x-3">
-                  <Text className="font-semibold text-[#90A3BF]"></Text>
+                  <Text className="font-semibold text-soft"></Text>
                   <Button className="h-auto border border-[#F23F5D] bg-[#20131e] px-4 py-2 text-[#F23F5D]">
                      Add
                   </Button>
@@ -721,7 +714,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                         className="rounded-full"
                      />
                      <Text>
-                        BOME <span className="text-[#90A3BF]">Book of Meme</span>
+                        BOME <span className="text-soft">Book of Meme</span>
                      </Text>
                   </div>
                   <div className="mt-2 flex space-x-2 lg:mt-0">
@@ -730,7 +723,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                      ))}
                   </div>
                </div>
-               <Text className="my-1 text-[#90A3BF]">
+               <Text className="my-1 text-soft">
                   Introducing the BOOK OF MEME: an experimental project poised to redefine web3
                   culture by amalgamating memes, decentralized storage solutions, and degen shitcoin
                   trading and gambling. This experiment endeavors to encapsulate the ever-evolving
@@ -752,7 +745,7 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   <div>
                      <Text>{t('pool.firstStep.marketCap')}</Text>
                      <Text>
-                        876,493,708 <span className="text-[#90A3BF]">USD</span>
+                        876,493,708 <span className="text-soft">USD</span>
                      </Text>
                   </div>
                   <div>
@@ -770,16 +763,16 @@ const Confirmation = ({ setStep, step }: ChildrenProps) => {
                   <div>
                      <Text>{t('pool.firstStep.historicalHigh')}</Text>
                      <Text>
-                        0.02805 <span className="text-[#90A3BF]">USD</span>
+                        0.02805 <span className="text-soft">USD</span>
                      </Text>
-                     <Text className="text-xs text-[#90A3BF]">14 Mar 2024</Text>
+                     <Text className="text-xs text-soft">14 Mar 2024</Text>
                   </div>
                   <div>
                      <Text>{t('pool.firstStep.historicalLow')}</Text>
                      <Text>
-                        0.000858 <span className="text-[#90A3BF]">USD</span>
+                        0.000858 <span className="text-soft">USD</span>
                      </Text>
-                     <Text className="text-xs text-[#90A3BF]">15 Jul 2010</Text>
+                     <Text className="text-xs text-soft">15 Jul 2010</Text>
                   </div>
                </div>
             </div>
@@ -802,7 +795,7 @@ export const Pool = () => {
             {t('pool.title.title')}{' '}
             <span className="text-[#F23F5D]">{t('pool.title.subtitle')}</span>
          </Text>
-         <Text className="text-center text-sm text-[#90A3BF] lg:text-lg">
+         <Text className="text-center text-sm text-soft lg:text-lg">
             {t('pool.subtitle.title')} <br /> {t('pool.subtitle.subtitle')}
          </Text>
          <PoolSteps active={step} />

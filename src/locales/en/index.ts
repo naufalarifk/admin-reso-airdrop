@@ -5,7 +5,7 @@ export const EN_TRANSLATION = {
          staking: 'Staking',
          swap: 'Swap',
          bridge: 'Bridge',
-         support: 'Community',
+         supports: 'Community',
          market: 'Market',
          docs: 'Docs',
          marketoverview: 'Market',
@@ -495,7 +495,7 @@ export const EN_TRANSLATION = {
    },
    bridge: {
       title: {
-         supertitle: 'RESO DEX Cross-Chain',
+         supertitle: 'Rectoverso DEX Cross-Chain',
          subtitle: 'Bridge',
       },
       subtitle: {

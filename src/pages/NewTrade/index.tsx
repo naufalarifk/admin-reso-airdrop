@@ -2,7 +2,7 @@ import Marquee from 'react-fast-marquee';
 // import { TOKEN_RATE } from "@/constants/data";
 import { OrderBook } from '@/components/dummy/OrderBook';
 import { ModalMobileChangeMarket, SelectMarketSwap } from '@/components';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
    usePublicMarket,
    usePublicMarketTicker,
@@ -17,8 +17,9 @@ import {
 } from '@/api/services/public/markets';
 import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import axios, { AxiosResponse } from 'axios';
-import { Currencies } from '../Dummy/types';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
+import type { Currencies } from '../Dummy/types';
 import dayjs from 'dayjs';
 import { Decimal } from '@/components/molecules/Decimal';
 import TradingViewV2 from '@/components/organisms/TradingView/tradingViewV2';
@@ -196,7 +197,7 @@ export const NewTrade = () => {
                      {/* End Pop up change market */}
 
                      {/* Button Market */}
-                     {market?.map(e => (
+                     {/* {market?.map(e => (
                         <NavLink
                            key={e.base_unit}
                            to={`/trade/${e.name.replace('/', '-')}`}
@@ -217,7 +218,7 @@ export const NewTrade = () => {
                            </div>
                            <div className="font-semibold">{e.name}</div>
                         </NavLink>
-                     ))}
+                     ))} */}
                      {/* End Button Market */}
                   </div>
 
