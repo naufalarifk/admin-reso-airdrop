@@ -4,6 +4,7 @@ import { Balance, Button, ModalUnstake } from "@/components";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, Transition } from "@headlessui/react";
+// import { AirdropPopUp } from "@/components/atoms/AirdropPopUp";
 
 export const CreateStakingPage = () => {
   const { t } = useTranslation();

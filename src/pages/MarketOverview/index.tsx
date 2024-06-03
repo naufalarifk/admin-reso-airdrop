@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import './index.css'
 import { useCallback, useMemo, useState } from "react";
 import { debounce } from "lodash";
+import { AirdropPopUp } from "@/components/atoms/AirdropPopUp";
 
 
 export const MarketOverview = () => {
@@ -205,6 +206,7 @@ export const MarketOverview = () => {
 
     return (
         <>
+            <AirdropPopUp />
             <main className="w-4/5 mx-auto max-w-7xl">
                 <Text className="text-center lg:text-3xl text-lg font-semibold mt-10">
                     Reso <span className="text-[#F23F5D]">Markets Overview</span>
