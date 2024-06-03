@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { CardStaking, ModalAddStaking, Tabs, useWalletStore } from '@/components';
 import { STAKE_MEME_TOKEN } from '@/constants';
 import { Coin } from '@/types/components';
+import { AirdropPopUp } from '@/components/atoms/AirdropPopUp';
 
 interface NewStakingDataPayload {
    coinOne: Coin | null;
@@ -136,16 +137,11 @@ export const Staking = () => {
                            isConnected={connected}
                            whileConnected={() =>
                               navigate(
-                                 `create?type=one&ticker=${
-                                    item.token0.name ?? 'RESO'
-                                 }&symbol=${item.token1?.symbol}&totalStaked=${
-                                    item.totalStaked
-                                 }&apy=${item.apy}&token0=${item.token0?.imgUrl}&token1=${
-                                    item.token1?.imgUrl
-                                 }&price=${item.quoteTokenPriceBusd ?? '5000'}&reward=${
-                                    item.reward
-                                 }&stakingbalance=${item.feeAmount ?? 5}&rate=${
-                                    item.token1?.price
+                                 `create?type=one&ticker=${item.token0.name ?? 'RESO'
+                                 }&symbol=${item.token1?.symbol}&totalStaked=${item.totalStaked
+                                 }&apy=${item.apy}&token0=${item.token0?.imgUrl}&token1=${item.token1?.imgUrl
+                                 }&price=${item.quoteTokenPriceBusd ?? '5000'}&reward=${item.reward
+                                 }&stakingbalance=${item.feeAmount ?? 5}&rate=${item.token1?.price
                                  }&decimal=${item.token1.decimals}`,
                               )
                            }
@@ -198,6 +194,7 @@ export const Staking = () => {
 
    return (
       <>
+         <AirdropPopUp />
          <div>
             <Tabs
                classNameWrapper="justify-between flex gap-4 md:justify-start"
