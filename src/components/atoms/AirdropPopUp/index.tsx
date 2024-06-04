@@ -17,6 +17,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 // import { useTranslation } from "react-i18next";
 
+
+
 const variants = {
   hidden: {
     y: "-100vh",
@@ -82,7 +84,7 @@ export function AirdropPopUp() {
                           as="h3"
                           className="text-base font-semibold text-white lg:block hidden"
                         >
-                          - NEW AIRDROPS RELEASE
+                          - AIRDROP ANNOUNCEMENT
                         </DialogTitle>
                         <CloseButton className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
                           <IcClose />
@@ -91,12 +93,17 @@ export function AirdropPopUp() {
                       <div className="flex space-x-0 lg:space-x-2 flex-col-reverse lg:flex-row">
                         <div className="w-full lg:w-3/5 space-y-2 lg:space-y-5">
                           <Text className="text-center lg:hidden">
-                            - NEW AIRDROPS RELEASE
+                            - AIRDROP ANNOUNCEMENT
                           </Text>
-                          <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold"><span className="text-[#F23F5D]">RECTOVERSO</span> New Airdrop has been release,
-                            <span className="text-[#F23F5D]">{' '} Up to $31</span> Join Now</Text>
-                          <Text className="text-[#90A3BF] lg:text-left text-center">
-                            Join our airdrop and get $31 in RESO tokens! Available for 4000 Solana wallet holder and recent transaction.
+                          {/* <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold">
+                            <span className="text-[#F23F5D]">RECTOVERSO</span> New Airdrop has been release,
+                            <span className="text-[#F23F5D]">{' '} Up to $31</span> Join Now
+                          </Text> */}
+                          <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold uppercase">
+                            Join our <span className="text-[#F23F5D]">airdrop</span> now
+                          </Text>
+                          <Text className="lg:text-left text-center">
+                            Join our airdrop and get <span className="text-[#F23F5D]">$31</span> in RESO tokens! Available for <span className="text-[#F23F5D]">4000 Solana</span> wallet holder and recent transaction.
                           </Text>
                           <Button className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
                         </div>
