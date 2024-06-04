@@ -15,8 +15,9 @@ import {
 } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
+
+
 
 const variants = {
   hidden: {
@@ -41,7 +42,6 @@ const variants = {
 
 export function AirdropPopUp() {
   // const { t } = useTranslation();
-  const navigate = useNavigate()
 
   const [isOpen, setIsOpen] = useState(true);
 
@@ -84,7 +84,7 @@ export function AirdropPopUp() {
                           as="h3"
                           className="text-base font-semibold text-white lg:block hidden"
                         >
-                          - NEW AIRDROPS RELEASE
+                          - AIRDROP ANNOUNCEMENT
                         </DialogTitle>
                         <CloseButton className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
                           <IcClose />
@@ -93,18 +93,23 @@ export function AirdropPopUp() {
                       <div className="flex space-x-0 lg:space-x-2 flex-col-reverse lg:flex-row">
                         <div className="w-full lg:w-3/5 space-y-2 lg:space-y-5">
                           <Text className="text-center lg:hidden">
-                            - NEW AIRDROPS RELEASE
+                            - AIRDROP ANNOUNCEMENT
                           </Text>
-                          <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold"><span className="text-[#F23F5D]">RECTOVERSO</span> New Airdrop has been release,
-                            <span className="text-[#F23F5D]">{' '} Up to $31</span> Join Now</Text>
-                          <Text className="text-[#90A3BF] lg:text-left text-center">
-                            RECTOVERSO is offering up to $31 in rewards for the first 4000 users who join the new airdrop. Don't miss out on this exclusive opportunity – join now and start earning!
+                          {/* <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold">
+                            <span className="text-[#F23F5D]">RECTOVERSO</span> New Airdrop has been release,
+                            <span className="text-[#F23F5D]">{' '} Up to $31</span> Join Now
+                          </Text> */}
+                          <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold uppercase">
+                            Join our <span className="text-[#F23F5D]">airdrop</span> now
                           </Text>
-                          <Button onClick={() => navigate('/airdrop')} className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
+                          <Text className="lg:text-left text-center">
+                            Join our airdrop and get <span className="text-[#F23F5D]">$31</span> in RESO tokens! Available for <span className="text-[#F23F5D]">4000 Solana</span> wallet holder and recent transaction.
+                          </Text>
+                          <Button className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
                         </div>
                         <div className="w-full lg:w-2/5 relative">
-                          <img className="lg:block hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic.webp" alt="" srcSet="" />
-                          <img className="lg:hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic-mobile.webp" alt="" srcSet="" />
+                          {/* <img className="hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic.webp" alt="" srcSet="" /> */}
+                          <img className="h-full w-full rotate-[15deg]" src="/images/airdrop-pic-mobile.webp" alt="" srcSet="" />
                           <img className="absolute inset-0 -z-10" src="/images/airdrop-bg.svg" alt="" srcSet="" />
                         </div>
                       </div>
