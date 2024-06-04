@@ -1,4 +1,4 @@
-import { IcSwapHorizontal } from '@/assets/icons';
+import { IcSwapHorizontal, IcWallet } from '@/assets/icons';
 import { Button, SelectToken, Text } from '@/components';
 import { cn } from '@/utils';
 import { memo, startTransition, useCallback, useEffect } from 'react';
@@ -147,7 +147,8 @@ function StepFirstMemo({
                You Receive
             </Text>
             <div className="flex cursor-pointer flex-row gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
-               <div>
+               <div className="flex w-full items-center justify-between">
+                  {/* <div>
                   <div className="flex items-start justify-between gap-4">
                      <Text
                         weight="medium"
@@ -162,7 +163,7 @@ function StepFirstMemo({
                         8.247583 USDT
                      </Text>
                   </div>
-                  <div className="bg-rose-400">
+                  <div>
                      <div className="flex items-center justify-between gap-4">
                         <Text
                            weight="medium"
@@ -179,16 +180,61 @@ function StepFirstMemo({
                         </Text>
                      </div>
                   </div>
-               </div>
-               <div>
-                  <SelectToken
-                     value={currency}
-                     setValue={setCurrency}
-                     wrapperInputClassName={cn('rounded-l-none')}
-                     type="token"
-                  />
+               </div> */}
+                  <div className="flex h-12 w-7/12 items-center rounded-l-2xl bg-dark px-4 pr-24 text-xl font-medium outline-none placeholder:text-gray3 lg:h-16 lg:text-2xl">
+                     0
+                  </div>
+                  <div className="flex w-3/12 items-center justify-end lg:w-5/12">
+                     <div>
+                        <div className="text-nowrap text-xs text-soft lg:text-sm">
+                           In less than 1 minute
+                        </div>
+                        <div className="text-xs text-soft lg:text-sm">0.00 Total fee</div>
+                     </div>
+                     <SelectToken
+                        showToken={false}
+                        value={currency}
+                        setValue={setCurrency}
+                        wrapperInputClassName={cn('rounded-l-none')}
+                        type="token"
+                     />
+                  </div>
                </div>
             </div>
+            {currency && (
+               <>
+                  <div className="flex cursor-pointer flex-col gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
+                     <div className="flex w-full items-center justify-between">
+                        <div className="text-sm text-soft">Reso bridge fee:</div>
+                        <div>
+                           0.00 <span className="text-soft">{currency}</span>
+                        </div>
+                     </div>
+                     <div className="flex w-full items-center justify-between">
+                        <div className="text-sm text-soft">Destination chain fee :</div>
+                        <div>
+                           0.00 <span className="text-soft">{currency}</span>
+                        </div>
+                     </div>
+                     <div className="flex w-full items-center justify-between">
+                        <div className="text-sm text-soft">Estimated time :</div>
+                        <div className="text-sm">In less than 1 minute</div>
+                     </div>
+                  </div>
+
+                  <div className="relative flex h-12 cursor-pointer flex-col gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4 lg:h-16">
+                     <input
+                        type="number"
+                        placeholder="Enter your destination address"
+                        value={''}
+                        className="flex w-6/12 items-center rounded-2xl bg-transparent px-1 pr-24 text-xl font-medium outline-none placeholder:text-sm placeholder:text-gray3  lg:text-xl"
+                     />
+                     <div className="absolute  inset-y-6 end-5">
+                        <IcWallet />
+                     </div>
+                  </div>
+               </>
+            )}
          </div>
          {/* End Calculate */}
 
