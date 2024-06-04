@@ -14,7 +14,8 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
 
 
@@ -43,7 +44,25 @@ const variants = {
 export function AirdropPopUp() {
   // const { t } = useTranslation();
 
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
+
+
+  useEffect(() => {
+    const local_popover = localStorage.getItem('local_popover')
+    if (local_popover !== 'closed' || !local_popover) {
+      setIsOpen(true)
+    } else {
+      setIsOpen(false)
+    }
+  }, [])
+
+
+  const handleClick = useCallback(() => {
+    navigate('/airdrop')
+    localStorage.setItem('local_popover', 'closed')
+  }, [navigate])
+
 
   return (
     <>
@@ -105,7 +124,7 @@ export function AirdropPopUp() {
                           <Text className="lg:text-left text-center">
                             Join our airdrop and get <span className="text-[#F23F5D]">$31</span> in RESO tokens! Available for <span className="text-[#F23F5D]">4000 Solana</span> wallet holder and recent transaction.
                           </Text>
-                          <Button className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
+                          <Button onClick={handleClick} className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
                         </div>
                         <div className="w-full lg:w-2/5 relative">
                           {/* <img className="hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic.webp" alt="" srcSet="" /> */}
