@@ -15,3 +15,4 @@ export * from './Avatar';
 export * from './Skeleton';
 export * from './SliderPercent';
 export * from './TabSlider';
+export * from './FullscreenLoading';

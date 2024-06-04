@@ -1,18 +1,20 @@
-import { IcArrowUp, IcCheck, IcDivider, IcWallet, IcWarning } from "@/assets/icons"
+import { IcArrowUp, IcCheck, IcDivider, IcWarning } from "@/assets/icons"
 import { IcBellRinging } from "@/assets/icons/IcBellRinging"
 import { IcSparkle } from "@/assets/icons/IcSparkle"
-import { Text, Button } from "@/components"
-import { useState } from "react"
+import { Text, Button, FullScreenLoading } from "@/components"
+import { useCallback, useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
 
 
 interface AirdropState {
-    connected: boolean
-    setConnected: Dispatch<SetStateAction<boolean>>
+    state: "connected" | "disconnected" | "underReview"
+    setState: Dispatch<SetStateAction<"connected" | "disconnected" | "underReview">>
+    loading: boolean
+    setLoading: Dispatch<SetStateAction<boolean>>
 }
 
 
-const Connected = ({ connected, setConnected }: AirdropState) => {
+const Connected = ({ setState }: AirdropState) => {
     const [eligible, setEligible] = useState(false);
     const [claimingReady, setClaimingReady] = useState(false);
     return (
@@ -39,9 +41,9 @@ const Connected = ({ connected, setConnected }: AirdropState) => {
                         <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
                             <img className="h-6 w-6 rounded-full" src="/images/user-photo.webp" alt="user-photo" srcSet="/images/user-photo.webp" />
                             <Text className="w-4/5 truncate">0x430Fe34EED7dAAf5785d528F287DACe4eCA4A5DB</Text>
-                            <Button onClick={() => setConnected(!connected)} size={'sm'} className=" lg:block hidden py-0 px-6 text-soft bg-[#181a24] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button>
+                            <Button onClick={() => setState('disconnected')} size={'sm'} className=" hidden py-0 px-6 text-soft bg-[#181a24] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button>
                         </div>
-                        <Button onClick={() => setConnected(!connected)} size={'sm'} className=" lg:hidden block w-full py-0 px-6 text-soft bg-[#2f323c] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button>
+                        {/* <Button onClick={() => setState("disconnected")} size={'sm'} className=" lg:hidden block w-full py-0 px-6 text-soft bg-[#2f323c] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button> */}
                     </div>
                     {
                         eligible ? <>
@@ -50,7 +52,7 @@ const Connected = ({ connected, setConnected }: AirdropState) => {
                                 {
                                     claimingReady ? <>
                                         <Button onClick={() => setClaimingReady(!claimingReady)} className="py-0 w-full">Claim Airdrop</Button>
-                                        <Text className="text-center mt-4 text-[#33D49D]">You will be able to claim your tokens</Text>
+                                        <Text className="text-center mt-4 text-[#33D49D] font-semibold">You will be able to claim your tokens</Text>
                                     </> : <>
                                         <Button onClick={() => setClaimingReady(!claimingReady)} className="py-0 w-full bg-[#181a24] text-soft">Claim Airdrop</Button>
                                         <div className="items-center relative">
@@ -65,15 +67,15 @@ const Connected = ({ connected, setConnected }: AirdropState) => {
                         </> : <>
                             <div className="space-y-4">
                                 <Text className="text-2xl font-semibold">First Transactions</Text>
-                                <Text className="text-soft ">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
+                                {/* <Text className="text-soft ">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text> */}
                                 <div className="bg-[#0E0F19] p-2 rounded-lg flex items-center space-x-2">
-                                    <Text className="w-4/5">The existing account is not old enough, First transaction <span className="text-[#F23F5D]">03-03-2024</span></Text>
+                                    <Text className="w-4/5">This Solana address has transaction history prior to June 3, 2024</Text>
                                     <Button size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D]">Not Eligible</Button>
                                 </div>
                             </div>
                             <div className="space-y-4">
                                 <Text className="text-2xl font-semibold">Volume DEX</Text>
-                                <Text className="text-soft ">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
+                                {/* <Text className="text-soft ">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text> */}
                                 <div className="bg-[#0E0F19] p-2 rounded-lg flex items-center space-x-2">
                                     <Text className="w-4/5">your dex account volume is less than the required limit, <br /> Volume <span className="text-[#F23F5D]">25SOL Solana</span></Text>
                                     <Button size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D]">Not Eligible</Button>
@@ -88,7 +90,47 @@ const Connected = ({ connected, setConnected }: AirdropState) => {
     )
 }
 
-const Disconnected = ({ connected, setConnected }: AirdropState) => {
+const Disconnected = ({ setState, setLoading, loading }: AirdropState) => {
+
+    const handleJoinAirdrop = useCallback(() => {
+        if (!loading) {
+            setLoading(true)
+            setTimeout(() => {
+                setLoading(false);
+                setState('underReview')
+            }, 3000);
+        }
+    }, [loading, setState, setLoading])
+
+    return (
+        <>
+            <div className="flex flex-col items-start space-y-4">
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full w-full space-y-3">
+                    <Text className="text-2xl font-semibold">Check eligible your account</Text>
+                    <Text className="text-soft">Connect your wallet so we can calculate your points based on your onchain activity with DeFi protocols and NFTs on other networks. Use your most active wallet for more points.</Text>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg flex justify-center space-x-1 items-center w-full">
+                    <IcBellRinging />
+                    <Text className="font-semibold text-soft">Season 1 rewards ended on March 1th, 2024</Text>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full space-y-12 w-full">
+                    <div className="space-y-4">
+                        <Text className="text-2xl font-semibold">Connect Your Wallets</Text>
+                        <Text className="text-soft">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
+                        {/* <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
+                            <IcWallet />
+                            <Text className="w-4/5 text-soft">Connect Wallet</Text>
+                        </div> */}
+                        <Button onClick={() => handleJoinAirdrop()} className="py-0 w-full">Join Airdrop</Button>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+const UnderReview = ({ setState }: AirdropState) => {
     return (
         <>
             <div className="flex flex-col items-start space-y-4">
@@ -105,10 +147,12 @@ const Disconnected = ({ connected, setConnected }: AirdropState) => {
                         <Text className="text-2xl font-semibold">Connect Your Wallets</Text>
                         <Text className="text-soft">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
                         <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
-                            <IcWallet />
-                            <Text className="w-4/5 text-soft">Connect Wallet</Text>
+                            <img className="h-6 w-6 rounded-full" src="/images/user-photo.webp" alt="user-photo" srcSet="/images/user-photo.webp" />
+                            <Text className="w-4/5 truncate">0x430Fe34EED7dAAf5785d528F287DACe4eCA4A5DB</Text>
                         </div>
-                        <Button onClick={() => setConnected(!connected)} className="py-0 w-full">Connect Wallet</Button>
+                        <Button onClick={() => setState('connected')} className="py-0 w-full flex items-center bg-[#FFA23A] bg-opacity-50 space-x-2"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                            <path d="M12.5 22C6.977 22 2.5 17.523 2.5 12C2.5 6.477 6.977 2 12.5 2C18.023 2 22.5 6.477 22.5 12C22.5 17.523 18.023 22 12.5 22ZM12.5 20C14.6217 20 16.6566 19.1571 18.1569 17.6569C19.6571 16.1566 20.5 14.1217 20.5 12C20.5 9.87827 19.6571 7.84344 18.1569 6.34315C16.6566 4.84285 14.6217 4 12.5 4C10.3783 4 8.34344 4.84285 6.84315 6.34315C5.34285 7.84344 4.5 9.87827 4.5 12C4.5 14.1217 5.34285 16.1566 6.84315 17.6569C8.34344 19.1571 10.3783 20 12.5 20ZM13.5 12H17.5V14H11.5V7H13.5V12Z" fill="#FFA23A" />
+                        </svg><Text className="text-lg font-semibold text-[#FFA23A]">Under Review</Text></Button>
                     </div>
                 </div>
             </div>
@@ -116,30 +160,34 @@ const Disconnected = ({ connected, setConnected }: AirdropState) => {
     )
 }
 
+
 export const Airdrop = () => {
 
-    const [connected, setConnected] = useState(false);
+    const [state, setState] = useState<'connected' | 'disconnected' | 'underReview'>('disconnected');
+    const [loading, setLoading] = useState(false);
 
 
     return (
         <main className="layout lg:px-24 mx-auto max-w-7xl py-6">
-            <Text className="text-center text-3xl font-semibold"><span className="text-primary">RECTOVERSO</span> New Airdrop has been released, <br />
-                <span className="text-primary">Up to $35</span> Join Now</Text>
+            <FullScreenLoading isOpen={loading} setIsOpen={setLoading} />
+            <Text className="text-center text-3xl font-semibold">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">4000 Solana</span> wallet holder and recent transaction</Text>
             {/* <Text className="text-soft text-lg text-center w-3/4 mx-auto my-5">The time has come to get rewarded for your effort and dedication in helping us build RESO DEX together. If you fit in the criteria of our $12.000 airdrop, check your eligibility to see how many $12.000 tokens you will receive. Good luck!</Text> */}
             <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mt-4">
                 {
-                    connected ? <Connected connected={connected} setConnected={setConnected} /> : <Disconnected connected={connected} setConnected={setConnected} />
+                    state === 'connected' ?
+
+                        <Connected loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview loading={loading} setLoading={setLoading} state={state} setState={setState} />
                 }
                 <div className="flex flex-col items-start space-y-4 h-full w-full lg:w-2/5">
                     <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg relative overflow-hidden h-60">
                         <Text className="font-semibold text-xl">Claim Your Airdrop Right now!</Text>
-                        <Text className="text-soft">Login or create an account on GAM3S.GG, connect your wallet and check if you are eligible to the $G3 Airdrop!</Text>
+                        <Text className="text-soft">Login or create an account on RECTOVER.SO, connect your wallet and check if you are eligible to the $31 RESO Airdrop!</Text>
                         <button className="bg-white/5 backdrop-blur-sm rounded-lg px-4 py-2 w-full shadow-lg flex items-center justify-center my-2"><Text className="text-soft font-semibold">Try Our Platform</Text><IcArrowUp color="#90A3BF" className="rotate-90" /></button>
                         <img className="absolute -z-20 left-0 right-0 mx-auto -bottom-28 h-60 w-60" src="/images/sol-airdrop.webp" alt="" srcSet="" />
                     </div>
                     <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg relative overflow-hidden h-60">
                         <Text className="font-semibold text-xl">Claim Your Airdrop Right now!</Text>
-                        <Text className="text-soft">Login or create an account on GAM3S.GG, connect your wallet and check if you are eligible to the $G3 Airdrop!</Text>
+                        <Text className="text-soft">Login or create an account on RECTOVER.SO, connect your wallet and check if you are eligible to the $31 RESO Airdrop!</Text>
                         <img className="absolute -z-20 left-0 right-0 mx-auto -bottom-28 h-60 w-60" src="/images/eth-airdrop.webp" alt="" srcSet="" />
                     </div>
                 </div>
