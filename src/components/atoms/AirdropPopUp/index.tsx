@@ -15,7 +15,6 @@ import {
 } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
 
 const variants = {
@@ -41,7 +40,6 @@ const variants = {
 
 export function AirdropPopUp() {
   // const { t } = useTranslation();
-  const navigate = useNavigate()
 
   const [isOpen, setIsOpen] = useState(true);
 
@@ -98,13 +96,13 @@ export function AirdropPopUp() {
                           <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold"><span className="text-[#F23F5D]">RECTOVERSO</span> New Airdrop has been release,
                             <span className="text-[#F23F5D]">{' '} Up to $31</span> Join Now</Text>
                           <Text className="text-[#90A3BF] lg:text-left text-center">
-                            RECTOVERSO is offering up to $31 in rewards for the first 4000 users who join the new airdrop. Don't miss out on this exclusive opportunity – join now and start earning!
+                            Join our airdrop and get $31 in RESO tokens! Available for 4000 Solana wallet holder and recent transaction.
                           </Text>
-                          <Button onClick={() => navigate('/airdrop')} className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
+                          <Button className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
                         </div>
                         <div className="w-full lg:w-2/5 relative">
-                          <img className="lg:block hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic.webp" alt="" srcSet="" />
-                          <img className="lg:hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic-mobile.webp" alt="" srcSet="" />
+                          {/* <img className="hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic.webp" alt="" srcSet="" /> */}
+                          <img className="h-full w-full rotate-[15deg]" src="/images/airdrop-pic-mobile.webp" alt="" srcSet="" />
                           <img className="absolute inset-0 -z-10" src="/images/airdrop-bg.svg" alt="" srcSet="" />
                         </div>
                       </div>
