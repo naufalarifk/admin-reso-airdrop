@@ -514,7 +514,7 @@ export const EN_TRANSLATION = {
          label: 'Select Source Token',
          minimumReceived: 'Total amount Receive',
          networkFees: 'Network Fees',
-         continue: 'Continue',
+         continue: 'Bridge Now',
          placeholder: 'Enter your wallet address',
       },
       secondStep: {
