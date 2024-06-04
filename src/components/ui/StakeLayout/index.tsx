@@ -17,7 +17,7 @@ export const StakeLayout = () => {
             <IcPattern className="absolute w-full" />
          </div>
          <div className="layout h-full min-h-screen max-w-5xl">
-            <div className="relative py-28">
+            <div className="relative  py-20">
                <div className="flex items-center justify-center">
                   <div className="max-w-">
                      <div className="flex flex-col items-center justify-center p-0 lg:p-8">
@@ -25,7 +25,7 @@ export const StakeLayout = () => {
                            {t('staking.layout.title.one')}{' '}
                            <span className="text-primary">{t('staking.layout.title.two')}</span>{' '}
                         </div>
-                        <Text className="mb-4 text-center  text-sm text-soft md:text-base">
+                        <Text className="mb-4 text-center  text-sm text-soft md:text-2xl">
                            {t('staking.layout.desc')}
                         </Text>
                         <ButtonGlow
