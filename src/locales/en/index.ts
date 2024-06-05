@@ -10,6 +10,7 @@ export const EN_TRANSLATION = {
          docs: 'Docs',
          marketoverview: 'Market',
          createnewmarket: 'Create New Market',
+         airdrop: 'Airdrop',
       },
    },
    landing: {

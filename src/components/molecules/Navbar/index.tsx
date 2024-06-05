@@ -3,7 +3,7 @@ import { ButtonGlow, ButtonWalletConnectV2, ModalCommunity, Text } from '@/compo
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Transition, Dialog } from '@headlessui/react';
-import { langs, Language } from '@/locales/langs';
+import { langs, type Language } from '@/locales/langs';
 import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
 import { getMarketList } from '@/api/services/public/markets';
 import { IcWeb } from '@/assets/icons';
@@ -72,7 +72,13 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
          setTo: '/',
       },
       {
-         id: 5,
+         id: 6,
+         name: 'Airdrop',
+         code: 'airdrop',
+         setTo: '/airdrop',
+      },
+      {
+         id: 7,
          name: 'Create New Market',
          code: 'createnewmarket',
          setTo: '/market',
@@ -136,7 +142,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                      />
                   </Link>
                   <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
-                     <ul className="flex cursor-pointer items-center  gap-10 text-base">
+                     <ul className="flex cursor-pointer items-center  gap-4 text-base">
                         {navLink &&
                            navLink.map((item, i) => (
                               <li key={i}>
@@ -373,8 +379,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                           disabled={lang.abbr !== 'en'}
                                           onClick={() => i18n.changeLanguage(lang.abbr)}
                                           className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${i18n.language === lang.abbr
-                                                ? 'border-primary'
-                                                : 'border-soft/45'
+                                             ? 'border-primary'
+                                             : 'border-soft/45'
                                              }`}>
                                           <div>
                                              <img
@@ -385,10 +391,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                           </div>
                                           <div
                                              className={`${i18n.language === lang.abbr
-                                                   ? '  text-primary'
-                                                   : lang.abbr !== 'en'
-                                                      ? 'text-gray-600'
-                                                      : ' text-white'
+                                                ? '  text-primary'
+                                                : lang.abbr !== 'en'
+                                                   ? 'text-gray-600'
+                                                   : ' text-white'
                                                 } text-sm`}>
                                              {lang.nativeName}
                                           </div>
