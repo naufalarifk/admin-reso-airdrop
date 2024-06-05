@@ -159,7 +159,7 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
         } else {
             select('Phantom' as WalletName);
         }
-    }, [connected, setState, sign, signature, publicKey, setEligible, select]);
+    }, [connected, setState, setLoading, sign, signature, publicKey, setEligible, select]);
     return (
         <>
             <div className="flex flex-col items-start space-y-4">
