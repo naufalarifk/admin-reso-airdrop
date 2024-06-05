@@ -4,6 +4,7 @@ import { shortenString } from '@/utils';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 interface Transaction {
    receive: {
@@ -33,6 +34,8 @@ interface RecentTradesProps {
 export const RecentTrades = ({ loading }: RecentTradesProps) => {
    const [, setCurrentIndex] = useState(0);
 
+   const { t } = useTranslation();
+
    const params = useParams();
 
    const currId = params?.market?.split('-');
@@ -50,22 +53,22 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
                               <th
                                  scope="col"
                                  className="w-[30%] p-4 text-left">
-                                 Time
+                                 {t('global.time')}
                               </th>
                               <th
                                  scope="col"
                                  className="w-[25%] text-nowrap p-4">
-                                 Amount
+                                 {t('global.amount')}
                               </th>
                               <th
                                  scope="col"
                                  className="w-[25%] p-4">
-                                 Price
+                                 {t('global.price')}
                               </th>
                               <th
                                  scope="col"
                                  className="w-[20%] p-4">
-                                 TxID
+                                 {t('global.txId')}
                               </th>
                            </tr>
                         </thead>
@@ -89,7 +92,7 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
                                  <td
                                     className="py-4 text-center text-gray-200"
                                     colSpan={12}>
-                                    No Data Available
+                                    {t('global.noData')}
                                  </td>
                               </tr>
                            ) : (
@@ -147,7 +150,7 @@ export const RecentTrades = ({ loading }: RecentTradesProps) => {
             ),
          },
       ],
-      [currId, loading],
+      [currId, loading, t],
    );
 
    return (

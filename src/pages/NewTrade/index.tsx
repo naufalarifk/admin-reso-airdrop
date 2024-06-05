@@ -30,9 +30,13 @@ import { NewHistoryTradeMobile } from '@/components/dummy/NewHistoryTradeMobile'
 import { cn, validateNumber } from '@/utils';
 import { IcCoinPairs } from '@/assets/icons';
 import { AirdropPopUp } from '@/components/atoms/AirdropPopUp';
+import { useTranslation } from 'react-i18next';
 
 export const NewTrade = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
+
+   const { t } = useTranslation();
+
    // const [showTradingChart, setShowTradingChart] = useState(false);
    // const [showOrderBook, setShowOrderBook] = useState(true);
    const [showTradingChart, setShowTradingChart] = useState(false);
@@ -110,8 +114,8 @@ export const NewTrade = () => {
       return changePrice?.includes('+')
          ? 'text-green'
          : changePrice?.includes('-')
-            ? 'text-primary'
-            : 'text-soft';
+           ? 'text-primary'
+           : 'text-soft';
    };
 
    return (
@@ -247,7 +251,7 @@ export const NewTrade = () => {
                      </div>
                      <div className="text-xl text-soft/15">|</div>
                      <div>
-                        <div className="text-nowrap text-xxs">Change 24H</div>
+                        <div className="text-nowrap text-xxs">{t('newTrade.change24h')}</div>
                         <div
                            className={cn(
                               'text-xs',
@@ -259,7 +263,7 @@ export const NewTrade = () => {
                         </div>
                      </div>
                      <div>
-                        <div className="text-xs">24h High</div>
+                        <div className="text-xs">{t('newTrade.24High')}</div>
                         <div
                            className={cn(
                               'text-xs',
@@ -273,7 +277,7 @@ export const NewTrade = () => {
                         </div>
                      </div>
                      <div>
-                        <div className="text-xs">24h Low</div>
+                        <div className="text-xs">{t('newTrade.24Low')}</div>
                         <div
                            className={cn(
                               'text-xs',
@@ -287,7 +291,7 @@ export const NewTrade = () => {
                         </div>
                      </div>
                      <div>
-                        <div className="text-xs">24h Volume</div>
+                        <div className="text-xs">{t('newTrade.24hVolume')}</div>
                         <div
                            className={cn(
                               'text-xs',
@@ -301,7 +305,7 @@ export const NewTrade = () => {
                         </div>
                      </div>
                      <div>
-                        <div className="text-xs">24h Transaction</div>
+                        <div className="text-xs">{t('newTrade.24Transaction')}</div>
                         <div
                            className={cn(
                               'text-xs',
@@ -313,7 +317,7 @@ export const NewTrade = () => {
                         </div>
                      </div>
                      <div>
-                        <div className="text-xs">Total Liquidity</div>
+                        <div className="text-xs">{t('newTrade.totalLiquidity')}</div>
                         <div
                            className={cn(
                               'text-xs',
@@ -338,9 +342,9 @@ export const NewTrade = () => {
                   </div>
                   <div className="absolute left-0 top-0  h-full w-full rounded-2xl bg-black/15 backdrop-blur-sm"></div>
                   <div className="absolute-center flex flex-col items-center justify-center">
-                     <div className="text-nowrap">Please connect wallet first</div>
+                     <div className="text-nowrap">{t('newTrade.pleaseConnect')}</div>
                      <button className="relative z-20  mt-3  rounded-full bg-black p-3 text-center">
-                        Connect Wallet
+                        {t('button.connectWallet')}
                      </button>
                   </div>
                </div>

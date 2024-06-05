@@ -1,10 +1,11 @@
 import { IcMinus, IcPlus } from '@/assets/icons';
 import { ModalPriceImpact, Skeleton, TabSlider } from '@/components';
 import { Decimal } from '@/components/molecules/Decimal';
-import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
-import { Market } from '@/types/components';
+import type { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
+import type { Market } from '@/types/components';
 import { validateNumber } from '@/utils';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface NewFormTradeProps {
    unitLoading: boolean;
@@ -21,6 +22,8 @@ export const NewFormTrade = ({
 }: NewFormTradeProps) => {
    const [, setCurrentIndex] = useState(0);
 
+   const { t } = useTranslation();
+
    const tick = marketTradePrice?.ticker;
 
    const [typeAction, setTypeAction] = useState<'buy' | 'sell'>('buy');
@@ -33,8 +36,8 @@ export const NewFormTrade = ({
          {
             label: (
                <div className="flex justify-center gap-1">
-                  Limit
-                  <span className="hidden lg:block">Trade</span>
+                  {t('newTrade.limit')}
+                  <span className="hidden lg:block">{t('newTrade.trade')}</span>
                </div>
             ),
             content: (
@@ -51,7 +54,7 @@ export const NewFormTrade = ({
                                  <span className="mr-1 uppercase">
                                     {getCurrentMarket?.base_unit}
                                  </span>
-                                 Balance
+                                 {t('newTrade.balance')}
                               </div>
                               <div className="text-xs">
                                  0
@@ -65,7 +68,7 @@ export const NewFormTrade = ({
                                  <span className="mr-1 uppercase">
                                     {getCurrentMarket?.quote_unit}
                                  </span>
-                                 Balance
+                                 {t('newTrade.balance')}
                               </div>
                               <div className="text-xs text-white">
                                  0
@@ -124,7 +127,7 @@ export const NewFormTrade = ({
                               type="text"
                               disabled
                               className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
-                              placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
+                              placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} ${t('newTrade.amount')}`}
                            />
 
                            <button
@@ -142,7 +145,7 @@ export const NewFormTrade = ({
                      ) : (
                         <>
                            <div className="mt-4 flex items-center justify-between text-xs">
-                              <div className="text-darkSoft">Min Amount</div>
+                              <div className="text-darkSoft">{t('newTrade.minAmount')}</div>
                               <div>
                                  0
                                  <span className="ml-1 uppercase">
@@ -160,7 +163,7 @@ export const NewFormTrade = ({
                                  type="text"
                                  disabled
                                  className="w-11/12 bg-transparent text-center text-xxs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
-                                 placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
+                                 placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} ${t('newTrade.amount')}`}
                               />
 
                               <button
@@ -171,7 +174,9 @@ export const NewFormTrade = ({
                            </div>
                            <div className="mt-4 space-y-2">
                               <div className="flex items-center justify-between gap-2 text-xxs lg:text-xs">
-                                 <div className="text-darkSoft">Fee transaction</div>
+                                 <div className="text-darkSoft">
+                                    ${t('newTrade.feeTransaction')}
+                                 </div>
                                  <div>0 {getCurrentMarket?.base_unit.toUpperCase()} (0.2%)</div>
                               </div>
                            </div>
@@ -183,13 +188,13 @@ export const NewFormTrade = ({
                         <button
                            disabled
                            className=" w-full rounded-full bg-success  py-3 disabled:bg-success/30">
-                           Buy
+                           {t('global.buy')}
                         </button>
                      ) : (
                         <button
                            disabled
                            className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
-                           Sell
+                           {t('global.sell')}
                         </button>
                      )}
                   </div>
@@ -199,7 +204,7 @@ export const NewFormTrade = ({
          {
             label: (
                <div className="flex justify-center gap-1">
-                  Market <span className="hidden lg:block">Trade</span>
+                  {t('global.market')} <span className="hidden lg:block">{t('global.trade')}</span>
                </div>
             ),
             content: (
@@ -217,7 +222,7 @@ export const NewFormTrade = ({
                                     <span className="mr-1 uppercase">
                                        {getCurrentMarket?.base_unit}
                                     </span>
-                                    Balance
+                                    {t('global.balance')}
                                  </div>
                                  <div className="text-xs">
                                     0
@@ -231,7 +236,7 @@ export const NewFormTrade = ({
                                     <span className="mr-1 uppercase">
                                        {getCurrentMarket?.quote_unit}
                                     </span>
-                                    Balance
+                                    {t('global.balance')}
                                  </div>
                                  <div className="text-xs text-white">
                                     0
@@ -276,7 +281,7 @@ export const NewFormTrade = ({
                                  type="text"
                                  disabled
                                  className="w-11/12 bg-transparent text-center text-xs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
-                                 placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} Amount`}
+                                 placeholder={`${getCurrentMarket?.base_unit.toUpperCase()} ${t('global.amount')}`}
                               />
 
                               <button
@@ -294,7 +299,7 @@ export const NewFormTrade = ({
                         ) : (
                            <>
                               <div className="mt-4 flex items-center justify-between text-xs">
-                                 <div className="text-darkSoft">Min Amount</div>
+                                 <div className="text-darkSoft">{t('newTrade.minAmount')}</div>
                                  <div>
                                     0
                                     <span className="ml-1 uppercase">
@@ -312,7 +317,7 @@ export const NewFormTrade = ({
                                     type="text"
                                     disabled
                                     className="w-11/12 bg-transparent text-center text-xs placeholder:font-semibold focus:outline-none lg:w-full lg:text-base"
-                                    placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} Amount`}
+                                    placeholder={`${getCurrentMarket?.quote_unit.toUpperCase()} ${t('global.amount')}`}
                                  />
 
                                  <button
@@ -322,7 +327,7 @@ export const NewFormTrade = ({
                                  </button>
                               </div>
                               <div className="mt-4 flex items-center justify-between text-xxs lg:text-xs">
-                                 <div className="text-darkSoft">Fee transaction</div>
+                                 <div className="text-darkSoft">{t('newTrade.feeTransaction')}</div>
                                  <div>
                                     0
                                     <span className="ml-1 uppercase">
@@ -332,11 +337,13 @@ export const NewFormTrade = ({
                                  </div>
                               </div>
                               <div className="flex items-center justify-between gap-2 text-xxs lg:text-xs">
-                                 <div className="text-darkSoft">Price impact</div>
+                                 <div className="text-darkSoft">{t('newTrade.priceImpact')}</div>
                                  <div>{priceImpact}%</div>
                               </div>
                               <div className="flex items-center justify-between gap-2 text-xxs lg:text-xs">
-                                 <div className="text-darkSoft">Slippage tolerance</div>
+                                 <div className="text-darkSoft">
+                                    {t('newTrade.slipPageTolerance')}
+                                 </div>
                                  <div className="flex items-center gap-2">
                                     <div>{priceImpact}%</div>
                                     <svg
@@ -362,13 +369,13 @@ export const NewFormTrade = ({
                            <button
                               disabled
                               className=" w-full rounded-full  bg-success  py-3 disabled:bg-success/30">
-                              Buy
+                              {t('global.buy')}
                            </button>
                         ) : (
                            <button
                               disabled
                               className=" w-full rounded-full bg-primary  py-3 disabled:bg-primary/30">
-                              Sell
+                              {t('global.sell')}
                            </button>
                         )}
                      </div>
@@ -382,6 +389,7 @@ export const NewFormTrade = ({
          getCurrentMarket?.quote_unit,
          market?.price_precision,
          priceImpact,
+         t,
          tick?.last,
          typeAction,
          unitLoading,
@@ -398,7 +406,7 @@ export const NewFormTrade = ({
                      clipPath: `polygon(10% 0, 100% 0, 100% 77%, 100% 100%, 0 99%, 0 22%)`,
                   }}
                   className={`h-8 w-full cursor-pointer rounded-none transition-all duration-300 ease-in-out lg:h-10 ${typeAction === 'buy' ? `bg-success` : `bg-dark`}`}>
-                  Buy
+                  {t('global.buy')}
                </button>
                <button
                   onClick={() => setTypeAction('sell')}
@@ -406,7 +414,7 @@ export const NewFormTrade = ({
                      clipPath: `polygon(25% 0%, 100% 0, 100% 77%, 92% 100%, 0 99%, 0 0)`,
                   }}
                   className={`h-8 w-full cursor-pointer rounded-none transition-all duration-300 ease-in-out lg:h-10 ${typeAction === 'sell' ? `bg-primary` : `bg-dark`}`}>
-                  Sell
+                  {t('global.sell')}
                </button>
             </div>
             <TabSlider

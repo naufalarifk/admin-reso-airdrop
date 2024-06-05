@@ -1,11 +1,13 @@
-import { ChangeEvent, Fragment, useState, useEffect } from 'react';
+import type { ChangeEvent } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
-import { Market } from '@/types/components';
-import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
+import type { Market } from '@/types/components';
+import type { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { Decimal } from '@/components/molecules/Decimal';
 import { validateNumber } from '@/utils';
 import { IcClose, IcSearch } from '@/assets/icons';
+import { useTranslation } from 'react-i18next';
 
 interface SelectMarketSwap {
    searchTerm: string;
@@ -26,6 +28,8 @@ export const SelectMarketSwap = ({
 }: SelectMarketSwap) => {
    const navigate = useNavigate();
    const [selected, setSelected] = useState<Market | null>(null);
+
+   const { t } = useTranslation();
 
    useEffect(() => {
       if (selected === null && filteredData?.length > 0) {
@@ -85,9 +89,9 @@ export const SelectMarketSwap = ({
                               </div>
                            </div>
                            <div className="flex items-center justify-between border-b border-primary/50 pb-2 text-[10px] text-soft">
-                              <div>Pairs</div>
-                              <div>Last Price</div>
-                              <div>Volume 24h</div>
+                              <div>{t('newTrade.pairs')}</div>
+                              <div>{t('newTrade.lastPrice')}</div>
+                              <div>{t('newTrade.volume24h')}</div>
                            </div>
                            <div className="mt-3 space-y-2">
                               {filteredData?.length > 0 ? (
@@ -123,7 +127,7 @@ export const SelectMarketSwap = ({
                                  ))
                               ) : (
                                  <div className="py-5 text-center text-sm font-bold text-soft">
-                                    No Data
+                                    {t('global.noData')}
                                  </div>
                               )}
                            </div>

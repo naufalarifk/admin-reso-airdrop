@@ -1,11 +1,12 @@
 import { IcHandicapAll, IcHandicapBuy, IcHandicapSell } from '@/assets/icons';
 import { cn } from '@/utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
+import type { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { accumulateVolume, calcMaxVolume, validateNumber } from '@/utils';
-import { Currencies, Market } from '@/pages/Dummy/types';
+import type { Currencies, Market } from '@/pages/Dummy/types';
 import { Decimal } from '@/components/molecules/Decimal';
 import { Skeleton } from '@/components';
+import { useTranslation } from 'react-i18next';
 
 export const OrderBook = ({
    data,
@@ -20,6 +21,8 @@ export const OrderBook = ({
    market: Market;
    loading: boolean;
 }) => {
+   const { t } = useTranslation();
+
    const [type, setType] = useState<'default' | 'sell' | 'buy'>('default');
    const [asks, setAsks] = useState<string[][]>([]);
    const [bids, setBids] = useState<string[][]>([]);
@@ -59,7 +62,7 @@ export const OrderBook = ({
    return (
       <div className="rounded bg-dark2 p-4 lg:rounded-2xl">
          <div className="flex items-center justify-between">
-            <div className="text-xxs font-semibold lg:text-lg">Order Book</div>
+            <div className="text-xxs font-semibold lg:text-lg">{t('newTrade.orderBook')}</div>
             <div className="flex space-x-3">
                <div
                   className={cn(
@@ -81,11 +84,15 @@ export const OrderBook = ({
             </div>
          </div>
          <div className="my-2 flex justify-between text-xxs text-soft lg:mb-2">
-            <div className="flex-1">Pice {market?.quote_unit?.toUpperCase()}</div>
+            <div className="flex-1">
+               {t('newTrade.price')} {market?.quote_unit?.toUpperCase()}
+            </div>
             <div className="hidden flex-1 text-right lg:block">
                Qty {market?.base_unit?.toUpperCase()}
             </div>
-            <div className="flex-1 text-right">Total {market?.quote_unit?.toUpperCase()}</div>
+            <div className="flex-1 text-right">
+               {t('newTrade.total')} {market?.quote_unit?.toUpperCase()}
+            </div>
          </div>
 
          <div className="flex h-[510px]  flex-col overflow-hidden">
@@ -137,7 +144,9 @@ export const OrderBook = ({
                      </div>
                   ))
                ) : (
-                  <div className="py-5 text-center text-sm font-bold text-soft">No Data</div>
+                  <div className="py-5 text-center text-sm font-bold text-soft">
+                     {t('global.noData')}
+                  </div>
                )}
             </div>
             {/* End Sell */}
@@ -210,7 +219,9 @@ export const OrderBook = ({
                      </div>
                   ))
                ) : (
-                  <div className="py-5 text-center text-sm font-bold text-soft">No Data</div>
+                  <div className="py-5 text-center text-sm font-bold text-soft">
+                     {t('global.noData')}
+                  </div>
                )}
             </div>
             {/* End Buy */}
