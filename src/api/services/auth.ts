@@ -13,6 +13,7 @@ export async function getTokenServices(payload: PayloadToken) {
       "auth/identity/sessions/sign/auth",
       payload
     );
+    console.log('response', response)
     return response;
   } catch (error) {
     console.log("error", error);
@@ -33,6 +34,22 @@ export async function getMe() {
 export async function clearTokenServices() {
   try {
     const response = await baseApi.delete("auth/identity/sessions");
+    return response;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+export async function joinAirdropPost(token: string) {
+    try {
+      const response = await baseApi.post("trade/airdrop/airdrops", 
+      {},
+      {
+        headers: {
+          "X-CSRF-TOKEN": token,
+        },
+      }
+    );
     return response;
   } catch (error) {
     console.log("error", error);

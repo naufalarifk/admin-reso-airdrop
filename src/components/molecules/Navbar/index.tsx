@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import { ButtonGlow, ButtonWalletConnectV2, ModalCommunity, Text } from '@/components';
+import { ButtonGlow, ModalCommunity, Text } from '@/components';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Transition, Dialog } from '@headlessui/react';
@@ -8,6 +8,7 @@ import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
 import { getMarketList } from '@/api/services/public/markets';
 import { IcWeb } from '@/assets/icons';
 import { AnimatePresence, motion } from 'framer-motion';
+import { ButtonConnectSolana } from '../ButtonConnectSolana';
 
 export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
    const { i18n, t } = useTranslation();
@@ -197,7 +198,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
             classNameButton="!w-[130px] lg:hidden block"
           /> */}
                <div>
-                  <ButtonWalletConnectV2 className="block lg:hidden" />
+                  {/* <ButtonWalletConnectV2 className="block lg:hidden" /> */}
+                  {/* <ButtonConnectSolana /> */}
                </div>
 
                <AnimatePresence>
@@ -272,7 +274,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                      </div>
                   </div>
                   <div className="flex items-center gap-4">
-                     <ButtonWalletConnectV2 />
+                     {/* <ButtonWalletConnectV2 /> */}
+                     <ButtonConnectSolana />
                      <div
                         className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark"
                         onClick={() => setOpen(!open)}>
