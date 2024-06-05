@@ -1,9 +1,14 @@
-import { IcArrowUp, IcCheck, IcDivider, IcWarning } from "@/assets/icons"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IcCheck, IcDivider, IcWarning } from "@/assets/icons"
 import { IcBellRinging } from "@/assets/icons/IcBellRinging"
 import { IcSparkle } from "@/assets/icons/IcSparkle"
 import { Text, Button, FullScreenLoading } from "@/components"
+import type { WalletName } from "@solana/wallet-adapter-base"
+import { useWallet } from "@solana/wallet-adapter-react"
 import { useCallback, useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
+import base58 from "bs58";
+import { getTokenServices, joinAirdropPost } from "@/api/services/auth"
 
 
 interface AirdropState {
@@ -11,12 +16,19 @@ interface AirdropState {
     setState: Dispatch<SetStateAction<"connected" | "disconnected" | "underReview">>
     loading: boolean
     setLoading: Dispatch<SetStateAction<boolean>>
+    eligible: boolean
+    setEligible: Dispatch<SetStateAction<boolean>>
 }
 
 
-const Connected = ({ setState }: AirdropState) => {
-    const [eligible, setEligible] = useState(false);
+const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
     const [claimingReady, setClaimingReady] = useState(false);
+
+    const {
+        publicKey,
+
+    } = useWallet();
+
     return (
         <>
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg space-y-2 hidden lg:block">
@@ -40,7 +52,7 @@ const Connected = ({ setState }: AirdropState) => {
                         <Text className="text-soft">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
                         <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
                             <img className="h-6 w-6 rounded-full" src="/images/user-photo.webp" alt="user-photo" srcSet="/images/user-photo.webp" />
-                            <Text className="w-4/5 truncate">0x430Fe34EED7dAAf5785d528F287DACe4eCA4A5DB</Text>
+                            <Text className="w-4/5 truncate">{publicKey?.toBase58()}</Text>
                             <Button onClick={() => setState('disconnected')} size={'sm'} className=" hidden py-0 px-6 text-soft bg-[#181a24] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button>
                         </div>
                         {/* <Button onClick={() => setState("disconnected")} size={'sm'} className=" lg:hidden block w-full py-0 px-6 text-soft bg-[#2f323c] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button> */}
@@ -90,18 +102,64 @@ const Connected = ({ setState }: AirdropState) => {
     )
 }
 
-const Disconnected = ({ setState, setLoading, loading }: AirdropState) => {
+const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
+    const [signature, setSignature] = useState('')
 
-    const handleJoinAirdrop = useCallback(() => {
-        if (!loading) {
-            setLoading(true)
-            setTimeout(() => {
-                setLoading(false);
-                setState('underReview')
-            }, 3000);
+    const {
+        select,
+        connected,
+        signMessage,
+        publicKey
+    } = useWallet();
+
+
+
+    const sign = useCallback(async () => {
+        try {
+            const message = new TextEncoder().encode(publicKey?.toBase58()); // Assuming publicKey is a dependency
+            if (signMessage) {
+                const uint8arraySignature = await signMessage(message); // Assuming signMessage is a dependency
+                setSignature(base58.encode(uint8arraySignature)); // Assuming setSignature and base58 are dependencies
+                console.log('uint8arraySignature', uint8arraySignature);
+            }
+        } catch (e) {
+            console.log("could not sign message");
         }
-    }, [loading, setState, setLoading])
+    }, [publicKey, signMessage, setSignature]);
 
+    const handleJoinAirdrop = useCallback(async () => {
+        if (connected) {
+            try {
+                setLoading(true)
+                await sign(); // Ensure sign() is awaited
+                console.log('signature', signature);
+
+                // Capture the updated signature from state after signing
+                const currentSignature = signature;
+
+                const response: any = await getTokenServices({
+                    message: publicKey?.toBase58() ?? '',
+                    public_key: publicKey?.toBase58() ?? '',
+                    signature: currentSignature
+                });
+
+                if (response && response.data && response.data.csrf_token) {
+                    joinAirdropPost(response.data.csrf_token);
+                    setEligible(true)
+
+                } else {
+                    console.error('CSRF token missing in response');
+                }
+            } catch (error) {
+                console.error('Error during join airdrop process:', error);
+            }
+
+            setState("connected")
+            setLoading(false)
+        } else {
+            select('Phantom' as WalletName);
+        }
+    }, [connected, setState, sign, signature, publicKey, setEligible, select]);
     return (
         <>
             <div className="flex flex-col items-start space-y-4">
@@ -121,7 +179,7 @@ const Disconnected = ({ setState, setLoading, loading }: AirdropState) => {
                             <IcWallet />
                             <Text className="w-4/5 text-soft">Connect Wallet</Text>
                         </div> */}
-                        <Button onClick={() => handleJoinAirdrop()} className="py-0 w-full">Join Airdrop</Button>
+                        <Button onClick={() => handleJoinAirdrop()} className="py-0 w-full">{connected ? 'Join Airdrop' : 'Connect Wallet'}</Button>
                     </div>
                 </div>
             </div>
@@ -131,6 +189,9 @@ const Disconnected = ({ setState, setLoading, loading }: AirdropState) => {
 
 
 const UnderReview = ({ setState }: AirdropState) => {
+    const {
+        publicKey
+    } = useWallet();
     return (
         <>
             <div className="flex flex-col items-start space-y-4">
@@ -148,7 +209,7 @@ const UnderReview = ({ setState }: AirdropState) => {
                         <Text className="text-soft">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
                         <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
                             <img className="h-6 w-6 rounded-full" src="/images/user-photo.webp" alt="user-photo" srcSet="/images/user-photo.webp" />
-                            <Text className="w-4/5 truncate">0x430Fe34EED7dAAf5785d528F287DACe4eCA4A5DB</Text>
+                            <Text className="w-4/5 truncate">{publicKey?.toBase58()}</Text>
                         </div>
                         <Button onClick={() => setState('connected')} className="py-0 w-full flex items-center bg-[#FFA23A] bg-opacity-50 space-x-2"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                             <path d="M12.5 22C6.977 22 2.5 17.523 2.5 12C2.5 6.477 6.977 2 12.5 2C18.023 2 22.5 6.477 22.5 12C22.5 17.523 18.023 22 12.5 22ZM12.5 20C14.6217 20 16.6566 19.1571 18.1569 17.6569C19.6571 16.1566 20.5 14.1217 20.5 12C20.5 9.87827 19.6571 7.84344 18.1569 6.34315C16.6566 4.84285 14.6217 4 12.5 4C10.3783 4 8.34344 4.84285 6.84315 6.34315C5.34285 7.84344 4.5 9.87827 4.5 12C4.5 14.1217 5.34285 16.1566 6.84315 17.6569C8.34344 19.1571 10.3783 20 12.5 20ZM13.5 12H17.5V14H11.5V7H13.5V12Z" fill="#FFA23A" />
@@ -162,23 +223,27 @@ const UnderReview = ({ setState }: AirdropState) => {
 
 
 export const Airdrop = () => {
-
+    const {
+        connecting
+    } = useWallet();
     const [state, setState] = useState<'connected' | 'disconnected' | 'underReview'>('disconnected');
     const [loading, setLoading] = useState(false);
+
+    const [eligible, setEligible] = useState(false);
 
 
     return (
         <main className="layout lg:px-24 mx-auto max-w-7xl py-6">
-            <FullScreenLoading isOpen={loading} setIsOpen={setLoading} />
+            <FullScreenLoading isOpen={connecting || loading} setIsOpen={setLoading} />
             <Text className="text-center text-3xl font-semibold">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">4000 Solana</span> wallet holder and recent transaction</Text>
             {/* <Text className="text-soft text-lg text-center w-3/4 mx-auto my-5">The time has come to get rewarded for your effort and dedication in helping us build RESO DEX together. If you fit in the criteria of our $12.000 airdrop, check your eligibility to see how many $12.000 tokens you will receive. Good luck!</Text> */}
-            <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mt-4">
+            <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mt-4 justify-center">
                 {
                     state === 'connected' ?
 
-                        <Connected loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview loading={loading} setLoading={setLoading} state={state} setState={setState} />
+                        <Connected eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} />
                 }
-                <div className="flex flex-col items-start space-y-4 h-full w-full lg:w-2/5">
+                {/* <div className="flex flex-col items-start space-y-4 h-full w-full lg:w-2/5">
                     <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg relative overflow-hidden h-60">
                         <Text className="font-semibold text-xl">Claim Your Airdrop Right now!</Text>
                         <Text className="text-soft">Login or create an account on RECTOVER.SO, connect your wallet and check if you are eligible to the $31 RESO Airdrop!</Text>
@@ -190,7 +255,7 @@ export const Airdrop = () => {
                         <Text className="text-soft">Login or create an account on RECTOVER.SO, connect your wallet and check if you are eligible to the $31 RESO Airdrop!</Text>
                         <img className="absolute -z-20 left-0 right-0 mx-auto -bottom-28 h-60 w-60" src="/images/eth-airdrop.webp" alt="" srcSet="" />
                     </div>
-                </div>
+                </div> */}
             </section>
         </main>
     )
