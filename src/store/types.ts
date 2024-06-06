@@ -120,3 +120,28 @@ export type PrivatePoolState = {
    createNewPoolMarket: InitialState;
    createNewPoolCurrencies: InitialState;
 };
+
+
+export type PostJoinAirdrop = InitialState & {
+   data: {
+   address: string;
+   transaction: string;
+   volume: string;
+   state: string;
+   }
+}
+
+export type GetJoinAirdrop = InitialState & {
+   data: {
+   address: string;
+   transaction: string;
+   volume: string;
+   state: string;
+   }
+}
+
+
+export type PrivateAirdropState = {
+   postJoinAirdrop: PostJoinAirdrop
+   getJoinAirdrop: GetJoinAirdrop
+}

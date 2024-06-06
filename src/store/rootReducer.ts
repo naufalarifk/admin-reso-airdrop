@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { publicPoolReducer } from '@/store/features/public';
-import { privatePoolReducer } from '@/store/features/private';
+import { privateAirdropReducer, privatePoolReducer } from '@/store/features/private';
 
 const publicReducer = combineReducers({
    pool: publicPoolReducer,
@@ -8,6 +8,7 @@ const publicReducer = combineReducers({
 
 const privateReducer = combineReducers({
    pool: privatePoolReducer,
+   airdrop: privateAirdropReducer
 });
 
 export const rootReducer = combineReducers({
