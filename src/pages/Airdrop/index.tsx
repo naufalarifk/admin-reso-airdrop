@@ -8,7 +8,9 @@ import { useWallet } from "@solana/wallet-adapter-react"
 import { useCallback, useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
 import base58 from "bs58";
-import { getTokenServices, joinAirdropPost } from "@/api/services/auth"
+import { getTokenServices } from "@/api/services/auth"
+import { postPrivateAirdrop, selectGetPrivateAirdropCurrencyData } from "@/store/features/private"
+import { useAppDispatch, useAppSelector } from "@/store"
 
 
 interface AirdropState {
@@ -23,7 +25,8 @@ interface AirdropState {
 
 const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
     const [claimingReady, setClaimingReady] = useState(false);
-
+    const state = useAppSelector(selectGetPrivateAirdropCurrencyData)
+    console.log('state', state)
     const {
         publicKey,
 
@@ -58,7 +61,7 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                         {/* <Button onClick={() => setState("disconnected")} size={'sm'} className=" lg:hidden block w-full py-0 px-6 text-soft bg-[#2f323c] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button> */}
                     </div>
                     {
-                        eligible ? <>
+                        state.transaction || state.volume ? <>
                             <Button onClick={() => setEligible(!eligible)} size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#33D49D] bg-[#33D49D] w-full gap-1"><IcCheck color="#33D49D" />{' '}Your are eligible for the airdrop</Button>
                             <div className="bg-[#0E0F19] p-4 rounded-lg">
                                 {
@@ -82,7 +85,12 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                                 {/* <Text className="text-soft ">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text> */}
                                 <div className="bg-[#0E0F19] p-2 rounded-lg flex items-center space-x-2">
                                     <Text className="w-4/5">This Solana address has transaction history prior to June 3, 2024</Text>
-                                    <Button size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D]">Not Eligible</Button>
+                                    {
+                                        state.transaction ?
+                                            <Button size={"sm"} className="py-0 px-6 bg-opacity-40 bg-[#33D49D] text-[#33D49D]">Eligible</Button>
+                                            :
+                                            <Button size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D]">Not Eligible</Button>
+                                    }
                                 </div>
                             </div>
                             <div className="space-y-4">
@@ -90,7 +98,12 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                                 {/* <Text className="text-soft ">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text> */}
                                 <div className="bg-[#0E0F19] p-2 rounded-lg flex items-center space-x-2">
                                     <Text className="w-4/5">your dex account volume is less than the required limit, <br /> Volume <span className="text-[#F23F5D]">25SOL Solana</span></Text>
-                                    <Button size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D]">Not Eligible</Button>
+                                    {
+                                        state.volume ?
+                                            <Button size={"sm"} className="py-0 px-6 bg-opacity-40 bg-[#33D49D] text-[#33D49D]">Eligible</Button>
+                                            :
+                                            <Button size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D]">Not Eligible</Button>
+                                    }
                                 </div>
                             </div>
                             <Button onClick={() => setEligible(!eligible)} size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#F23F5D] w-full"><IcWarning color="#F23F5D" />{' '}Your are not eligible for the airdrop</Button>
@@ -104,7 +117,7 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
 
 const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
     const [signature, setSignature] = useState('')
-
+    const dispatch = useAppDispatch()
     const {
         select,
         connected,
@@ -142,24 +155,23 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
                     public_key: publicKey?.toBase58() ?? '',
                     signature: currentSignature
                 });
-
+                console.log('response', response)
                 if (response && response.data && response.data.csrf_token) {
-                    joinAirdropPost(response.data.csrf_token);
+                    console.log('abc')
+                    dispatch(postPrivateAirdrop(response.data.csrf_token))
                     setEligible(true)
-
                 } else {
                     console.error('CSRF token missing in response');
                 }
             } catch (error) {
                 console.error('Error during join airdrop process:', error);
             }
-
             setState("connected")
             setLoading(false)
         } else {
             select('Phantom' as WalletName);
         }
-    }, [connected, setState, setLoading, sign, signature, publicKey, setEligible, select]);
+    }, [connected, setState, setLoading, sign, signature, publicKey, dispatch, setEligible, select]);
     return (
         <>
             <div className="flex flex-col items-start space-y-4">

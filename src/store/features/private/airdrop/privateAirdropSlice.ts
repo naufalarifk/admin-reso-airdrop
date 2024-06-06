@@ -1,51 +1,45 @@
 import { baseApi } from '@/api/config';
-import type { PrivatePoolState } from '@/store/types';
-import { buildQueryString } from '@/utils';
+import type { PrivateAirdropState } from '@/store/types';
+// import { buildQueryString } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-type StateMarket =
-   | 'pending'
-   | 'validate_fee'
-   | 'validate_listing'
-   | 'validate_pair'
-   | 'paid'
-   | 'cancel'
-   | 'rejected';
+// type StateUserAirdrop =
+//    | 'connected'
+//    | 'disconnected'
+//    | 'under_review'
+//    | 'eligible'
+//    | 'non_eligible';
 
-interface PrivatePoolMarketParams {
-   state: StateMarket;
-   currency: string;
-   pair_currency: string;
-   market: string;
-}
+// interface PrivatePoolMarketParams {
+//    state: StateUserAirdrop;
+// }
 
-const initialState: PrivatePoolState = {
-   getPoolCurrencies: {
-      isLoading: false,
-      isSuccess: false,
-      data: [],
-   },
-   getPoolMarket: {
-      isLoading: false,
-      isSuccess: false,
-      data: [],
-   },
-   createNewPoolCurrencies: {
+const initialState: PrivateAirdropState = {
+   getJoinAirdrop: {
+      data: {
+      address: '',
+      state: '',
+      transaction: '',
+      volume: '',
+      },
       isLoading: false,
       isSuccess: false,
    },
-   createNewPoolMarket: {
-      isLoading: false,
-      isSuccess: false,
-   },
-   createPaymentPoolMarket: {
+   postJoinAirdrop: {
+      data: {
+                  address: '',
+      state: '',
+      transaction: '',
+      volume: '',
+      },
       isLoading: false,
       isSuccess: false,
    }
+
 };
 
-export const getPrivatePoolCurrencies = createAsyncThunk(
-   'private/getPrivatePoolCurrencies',
+export const getPrivateAirdrop = createAsyncThunk(
+   'private/getPrivateAirdrop',
    async (_, { rejectWithValue }) => {
       try {
          const response = await baseApi.get(`/trade/pool/currencies`);
@@ -56,53 +50,66 @@ export const getPrivatePoolCurrencies = createAsyncThunk(
    },
 );
 
-export const getPrivatePoolMarketPairUser = createAsyncThunk(
-   'private/getPrivatePoolMarket',
-   async (params: PrivatePoolMarketParams, { rejectWithValue }) => {
+export const postPrivateAirdrop = createAsyncThunk(
+   'private/postPrivateAirdrop',
+   async (token: string, { rejectWithValue }) => {
       try {
-         const response = await baseApi.get(`/trade/pool/market?${buildQueryString(params)}`);
-         return response;
+      const response = await baseApi.post("trade/airdrop/airdrops", 
+      {},
+      {
+        headers: {
+          "X-CSRF-TOKEN": token,
+        },
+      }
+      );
+         return response
       } catch (error) {
          return rejectWithValue(error);
       }
-   },
-);
+   }
+)
 
-const privatePoolSlice = createSlice({
-   name: 'privatePoolSlice',
+
+const privateAirdropSlice = createSlice({
+   name: 'privateAirdropSlice',
    initialState,
    reducers: {},
    extraReducers: builder => {
       builder
-         .addCase(getPrivatePoolCurrencies.pending, state => {
-            state.getPoolCurrencies.isLoading = true;
-            state.getPoolCurrencies.isSuccess = false;
+         .addCase(getPrivateAirdrop.pending, state => {
+            state.getJoinAirdrop.isLoading = true;
+            state.getJoinAirdrop.isSuccess = false;
          })
-         .addCase(getPrivatePoolCurrencies.fulfilled, (state, action) => {
-            state.getPoolCurrencies.isLoading = false;
-            state.getPoolCurrencies.isSuccess = true;
-            state.getPoolCurrencies.data = action.payload.data;
+         .addCase(getPrivateAirdrop.fulfilled, (state, action) => {
+            state.getJoinAirdrop.isLoading = false;
+            state.getJoinAirdrop.isSuccess = true;
+            state.getJoinAirdrop.data = action.payload.data;
          })
-         .addCase(getPrivatePoolCurrencies.rejected, (state, action) => {
-            state.getPoolCurrencies.isLoading = false;
-            state.getPoolCurrencies.isSuccess = true;
-            state.getPoolCurrencies.data = [];
-            state.getPoolCurrencies.error = action.payload;
+         .addCase(getPrivateAirdrop.rejected, (state, action) => {
+            state.getJoinAirdrop.isLoading = false;
+            state.getJoinAirdrop.isSuccess = true;
+            state.getJoinAirdrop.data = {
+               address: '',
+               state: '',
+               transaction: '',
+               volume: '',
+            };
+            state.getJoinAirdrop.error = action.payload;
          })
-         .addCase(getPrivatePoolMarketPairUser.pending, state => {
-            state.getPoolMarket.isLoading = true;
-            state.getPoolMarket.isSuccess = false;
+         .addCase(postPrivateAirdrop.pending, state => {
+            state.postJoinAirdrop.isLoading = true;
+            state.postJoinAirdrop.isSuccess = false;
          })
-         .addCase(getPrivatePoolMarketPairUser.fulfilled, (state, action) => {
-            state.getPoolMarket.isLoading = false;
-            state.getPoolMarket.isSuccess = true;
-            state.getPoolMarket.data = action.payload.data;
+         .addCase(postPrivateAirdrop.fulfilled, (state, action) => {
+            state.postJoinAirdrop.isLoading = false;
+            state.postJoinAirdrop.isSuccess = true;
+            state.postJoinAirdrop.data = action.payload.data;
          })
-         .addCase(getPrivatePoolMarketPairUser.rejected, (state, action) => {
-            state.getPoolMarket.isSuccess = false;
-            state.getPoolMarket.error = action.payload;
+         .addCase(postPrivateAirdrop.rejected, (state, action) => {
+            state.postJoinAirdrop.isSuccess = false;
+            state.postJoinAirdrop.error = action.payload;
          });
    },
 });
 
-export const { reducer: privatePoolReducer } = privatePoolSlice;
+export const { reducer: privateAirdropReducer } = privateAirdropSlice;
