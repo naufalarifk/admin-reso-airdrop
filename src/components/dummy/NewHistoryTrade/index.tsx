@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Skeleton, TabSlider } from '@/components';
+import { useTranslation } from 'react-i18next';
 
 // interface Transaction {
 //    receive: {
@@ -36,6 +37,8 @@ interface NewHistoryTradeProps {
 export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
    // const params = useParams();
 
+   const { t } = useTranslation();
+
    // const currId = params?.market?.split('-');
 
    const [, setCurrentIndex] = useState(0);
@@ -43,7 +46,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
    const tabs = useMemo(
       () => [
          {
-            label: 'My Open Orders',
+            label: t('newTrade.myOpenOrder'),
             content: (
                <>
                   <div className="no-scrollbar relative h-96 max-h-96 overflow-x-hidden">
@@ -53,38 +56,38 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Date
+                                 {t('global.date')}
                               </th>
 
                               <th
                                  scope="col"
                                  className="text-nowrap px-6 py-4">
-                                 Market
+                                 {t('global.market')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Price
+                                 {t('global.price')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Volume
+                                 {t('global.volume')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Executed
+                                 {t('global.executed')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 TxID
+                                 {t('global.txId')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-4">
-                                 Action
+                                 {t('global.action')}
                               </th>
                            </tr>
                         </thead>
@@ -106,7 +109,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
                                  <td
                                     className="py-4 text-center text-gray-200"
                                     colSpan={12}>
-                                    No Data Available
+                                    {t('global.noData')}
                                  </td>
                               </tr>
                            )}
@@ -117,7 +120,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
             ),
          },
          {
-            label: 'Holders',
+            label: t('global.holders'),
             content: (
                <>
                   <div className="no-scrollbar relative h-96 max-h-96 overflow-x-scroll">
@@ -127,17 +130,17 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Rank
+                                 {t('global.rank')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Address
+                                 {t('global.address')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Quantity
+                                 {t('global.quantity')}
                               </th>
                            </tr>
                         </thead>
@@ -159,7 +162,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
                                  <td
                                     className="py-4 text-center text-gray-200"
                                     colSpan={12}>
-                                    No Data Available
+                                    {t('global.noData')}
                                  </td>
                               </tr>
                            )}
@@ -170,7 +173,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
             ),
          },
          {
-            label: 'History Trades',
+            label: t('global.historyTrade'),
             content: (
                <>
                   <div className="no-scrollbar relative h-96 max-h-96 overflow-x-scroll">
@@ -180,37 +183,37 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Date
+                                 {t('global.date')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Assets
+                                 {t('global.assets')}
                               </th>
                               <th
                                  scope="col"
                                  className="text-nowrap px-6 py-3">
-                                 Order ID
+                                 {t('global.orderId')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Price
+                                 {t('global.price')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Amount
+                                 {t('global.amount')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Type
+                                 {t('global.type')}
                               </th>
                               <th
                                  scope="col"
                                  className="px-6 py-3">
-                                 Total
+                                 {t('global.total')}
                               </th>
                            </tr>
                         </thead>
@@ -232,7 +235,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
                                  <td
                                     className="py-4 text-center text-gray-200"
                                     colSpan={12}>
-                                    No Data Available
+                                    {t('global.noData')}
                                  </td>
                               </tr>
                            )}
@@ -243,7 +246,7 @@ export const NewHistoryTrade = ({ isLoading }: NewHistoryTradeProps) => {
             ),
          },
       ],
-      [isLoading],
+      [isLoading, t],
    );
 
    return (
