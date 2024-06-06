@@ -2,7 +2,7 @@ import Marquee from 'react-fast-marquee';
 // import { TOKEN_RATE } from "@/constants/data";
 import { OrderBook } from '@/components/dummy/OrderBook';
 import { ModalMobileChangeMarket, SelectMarketSwap } from '@/components';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import {
    usePublicMarket,
    usePublicMarketTicker,
@@ -203,14 +203,15 @@ export const NewTrade = () => {
                      {/* End Pop up change market */}
 
                      {/* Button Market */}
-                     {/* {market?.map(e => (
+                     {market?.map(e => (
                         <NavLink
                            key={e.base_unit}
                            to={`/trade/${e.name.replace('/', '-')}`}
-                           className={`${marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
-                              ? 'border-primary/50 bg-primary/10'
-                              : '  border-dark3 bg-dark2'
-                              } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
+                           className={`${
+                              marketId?.toLowerCase() === e.name.replace('/', '').toLowerCase()
+                                 ? 'border-primary/50 bg-primary/10'
+                                 : '  border-dark3 bg-dark2'
+                           } flex cursor-pointer items-center space-x-1 rounded-lg border px-2 py-1`}>
                            <div className="relative m-1 size-6 overflow-hidden rounded-full object-cover">
                               <img
                                  src={
@@ -223,7 +224,7 @@ export const NewTrade = () => {
                            </div>
                            <div className="font-semibold">{e.name}</div>
                         </NavLink>
-                     ))} */}
+                     ))}
                      {/* End Button Market */}
                   </div>
 

@@ -339,6 +339,7 @@ export const EN_TRANSLATION = {
          },
       },
    },
+   // Staking page
    staking: {
       layout: {
          title: {
@@ -700,5 +701,79 @@ export const EN_TRANSLATION = {
       'slipPageTolerance': 'Slippage Tolerance',
       'myOpenOrder': 'My Open Order',
       'pleaseConnect': 'Please Connect Wallet First',
+   },
+
+   launchpad: {
+      header: {
+         title: 'Rectoverso Project Details',
+         subtitle: 'Rectoverso - Rising Together',
+         follow: 'Follow Us',
+      },
+      content: {
+         cardDetail: {
+            cta: 'New Launchpad Release',
+            title: {
+               one: 'RECTOVERSO',
+               two: 'New Launchpad',
+            },
+            desc: 'RESO is the utility token of the Rectoverso platform on Solana, offering fast and low-cost transactions. With a total supply of 100 million tokens, RESO supports DeFi activities like paying fees, staking, accessing the launchpad, earning rewards, and participating in governance. Key feature: strategic buyback for price stability and value appreciation.',
+         },
+         tabs: {
+            title: {
+               one: 'About Project',
+               two: 'Detail Project',
+               three: 'Project Roadmap',
+               four: 'Tokenomics',
+            },
+            content: {
+               title: {
+                  one: {
+                     heading: 'About',
+                     subHeading: 'Project',
+                  },
+                  two: {
+                     heading: 'Detail',
+                     subHeading: 'Project',
+                     list: {
+                        tokenName: 'Token Name',
+                        tokenSymbol: 'Token Symbol',
+                        tokenPrice: 'Token Price',
+                        tokenSupply: 'Token Supply',
+                        tokenAddress: 'Token Address',
+                        vestingPeriod: 'Vesting Period',
+                        softcap: 'Softcap',
+                        hardcap: 'Hardcap',
+                        presaleStartTime: 'Presale Start Time',
+                        presaleEndTime: 'Presale End Time',
+                     },
+                  },
+                  three: {
+                     heading: 'Project',
+                     subHeading: 'Road Map',
+                  },
+                  four: {
+                     heading: 'Project',
+                     subHeading: 'Tokenomics',
+                  },
+               },
+            },
+         },
+         info: {
+            title: {
+               one: 'Token',
+               two: 'Info',
+            },
+            list: {
+               currentRate: 'Current Rate',
+               minimumBuy: 'Minimum Buy',
+               maxBuy: 'Maximum Buy',
+               softcap: 'Softcap',
+               hardcap: 'Hardcap',
+               goals: 'Goals',
+               raised: 'Raised',
+               totalInvestor: 'Total Investor',
+            },
+         },
+      },
    },
 };

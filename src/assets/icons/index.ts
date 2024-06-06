@@ -48,3 +48,4 @@ export * from './IcMinus';
 export * from './IcDivider';
 export * from './IcGift';
 export * from './IcWallet';
+export * from './IcDocuments';
