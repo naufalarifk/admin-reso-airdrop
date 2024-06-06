@@ -51,8 +51,8 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg h-full space-y-8 w-full">
                     <div className="space-y-4">
-                        <Text className="text-2xl font-semibold">Connect Your Wallets</Text>
-                        <Text className="text-soft">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
+                        <Text className="text-2xl font-semibold">Connected wallet</Text>
+                        <Text className="text-soft">Connect one or more wallets to check their eligibility and $31 Reso tokens you will receive</Text>
                         <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
                             <img className="h-6 w-6 rounded-full" src="/images/user-photo.webp" alt="user-photo" srcSet="/images/user-photo.webp" />
                             <Text className="w-4/5 truncate">{publicKey?.toBase58()}</Text>
@@ -174,7 +174,7 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
     }, [connected, setState, setLoading, sign, signature, publicKey, dispatch, setEligible, select]);
     return (
         <>
-            <div className="flex flex-col items-start space-y-4">
+            <div className="flex flex-col items-start space-y-4 lg:w-3/4">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full w-full space-y-3">
                     <Text className="text-2xl font-semibold">Check eligible your account</Text>
                     <Text className="text-soft">Connect your wallet to check eligibility: it must have transactions before the airdrop date ( June 5, 2024) and at least 10 Solana transactions in the last 6 months; use your most active wallet to maximize points.</Text>
@@ -185,8 +185,8 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full space-y-12 w-full">
                     <div className="space-y-4">
-                        <Text className="text-2xl font-semibold">Connect Your Wallets</Text>
-                        <Text className="text-soft">Connect one or more wallets to check their eligibility and $G3 tokens you will receive</Text>
+                        <Text className="text-2xl font-semibold">Connect your wallet and get the $31 reso</Text>
+                        <Text className="text-soft">Connect one or more wallets to check their eligibility and $31 Reso tokens you will receive</Text>
                         {/* <div className="bg-[#0E0F19] p-4 rounded-lg flex items-center space-x-2">
                             <IcWallet />
                             <Text className="w-4/5 text-soft">Connect Wallet</Text>
@@ -247,9 +247,9 @@ export const Airdrop = () => {
     return (
         <main className="layout lg:px-24 mx-auto max-w-7xl py-6">
             <FullScreenLoading isOpen={connecting || loading} setIsOpen={setLoading} />
-            <Text className="text-center text-3xl font-semibold w-full lg:w-3/4 mx-auto">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">4000 Solana</span> wallet holder and recent transaction</Text>
+            <Text className="text-center text-3xl font-semibold w-full lg:w-3/4 mx-auto">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">17000 Solana</span> wallet holder and recent transaction</Text>
             {/* <Text className="text-soft text-lg text-center w-3/4 mx-auto my-5">The time has come to get rewarded for your effort and dedication in helping us build RESO DEX together. If you fit in the criteria of our $12.000 airdrop, check your eligibility to see how many $12.000 tokens you will receive. Good luck!</Text> */}
-            <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full lg:w-3/4 mx-auto mt-4 justify-center">
+            <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mx-auto mt-4 justify-center">
                 {
                     state === 'connected' ?
 
