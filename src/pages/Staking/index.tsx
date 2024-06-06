@@ -8,6 +8,7 @@ import { AirdropPopUp } from '@/components/atoms/AirdropPopUp';
 export const Staking = () => {
    const navigate = useNavigate();
    const { t } = useTranslation();
+   const airdropPopUp = localStorage.getItem('local_popover');
 
    const { setModalVisible } = useWalletStore(state => state);
 
@@ -85,7 +86,7 @@ export const Staking = () => {
 
    return (
       <>
-         <AirdropPopUp />
+         {airdropPopUp !== 'false' && <AirdropPopUp />}
          <div>
             <Tabs
                classNameWrapper="justify-between flex gap-4 md:justify-start"
