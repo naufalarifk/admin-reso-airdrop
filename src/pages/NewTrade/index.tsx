@@ -33,6 +33,7 @@ import { AirdropPopUp } from '@/components/atoms/AirdropPopUp';
 
 export const NewTrade = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
+   const airdropPopUp = localStorage.getItem('local_popover');
    // const [showTradingChart, setShowTradingChart] = useState(false);
    // const [showOrderBook, setShowOrderBook] = useState(true);
    const [showTradingChart, setShowTradingChart] = useState(false);
@@ -116,7 +117,10 @@ export const NewTrade = () => {
 
    return (
       <section className="layout-main mb-8">
-         <AirdropPopUp />
+         {
+            airdropPopUp !== 'false' &&
+            <AirdropPopUp />
+         }
          <div className="flex flex-col justify-between gap-2 lg:flex-row  lg:justify-start lg:gap-4">
             {/* Header mobile */}
             <div className=" flex h-[64px] items-center justify-between gap-2 rounded bg-dark2 p-4 px-3 lg:hidden">

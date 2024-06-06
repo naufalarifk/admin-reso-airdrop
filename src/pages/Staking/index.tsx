@@ -1,10 +1,11 @@
-import { ChangeEvent, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardStaking, ModalAddStaking, Tabs, useWalletStore } from '@/components';
 import { STAKE_MEME_TOKEN } from '@/constants';
-import { Coin } from '@/types/components';
+import type { Coin } from '@/types/components';
 import { AirdropPopUp } from '@/components/atoms/AirdropPopUp';
 
 interface NewStakingDataPayload {
@@ -22,6 +23,7 @@ interface NewStakingDataPayload {
 export const Staking = () => {
    const navigate = useNavigate();
    const { t } = useTranslation();
+   const airdropPopUp = localStorage.getItem('local_popover');
 
    const { setModalVisible } = useWalletStore(state => state);
    const [modalSucces, setModalSuccess] = useState(false);
@@ -194,7 +196,10 @@ export const Staking = () => {
 
    return (
       <>
-         <AirdropPopUp />
+         {
+            airdropPopUp !== 'false' &&
+            <AirdropPopUp />
+         }
          <div>
             <Tabs
                classNameWrapper="justify-between flex gap-4 md:justify-start"

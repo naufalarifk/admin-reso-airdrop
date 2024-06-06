@@ -14,7 +14,7 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
 
@@ -43,24 +43,12 @@ const variants = {
 
 export function AirdropPopUp() {
   // const { t } = useTranslation();
-
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
 
-
-  useEffect(() => {
-    const local_popover = localStorage.getItem('local_popover')
-    if (local_popover !== 'closed' || !local_popover) {
-      setIsOpen(true)
-    } else {
-      setIsOpen(false)
-    }
-  }, [])
-
-
   const handleClick = useCallback(() => {
     navigate('/airdrop')
-    localStorage.setItem('local_popover', 'closed')
+    localStorage.setItem('local_popover', 'false');
   }, [navigate])
 
 
@@ -105,7 +93,9 @@ export function AirdropPopUp() {
                         >
                           - AIRDROP ANNOUNCEMENT
                         </DialogTitle>
-                        <CloseButton className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
+                        <CloseButton onClick={() => [setIsOpen(false),
+                        localStorage.setItem('local_popover', 'false')
+                        ]} className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
                           <IcClose />
                         </CloseButton>
                       </div>
