@@ -1,5 +1,5 @@
 import { cn } from '@/utils';
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { Text } from '@/components/atoms';
 

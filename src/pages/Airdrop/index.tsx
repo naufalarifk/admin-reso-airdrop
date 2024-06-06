@@ -177,7 +177,7 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
             <div className="flex flex-col items-start space-y-4">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full w-full space-y-3">
                     <Text className="text-2xl font-semibold">Check eligible your account</Text>
-                    <Text className="text-soft">Connect your wallet so we can calculate your points based on your onchain activity with DeFi protocols and NFTs on other networks. Use your most active wallet for more points.</Text>
+                    <Text className="text-soft">Connect your wallet to check eligibility: it must have transactions before the airdrop date ( June 5, 2024) and at least 10 Solana transactions in the last 6 months; use your most active wallet to maximize points.</Text>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg flex justify-center space-x-1 items-center w-full">
                     <IcBellRinging />
@@ -247,9 +247,9 @@ export const Airdrop = () => {
     return (
         <main className="layout lg:px-24 mx-auto max-w-7xl py-6">
             <FullScreenLoading isOpen={connecting || loading} setIsOpen={setLoading} />
-            <Text className="text-center text-3xl font-semibold">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">4000 Solana</span> wallet holder and recent transaction</Text>
+            <Text className="text-center text-3xl font-semibold w-full lg:w-3/4 mx-auto">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">4000 Solana</span> wallet holder and recent transaction</Text>
             {/* <Text className="text-soft text-lg text-center w-3/4 mx-auto my-5">The time has come to get rewarded for your effort and dedication in helping us build RESO DEX together. If you fit in the criteria of our $12.000 airdrop, check your eligibility to see how many $12.000 tokens you will receive. Good luck!</Text> */}
-            <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mt-4 justify-center">
+            <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full lg:w-3/4 mx-auto mt-4 justify-center">
                 {
                     state === 'connected' ?
 
