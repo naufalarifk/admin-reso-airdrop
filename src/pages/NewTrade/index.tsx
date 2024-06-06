@@ -34,6 +34,7 @@ import { useTranslation } from 'react-i18next';
 
 export const NewTrade = () => {
    const baseUrl = import.meta.env.VITE_API_URL;
+   const airdropPopUp = localStorage.getItem('local_popover');
 
    const { t } = useTranslation();
 
@@ -114,13 +115,16 @@ export const NewTrade = () => {
       return changePrice?.includes('+')
          ? 'text-green'
          : changePrice?.includes('-')
-           ? 'text-primary'
-           : 'text-soft';
+            ? 'text-primary'
+            : 'text-soft';
    };
 
    return (
       <section className="layout-main mb-8">
-         <AirdropPopUp />
+         {
+            airdropPopUp !== 'false' &&
+            <AirdropPopUp />
+         }
          <div className="flex flex-col justify-between gap-2 lg:flex-row  lg:justify-start lg:gap-4">
             {/* Header mobile */}
             <div className=" flex h-[64px] items-center justify-between gap-2 rounded bg-dark2 p-4 px-3 lg:hidden">
