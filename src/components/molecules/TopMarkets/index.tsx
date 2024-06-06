@@ -31,7 +31,7 @@ export const TopMarkets = ({
         >
             <div
                 className={cn(
-                    `border-animate-content w-full gap-2 text-white bg-gradient-to-l from-[#161415] to-[#040102] rounded-lg p-4`,
+                    `border-animate-content w-full gap-2 text-white bg-[#181924] rounded-lg p-4`,
                     classNameContent
                 )}
             >
