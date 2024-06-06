@@ -38,45 +38,40 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
       // },
       {
          id: 0,
-         name: 'Staking',
-         code: 'staking',
-         setTo: '/staking',
-      },
-      // {
-      //   id: 1,
-      //   name: "Trades",
-      //   code: "trade",
-      //   setTo: "/trade",
-      // },
-      {
-         id: 2,
-         name: 'Bridge',
-         setTo: '/bridge',
-         code: 'bridge',
-      },
-      {
-         id: 3,
-         name: 'Trade',
-         setTo: `/trade/${market ? market?.[0]?.name?.replace('/', '-') : 'MEME-USDT'}`,
-         code: 'trade',
-      },
-      {
-         id: 4,
-         name: 'Support',
-         code: 'support',
-         setTo: '/support',
-      },
-      {
-         id: 5,
          name: 'Market Overview',
          code: 'marketoverview',
          setTo: '/',
       },
       {
-         id: 6,
+         id: 1,
+         name: 'Trade',
+         setTo: `/trade/${market ? market?.[0]?.name?.replace('/', '-') : 'MEME-USDT'}`,
+         code: 'trade',
+      },
+      {
+         id: 3,
+         name: 'Staking',
+         code: 'staking',
+         setTo: '/staking',
+      },
+      {
+         id: 4,
+         name: 'Bridge',
+         setTo: '/bridge',
+         code: 'bridge',
+      },
+      {
+         id: 5,
          name: 'Airdrop',
          code: 'airdrop',
          setTo: '/airdrop',
+      },
+
+      {
+         id: 6,
+         name: 'Support',
+         code: 'support',
+         setTo: '/support',
       },
       {
          id: 7,
@@ -120,21 +115,24 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                      onClick={() => setToggle(!toggle)}
                      className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden">
                      <span
-                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? 'translate-y-0 rotate-45' : '-translate-y-2'
-                           }`}
+                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                           toggle ? 'translate-y-0 rotate-45' : '-translate-y-2'
+                        }`}
                      />
                      <span
-                        className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${toggle ? 'translate-x-3 opacity-0' : 'opacity-100'
-                           }`}
+                        className={`h-[2px] w-[20px] transform rounded bg-soft transition  absolute${
+                           toggle ? 'translate-x-3 opacity-0' : 'opacity-100'
+                        }`}
                      />
                      <span
-                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? 'translate-y-0 -rotate-45' : 'translate-y-2'
-                           }`}
+                        className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${
+                           toggle ? 'translate-y-0 -rotate-45' : 'translate-y-2'
+                        }`}
                      />
                   </button>
                   <Link
                      // to={`/trade/${market?.[0]?.name?.replace('/', '-')}`}
-                     to='/'
+                     to="/"
                      className=" ">
                      <img
                         src="/images/brand.png"
@@ -143,7 +141,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                      />
                   </Link>
                   <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
-                     <ul className="flex cursor-pointer items-center  gap-4 text-base">
+                     <ul className="flex cursor-pointer items-center  gap-6 text-base">
                         {navLink &&
                            navLink.map((item, i) => (
                               <li key={i}>
@@ -269,7 +267,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         />
                      </svg>
                      <div>
-                        <Text className="text-[#FE9F00]">Info</Text>
+                        {/* <Text className="text-[#FE9F00]">Info</Text> */}
                         <Text className="font-semibold text-[#FE9F00]">Demo Only</Text>
                      </div>
                   </div>
@@ -381,10 +379,11 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                        <button
                                           disabled={lang.abbr !== 'en'}
                                           onClick={() => i18n.changeLanguage(lang.abbr)}
-                                          className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${i18n.language === lang.abbr
-                                             ? 'border-primary'
-                                             : 'border-soft/45'
-                                             }`}>
+                                          className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${
+                                             i18n.language === lang.abbr
+                                                ? 'border-primary'
+                                                : 'border-soft/45'
+                                          }`}>
                                           <div>
                                              <img
                                                 src={lang.icon}
@@ -393,12 +392,13 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                              />
                                           </div>
                                           <div
-                                             className={`${i18n.language === lang.abbr
-                                                ? '  text-primary'
-                                                : lang.abbr !== 'en'
-                                                   ? 'text-gray-600'
-                                                   : ' text-white'
-                                                } text-sm`}>
+                                             className={`${
+                                                i18n.language === lang.abbr
+                                                   ? '  text-primary'
+                                                   : lang.abbr !== 'en'
+                                                     ? 'text-gray-600'
+                                                     : ' text-white'
+                                             } text-sm`}>
                                              {lang.nativeName}
                                           </div>
                                        </button>

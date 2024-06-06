@@ -15,6 +15,7 @@ import {
    NewTrade,
    Airdrop,
    Home,
+   Launchpad,
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
@@ -118,6 +119,10 @@ export const RootLayout = () => {
                <Route
                   path="/dummyswap/:market"
                   element={<DummySwap />}
+               />
+               <Route
+                  path="/launchpad"
+                  element={<Launchpad />}
                />
             </Route>
          </Route>

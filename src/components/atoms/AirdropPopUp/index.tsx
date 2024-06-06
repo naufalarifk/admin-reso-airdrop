@@ -1,135 +1,115 @@
-import { IcClose } from "@/assets/icons";
-import {
-  // ButtonGlow,
-  Text, Button
-} from "@/components/atoms";
+import { CardBorderAnimate } from '@/components';
 // import { cn } from "@/utils";
-import {
-  CloseButton,
-  // Description,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  Transition,
-  TransitionChild,
-} from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 // import { useTranslation } from "react-i18next";
 
-
-
 const variants = {
-  hidden: {
-    y: "-100vh",
-    opacity: 0,
-  },
-  visible: {
-    y: "0",
-    opacity: 1,
-    transition: {
-      duration: 0.1,
-      type: "spring",
-      damping: 25,
-      stiffness: 500,
-    },
-  },
-  exit: {
-    y: "100vh",
-    opacity: 0,
-  },
+   hidden: {
+      y: '-100vh',
+      opacity: 0,
+   },
+   visible: {
+      y: '0',
+      opacity: 1,
+      transition: {
+         duration: 0.1,
+         type: 'spring',
+         damping: 25,
+         stiffness: 500,
+      },
+   },
+   exit: {
+      y: '100vh',
+      opacity: 0,
+   },
 };
 
 export function AirdropPopUp() {
-  // const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(true);
+   const [isOpen, setIsOpen] = useState(true);
 
-  const handleClick = useCallback(() => {
-    navigate('/airdrop')
-    localStorage.setItem('local_popover', 'false');
-  }, [navigate])
-
-
-  return (
-    <>
-      <AnimatePresence>
-        {isOpen && (
-          <Transition appear show={isOpen}>
-            <Dialog
-              open={isOpen}
-              onClose={() => setIsOpen(false)}
-              className="relative z-50"
-            >
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/30 backdrop-blur-sm"
-              />
-              <div className="fixed inset-0 z-full w-screen overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4">
-                  <TransitionChild
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 transform-[scale(95%)]"
-                    enterTo="opacity-100 transform-[scale(100%)]"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 transform-[scale(100%)]"
-                    leaveTo="opacity-0 transform-[scale(95%)]"
-                  >
-                    <DialogPanel
-                      as={motion.div}
-                      variants={variants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      className="w-full max-w-4xl space-y-4 rounded-2xl border border-white/10 bg-dark px-4 py-6"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <DialogTitle
-                          as="h3"
-                          className="text-base font-semibold text-white lg:block hidden"
-                        >
-                          - AIRDROP ANNOUNCEMENT
-                        </DialogTitle>
-                        <CloseButton onClick={() => [setIsOpen(false),
-                        localStorage.setItem('local_popover', 'false')
-                        ]} className="grid size-6 place-items-center rounded-full transition-all duration-300 data-[hover]:scale-110">
-                          <IcClose />
-                        </CloseButton>
-                      </div>
-                      <div className="flex space-x-0 lg:space-x-2 flex-col-reverse lg:flex-row">
-                        <div className="w-full lg:w-3/5 space-y-2 lg:space-y-5">
-                          <Text className="text-center lg:hidden">
-                            - AIRDROP ANNOUNCEMENT
-                          </Text>
-                          {/* <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold">
-                            <span className="text-[#F23F5D]">RECTOVERSO</span> New Airdrop has been release,
-                            <span className="text-[#F23F5D]">{' '} Up to $31</span> Join Now
-                          </Text> */}
-                          <Text className="text-lg text-center lg:text-left lg:text-5xl font-semibold uppercase">
-                            Join our <span className="text-[#F23F5D]">airdrop</span> now
-                          </Text>
-                          <Text className="lg:text-left text-center">
-                            Join our airdrop and get <span className="text-[#F23F5D]">$31</span> in RESO tokens! Available for <span className="text-[#F23F5D]">4000 Solana</span> wallet holder and recent transaction.
-                          </Text>
-                          <Button onClick={handleClick} className="bg-[#F23F5D] rounded-full lg:w-auto w-full">Join Airdrop</Button>
+   return (
+      <>
+         <AnimatePresence>
+            {isOpen && (
+               <Transition
+                  appear
+                  show={isOpen}>
+                  <Dialog
+                     open={isOpen}
+                     onClose={() => setIsOpen(false)}
+                     className="relative z-50">
+                     <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/30 backdrop-blur-sm"
+                     />
+                     <div className="fixed inset-0 z-full w-screen overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4">
+                           <TransitionChild
+                              enter="ease-out duration-300"
+                              enterFrom="opacity-0 transform-[scale(95%)]"
+                              enterTo="opacity-100 transform-[scale(100%)]"
+                              leave="ease-in duration-200"
+                              leaveFrom="opacity-100 transform-[scale(100%)]"
+                              leaveTo="opacity-0 transform-[scale(95%)]">
+                              <DialogPanel
+                                 as={motion.div}
+                                 variants={variants}
+                                 initial="hidden"
+                                 animate="visible"
+                                 exit="exit">
+                                 <CardBorderAnimate className="relative h-[600px] !max-w-[472px] overflow-hidden rounded-2xl !bg-dark p-6 lg:h-full lg:!max-w-[982px]">
+                                    <div className="absolute -left-16  top-0 size-[420px] scale-125 lg:hidden">
+                                       <img
+                                          src="/images/airdrop-banner.webp"
+                                          alt="airdrop"
+                                          loading="lazy"
+                                          className="block object-contain"
+                                       />
+                                    </div>
+                                    <div className="mt-72 w-full space-y-6 text-center lg:mt-0 lg:w-8/12 lg:text-start">
+                                       <div className="flex items-center justify-center gap-3 font-dm font-bold lg:justify-start">
+                                          <div className="h-1 w-10 rounded bg-white" />{' '}
+                                          <div>AIRDROP ANNOUNCEMENT</div>
+                                       </div>
+                                       <div className="font-dm text-2xl font-bold lg:text-4xl">
+                                          JOIN OUR <span className="text-primary">AIRDROP</span>{' '}
+                                          NOW!
+                                       </div>
+                                       <div className="font-dm text-base font-semibold text-white lg:text-2xl">
+                                          Join our airdrop and get{' '}
+                                          <span className="text-primary">$31</span> in RESO tokens!
+                                          Available for <span className="text-primary">17.000</span>{' '}
+                                          Solana wallet holder and recent transaction.
+                                       </div>
+                                       <a
+                                          href="https://beta.rectoverso.exchange/airdrop"
+                                          className="block">
+                                          <button className="relative z-10 inline-flex w-full items-center justify-center gap-x-2 rounded-full border border-transparent bg-primary px-8 py-3 text-center text-sm font-semibold text-white hover:bg-primary/80 disabled:pointer-events-none disabled:opacity-50 lg:w-[300px] lg:px-4">
+                                             Join Airdrop
+                                          </button>
+                                       </a>
+                                    </div>
+                                    <div className="absolute -right-5 top-0 hidden size-[500px] lg:block">
+                                       <img
+                                          src="/images/airdrop-banner.webp"
+                                          alt="airdrop"
+                                          loading="lazy"
+                                          className="block object-contain"
+                                       />
+                                    </div>
+                                 </CardBorderAnimate>
+                              </DialogPanel>
+                           </TransitionChild>
                         </div>
-                        <div className="w-full lg:w-2/5 relative">
-                          {/* <img className="hidden h-full w-full rotate-[15deg]" src="/images/airdrop-pic.webp" alt="" srcSet="" /> */}
-                          <img className="h-full w-full rotate-[15deg]" src="/images/airdrop-pic-mobile.webp" alt="" srcSet="" />
-                          <img className="absolute inset-0 -z-10" src="/images/airdrop-bg.svg" alt="" srcSet="" />
-                        </div>
-                      </div>
-                    </DialogPanel>
-                  </TransitionChild>
-                </div>
-              </div>
-            </Dialog>
-          </Transition>
-        )}
-      </AnimatePresence>
-    </>
-  );
+                     </div>
+                  </Dialog>
+               </Transition>
+            )}
+         </AnimatePresence>
+      </>
+   );
 }
