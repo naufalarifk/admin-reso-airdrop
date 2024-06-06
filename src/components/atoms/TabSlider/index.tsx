@@ -1,6 +1,8 @@
 import { cn } from '@/utils';
-import { Variants, AnimatePresence, motion } from 'framer-motion';
-import { ReactNode, FC, useState, useRef, useEffect, useMemo } from 'react';
+import type { Variants } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import type { ReactNode, FC } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 interface TabsData {
    label: ReactNode;
@@ -15,6 +17,7 @@ type TabsProps = {
    rightContent?: ReactNode;
    classNameButtons?: string;
    isMaxWidth?: boolean;
+   transparent?: boolean;
 };
 
 const variants: Variants = {
@@ -23,7 +26,12 @@ const variants: Variants = {
    exit: { opacity: 0, x: 20, y: 0 },
 };
 
-export const TabSlider: FC<TabsProps> = ({ items, getCurrentIndex, isMaxWidth = false }) => {
+export const TabSlider: FC<TabsProps> = ({
+   items,
+   getCurrentIndex,
+   isMaxWidth = false,
+   transparent = false,
+}) => {
    const [activeTabIndex, setActiveTabIndex] = useState(0);
    const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
    const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
@@ -52,7 +60,10 @@ export const TabSlider: FC<TabsProps> = ({ items, getCurrentIndex, isMaxWidth = 
 
    return (
       <>
-         <div className="relative flex w-full justify-start border-b border-b-primary/45 bg-dark2  lg:justify-start">
+         <div
+            className={cn(
+               `relative flex w-full justify-start  border-b-primary/45 ${transparent ? 'border-0 bg-transparent' : 'border-b bg-dark2 '}   lg:justify-start`,
+            )}>
             {items.map((tab, idx) => (
                <button
                   key={idx}
