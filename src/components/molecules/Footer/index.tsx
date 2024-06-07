@@ -12,7 +12,7 @@ export const Footer = () => {
                   <div>
                      <img
                         src="/images/brand.png"
-                        className="mx-auto h-14 w-max"
+                        className="mx-auto h-14 lg:w-max w-auto"
                         alt=""
                      />
                      <div className="col-span-full  lg:col-span-1   lg:block"></div>
