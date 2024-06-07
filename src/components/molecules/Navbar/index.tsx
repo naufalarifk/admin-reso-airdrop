@@ -1,6 +1,13 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import { ButtonGlow, ModalCommunity, Text } from '@/components';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import {
+   ButtonGlow, ModalCommunity,
+   // Text
+} from '@/components';
+import {
+   Link, NavLink,
+   // useLocation,
+   // useNavigate
+} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Transition, Dialog } from '@headlessui/react';
 import { langs, type Language } from '@/locales/langs';
@@ -14,8 +21,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
    const { i18n, t } = useTranslation();
    const [toggle, setToggle] = useState(false);
    const [open, setOpen] = useState(false);
-   const location = useLocation();
-   const navigate = useNavigate();
+   // const location = useLocation();
+   // const navigate = useNavigate();
 
    const market = usePublicMarket(state => state.market);
    const updateMarket = usePublicMarket(state => state.updateMarketState);
@@ -113,7 +120,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   <button
                      type="button"
                      onClick={() => setToggle(!toggle)}
-                     className="z-[999] flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden">
+                     className="z-[999] invisible h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-md  text-lg  lg:hidden">
                      <span
                         className={`absolute h-[2px] w-[20px] transform rounded bg-soft transition  ${toggle ? 'translate-y-0 rotate-45' : '-translate-y-2'
                            }`}
@@ -137,7 +144,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         alt=""
                      />
                   </Link>
-                  <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
+                  {/* <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
                      <ul className="flex cursor-pointer items-center  gap-6 text-base">
                         {navLink &&
                            navLink.map((item, i) => (
@@ -186,7 +193,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                               </li>
                            ))}
                      </ul>
-                  </div>
+                  </div> */}
                </div>
                {/* <ButtonConnectWallet
             shortname
@@ -242,7 +249,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                </AnimatePresence>
 
                <div className="hidden gap-10 lg:flex lg:items-center lg:justify-center">
-                  <div
+                  {/* <div
                      style={{
                         background: 'rgba(254, 159, 0, 0.10)',
                      }}
@@ -264,10 +271,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                         />
                      </svg>
                      <div>
-                        {/* <Text className="text-[#FE9F00]">Info</Text> */}
+                        <Text className="text-[#FE9F00]">Info</Text>
                         <Text className="font-semibold text-[#FE9F00]">Demo Only</Text>
                      </div>
-                  </div>
+                  </div> */}
                   <div className="flex items-center gap-4">
                      {/* <ButtonWalletConnectV2 /> */}
                      <ButtonConnectSolana />

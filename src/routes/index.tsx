@@ -1,32 +1,38 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
 import {
-   CreateStakingPage,
+   // Navigate,
+   Route, Routes
+} from 'react-router-dom';
+import {
+   // CreateStakingPage,
    // Landing,
-   Staking,
+   // Staking,
    // Trade,
-   Bridge,
+   // Bridge,
    Terms,
    Privacy,
-   Pool,
+   // Pool,
    NotFound,
-   DummySwap,
-   MarketOverview,
-   Trade,
-   NewTrade,
+   // DummySwap,
+   // MarketOverview,
+   // Trade,
+   // NewTrade,
    Airdrop,
    Home,
-   Launchpad,
+   // Launchpad,
 } from '@/pages';
 import { MainMenu } from './MainMenu';
-import { LayoutDashboard, StakeLayout } from '@/components';
+import {
+   LayoutDashboard,
+   // StakeLayout
+} from '@/components';
 import { useScrollTop } from '@/hooks';
-import { Dummy } from '@/pages/Dummy';
-import { DummyPool } from '@/pages/DummyPool';
-import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
+// import { Dummy } from '@/pages/Dummy';
+// import { DummyPool } from '@/pages/DummyPool';
+// import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
 
 export const RootLayout = () => {
    useScrollTop();
-   const market = usePublicMarket(state => state.market);
+   // const market = usePublicMarket(state => state.market);
 
    // const { chain } = useAccount();
 
@@ -43,16 +49,6 @@ export const RootLayout = () => {
 
    return (
       <Routes>
-         {/* <Route path="/" element={<Landing />} /> */}
-         {/* <Route
-        path="/"
-        element={
-          <Navigate
-            to={`/trade/${market?.[0]?.name?.replace('/', '-') || `MEME-USDT`} `}
-            replace
-          />
-        }
-      /> */}
          <Route
             path="/terms"
             element={<Terms />}
@@ -72,7 +68,7 @@ export const RootLayout = () => {
                element={<NotFound />}
             />
             <Route element={<LayoutDashboard />}>
-               <Route
+               {/* <Route
                   path="/dummypool"
                   element={<DummyPool />}
                />
@@ -99,12 +95,12 @@ export const RootLayout = () => {
                         to={`/trade/${market?.[0]?.name?.replace('/', '-') || `MEME-USDT`} `}
                      />
                   }
-               />
+               /> */}
                <Route
-                  path="/airdrop"
+                  path="/"
                   element={<Airdrop />}
                />
-               <Route
+               {/* <Route
                   path="/market"
                   element={<Pool />}
                />
@@ -123,10 +119,10 @@ export const RootLayout = () => {
                <Route
                   path="/launchpad"
                   element={<Launchpad />}
-               />
+               /> */}
             </Route>
          </Route>
-         <Route element={<StakeLayout />}>
+         {/* <Route element={<StakeLayout />}>
             <Route
                path="/staking"
                element={<Staking />}
@@ -135,7 +131,7 @@ export const RootLayout = () => {
                path="/staking/create"
                element={<CreateStakingPage />}
             />
-         </Route>
+         </Route> */}
       </Routes>
    );
 };

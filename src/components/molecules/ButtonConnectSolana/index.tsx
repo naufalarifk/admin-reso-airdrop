@@ -2,10 +2,13 @@
 import base58 from "bs58";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useCallback, useEffect, useState } from "react";
-import { Connection, LAMPORTS_PER_SOL, clusterApiUrl } from "@solana/web3.js";
+import {
+    Connection, LAMPORTS_PER_SOL,
+    // clusterApiUrl
+} from "@solana/web3.js";
 import { Avatar } from "@/components/atoms";
 import { cn, formatAddress } from "@/utils";
-import { WalletName } from "@solana/wallet-adapter-base";
+import type { WalletName } from "@solana/wallet-adapter-base";
 
 
 export const ButtonConnectSolana = ({ className }: { className?: string }) => {
@@ -51,7 +54,8 @@ export const ButtonConnectSolana = ({ className }: { className?: string }) => {
 
 
     const addressSubmittedHandler = useCallback(async () => {
-        const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+        // const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+        const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=a08ac874-474c-481c-86ab-31b79dac1a15')
         try {
             const balance = await connection.getBalance(publicKey!);
             setBalance(balance / LAMPORTS_PER_SOL);

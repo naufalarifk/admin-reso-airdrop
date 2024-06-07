@@ -177,7 +177,7 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
             <div className="flex flex-col items-start space-y-4 lg:w-3/4">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full w-full space-y-3">
                     <Text className="text-2xl font-semibold">Check eligible your account</Text>
-                    <Text className="text-soft">Connect your wallet to check eligibility: it must have transactions before the airdrop date ( June 5, 2024) and at least 10 Solana transactions in the last 6 months; use your most active wallet to maximize points.</Text>
+                    <Text className="text-soft">Connect your wallet to check eligibility: it must have transactions before the airdrop date (June 5, 2024) and at least 10 Solana transactions in the last 6 months; use your most active wallet to maximize points.</Text>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg flex justify-center space-x-1 items-center w-full">
                     <IcBellRinging />
