@@ -21,6 +21,7 @@ type SelectTokenProps = {
    setValue: (value: string) => void;
    wrapperInputClassName?: string;
    isDisabled?: boolean;
+   showToken?: boolean;
 };
 
 const variants = {
@@ -51,6 +52,7 @@ export function SelectToken({
    setValue,
    wrapperInputClassName,
    isDisabled,
+   showToken = true,
 }: SelectTokenProps) {
    const [show, setShow] = useState(false);
 
@@ -82,30 +84,37 @@ export function SelectToken({
                )}
                onClick={() => !isDisabled && setShow(true)}>
                <div className="flex items-center gap-2">
-                  {(selectedToken || selectedChain) && (
-                     <div className="size-6 overflow-hidden rounded-full">
-                        <img
-                           src={
-                              (type === 'token'
-                                 ? selectedToken?.iconUrl
-                                 : selectedChain?.custom.icon) || ''
-                           }
-                           alt={
-                              (type === 'token' ? selectedToken?.name : selectedChain?.name) || ''
-                           }
-                           className="size-full object-cover"
-                        />
-                     </div>
+                  {showToken && (
+                     <>
+                        {(selectedToken || selectedChain) && (
+                           <div className="size-6 overflow-hidden rounded-full">
+                              <img
+                                 src={
+                                    (type === 'token'
+                                       ? selectedToken?.iconUrl
+                                       : selectedChain?.custom.icon) || ''
+                                 }
+                                 alt={
+                                    (type === 'token'
+                                       ? selectedToken?.name
+                                       : selectedChain?.name) || ''
+                                 }
+                                 className="size-full object-cover"
+                              />
+                           </div>
+                        )}
+
+                        <Text
+                           weight="medium"
+                           variant="heading3"
+                           className="max-lg:text-xs"
+                           textColor={selectedToken || selectedChain ? 'default' : 'lighGray'}>
+                           {selectedToken || selectedChain
+                              ? `${type === 'token' ? selectedToken?.name : selectedChain?.name} (${type === 'token' ? selectedToken?.symbol : selectedChain?.nativeCurrency.symbol})`
+                              : `Select ${type}`}
+                        </Text>
+                     </>
                   )}
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     className="max-lg:text-xs"
-                     textColor={selectedToken || selectedChain ? 'default' : 'lighGray'}>
-                     {selectedToken || selectedChain
-                        ? `${type === 'token' ? selectedToken?.name : selectedChain?.name} (${type === 'token' ? selectedToken?.symbol : selectedChain?.nativeCurrency.symbol})`
-                        : `Select ${type}`}
-                  </Text>
                </div>
                <button className={cn(show && 'rotate-180', 'transition-all duration-500')}>
                   <IcDropdown />

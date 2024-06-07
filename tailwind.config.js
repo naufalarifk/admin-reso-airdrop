@@ -20,6 +20,7 @@ export default {
             dark3: '#20212B',
             secondary: '#FE9F00',
             success: '#33D49D',
+            info: '#3EAEFF',
          },
          fontFamily: {
             dm: ['DM Sans', 'sans-serif'],
@@ -53,10 +54,14 @@ export default {
                '0%, 100%': { transform: 'translateX(0%)' },
                '50%': { transform: 'translateX(-10px)' },
             },
+            'border': {
+               to: { '--border-angle': '360deg' },
+            },
          },
          animation: {
             'border-spin': 'border-spin 5s linear infinite',
             'backgroundMove': 'backgroundMove 2s ease-in-out infinite',
+            'border': 'border 4s linear infinite',
          },
          backgroundImage: {
             'card-background': 'linear-gradient(to right, var(--tw-gradient-stops))',

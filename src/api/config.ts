@@ -1,9 +1,10 @@
-import axios, { AxiosInstance } from "axios";
+import type { AxiosInstance } from 'axios';
+import axios from 'axios';
 
-const BASE_URL = "/api/v2";
+const BASE_URL = '/api/v2';
 
 export const baseApi: AxiosInstance = axios.create({
-  baseURL: BASE_URL,
+   baseURL: BASE_URL,
 });
 
-baseApi.defaults.headers.common["Content-Type"] = "application/json";
+baseApi.defaults.headers.common['Content-Type'] = 'application/json';

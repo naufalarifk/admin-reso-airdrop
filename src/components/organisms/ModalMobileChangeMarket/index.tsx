@@ -1,6 +1,7 @@
-import { Market } from '@/types/components';
+import type { Market } from '@/types/components';
 import { Dialog, Transition } from '@headlessui/react';
-import { ChangeEvent, Fragment } from 'react';
+import { type ChangeEvent, Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 interface ModalMobileChangeMarketProps {
@@ -21,6 +22,8 @@ export const ModalMobileChangeMarket = ({
    setShowModalMarket,
 }: ModalMobileChangeMarketProps) => {
    const navigate = useNavigate();
+
+   const { t } = useTranslation();
 
    return (
       <>
@@ -81,9 +84,9 @@ export const ModalMobileChangeMarket = ({
                               </div>
                            </div>
                            <div className="flex items-center justify-between border-b border-primary/50 pb-2 text-xs text-soft">
-                              <div>Pairs</div>
-                              <div>Last Price</div>
-                              <div>Volume 24h</div>
+                              <div>{t('newTrade.pairs')}</div>
+                              <div>{t('newTrade.lastPrice')}</div>
+                              <div>{t('newTrade.volume24h')}</div>
                            </div>
                            <div className="mt-3 space-y-2">
                               {filteredData?.length > 0 ? (
@@ -109,7 +112,7 @@ export const ModalMobileChangeMarket = ({
                                  ))
                               ) : (
                                  <div className="py-5 text-center text-sm font-bold text-soft">
-                                    No Data
+                                    {t('global.noData')}
                                  </div>
                               )}
                            </div>

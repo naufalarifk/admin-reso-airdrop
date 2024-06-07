@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import {
    CreateStakingPage,
    // Landing,
@@ -13,14 +13,21 @@ import {
    MarketOverview,
    Trade,
    NewTrade,
+   Airdrop,
+   Home,
+   Launchpad,
 } from '@/pages';
 import { MainMenu } from './MainMenu';
 import { LayoutDashboard, StakeLayout } from '@/components';
 import { useScrollTop } from '@/hooks';
 import { Dummy } from '@/pages/Dummy';
+import { DummyPool } from '@/pages/DummyPool';
+import { usePublicMarket } from '@/pages/Swap/hooks/usePublicMarkets';
 
 export const RootLayout = () => {
    useScrollTop();
+   const market = usePublicMarket(state => state.market);
+
    // const { chain } = useAccount();
 
    // useEffect(() => {
@@ -51,6 +58,11 @@ export const RootLayout = () => {
             element={<Terms />}
          />
          <Route
+            path="/test"
+            element={<Home />}
+         />
+
+         <Route
             path="/privacy"
             element={<Privacy />}
          />
@@ -60,6 +72,10 @@ export const RootLayout = () => {
                element={<NotFound />}
             />
             <Route element={<LayoutDashboard />}>
+               <Route
+                  path="/dummypool"
+                  element={<DummyPool />}
+               />
                <Route
                   path="/tradedummy"
                   element={<Trade />}
@@ -77,6 +93,18 @@ export const RootLayout = () => {
                   element={<NewTrade />}
                />
                <Route
+                  path="/trade"
+                  element={
+                     <Navigate
+                        to={`/trade/${market?.[0]?.name?.replace('/', '-') || `MEME-USDT`} `}
+                     />
+                  }
+               />
+               <Route
+                  path="/airdrop"
+                  element={<Airdrop />}
+               />
+               <Route
                   path="/market"
                   element={<Pool />}
                />
@@ -91,6 +119,10 @@ export const RootLayout = () => {
                <Route
                   path="/dummyswap/:market"
                   element={<DummySwap />}
+               />
+               <Route
+                  path="/launchpad"
+                  element={<Launchpad />}
                />
             </Route>
          </Route>

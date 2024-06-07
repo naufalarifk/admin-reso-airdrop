@@ -12,3 +12,5 @@ export * from './NotFound';
 export * from './DummySwap';
 export * from './NewTrade';
 export * from "./MarketOverview";
+export * from "./Airdrop";
+export * from './Launchpad'

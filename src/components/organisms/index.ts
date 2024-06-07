@@ -7,3 +7,5 @@ export * from './TradingView/tradingViewV2';
 export * from './CurrentMarket';
 export * from './SelectMarketSwap';
 export * from './ModalMobileChangeMarket';
+export * from './ModalCommunity';
+export * from './ModalPriceImpact';

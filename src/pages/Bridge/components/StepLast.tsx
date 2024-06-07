@@ -1,5 +1,6 @@
 import { Button, Text } from '@/components';
 import { chains } from '@/constants/chains';
+import { COIN } from '@/constants/coin';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +10,7 @@ interface StepLastProps {
    addressTo: string;
    selectedFrom: (typeof chains)[number];
    selectedTo: (typeof chains)[number];
+   selectedToken: (typeof COIN)[number];
    setStep: (value: number) => void;
 }
 
@@ -18,6 +20,7 @@ function StepLastMemo({
    addressTo,
    selectedFrom,
    selectedTo,
+   selectedToken,
    setStep,
 }: StepLastProps) {
    const { t } = useTranslation();
@@ -69,34 +72,70 @@ function StepLastMemo({
                   </Text>
                </div>
             </div>
-            <div className="space-y-2">
-               <Text
-                  weight="medium"
-                  variant="heading3"
-                  textColor="lighGray">
-                  {t('bridge.fourthStep.totalSent')}
-               </Text>
-               <Text
-                  weight="medium"
-                  variant="heading"
-                  className="max-lg:text-xl">
-                  {amount}
-               </Text>
-            </div>
-            <hr className="border-white/10" />
-            <div className="space-y-2">
-               <Text
-                  weight="medium"
-                  variant="heading3"
-                  textColor="lighGray">
-                  {t('bridge.fourthStep.totalReceived')}
-               </Text>
-               <Text
-                  weight="medium"
-                  variant="heading"
-                  className="max-lg:text-xl">
-                  {receive}
-               </Text>
+            <div className="flex flex-col gap-y-4 max-lg:flex-col-reverse lg:gap-y-6.5">
+               <div className="flex items-center justify-between gap-4">
+                  <div className="space-y-2">
+                     <Text
+                        weight="medium"
+                        variant="heading3"
+                        textColor="lighGray">
+                        {t('bridge.fourthStep.totalSent')}
+                     </Text>
+                     <Text
+                        weight="medium"
+                        variant="heading"
+                        className="max-lg:text-xl">
+                        ${amount}
+                     </Text>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <div className="size-6 overflow-hidden rounded-full">
+                        <img
+                           src={selectedToken?.iconUrl || ''}
+                           alt={selectedToken?.name}
+                           className="size-full object-cover"
+                        />
+                     </div>
+                     <Text
+                        weight="medium"
+                        variant="heading"
+                        textColor={selectedToken ? 'default' : 'lighGray'}>
+                        {selectedToken.symbol}
+                     </Text>
+                  </div>
+               </div>
+               <hr className="border-white/10" />
+               <div className="flex items-center justify-between gap-4">
+                  <div className="space-y-2">
+                     <Text
+                        weight="medium"
+                        variant="heading3"
+                        textColor="lighGray">
+                        {t('bridge.fourthStep.totalReceived')}
+                     </Text>
+                     <Text
+                        weight="medium"
+                        variant="heading"
+                        className="max-lg:text-xl">
+                        ${receive}
+                     </Text>
+                  </div>
+                  <div className="flex items-center gap-2">
+                     <div className="size-6 overflow-hidden rounded-full">
+                        <img
+                           src={selectedToken?.iconUrl || ''}
+                           alt={selectedToken?.name}
+                           className="size-full object-cover"
+                        />
+                     </div>
+                     <Text
+                        weight="medium"
+                        variant="heading"
+                        textColor={selectedToken ? 'default' : 'lighGray'}>
+                        {selectedToken.symbol}
+                     </Text>
+                  </div>
+               </div>
             </div>
             <div className="space-y-1 border-y-[0.5px] border-white/10 py-2.5">
                <div className="flex items-center justify-between gap-4">

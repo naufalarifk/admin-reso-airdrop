@@ -1,4 +1,4 @@
-import { IcSwapHorizontal } from '@/assets/icons';
+import { IcSwapHorizontal, IcWallet } from '@/assets/icons';
 import { Button, SelectToken, Text } from '@/components';
 import { cn } from '@/utils';
 import { memo, startTransition, useCallback, useEffect } from 'react';
@@ -102,7 +102,7 @@ function StepFirstMemo({
                   variant="heading2"
                   textColor="lighGray"
                   className="max-lg:text-sm">
-                  Amount Sent
+                  Amount
                </Text>
                <Text
                   weight="medium"
@@ -146,62 +146,145 @@ function StepFirstMemo({
                className="max-lg:text-sm">
                You Receive
             </Text>
-            <div className="flex cursor-pointer flex-col gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
-               <div className="flex items-start justify-between gap-4">
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     textColor="lighGray">
-                     {t('bridge.firstStep.minimumReceived')} :{' '}
-                  </Text>
-                  <Text
-                     weight="medium"
-                     variant="heading"
-                     className="max-lg:text-xl">
-                     8.247583 USDT
-                  </Text>
-               </div>
-               <div className="flex items-center justify-between gap-4">
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     textColor="lighGray">
-                     {t('bridge.firstStep.networkFees')} :{' '}
-                  </Text>
-                  <Text
-                     weight="medium"
-                     variant="heading3"
-                     textColor="lighGray">
-                     In less than 1 munute Total fee : <span className="text-white">$1.75</span>
-                  </Text>
+            <div className="flex cursor-pointer flex-row gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
+               <div className="flex w-full items-center justify-between">
+                  {/* <div>
+                  <div className="flex items-start justify-between gap-4">
+                     <Text
+                        weight="medium"
+                        variant="heading3"
+                        textColor="lighGray">
+                        {t('bridge.firstStep.minimumReceived')} :{' '}
+                     </Text>
+                     <Text
+                        weight="medium"
+                        variant="heading"
+                        className="max-lg:text-xl">
+                        8.247583 USDT
+                     </Text>
+                  </div>
+                  <div>
+                     <div className="flex items-center justify-between gap-4">
+                        <Text
+                           weight="medium"
+                           variant="heading3"
+                           textColor="lighGray">
+                           {t('bridge.firstStep.networkFees')} :{' '}
+                        </Text>
+                        <Text
+                           weight="medium"
+                           variant="heading3"
+                           textColor="lighGray">
+                           In less than 1 munute Total fee :{' '}
+                           <span className="text-white">$1.75</span>
+                        </Text>
+                     </div>
+                  </div>
+               </div> */}
+                  <div className="flex h-12 w-7/12 items-center rounded-l-2xl bg-dark px-4 pr-24 text-xl font-medium outline-none placeholder:text-gray3 lg:h-16 lg:text-2xl">
+                     0
+                  </div>
+                  <div className="flex w-3/12 items-center justify-end lg:w-5/12">
+                     <div>
+                        <div className="text-nowrap text-xs text-soft lg:text-sm">
+                           In less than 1 minute
+                        </div>
+                        <div className="text-xs text-soft lg:text-sm">0.00 Total fee</div>
+                     </div>
+                     <SelectToken
+                        showToken={false}
+                        value={currency}
+                        setValue={setCurrency}
+                        wrapperInputClassName={cn('rounded-l-none')}
+                        type="token"
+                     />
+                  </div>
                </div>
             </div>
+            {currency && (
+               <>
+                  <div className="flex cursor-pointer flex-col gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4">
+                     <div className="flex w-full items-center justify-between">
+                        <div className="text-sm text-soft">Reso bridge fee:</div>
+                        <div>
+                           0.00 <span className="text-soft">{currency}</span>
+                        </div>
+                     </div>
+                     <div className="flex w-full items-center justify-between">
+                        <div className="text-sm text-soft">Destination chain fee :</div>
+                        <div>
+                           0.00 <span className="text-soft">{currency}</span>
+                        </div>
+                     </div>
+                     <div className="flex w-full items-center justify-between">
+                        <div className="text-sm text-soft">Estimated time :</div>
+                        <div className="text-sm">In less than 1 minute</div>
+                     </div>
+                  </div>
+
+                  <div className="relative flex h-12 cursor-pointer flex-col gap-1 rounded-2xl border-[0.5px] border-[rgba(93,_99,_111,_0.10)] bg-dark p-4 lg:h-16">
+                     <input
+                        type="number"
+                        placeholder="Enter your destination address"
+                        value={''}
+                        className="flex w-6/12 items-center rounded-2xl bg-transparent px-1 pr-24 text-xl font-medium outline-none placeholder:text-sm placeholder:text-gray3  lg:text-xl"
+                     />
+                     <div className="absolute  inset-y-6 end-5">
+                        <IcWallet />
+                     </div>
+                  </div>
+               </>
+            )}
          </div>
          {/* End Calculate */}
 
          {/* Address */}
-         <div className="space-y-3">
+         {/* <div className="space-y-3">
             <Text
                weight="medium"
                variant="heading2"
                textColor="lighGray"
                className="max-lg:text-sm">
-               Address
+               Destination Address
             </Text>
-            <input
-               type="text"
-               placeholder={t('bridge.firstStep.placeholder')}
-               // value={receive}
-               // onChange={e => setReceive(e.target.value)}
-               className="flex h-12 w-full items-center rounded-2xl bg-dark px-4 text-base font-medium outline-none placeholder:text-gray3 lg:h-16"
-            />
-         </div>
+            <div className="relative">
+               <input
+                  type="text"
+                  placeholder={t('bridge.firstStep.placeholder')}
+                  // value={receive}
+                  // onChange={e => setReceive(e.target.value)}
+                  className="flex h-12 w-full items-center rounded-2xl bg-dark px-4 pr-14 text-base font-medium outline-none placeholder:text-gray3 lg:h-16"
+               />
+               <svg
+                  className="absolute right-4 top-1/2 -translate-y-1/2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none">
+                  <path
+                     d="M17 8V5C17 4.73478 16.8946 4.48043 16.7071 4.29289C16.5196 4.10536 16.2652 4 16 4H6C5.46957 4 4.96086 4.21071 4.58579 4.58579C4.21071 4.96086 4 5.46957 4 6M4 6C4 6.53043 4.21071 7.03914 4.58579 7.41421C4.96086 7.78929 5.46957 8 6 8H18C18.2652 8 18.5196 8.10536 18.7071 8.29289C18.8946 8.48043 19 8.73478 19 9V12M4 6V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H18C18.2652 20 18.5196 19.8946 18.7071 19.7071C18.8946 19.5196 19 19.2652 19 19V16"
+                     stroke="#90A3BF"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+                  <path
+                     d="M20 12V16H16C15.4696 16 14.9609 15.7893 14.5858 15.4142C14.2107 15.0391 14 14.5304 14 14C14 13.4696 14.2107 12.9609 14.5858 12.5858C14.9609 12.2107 15.4696 12 16 12H20Z"
+                     stroke="#90A3BF"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+               </svg>
+            </div>
+         </div> */}
          {/* End Address */}
 
          <Button
             className="w-full rounded-full"
             onClick={() => setStep(1)}
-            disabled={!from || !to}>
+            disabled={!from || !to || !currency}>
             {t('bridge.firstStep.continue')}
          </Button>
       </div>

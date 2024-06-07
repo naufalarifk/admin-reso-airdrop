@@ -5,11 +5,12 @@ export const EN_TRANSLATION = {
          staking: 'Staking',
          swap: 'Swap',
          bridge: 'Bridge',
-         support: 'Community',
+         supports: 'Community',
          market: 'Market',
          docs: 'Docs',
          marketoverview: 'Market',
          createnewmarket: 'Create New Market',
+         airdrop: 'Airdrop',
       },
    },
    landing: {
@@ -338,6 +339,7 @@ export const EN_TRANSLATION = {
          },
       },
    },
+   // Staking page
    staking: {
       layout: {
          title: {
@@ -444,14 +446,39 @@ export const EN_TRANSLATION = {
       blog: 'Blog',
       about: 'About Us',
    },
+
+   // Global
    global: {
-      noData: 'No Data',
+      noData: 'No Data Available',
       activate: 'Activate',
       ended: 'Ended',
       myStaking: 'My Staking',
       addStaking: 'Add New Staking',
       requirement: 'Requirement',
       max: 'MAX',
+      buy: 'Buy',
+      sell: 'Sell',
+      market: 'Market',
+      trade: 'Trade',
+      balance: 'Balance',
+      price: 'Price',
+      amount: 'Amount',
+      time: 'Time',
+      txId: 'TxID',
+      date: 'Date',
+      volume: 'Volume',
+      executed: 'Executed',
+      rank: 'Rank',
+      address: 'Address',
+      quantity: 'Quantity',
+      holders: 'Holders',
+      historyTrade: 'History Trade',
+      assets: 'Assets',
+      orderId: 'Order ID',
+      type: 'Type',
+      total: 'Total',
+      recentTrade: 'Recent Trade',
+      action: 'Action',
    },
    trade: {
       tokenList: {
@@ -495,7 +522,7 @@ export const EN_TRANSLATION = {
    },
    bridge: {
       title: {
-         supertitle: 'RESO DEX Cross-Chain',
+         supertitle: 'Rectoverso DEX Cross-Chain',
          subtitle: 'Bridge',
       },
       subtitle: {
@@ -514,7 +541,7 @@ export const EN_TRANSLATION = {
          label: 'Select Source Token',
          minimumReceived: 'Total amount Receive',
          networkFees: 'Network Fees',
-         continue: 'Continue',
+         continue: 'Bridge Now',
          placeholder: 'Enter your wallet address',
       },
       secondStep: {
@@ -649,5 +676,104 @@ export const EN_TRANSLATION = {
          swap: 'Swap',
       },
       unstableConnection: 'Unstable Connection',
+   },
+   // Halaman Trade
+   newTrade: {
+      'pairs': 'Pairs',
+      'lastPrice': 'Last Price',
+      'volume24h': 'Volume 24h',
+      'change24h': 'Change 24H',
+      '24High': '24 High',
+      '24Low': '24 Low',
+      '24hVolume': '24h Volume',
+      '24Transaction': '24h Transaction',
+      'totalLiquidity': 'Total Liquidty',
+      'orderBook': 'Order Book',
+      'total': 'Total',
+      'price': 'Price',
+      'limit': 'Limit',
+      'balance': 'Balance',
+      'amount': 'Amount',
+      'minAmount': 'Min Amount',
+      'feeTransaction': 'Fee transaction',
+      'trade': 'Trade',
+      'priceImpact': 'Price Impact',
+      'slipPageTolerance': 'Slippage Tolerance',
+      'myOpenOrder': 'My Open Order',
+      'pleaseConnect': 'Please Connect Wallet First',
+   },
+
+   launchpad: {
+      header: {
+         title: 'Rectoverso Project Details',
+         subtitle: 'Rectoverso - Rising Together',
+         follow: 'Follow Us',
+      },
+      content: {
+         cardDetail: {
+            cta: 'New Launchpad Release',
+            title: {
+               one: 'RECTOVERSO',
+               two: 'New Launchpad',
+            },
+            desc: 'RESO is the utility token of the Rectoverso platform on Solana, offering fast and low-cost transactions. With a total supply of 100 million tokens, RESO supports DeFi activities like paying fees, staking, accessing the launchpad, earning rewards, and participating in governance. Key feature: strategic buyback for price stability and value appreciation.',
+         },
+         tabs: {
+            title: {
+               one: 'About Project',
+               two: 'Detail Project',
+               three: 'Project Roadmap',
+               four: 'Tokenomics',
+            },
+            content: {
+               title: {
+                  one: {
+                     heading: 'About',
+                     subHeading: 'Project',
+                  },
+                  two: {
+                     heading: 'Detail',
+                     subHeading: 'Project',
+                     list: {
+                        tokenName: 'Token Name',
+                        tokenSymbol: 'Token Symbol',
+                        tokenPrice: 'Token Price',
+                        tokenSupply: 'Token Supply',
+                        tokenAddress: 'Token Address',
+                        vestingPeriod: 'Vesting Period',
+                        softcap: 'Softcap',
+                        hardcap: 'Hardcap',
+                        presaleStartTime: 'Presale Start Time',
+                        presaleEndTime: 'Presale End Time',
+                     },
+                  },
+                  three: {
+                     heading: 'Project',
+                     subHeading: 'Road Map',
+                  },
+                  four: {
+                     heading: 'Project',
+                     subHeading: 'Tokenomics',
+                  },
+               },
+            },
+         },
+         info: {
+            title: {
+               one: 'Token',
+               two: 'Info',
+            },
+            list: {
+               currentRate: 'Current Rate',
+               minimumBuy: 'Minimum Buy',
+               maxBuy: 'Maximum Buy',
+               softcap: 'Softcap',
+               hardcap: 'Hardcap',
+               goals: 'Goals',
+               raised: 'Raised',
+               totalInvestor: 'Total Investor',
+            },
+         },
+      },
    },
 };
