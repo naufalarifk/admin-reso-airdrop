@@ -133,7 +133,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                      className=" ">
                      <img
                         src="/images/brand.png"
-                        className="relative z-[999] h-7 w-full cursor-pointer lg:h-10 block"
+                        className="relative z-[999] h-7 w-auto cursor-pointer lg:h-10 block"
                         alt=""
                      />
                   </Link>
@@ -377,8 +377,8 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                           disabled={lang.abbr !== 'en'}
                                           onClick={() => i18n.changeLanguage(lang.abbr)}
                                           className={`flex w-full items-center justify-center gap-2 rounded-full border py-3 text-center ${i18n.language === lang.abbr
-                                                ? 'border-primary'
-                                                : 'border-soft/45'
+                                             ? 'border-primary'
+                                             : 'border-soft/45'
                                              }`}>
                                           <div>
                                              <img
@@ -389,10 +389,10 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                                           </div>
                                           <div
                                              className={`${i18n.language === lang.abbr
-                                                   ? '  text-primary'
-                                                   : lang.abbr !== 'en'
-                                                      ? 'text-gray-600'
-                                                      : ' text-white'
+                                                ? '  text-primary'
+                                                : lang.abbr !== 'en'
+                                                   ? 'text-gray-600'
+                                                   : ' text-white'
                                                 } text-sm`}>
                                              {lang.nativeName}
                                           </div>
