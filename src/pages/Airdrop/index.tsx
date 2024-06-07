@@ -2,7 +2,7 @@
 import { IcCheck, IcDivider, IcWarning } from "@/assets/icons"
 import { IcBellRinging } from "@/assets/icons/IcBellRinging"
 import { IcSparkle } from "@/assets/icons/IcSparkle"
-import { Text, Button, FullScreenLoading } from "@/components"
+import { Text, Button, FullScreenLoading, CountdownTime } from "@/components"
 import type { WalletName } from "@solana/wallet-adapter-base"
 import { useWallet } from "@solana/wallet-adapter-react"
 import { useCallback, useState } from "react"
@@ -24,7 +24,32 @@ interface AirdropState {
 
 
 const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
-    const [claimingReady, setClaimingReady] = useState(false);
+    const calculateTimeLeft = () => {
+        const difference = +new Date('2024-08-31T23:59:59') - +new Date();
+        let timeLeft = {
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+        };
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60),
+            };
+        }
+
+        return timeLeft;
+    };
+
+    const [timeLeft] = useState(calculateTimeLeft());
+
+
+    console.log('timeLeft', timeLeft)
+    const [claimingReady, setClaimingReady] = useState(timeLeft.seconds === 0 && timeLeft.minutes === 0 && timeLeft.hours === 0 && timeLeft.days === 0);
     const state = useAppSelector(selectGetPrivateAirdropCurrencyData)
     console.log('state', state)
     const {
@@ -47,7 +72,7 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
             <div className="flex flex-col items-start space-y-4 w-full lg:w-3/5">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg flex justify-center space-x-1 items-center w-full">
                     <IcBellRinging />
-                    <Text className="font-semibold text-soft">Season 1 rewards ended on March 1th, 2024</Text>
+                    <Text className="font-semibold text-soft">Season 1 rewards ended on August 30th, 2024</Text>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg h-full space-y-8 w-full">
                     <div className="space-y-4">
@@ -61,7 +86,7 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                         {/* <Button onClick={() => setState("disconnected")} size={'sm'} className=" lg:hidden block w-full py-0 px-6 text-soft bg-[#2f323c] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button> */}
                     </div>
                     {
-                        state.transaction || state.volume ? <>
+                        !state.transaction || !state.volume ? <>
                             <Button onClick={() => setEligible(!eligible)} size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#33D49D] bg-[#33D49D] w-full gap-1"><IcCheck color="#33D49D" />{' '}Your are eligible for the airdrop</Button>
                             <div className="bg-[#0E0F19] p-4 rounded-lg">
                                 {
@@ -70,11 +95,14 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                                         <Text className="text-center mt-4 text-[#33D49D] font-semibold">You will be able to claim your tokens</Text>
                                     </> : <>
                                         <Button onClick={() => setClaimingReady(!claimingReady)} className="py-0 w-full bg-[#181a24] text-soft">Claim Airdrop</Button>
-                                        <div className="items-center relative">
-                                            <svg className="absolute -top-1 left-16" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <div className="items-center flex justify-center mt-2">
+                                            <svg className="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path d="M18.75 7.09125V3.75C18.75 3.35218 18.592 2.97064 18.3107 2.68934C18.0294 2.40804 17.6478 2.25 17.25 2.25H6.75C6.35218 2.25 5.97064 2.40804 5.68934 2.68934C5.40804 2.97064 5.25 3.35218 5.25 3.75V7.125C5.25051 7.35778 5.30495 7.58727 5.40905 7.79548C5.51315 8.00368 5.66408 8.18493 5.85 8.325L10.7503 12L5.85 15.675C5.66408 15.8151 5.51315 15.9963 5.40905 16.2045C5.30495 16.4127 5.25051 16.6422 5.25 16.875V20.25C5.25 20.6478 5.40804 21.0294 5.68934 21.3107C5.97064 21.592 6.35218 21.75 6.75 21.75H17.25C17.6478 21.75 18.0294 21.592 18.3107 21.3107C18.592 21.0294 18.75 20.6478 18.75 20.25V16.9088C18.7495 16.6769 18.6955 16.4482 18.5922 16.2406C18.489 16.033 18.3393 15.8519 18.1547 15.7116L13.2441 12L18.1547 8.2875C18.3393 8.14742 18.4891 7.96658 18.5924 7.75908C18.6957 7.55158 18.7496 7.32303 18.75 7.09125ZM6.75 3.75H17.25V7.09125L16.7091 7.5H7.24969L6.75 7.125V3.75ZM12 11.0625L9.25031 9H14.7253L12 11.0625ZM17.25 20.25H6.75V16.875L11.25 13.5V15.75C11.25 15.9489 11.329 16.1397 11.4697 16.2803C11.6103 16.421 11.8011 16.5 12 16.5C12.1989 16.5 12.3897 16.421 12.5303 16.2803C12.671 16.1397 12.75 15.9489 12.75 15.75V13.5075L17.25 16.9088V20.25Z" fill="#90A3BF" />
                                             </svg>
-                                            <Text className="text-center mt-4 text-soft">CLAIMING STARTED IN : <span className="text-[#F23F5D]">129 Days - 16Hours 28Min 39Sec</span></Text>
+                                            <div className="flex space-x-2 items-center">
+                                                <Text className="text-2xl font-semibold text-[#90A3BF]">Claiming Started In</Text>
+                                                <CountdownTime targetDate={new Date('2024-08-31T23:59:59')} />
+                                            </div>
                                         </div>
                                     </>
                                 }
@@ -148,7 +176,7 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
                 console.log('signature', signature);
 
                 // Capture the updated signature from state after signing
-                const currentSignature = signature;
+                const currentSignature = `my address ${signature} ready to join rectover.so airdrop`;
 
                 const response: any = await getTokenServices({
                     message: publicKey?.toBase58() ?? '',
@@ -177,11 +205,11 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
             <div className="flex flex-col items-start space-y-4 lg:w-3/4">
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full w-full space-y-3">
                     <Text className="text-2xl font-semibold">Check eligible your account</Text>
-                    <Text className="text-soft">Connect your wallet to check eligibility: it must have transactions before the airdrop date (June 5, 2024) and at least 10 Solana transactions in the last 6 months; use your most active wallet to maximize points.</Text>
+                    <Text className="text-soft">Connect your wallet to check eligibility: it must have transactions before the airdrop date (June 6, 2024) and at least 10 Solana transactions in the last 6 months; use your most active wallet to maximize points.</Text>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg flex justify-center space-x-1 items-center w-full">
                     <IcBellRinging />
-                    <Text className="font-semibold text-soft">Season 1 rewards ended on March 1th, 2024</Text>
+                    <Text className="font-semibold text-soft">Season 1 rewards ended on August 30th, 2024</Text>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full space-y-12 w-full">
                     <div className="space-y-4">
@@ -213,7 +241,7 @@ const UnderReview = ({ setState }: AirdropState) => {
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg flex justify-center space-x-1 items-center w-full">
                     <IcBellRinging />
-                    <Text className="font-semibold text-soft">Season 1 rewards ended on March 1th, 2024</Text>
+                    <Text className="font-semibold text-soft">Season 1 rewards ended on August 30th, 2024</Text>
                 </div>
                 <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 shadow-lg h-full space-y-12 w-full">
                     <div className="space-y-4">
