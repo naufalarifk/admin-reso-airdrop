@@ -11,6 +11,7 @@ import base58 from "bs58";
 import { getTokenServices } from "@/api/services/auth"
 import { postPrivateAirdrop, selectGetPrivateAirdropCurrencyData } from "@/store/features/private"
 import { useAppDispatch, useAppSelector } from "@/store"
+import toast from "react-hot-toast"
 
 
 interface AirdropState {
@@ -23,7 +24,7 @@ interface AirdropState {
 }
 
 
-const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
+const Connected = ({ setState, eligible }: AirdropState) => {
     const calculateTimeLeft = () => {
         const difference = +new Date('2024-08-31T23:59:59') - +new Date();
         let timeLeft = {
@@ -86,7 +87,7 @@ const Connected = ({ setState, eligible, setEligible }: AirdropState) => {
                     </div>
                     {
                         eligible || state.transaction || state.volume ? <>
-                            <Button onClick={() => setEligible(!eligible)} size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#33D49D] bg-[#33D49D] w-full gap-1"><IcCheck color="#33D49D" />{' '}Your are eligible for the airdrop</Button>
+                            <Button onClick={() => null} size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#33D49D] bg-[#33D49D] w-full gap-1"><IcCheck color="#33D49D" />{' '}Your are eligible for the airdrop</Button>
                             <div className="bg-[#0E0F19] p-4 rounded-lg">
                                 {
                                     claimingReady ? <>
@@ -199,11 +200,14 @@ const Disconnected = ({ setState, setEligible, eligible, setLoading }: AirdropSt
                     dispatch(postPrivateAirdrop(response.data.csrf_token)).then(action => {
                         if (postPrivateAirdrop.fulfilled.match(action)) {
                             setEligible(true)
+                        } else {
+                            toast.error('Airdrop error')
                         }
                     })
                 } else {
                     console.error('CSRF token missing in response');
                     setEligible(false)
+                    toast.error('Airdrop error')
                 }
             } catch (error) {
                 console.error('Error during join airdrop process:', error);
