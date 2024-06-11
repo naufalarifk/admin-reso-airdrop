@@ -11,6 +11,7 @@ import base58 from "bs58";
 import { getTokenServices } from "@/api/services/auth"
 import { postPrivateAirdrop, selectGetPrivateAirdropCurrencyData } from "@/store/features/private"
 import { useAppDispatch, useAppSelector } from "@/store"
+import toast from "react-hot-toast"
 
 
 interface AirdropState {
@@ -201,7 +202,8 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
                         }
                     })
                 } else {
-                    console.error('CSRF token missing in response');
+                    toast.error('Auth error');
+                    console.error('error in response');
                     setEligible(false)
                 }
             } catch (error) {
