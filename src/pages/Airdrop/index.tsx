@@ -11,7 +11,6 @@ import base58 from "bs58";
 import { getTokenServices } from "@/api/services/auth"
 import { postPrivateAirdrop, selectGetPrivateAirdropCurrencyData } from "@/store/features/private"
 import { useAppDispatch, useAppSelector } from "@/store"
-import toast from "react-hot-toast"
 
 
 interface AirdropState {
@@ -143,7 +142,7 @@ const Connected = ({ setState, eligible }: AirdropState) => {
     )
 }
 
-const Disconnected = ({ setState, setEligible, eligible, setLoading }: AirdropState) => {
+const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
     const [signature, setSignature] = useState('')
     const dispatch = useAppDispatch()
     const {
@@ -200,14 +199,11 @@ const Disconnected = ({ setState, setEligible, eligible, setLoading }: AirdropSt
                     dispatch(postPrivateAirdrop(response.data.csrf_token)).then(action => {
                         if (postPrivateAirdrop.fulfilled.match(action)) {
                             setEligible(true)
-                        } else {
-                            toast.error('Airdrop error')
                         }
                     })
                 } else {
                     console.error('CSRF token missing in response');
                     setEligible(false)
-                    toast.error('Airdrop error')
                 }
             } catch (error) {
                 console.error('Error during join airdrop process:', error);
@@ -217,8 +213,7 @@ const Disconnected = ({ setState, setEligible, eligible, setLoading }: AirdropSt
         } else {
             select('Phantom' as WalletName);
         }
-        console.log('eligible', eligible)
-    }, [connected, eligible, setLoading, sign, signature, publicKey, dispatch, setEligible, select]);
+    }, [connected, setLoading, sign, signature, publicKey, dispatch, setEligible, select]);
     return (
         <>
             <div className="flex flex-col items-start space-y-4 lg:w-3/4">

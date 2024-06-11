@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from '@/api/config';
 import type { PrivateAirdropState } from '@/store/types';
 // import { buildQueryString } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 // type StateUserAirdrop =
 //    | 'connected'
@@ -63,7 +65,8 @@ export const postPrivateAirdrop = createAsyncThunk(
       }
       );
          return response
-      } catch (error) {
+      } catch (error: any) {
+         toast.error(error.message);
          return rejectWithValue(error);
       }
    }
