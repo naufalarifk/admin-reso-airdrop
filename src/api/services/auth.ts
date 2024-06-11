@@ -13,7 +13,6 @@ export async function getTokenServices(payload: PayloadToken) {
       "auth/identity/sessions/sign/auth",
       payload
     );
-    console.log('response', response)
     return response;
   } catch (error) {
     console.log("error", error);
