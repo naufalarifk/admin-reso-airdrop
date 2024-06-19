@@ -24,7 +24,6 @@ export const ButtonConnectSolana = ({ className }: { className?: string }) => {
         signMessage,
     } = useWallet();
 
-
     async function sign() {
         try {
             const message = new TextEncoder().encode(publicKey?.toBase58());
