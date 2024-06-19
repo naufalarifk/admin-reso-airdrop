@@ -24,7 +24,7 @@ interface AirdropState {
 }
 
 
-const Connected = ({ setState, eligible }: AirdropState) => {
+const Connected = ({ setState }: AirdropState) => {
     const calculateTimeLeft = () => {
         const difference = +new Date('2024-08-31T23:59:59') - +new Date();
         let timeLeft = {
@@ -85,7 +85,7 @@ const Connected = ({ setState, eligible }: AirdropState) => {
                         {/* <Button onClick={() => setState("disconnected")} size={'sm'} className=" lg:hidden block w-full py-0 px-6 text-soft bg-[#2f323c] bg-gradient-to-r from-[rgba(93,99,111,0.10)] via-transparent to-[rgba(25,30,40,0.35)]">Disconnect</Button> */}
                     </div>
                     {
-                        eligible || state.transaction || state.volume ? <>
+                        state.transaction && state.volume ? <>
                             <Button onClick={() => null} size={"sm"} className="py-0 px-6 bg-opacity-40 text-[#33D49D] bg-[#33D49D] w-full gap-1"><IcCheck color="#33D49D" />{' '}Your are eligible for the airdrop</Button>
                             <div className="bg-[#0E0F19] p-4 rounded-lg">
                                 {
