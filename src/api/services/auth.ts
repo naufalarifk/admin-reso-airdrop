@@ -38,3 +38,19 @@ export async function clearTokenServices() {
     console.log("error", error);
   }
 }
+
+export async function joinAirdropPost(token: string) {
+    try {
+      const response = await baseApi.post("trade/airdrop/airdrops", 
+      {},
+      {
+        headers: {
+          "X-CSRF-TOKEN": token,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log("error", error);
+  }
+}

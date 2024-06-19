@@ -1,6 +1,9 @@
 # Stage 1: Build the application
 FROM node:20.10.0-alpine AS build
 
+# Install Python and other necessary build tools
+RUN apk add --no-cache python3 make g++ linux-headers libusb-dev eudev-dev
+
 # Set working directory
 WORKDIR /app
 

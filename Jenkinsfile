@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'frontend-reso'
+        IMAGE_NAME = 'airdrop-reso'
         DOCKERFILE = 'Dockerfile'
-        CONTAINER_NAMES = 'reso-frontend-1'
-        CONTAINER_TO_RESTARTS = 'frontend'
+        CONTAINER_NAMES = 'reso-airdrop-1'
+        CONTAINER_TO_RESTARTS = 'airdrop'
         DEV_REMOTE_USER = 'reso'
         DEV_SERVER_ADDRESS = '194.233.91.242'
         DEV_DEPLOYMENT_PATH = '/home/reso/platform'
-        PROD_REMOTE_USER = ''
-        PROD_SERVER_ADDRESS = ''
-        PROD_DEPLOYMENT_PATH = ''
+        PROD_REMOTE_USER = 'reso'
+        PROD_SERVER_ADDRESS = '194.233.70.137'
+        PROD_DEPLOYMENT_PATH = '/home/reso/platform'
         MATTERMOST_ENDPOINT = 'https://team.nusatech.id/hooks/gdr9ikp64pdejqxb6zd6irfjrw'
         MATTERMOST_CHANNEL = '0xsd'
         MATTERMOST_ICON = 'https://www.jenkins.io/images/logos/baturro/baturro.png'

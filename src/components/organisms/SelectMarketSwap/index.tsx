@@ -1,10 +1,13 @@
-import { ChangeEvent, Fragment, useState, useEffect } from 'react';
+import type { ChangeEvent } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
-import { Market } from '@/types/components';
-import { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
+import type { Market } from '@/types/components';
+import type { MarketTicker } from '@/pages/Swap/hooks/usePublicMarkets';
 import { Decimal } from '@/components/molecules/Decimal';
 import { validateNumber } from '@/utils';
+import { IcClose, IcSearch } from '@/assets/icons';
+import { useTranslation } from 'react-i18next';
 
 interface SelectMarketSwap {
    searchTerm: string;
@@ -26,8 +29,10 @@ export const SelectMarketSwap = ({
    const navigate = useNavigate();
    const [selected, setSelected] = useState<Market | null>(null);
 
+   const { t } = useTranslation();
+
    useEffect(() => {
-      if (selected === null && filteredData.length > 0) {
+      if (selected === null && filteredData?.length > 0) {
          setSelected(filteredData[0]);
       }
    }, [filteredData, selected]);
@@ -70,27 +75,23 @@ export const SelectMarketSwap = ({
                                     placeholder="Search for pairs, example: KLV-USDT"
                                     className="block w-full max-w-[410px] bg-transparent text-xs font-medium text-soft placeholder:text-xs placeholder:font-medium placeholder:text-soft focus:border-0 focus:outline-none "
                                  />
-                                 <div className="absolute inset-y-0 end-0 flex items-center pe-3">
-                                    <svg
-                                       xmlns="http://www.w3.org/2000/svg"
-                                       fill="none"
-                                       viewBox="0 0 24 24"
-                                       strokeWidth={1.5}
-                                       stroke="currentColor"
-                                       className="size-4 text-soft">
-                                       <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                                       />
-                                    </svg>
-                                 </div>
+                                 {searchTerm ? (
+                                    <div
+                                       onClick={() => setSearchTerm('')}
+                                       className="absolute inset-y-0 end-0 flex items-center pe-3">
+                                       <IcClose className="size-3" />
+                                    </div>
+                                 ) : (
+                                    <div className="absolute inset-y-0 end-0 flex items-center pe-3">
+                                       <IcSearch className="size-3" />
+                                    </div>
+                                 )}
                               </div>
                            </div>
                            <div className="flex items-center justify-between border-b border-primary/50 pb-2 text-[10px] text-soft">
-                              <div>Pairs</div>
-                              <div>Last Price</div>
-                              <div>Volume 24h</div>
+                              <div>{t('newTrade.pairs')}</div>
+                              <div>{t('newTrade.lastPrice')}</div>
+                              <div>{t('newTrade.volume24h')}</div>
                            </div>
                            <div className="mt-3 space-y-2">
                               {filteredData?.length > 0 ? (
@@ -126,7 +127,7 @@ export const SelectMarketSwap = ({
                                  ))
                               ) : (
                                  <div className="py-5 text-center text-sm font-bold text-soft">
-                                    No Data
+                                    {t('global.noData')}
                                  </div>
                               )}
                            </div>

@@ -1,5 +1,3 @@
-import { type Chain } from 'viem';
-
 export const sol = {
    name: 'Solana Mainnet',
    rpcUrls: {
@@ -22,4 +20,4 @@ export const sol = {
    custom: {
       icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',
    },
-} as const satisfies Chain;
+} as const;

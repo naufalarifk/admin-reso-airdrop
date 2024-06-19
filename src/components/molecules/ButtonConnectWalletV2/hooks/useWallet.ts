@@ -3,16 +3,18 @@ import create from "zustand";
 import { devtools } from "zustand/middleware";
 import toast from "react-hot-toast";
 
-import {
-  type BtcWalletConnectOptions,
+import type {
   Balance,
   BtcWalletNetwork,
   BtcConnectorId,
   WalletNetwork,
-  RealBalance,
+  RealBalance} from "@/types";
+import {
+  type BtcWalletConnectOptions
 } from "@/types";
 
-import BtcWalletConnect, { Connector } from "@/config/connectors/connect";
+import type { Connector } from "@/config/connectors/connect";
+import BtcWalletConnect from "@/config/connectors/connect";
 import {
   clearTokenServices,
   getMe,
