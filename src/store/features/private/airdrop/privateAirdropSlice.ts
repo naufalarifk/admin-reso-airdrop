@@ -61,7 +61,8 @@ export const postPrivateAirdrop = createAsyncThunk(
       {
         headers: {
           "X-CSRF-TOKEN": token,
-         }
+         },
+         withCredentials: true,
       }
       );
          return response
