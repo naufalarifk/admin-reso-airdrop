@@ -28,3 +28,4 @@ export * from './TopMarkets';
 export * from './SelectCoin';
 export * from './CountdownTime';
 export * from './CardBorderAnimate';
+export * from './ModalWalletList';

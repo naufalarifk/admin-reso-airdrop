@@ -1,6 +1,7 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import {
    ButtonGlow, ModalCommunity,
+   ModalWalletList,
    // Text
 } from '@/components';
 import {
@@ -21,6 +22,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
    const { i18n, t } = useTranslation();
    const [toggle, setToggle] = useState(false);
    const [open, setOpen] = useState(false);
+   const [openWalletList, setOpenWalletList] = useState(false);
    // const location = useLocation();
    // const navigate = useNavigate();
 
@@ -277,7 +279,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                   </div> */}
                   <div className="flex items-center gap-4">
                      {/* <ButtonWalletConnectV2 /> */}
-                     <ButtonConnectSolana />
+                     <ButtonConnectSolana handleButton={() => setOpenWalletList(true)} />
                      <div
                         className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-dark"
                         onClick={() => setOpen(!open)}>
@@ -342,6 +344,7 @@ export const Header = ({ isLanding = false }: { isLanding?: boolean }) => {
                </div>
             </div>
          </div>
+         <ModalWalletList closeModal={() => setOpenWalletList(false)} isOpen={openWalletList} />
 
          <Transition
             appear
