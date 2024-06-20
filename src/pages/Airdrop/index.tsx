@@ -2,7 +2,7 @@
 import { IcCheck, IcDivider, IcWarning } from "@/assets/icons"
 import { IcBellRinging } from "@/assets/icons/IcBellRinging"
 import { IcSparkle } from "@/assets/icons/IcSparkle"
-import { Text, Button, FullScreenLoading, CountdownTime } from "@/components"
+import { Text, Button, FullScreenLoading, CountdownTime, ModalWalletList } from "@/components"
 import type { WalletName } from "@solana/wallet-adapter-base"
 import { useWallet } from "@solana/wallet-adapter-react"
 import { useCallback, useState } from "react"
@@ -21,6 +21,8 @@ interface AirdropState {
     setLoading: Dispatch<SetStateAction<boolean>>
     eligible: boolean
     setEligible: Dispatch<SetStateAction<boolean>>
+    open: boolean
+    setOpen: Dispatch<SetStateAction<boolean>>
 }
 
 
@@ -142,7 +144,7 @@ const Connected = ({ setState }: AirdropState) => {
     )
 }
 
-const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
+const Disconnected = ({ setState, setEligible, setLoading, setOpen }: AirdropState) => {
     const [signature, setSignature] = useState('')
     const dispatch = useAppDispatch()
     const {
@@ -234,7 +236,12 @@ const Disconnected = ({ setState, setEligible, setLoading }: AirdropState) => {
                             <IcWallet />
                             <Text className="w-4/5 text-soft">Connect Wallet</Text>
                         </div> */}
-                        <Button onClick={() => handleJoinAirdrop()} className="py-0 w-full">{connected ? 'Join Airdrop' : 'Connect Wallet'}</Button>
+                        {
+                            connected ?
+                                <Button onClick={() => handleJoinAirdrop()} className="py-0 w-full">{'Join Airdrop'}</Button>
+                                : <Button onClick={() => setOpen(true)} className="py-0 w-full">{'Connect Wallet'}</Button>
+
+                        }
                     </div>
                 </div>
             </div>
@@ -283,6 +290,7 @@ export const Airdrop = () => {
     } = useWallet();
     const [state, setState] = useState<'connected' | 'disconnected' | 'underReview'>('disconnected');
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const [eligible, setEligible] = useState(false);
 
@@ -291,27 +299,14 @@ export const Airdrop = () => {
         <main className="layout lg:px-24 mx-auto max-w-7xl py-6">
             <FullScreenLoading isOpen={connecting || loading} setIsOpen={setLoading} />
             <Text className="text-center text-3xl font-semibold w-full lg:w-3/4 mx-auto">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">17000 Solana</span> wallet holder and recent transaction</Text>
-            {/* <Text className="text-soft text-lg text-center w-3/4 mx-auto my-5">The time has come to get rewarded for your effort and dedication in helping us build RESO DEX together. If you fit in the criteria of our $12.000 airdrop, check your eligibility to see how many $12.000 tokens you will receive. Good luck!</Text> */}
             <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mx-auto mt-4 justify-center">
                 {
                     state === 'connected' ?
 
-                        <Connected eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} />
+                        <Connected open={open} setOpen={setOpen} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected setOpen={setOpen} open={open} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview open={open} setOpen={setOpen} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} />
                 }
-                {/* <div className="flex flex-col items-start space-y-4 h-full w-full lg:w-2/5">
-                    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg relative overflow-hidden h-60">
-                        <Text className="font-semibold text-xl">Claim Your Airdrop Right now!</Text>
-                        <Text className="text-soft">Login or create an account on RECTOVER.SO, connect your wallet and check if you are eligible to the $31 RESO Airdrop!</Text>
-                        <button className="bg-white/5 backdrop-blur-sm rounded-lg px-4 py-2 w-full shadow-lg flex items-center justify-center my-2"><Text className="text-soft font-semibold">Try Our Platform</Text><IcArrowUp color="#90A3BF" className="rotate-90" /></button>
-                        <img className="absolute -z-20 left-0 right-0 mx-auto -bottom-28 h-60 w-60" src="/images/sol-airdrop.webp" alt="" srcSet="" />
-                    </div>
-                    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 shadow-lg relative overflow-hidden h-60">
-                        <Text className="font-semibold text-xl">Claim Your Airdrop Right now!</Text>
-                        <Text className="text-soft">Login or create an account on RECTOVER.SO, connect your wallet and check if you are eligible to the $31 RESO Airdrop!</Text>
-                        <img className="absolute -z-20 left-0 right-0 mx-auto -bottom-28 h-60 w-60" src="/images/eth-airdrop.webp" alt="" srcSet="" />
-                    </div>
-                </div> */}
             </section>
+            <ModalWalletList isOpen={open} closeModal={() => setOpen(false)} />
         </main>
     )
 }
