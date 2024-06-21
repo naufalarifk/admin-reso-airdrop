@@ -46,6 +46,7 @@ export const postAuthUser = createAsyncThunk(
          return response
       } catch (error: any) {
          toast.error(error)
+         window.location.reload()
          return rejectWithValue(error);
    }
    }
