@@ -55,16 +55,16 @@ export const getPrivateAirdrop = createAsyncThunk(
 export const postPrivateAirdrop = createAsyncThunk(
    'private/postPrivateAirdrop',
    async (token: string, { rejectWithValue }) => {
+      
       try {
-      const response = await baseApi.post("trade/airdrop/airdrops", 
+         const response = await baseApi.post("/trade/airdrop/airdrops", 
       {},
       {
-        headers: {
+         headers: {
           "X-CSRF-TOKEN": token,
          },
-         withCredentials: true,
       }
-      );
+      ); 
          return response
       } catch (error: any) {
          toast.error(error.message);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type InitialState = {
    isLoading: boolean;
    isSuccess: boolean;
@@ -144,4 +145,31 @@ export type GetJoinAirdrop = InitialState & {
 export type PrivateAirdropState = {
    postJoinAirdrop: PostJoinAirdrop
    getJoinAirdrop: GetJoinAirdrop
+}
+
+
+export type GetTokenService = InitialState & {
+   data: {
+   email:         string;
+    account:       string;
+    uid:           string;
+    role:          string;
+    level:         number;
+    otp:           boolean;
+    state:         string;
+    referral_uid:  string;
+    data:          string;
+    csrf_token:    string;
+    username:      string;
+    labels:        any[];
+    phone:         string;
+    profiles:      any[];
+    data_storages: any[];
+    created_at:    string;
+    updated_at:    string;
+}
+}
+
+export type PrivateAuthState = {
+   getTokenService: GetTokenService
 }
