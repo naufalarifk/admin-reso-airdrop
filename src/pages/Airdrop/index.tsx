@@ -7,11 +7,11 @@ import type { WalletName } from "@solana/wallet-adapter-base"
 import { useWallet } from "@solana/wallet-adapter-react"
 import { useCallback, useState } from "react"
 import type { Dispatch, SetStateAction } from "react"
-import base58 from "bs58";
-import { getTokenServices } from "@/api/services/auth"
 import { postPrivateAirdrop, selectGetPrivateAirdropCurrencyData } from "@/store/features/private"
+import type { GetTokenService, RootState } from "@/store";
 import { useAppDispatch, useAppSelector } from "@/store"
-import toast from "react-hot-toast"
+import { useSelector } from "react-redux"
+
 
 
 interface AirdropState {
@@ -23,6 +23,7 @@ interface AirdropState {
     setEligible: Dispatch<SetStateAction<boolean>>
     open: boolean
     setOpen: Dispatch<SetStateAction<boolean>>
+    data?: GetTokenService['data']
 }
 
 
@@ -145,69 +146,27 @@ const Connected = ({ setState }: AirdropState) => {
 }
 
 const Disconnected = ({ setState, setEligible, setLoading, setOpen }: AirdropState) => {
-    const [signature, setSignature] = useState('')
+    const data = useSelector((state: RootState) => state.private.auth.getTokenService.data)
+
+    console.log('data', data)
     const dispatch = useAppDispatch()
     const {
         select,
         connected,
-        signMessage,
-        publicKey
     } = useWallet();
 
-
-
-    const sign = useCallback(async () => {
-        try {
-            const message = new TextEncoder().encode(`my address ${publicKey?.toBase58()} ready to join rectover.so airdrop`);
-            // Assuming publicKey is a dependency
-            if (signMessage) {
-
-                const encodedMessage = base58.encode(message)
-                const uint8arraySignature = await signMessage(message);
-                const encodedSign = base58.encode(uint8arraySignature)
-                // Assuming signMessage is a dependency
-                setSignature(base58.encode(uint8arraySignature)); // Assuming setSignature and base58 are dependencies
-                console.log('uint8arraySignature', uint8arraySignature);
-                console.log('encodedSign', encodedSign)
-                console.log('signature', signature)
-                console.log('encodedMessage', encodedMessage)
-                console.log('message', message)
-                console.log('uint8arraySignature === message', uint8arraySignature === message)
-                setState("connected")
-            }
-        } catch (e) {
-            console.log(e)
-            console.log("could not sign message");
-        }
-    }, [publicKey, setState, signMessage, signature]);
-
-    const handleJoinAirdrop = useCallback(async () => {
+    const handleJoinAirdrop = useCallback(async (data: GetTokenService['data']) => {
         if (connected) {
             try {
                 setLoading(true)
-                await sign();
-                console.log('signature', signature);
 
-                // Capture the updated signature from state after signing
-                const currentSignature = `my address ${signature} ready to join rectover.so airdrop`;
+                dispatch(postPrivateAirdrop(data.csrf_token)).then(action => {
+                    if (postPrivateAirdrop.fulfilled.match(action)) {
+                        setEligible(true)
+                        setState("connected")
+                    }
+                })
 
-                const response: any = await getTokenServices({
-                    message: publicKey?.toBase58() ?? '',
-                    public_key: publicKey?.toBase58() ?? '',
-                    signature: currentSignature
-                });
-                console.log('response', response)
-                if (response && response.data && response.data.csrf_token) {
-                    dispatch(postPrivateAirdrop(response.data.csrf_token)).then(action => {
-                        if (postPrivateAirdrop.fulfilled.match(action)) {
-                            setEligible(true)
-                        }
-                    })
-                } else {
-                    toast.error('Auth error');
-                    console.error('error in response');
-                    setEligible(false)
-                }
             } catch (error) {
                 console.error('Error during join airdrop process:', error);
                 setEligible(false)
@@ -216,7 +175,7 @@ const Disconnected = ({ setState, setEligible, setLoading, setOpen }: AirdropSta
         } else {
             select('Phantom' as WalletName);
         }
-    }, [connected, setLoading, sign, signature, publicKey, dispatch, setEligible, select]);
+    }, [connected, setLoading, dispatch, setEligible, setState, select]);
     return (
         <>
             <div className="flex flex-col items-start space-y-4 lg:w-3/4">
@@ -238,7 +197,7 @@ const Disconnected = ({ setState, setEligible, setLoading, setOpen }: AirdropSta
                         </div> */}
                         {
                             connected ?
-                                <Button onClick={() => handleJoinAirdrop()} className="py-0 w-full">{'Join Airdrop'}</Button>
+                                <Button onClick={() => handleJoinAirdrop(data)} className="py-0 w-full">{'Join Airdrop'}</Button>
                                 : <Button onClick={() => setOpen(true)} className="py-0 w-full">{'Connect Wallet'}</Button>
 
                         }
@@ -285,6 +244,8 @@ const UnderReview = ({ setState }: AirdropState) => {
 
 
 export const Airdrop = () => {
+    const data = useSelector((state: RootState) => state.private.auth.getTokenService.data)
+    console.log('data here', data)
     const {
         connecting
     } = useWallet();
@@ -303,7 +264,7 @@ export const Airdrop = () => {
                 {
                     state === 'connected' ?
 
-                        <Connected open={open} setOpen={setOpen} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected setOpen={setOpen} open={open} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview open={open} setOpen={setOpen} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} />
+                        <Connected open={open} setOpen={setOpen} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : state === 'disconnected' ? <Disconnected data={data} setOpen={setOpen} open={open} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} /> : <UnderReview open={open} setOpen={setOpen} eligible={eligible} setEligible={setEligible} loading={loading} setLoading={setLoading} state={state} setState={setState} />
                 }
             </section>
             <ModalWalletList isOpen={open} closeModal={() => setOpen(false)} />

@@ -1,9 +1,11 @@
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 import { Text, Button } from "@/components";
 import { Dialog, Transition } from "@headlessui/react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import type { WalletName } from "@solana/wallet-adapter-base";
 import base58 from "bs58";
+import { useAppDispatch } from "@/store";
+import { postAuthUser } from "@/store/features/private";
 
 
 interface ModalWalletListProps {
@@ -13,11 +15,13 @@ interface ModalWalletListProps {
 
 export const ModalWalletList = ({ isOpen, closeModal }: ModalWalletListProps) => {
 
-    const { wallets, select, signMessage, publicKey } = useWallet()
+
+    const dispatch = useAppDispatch()
+    const { wallets, select, signMessage, publicKey, connected } = useWallet()
 
     const [signature, setSignature] = useState("");
 
-    async function sign() {
+    const sign = useCallback(async () => {
         try {
             const message = new TextEncoder().encode(publicKey?.toBase58());
             if (signMessage) {
@@ -28,22 +32,38 @@ export const ModalWalletList = ({ isOpen, closeModal }: ModalWalletListProps) =>
         } catch (e) {
             console.log("could not sign message");
         }
-    }
+    }, [publicKey, signMessage])
 
     console.log('signature', signature)
-    const connectWallet = async (name: WalletName) => {
+    const connectWallet = useCallback(async (name: WalletName) => {
         try {
             await new Promise<void>((resolve) => {
                 select(name);
                 resolve();
             });
             await sign();
+            dispatch(postAuthUser({
+                message: publicKey?.toBase58() ?? '',
+                public_key: publicKey?.toBase58() ?? '',
+                signature: publicKey?.toBase58() ?? ''
+            }))
             closeModal()
         } catch (error) {
             console.error('Failed to connect wallet:', error);
         }
-    };
+    }, [closeModal, dispatch, publicKey, select, sign])
 
+
+    useMemo(() => {
+        if (connected && publicKey) {
+            console.log('halo',)
+            dispatch(postAuthUser({
+                message: publicKey?.toBase58() ?? '',
+                public_key: publicKey?.toBase58() ?? '',
+                signature: publicKey?.toBase58() ?? ''
+            }))
+        }
+    }, [connected, dispatch, publicKey])
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
