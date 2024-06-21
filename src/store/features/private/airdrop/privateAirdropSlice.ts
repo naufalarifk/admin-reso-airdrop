@@ -3,7 +3,6 @@ import { baseApi } from '@/api/config';
 import type { PrivateAirdropState } from '@/store/types';
 // import { buildQueryString } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 
 // type StateUserAirdrop =
