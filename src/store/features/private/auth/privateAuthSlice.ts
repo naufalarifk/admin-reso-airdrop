@@ -45,7 +45,7 @@ export const postAuthUser = createAsyncThunk(
          console.log('response', response)
          return response
       } catch (error: any) {
-         toast.error(error)
+         toast.error('Authentication error!')
          return rejectWithValue(error);
    }
    }
