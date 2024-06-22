@@ -7,6 +7,8 @@ import {
 } from "@solana/web3.js";
 import { Avatar } from "@/components/atoms";
 import { cn, formatAddress } from "@/utils";
+import { useAppDispatch } from "@/store";
+import { deleteAuthUser } from "@/store/features/private";
 
 
 
@@ -19,8 +21,8 @@ export const ButtonConnectSolana = ({
     handleButton,
     className
 }: ButtonConnectSolanaProps) => {
+    const dispatch = useAppDispatch()
     const [balance, setBalance] = useState(0)
-
     const {
         publicKey,
         disconnect,
@@ -42,6 +44,11 @@ export const ButtonConnectSolana = ({
             alert(error);
         }
     }, [publicKey]);
+
+    const logout = useCallback(() => {
+        disconnect();
+        dispatch(deleteAuthUser())
+    }, [disconnect, dispatch])
 
     useEffect(() => {
         if (publicKey) {
@@ -66,7 +73,7 @@ export const ButtonConnectSolana = ({
                     :
                     <>
                         <button
-                            onClick={disconnect}
+                            onClick={() => logout()}
                             className={cn(
                                 'inline-flex items-center gap-x-3 rounded-full border-2 border-dark/10 bg-dark p-1 px-2 text-sm font-semibold shadow-sm hover:bg-black/10 active:bg-black/10 disabled:pointer-events-none disabled:opacity-50',
                                 className,
