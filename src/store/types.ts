@@ -170,6 +170,9 @@ export type GetTokenService = InitialState & {
 }
 }
 
+export type DeleteAuthUser = InitialState
+
 export type PrivateAuthState = {
    getTokenService: GetTokenService
+   deleteAuthUser: DeleteAuthUser
 }

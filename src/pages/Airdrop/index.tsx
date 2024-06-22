@@ -247,6 +247,7 @@ export const Airdrop = () => {
     const data = useSelector((state: RootState) => state.private.auth.getTokenService.data)
     const loadingAuth = useSelector((state: RootState) => state.private.auth.getTokenService.isLoading)
     const loadingAirdrop = useSelector((state: RootState) => state.private.airdrop.postJoinAirdrop.isLoading)
+    const loadingLogout = useSelector((state: RootState) => state.private.auth.deleteAuthUser.isLoading)
     console.log('data here', data)
     const {
         connecting
@@ -260,7 +261,7 @@ export const Airdrop = () => {
 
     return (
         <main className="layout lg:px-24 mx-auto max-w-7xl py-6">
-            <FullScreenLoading isOpen={connecting || loading || loadingAuth || loadingAirdrop} setIsOpen={setLoading} />
+            <FullScreenLoading isOpen={connecting || loading || loadingAuth || loadingAirdrop || loadingLogout} setIsOpen={setLoading} />
             <Text className="text-center text-3xl font-semibold w-full lg:w-3/4 mx-auto">Join our airdrop and get <span className="text-primary">$31</span> in RESO tokens! Available for <span className="text-primary">17000 Solana</span> wallet holder and recent transaction</Text>
             <section className="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full mx-auto mt-4 justify-center">
                 {

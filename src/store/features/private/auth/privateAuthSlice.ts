@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from '@/api/config';
-import type { GetTokenService, PrivateAuthState } from '@/store/types';
+import type { GetTokenService, PrivateAuthState,  } from '@/store/types';
 // import { buildQueryString } from '@/utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
@@ -34,7 +34,13 @@ const initialState: PrivateAuthState = {
       },
       isLoading: false,
       isSuccess: false
-}};
+      
+   },
+   deleteAuthUser: {
+      isLoading: false,
+      isSuccess: false
+   }
+};
 
 
 export const postAuthUser = createAsyncThunk(
@@ -48,6 +54,20 @@ export const postAuthUser = createAsyncThunk(
          toast.error('Authentication error!')
          return rejectWithValue(error);
    }
+   }
+)
+
+
+export const deleteAuthUser = createAsyncThunk(
+   'private/auth/deleteAuthUser',
+   async (_, { rejectWithValue }) => {
+      try {
+    const response = await baseApi.delete("auth/identity/sessions");
+    return response;
+      } catch (error) {
+         toast.error('Log out error!')
+         return rejectWithValue(error);
+      }
    }
 )
 
@@ -73,25 +93,34 @@ const privateAuthSlice = createSlice({
             state.getTokenService.isLoading = false;
             state.getTokenService.isSuccess = true;
             state.getTokenService.data = {
-         account: '',
-         created_at: '',
-         csrf_token: '',
-         data: '',
-         data_storages: [],
-         email: '',
-         labels: [],
-         level: 0,
-         otp: false,
-         phone: '',
-         profiles: [],
-         referral_uid: '',
-         role: '',
-         state: '',
-         uid: '',
-         updated_at: '',
-         username: ''
+               account: '',
+               created_at: '',
+               csrf_token: '',
+               data: '',
+               data_storages: [],
+               email: '',
+               labels: [],
+               level: 0,
+               otp: false,
+               phone: '',
+               profiles: [],
+               referral_uid: '',
+               role: '',
+               state: '',
+               uid: '',
+               updated_at: '',
+               username: ''
             };
             state.getTokenService.error = action.payload;
+         }).addCase(deleteAuthUser.pending, state => {
+            state.deleteAuthUser.isLoading = true;
+            state.deleteAuthUser.isSuccess = false;
+         }).addCase(deleteAuthUser.fulfilled, state => {
+            state.deleteAuthUser.isLoading = false;
+            state.deleteAuthUser.isSuccess = true;
+         }).addCase(deleteAuthUser.rejected, state => {
+            state.deleteAuthUser.isLoading = false;
+            state.deleteAuthUser.isSuccess = false;
          })
    },
 });

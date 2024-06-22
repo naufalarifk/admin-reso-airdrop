@@ -55,7 +55,7 @@ export const ModalWalletList = ({ isOpen, closeModal }: ModalWalletListProps) =>
 
 
     useMemo(() => {
-        if (connected && publicKey) {
+        if (connected) {
             dispatch(postAuthUser({
                 message: publicKey?.toBase58() ?? '',
                 public_key: publicKey?.toBase58() ?? '',
