@@ -111,6 +111,7 @@ const privateAirdropSlice = createSlice({
          })
          .addCase(postPrivateAirdrop.rejected, (state, action) => {
             state.postJoinAirdrop.isSuccess = false;
+            state.postJoinAirdrop.isLoading = false;
             state.postJoinAirdrop.error = action.payload;
          });
    },
