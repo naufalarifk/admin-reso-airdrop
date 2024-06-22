@@ -16,6 +16,8 @@ import toast from 'react-hot-toast';
 //    state: StateUserAirdrop;
 // }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const initialState: PrivateAirdropState = {
    getJoinAirdrop: {
       data: {
@@ -57,15 +59,29 @@ export const postPrivateAirdrop = createAsyncThunk(
    async (token: string, { rejectWithValue }) => {
       
       try {
-         const response = await baseApi.post("/trade/airdrop/airdrops", 
-      {},
-      {
-         headers: {
-          "X-CSRF-TOKEN": token,
-         },
-      }
-      ); 
-         return response
+      //    const response = await baseApi.post("/trade/airdrop/airdrops", 
+      // {},
+      // {
+      //    headers: {
+      //     "X-CSRF-TOKEN": token,
+      //    },
+      // }
+      // );
+         //    return response
+         
+         const response = await fetch(`${API_URL}/api/v2/trade/airdrop/airdrops`,
+            {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  'x-csrf-token': token,
+               },
+               credentials: 'include'
+            }
+         )
+         console.log(response);
+         const data = response.json();
+         return data
       } catch (error: any) {
          toast.error(error.message);
          return rejectWithValue(error);
@@ -107,7 +123,7 @@ const privateAirdropSlice = createSlice({
          .addCase(postPrivateAirdrop.fulfilled, (state, action) => {
             state.postJoinAirdrop.isLoading = false;
             state.postJoinAirdrop.isSuccess = true;
-            state.postJoinAirdrop.data = action.payload.data;
+            state.postJoinAirdrop.data = action.payload;
          })
          .addCase(postPrivateAirdrop.rejected, (state, action) => {
             state.postJoinAirdrop.isSuccess = false;
